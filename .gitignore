@@ -18,4 +18,10 @@ build/*
 *.ips
 *.zar
 source/patch_symbols.hpp
+code/release
+code/*.bin
+code/*.sym
+code/bak
+code/loader/build
+source
 .DS_Store
