@@ -13,12 +13,13 @@ u32 GetCurrentPadState(void) {
 
 InputContext rInputCtx;
 
-void Input_Update(void) {
-    rInputCtx.cur.val = real_hid.pad.pads[real_hid.pad.index].curr.val;
-    rInputCtx.pressed.val = (rInputCtx.cur.val) & (~rInputCtx.old.val);
-    rInputCtx.up.val = (~rInputCtx.cur.val) & (rInputCtx.old.val);
-    rInputCtx.old.val = rInputCtx.cur.val;
-}
+// XXX: Remove?
+// void Input_Update(void) {
+//     rInputCtx.cur.val = real_hid.pad.pads[real_hid.pad.index].curr.val;
+//     rInputCtx.pressed.val = (rInputCtx.cur.val) & (~rInputCtx.old.val);
+//     rInputCtx.up.val = (~rInputCtx.cur.val) & (rInputCtx.old.val);
+//     rInputCtx.old.val = rInputCtx.cur.val;
+// }
 
 u32 buttonCheck(u32 key) {
     for (u32 i = 0x26000; i > 0; i--) {

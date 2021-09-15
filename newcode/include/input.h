@@ -10,7 +10,8 @@ typedef struct {
     btn_t old;
 } InputContext;
 
-void Input_Update(void);
+// XXX: Remove?
+//void Input_Update(void);
 u32 Input_WaitWithTimeout(u32 msec, u32 closingButton);
 u32 Input_Wait(void);
 
