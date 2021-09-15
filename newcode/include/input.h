@@ -15,7 +15,7 @@ typedef struct {
 u32 Input_WaitWithTimeout(u32 msec, u32 closingButton);
 u32 Input_Wait(void);
 
-
+// TODO: REMOVE THIS. We should not be using "real hid".
 #define real_hid_addr   0x10002000
 #define real_hid        (*(hid_mem_t *) real_hid_addr)
 

@@ -1,7 +1,8 @@
-#include "input.h"
 
-#include "z3d/z3DVec.h"
 #include <3ds/svc.h>
+
+#include "input.h"
+#include "z3d/z3DVec.h"
 #include "hid.h"
 #include "utils.h"
 

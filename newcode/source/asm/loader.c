@@ -8,6 +8,8 @@
 #include <3ds/types.h>
 #include <3ds/svc.h>
 
+
+
 Result svcOpenProcess(Handle* process, u32 processId);
 Result svcGetProcessId(u32* out, Handle handle);
 Result svcControlProcessMemory(Handle process, u32 addr0, u32 addr1, u32 size, u32 type, u32 perm);
@@ -25,14 +27,14 @@ void loader_main(void) {
                                   MEMPERM_READ | MEMPERM_WRITE | MEMPERM_EXECUTE);
 
     if (res < 0)
-        svcBreak(1);
+        svcBreak(USERBREAK_ASSERT);
 
     // Hacky solution to be able to edit gDrawItemTable, which is normally in RO data
     res = svcControlProcessMemory(getCurrentProcessHandle(), 0x4D8000, 0x4D8000, 0x1000, MEMOP_PROT,
                                   MEMPERM_READ | MEMPERM_WRITE);
 
     if (res < 0)
-        svcBreak(1);
+        svcBreak(USERBREAK_ASSERT);
 }
 
 Handle getCurrentProcessHandle(void) {
