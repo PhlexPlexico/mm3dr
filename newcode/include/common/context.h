@@ -1,5 +1,5 @@
-#pragma once
-
+#ifndef _COMMON_CONTEXT_H
+#define _COMMON_CONTEXT_H
 #include "z3d/z3DVec.h"
 #include <stdbool.h>
 // namespace game {
@@ -19,3 +19,4 @@ typedef struct {
 
 Context *GetContext();
 void InitContext(Context*);
+#endif 

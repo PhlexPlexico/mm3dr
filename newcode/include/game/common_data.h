@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _GAME_COMMON_DATA_H
+#define _GAME_COMMON_DATA_H
 
 #include <array>
 
@@ -7,7 +8,6 @@
 #include "game/items.h"
 #include "game/player.h"
 
-namespace game {
 
 enum class SwordType : u16 {
   NoSword = 0,
@@ -701,4 +701,5 @@ struct CommonData {
 
 CommonData& GetCommonData();
 
-}  // namespace game
+
+#endif

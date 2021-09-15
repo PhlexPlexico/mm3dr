@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _COMMON_DEBUG_H
+#define _COMMON_DEBUG_H
 
 #include <array>
 #include <cstdarg>
@@ -33,3 +34,5 @@ __attribute__((format(printf, 1, 2))) inline std::string StringFromFormat(const 
 
 /// Returns the in-game time as a null-terminated HH:MM string.
 std::array<char, 6> TimeToString();
+
+#endif
