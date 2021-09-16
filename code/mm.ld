@@ -7,6 +7,18 @@ SECTIONS{
 		*(.patch_loader)
 	}
 
+	/* .patch_MainLoop 0x10676C : {
+		*(.patch_MainLoop)
+	} */
+
+	.patch_DecoupleZlZr 0x1166C8 :  {
+		*(.patch_DecoupleZlZr)
+	}
+
+	.patch_DecoupleStartSelect 0x12EAC0 : {
+		*(.patch_DecoupleStartSelect)
+	}
+
 	.patch_ISGCrouchStabOne 0x1D32E0 : {
 		*(.patch_ISGCrouchStabOne)
 	}
