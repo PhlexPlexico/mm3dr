@@ -1,8 +1,9 @@
 #include "game/context.h"
 
-#include "common/context.h"
+#include "common/advanced_context.h"
 #include "game/player.h"
 #include "game/static_context.h"
+#include "z3d/z3Dvec.h"
 
 namespace game {
 
