@@ -1,18 +1,17 @@
-#ifndef _GAME_CAMERA_H
-#define _GAME_CAMERA_H
-
+#pragma once
 
 #include "common/flags.h"
 #include "common/types.h"
 
+namespace game {
 
+namespace act {
 struct Actor;
-
+}  // namespace act
 struct GlobalContext;
 
 // Names might be incorrect for MM3D.
 // https://wiki.cloudmodding.com/mm/Notes:Mini-Cutscenes#0x02
-//TODO
 enum class CameraState : u16 {
   NONE = 0x00,
   /// Regular gameplay
@@ -128,7 +127,6 @@ enum class CameraState : u16 {
   DUNGEON4 = 0x5A,
 };
 
-//TODO
 // https://wiki.cloudmodding.com/mm/Notes:Mini-Cutscenes#MM_.28J.29_addresses:_Camera_assembly_stuff
 enum class CameraMode : u16 {
   NORMAL = 0x00,
@@ -184,7 +182,6 @@ enum class CameraMode : u16 {
   /// [MM3D] Free camera mode
   FREECAMERA = 0x1F,
 };
-//TODO?
 constexpr size_t NumCameraModes = 0x20;
 
 struct Camera {
@@ -277,18 +274,21 @@ struct Camera {
   float field_190;
   u16 field_194;
   u16 field_196;
-}; // size 0x198
+};
+static_assert(sizeof(Camera) == 0x198);
 
 struct CameraModeInfo {
   u16 handler_fn_idx;
   u16 field_2;
   uintptr_t field_4;
-}; // size 0x8
+};
+static_assert(sizeof(CameraModeInfo) == 0x8);
 
 struct CameraStateInfo {
   rnd::BitSet<NumCameraModes, u32, CameraMode> allowed_modes;
   u32 flags;
   std::array<CameraModeInfo, NumCameraModes>* modes;
-}; // size 0xC
+};
+static_assert(sizeof(CameraStateInfo) == 0xc);
 
-#endif
+}  // namespace game

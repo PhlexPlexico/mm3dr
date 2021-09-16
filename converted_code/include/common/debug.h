@@ -9,7 +9,7 @@
 
 #include "z3d/z3Dvec.h"
 
-
+namespace rnd::util {
 
 /// Prints a debug message using svcOutputDebugString.
 void Print(const char* string);
@@ -34,5 +34,7 @@ __attribute__((format(printf, 1, 2))) inline std::string StringFromFormat(const 
 
 /// Returns the in-game time as a null-terminated HH:MM string.
 std::array<char, 6> TimeToString();
+
+}  // namespace rnd::util
 
 #endif

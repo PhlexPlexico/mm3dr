@@ -1,9 +1,9 @@
-#ifndef _GAME_SCENE_H
-#define _GAME_SCENE_H
+#pragma once
 
 #include "common/types.h"
 
-//TODO
+namespace game {
+
 /// Scene list: https://wiki.cloudmodding.com/mm/3D:Scene_List
 enum class SceneId : u16 {
   SouthernSwampClear = 0x00,
@@ -125,4 +125,4 @@ enum class SceneId : u16 {
   TerminaFieldCutscene2 = 0x74,
 };
 
-#endif
+}  // namespace game

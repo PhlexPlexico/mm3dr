@@ -1,10 +1,10 @@
-#ifndef _GAME_ITEMS_H
-#define _GAME_ITEMS_H
+#pragma once
 
 #include <array>
 
 #include "common/types.h"
 
+namespace game {
 
 enum class ItemId : u8 {
   Ocarina = 0x0,
@@ -243,5 +243,4 @@ bool CanUseItemUnsafe(ItemId item_id);
 /// Might return incorrect results for edge cases.
 bool CanUseItem(ItemId item_id);
 
-
-#endif
+}  // namespace game

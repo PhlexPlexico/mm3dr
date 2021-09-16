@@ -1,5 +1,4 @@
-#ifndef _GAME_COMMON_DATA_H
-#define _GAME_COMMON_DATA_H
+#pragma once
 
 #include <array>
 
@@ -8,6 +7,7 @@
 #include "game/items.h"
 #include "game/player.h"
 
+namespace game {
 
 enum class SwordType : u16 {
   NoSword = 0,
@@ -63,7 +63,9 @@ struct __attribute__((packed)) __attribute__((aligned(2))) PlayerData {
   char field_2F;
   char field_30;
   char field_31;
-}; // size 0x32 offset 0x1F
+};
+static_assert(sizeof(PlayerData) == 0x32);
+static_assert(offsetof(PlayerData, magic) == 0x1F);
 
 union FormEquipmentData {
   std::array<ItemId, 5> item_btns;
@@ -168,8 +170,9 @@ struct InventoryData {
   char anonymous_42;
   char anonymous_43;
   char gap98[60];
-}; // size 0xD4 offset 0x78
-
+};
+static_assert(sizeof(InventoryData) == 0xD4);
+static_assert(offsetof(InventoryData, inventory_count_register) == 0x78);
 
 struct SaveData {
   MaskId mask;
@@ -436,7 +439,8 @@ struct SaveData {
   u16 anonymous_228;
   u16 anonymous_229;
   int field_1A84;
-}; // size 0x1A88
+};
+static_assert(sizeof(SaveData) == 0x1A88);
 
 struct CommonDataSub1 {
   int entrance;
@@ -697,9 +701,9 @@ struct CommonData {
   char field_140F0;
   u16 field_140F2;
   int field_140F4;
-}; // size 0x140F8
+};
+static_assert(sizeof(CommonData) == 0x140F8);
 
 CommonData& GetCommonData();
 
-
-#endif
+}  // namespace game

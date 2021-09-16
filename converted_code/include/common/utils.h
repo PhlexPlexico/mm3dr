@@ -8,6 +8,7 @@
 
 #include "common/types.h"
 
+namespace rnd::util {
 
 constexpr uintptr_t GetAddr(uintptr_t addr) {
   return addr;
@@ -69,5 +70,5 @@ bool Contains(const C& c, const T& value) {
   return Contains(std::begin(c), std::end(c), value);
 }
 
-
+} // namespace rnd::util
 #endif

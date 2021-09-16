@@ -1,11 +1,11 @@
-#ifndef _GAME_ANIMATION_SEQ_H
-#define _GAME_ANIMATION_SEQ_H
+#pragma once
 
 // Animation sequence system.
 
 #include "common/types.h"
 #include "common/utils.h"
 
+namespace game::as {
 
 struct State {
   u32 id;
@@ -19,7 +19,8 @@ struct State {
   u8 field_20[6];
   u8 field_26;
   u8 field_27;
-}; // size 0x28
+};
+static_assert(sizeof(State) == 0x28);
 
 // Incomplete, and it's unclear what this is used for, so the name is temporary, too.
 struct ActorUtil {
@@ -53,7 +54,8 @@ struct ActorUtil {
   u8 field_89;
   u8 field_8A;
   u8 field_8B;
-}; // size 0x8C
-//static_assert(offsetof(ActorUtil, gap_64) == 0x64);
+};
+static_assert(offsetof(ActorUtil, gap_64) == 0x64);
+static_assert(sizeof(ActorUtil) == 0x8C);
 
-#endif
+}  // namespace game::as

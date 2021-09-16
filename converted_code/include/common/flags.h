@@ -7,6 +7,7 @@
 
 #include "common/debug.h"
 
+namespace rnd {
 
 // Helper class that makes it easy to manipulate bit flags in a typesafe way.
 template <typename FlagType, typename = typename std::enable_if_t<std::is_enum_v<FlagType>, void>>
@@ -87,4 +88,5 @@ private:
   std::array<WordType, NumWords> m_storage{};
 };
 
+} // namespace rnd
 #endif

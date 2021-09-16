@@ -1,6 +1,4 @@
-#ifndef _GAME_PLAYER_H
-#define _GAME_PLAYER_H
-
+#pragma once
 
 #include "common/flags.h"
 #include "common/types.h"
@@ -11,6 +9,7 @@
 #include "game/items.h"
 #include "game/pad.h"
 
+namespace game::act {
 
 enum class FormParamIndex : u8 {
   FierceDeity = 0,
@@ -470,14 +469,14 @@ struct Player : public Actor {
   float field_12C44;
   u8 gap_12C48[134];
   s16 field_12CCE;
-}; // offset 0x12CCE
-// static_assert(offsetof(Player, transform_mask_action) == 0x200);
-// static_assert(offsetof(Player, field_12CCE) == 0x12CCE);
-// static_assert(offsetof(Player, sword_active) == 0x11E3C);
+};
+static_assert(offsetof(Player, transform_mask_action) == 0x200);
+static_assert(offsetof(Player, field_12CCE) == 0x12CCE);
+static_assert(offsetof(Player, sword_active) == 0x11E3C);
 // TODO: complete the struct and add a size assertion.
 
-// enum class AllowExistingMagicUsage { No, Yes };
-// bool PlayerUpdateMagicCost(game::GlobalContext* gctx, int cost, int mode,
-//                            AllowExistingMagicUsage allow_existing_usage);
+enum class AllowExistingMagicUsage { No, Yes };
+bool PlayerUpdateMagicCost(game::GlobalContext* gctx, int cost, int mode,
+                           AllowExistingMagicUsage allow_existing_usage);
 
-#endif
+}  // namespace game::act

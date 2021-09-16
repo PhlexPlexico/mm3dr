@@ -1,11 +1,11 @@
-#ifndef _GAME_STATES_STATE_H
-#define _GAME_STATES_STATE_H
+#pragma once
 
 #include "common/types.h"
 #include "game/pad.h"
 
-//TODO
-enum StateType {
+namespace game {
+
+enum class StateType : u8 {
   /// Initial game state
   Initial = 0,
   /// Second game state after the initial game state
@@ -34,7 +34,6 @@ enum StateType {
 };
 
 struct State {
-  //TODO
   enum class Status : u8 {
     /// Triggers a game state change. Make sure next_state_init_fn is set to a valid function
     /// before setting status to Changing.
@@ -83,9 +82,9 @@ struct State {
   u16 field_13E;
   u32 field_140;
   u32 field_144;
-}; // size 0x148
+};
+static_assert(sizeof(State) == 0x148);
 
-//TODO
 template <typename T, typename Base = State>
 struct StateSimple : Base {
   StateSimple() {
@@ -102,12 +101,12 @@ struct StateInfo {
   u32 unused_1, unused_2, unused_3;
   u32 instance_size;
   StateType type;
-}; // size 0x20
+};
+static_assert(sizeof(StateInfo) == 0x20);
 
 const StateInfo* FindStateInfoByInit(void (*init_fn)(State*));
 const StateInfo* FindStateInfoByType(StateType type);
 
-// TODO
 class FileEntity;
 
 struct SaveFile {
@@ -121,6 +120,7 @@ struct SaveFile {
   u16 field_C;
   u16 field_E;
   u16 status;
-}; // size 0x14
+};
+static_assert(sizeof(SaveFile) == 0x14);
 
-#endif
+}  // namespace game

@@ -1,5 +1,4 @@
-#ifndef _GAME_CONTEXT_H
-#define _GAME_CONTEXT_H
+#pragma once
 
 #include <cstddef>
 
@@ -11,14 +10,17 @@
 #include "game/scene.h"
 #include "game/states/state.h"
 
-// TODO
+namespace game {
+
+namespace act {
 class BossTwinmold;
 class ObjElegyStatue;
 class Player;
+}  // namespace act
 
-// TODO
+namespace ui {
 class PlayHud;
-
+}
 
 enum class PauseFlag : u16 {
   PauseCalc = 1 << 0,
@@ -32,7 +34,8 @@ struct ActorList {
   act::Actor* first;
   /// Set this after changing an actor's type to update the linked lists.
   bool need_to_update_lists;
-}; // size 0xC
+};
+static_assert(sizeof(ActorList) == 0xc);
 
 struct ActorLists {
   ActorList& GetList(act::Type type) { return lists[u8(type)]; }
@@ -43,9 +46,9 @@ struct ActorLists {
   u8 gap_6[6];
   u8 num_actors;
   std::array<ActorList, 12> lists;
-}; // size 0xA0
+};
+static_assert(sizeof(ActorLists) == 0xa0);
 
-// TODO
 enum class OcarinaState : u16 {
   NotOpened = 0,
   Playing = 1,
@@ -69,7 +72,7 @@ enum class OcarinaState : u16 {
   WarpingToStoneTower = 0x25,
 };
 
-// Incomplete TODO
+// Incomplete
 enum class OcarinaSong : u16 {
   SonataOfAwakening = 0,
   GoronLullaby = 1,
@@ -139,7 +142,8 @@ struct HudState {
   bool prohibit_ocarina;
   bool prohibit_regular_items;
   u8 field_27C;
-}; // size 0x280
+};
+static_assert(sizeof(HudState) == 0x280);
 
 // Likely incomplete.
 struct GlobalContext : State {
@@ -345,16 +349,16 @@ struct GlobalContext : State {
   act::Actor* blue_warp_actor;
   act::Actor* some_actor;
   u8 gap_F0F4[7996];
-}; // size 0x11030
-// static_assert(offsetof(GlobalContext, main_camera) == 0x408);
-// static_assert(offsetof(GlobalContext, pause_flags) == 0xAAC);
-// static_assert(offsetof(GlobalContext, elegy_statues) == 0x2394);
-// static_assert(offsetof(GlobalContext, field_C000) == 0xc000);
-// static_assert(offsetof(GlobalContext, ocarina_state) == 0x8366);
-// static_assert(offsetof(GlobalContext, ocarina_song) == 0x836A);
-// static_assert(offsetof(GlobalContext, hide_hud) == 0x825E);
-// static_assert(offsetof(GlobalContext, field_836E) == 0x836E);
-// static_assert(offsetof(GlobalContext, field_C4C8) == 0xC4C8);
+};
+static_assert(offsetof(GlobalContext, main_camera) == 0x408);
+static_assert(offsetof(GlobalContext, pause_flags) == 0xAAC);
+static_assert(offsetof(GlobalContext, elegy_statues) == 0x2394);
+static_assert(offsetof(GlobalContext, field_C000) == 0xc000);
+static_assert(offsetof(GlobalContext, ocarina_state) == 0x8366);
+static_assert(offsetof(GlobalContext, ocarina_song) == 0x836A);
+static_assert(offsetof(GlobalContext, hide_hud) == 0x825E);
+static_assert(offsetof(GlobalContext, field_836E) == 0x836E);
+static_assert(offsetof(GlobalContext, field_C4C8) == 0xC4C8);
+static_assert(sizeof(GlobalContext) == 0x11030);
 
-
-#endif
+}  // namespace game

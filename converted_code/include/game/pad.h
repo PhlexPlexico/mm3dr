@@ -1,11 +1,12 @@
-#ifndef _GAME_PAD_H
-#define _GAME_PAD_H
+#pragma once
+
 #include "common/flags.h"
 #include "common/types.h"
 #include "common/utils.h"
 
-// TODO
-enum Button : u32 {
+namespace game::pad {
+
+enum class Button : u32 {
   A = 0x1,
   B = 0x2,
   Select = 0x4,
@@ -38,15 +39,15 @@ struct State {
     s16 main_stick_y;
     s16 c_stick_x;
     s16 c_stick_y;
-    // TODO
-    Flags<Button> buttons;
-    Flags<Button> new_buttons;
-    Flags<Button> released_buttons;
+    rnd::Flags<Button> buttons;
+    rnd::Flags<Button> new_buttons;
+    rnd::Flags<Button> released_buttons;
     u8 field_14;
     u8 field_15;
     u8 field_16;
     u8 field_17;
-  }; // size 0x18
+  };
+  static_assert(sizeof(Input) == 0x18);
 
   struct AnalogInput {
     /// Horizontal axis. From -1.0 (left) to 1.0 (right).
@@ -59,23 +60,22 @@ struct State {
     float y_raw;
     float x_raw_last;
     float y_raw_last;
-  }; // size 0x18
+  };
+  static_assert(sizeof(AnalogInput) == 0x18);
 
   Input input;
   Input input_last;
   AnalogInput main_stick;
   AnalogInput c_stick;
   u32 field_60;
-  // TODO
   /// Buttons, but the value switches between input.buttons and 0 every other frame...
-  Flags<Button> field_64;
+  rnd::Flags<Button> field_64;
   /// Buttons, but the value switches between input.buttons and 0 every other frame...
   /// 0 when field_64 is non-zero, and vice versa.
-  // TODO
-  Flags<Button> field_68;
-}; // size 0x6C
+  rnd::Flags<Button> field_68;
+};
+static_assert(sizeof(State) == 0x6c);
 
-// TODO
 enum class TouchscreenButton : u8 {
   I = 1 << 0,
   II = 1 << 1,
@@ -84,11 +84,11 @@ enum class TouchscreenButton : u8 {
   Ocarina = 1 << 3,
 };
 
-// TODO
 struct TouchscreenState {
-  Flags<TouchscreenButton> buttons;
-  Flags<TouchscreenButton> new_buttons;
-}; // size 2
+  rnd::Flags<TouchscreenButton> buttons;
+  rnd::Flags<TouchscreenButton> new_buttons;
+};
+static_assert(sizeof(TouchscreenState) == 2);
 
 struct ControllerInfo {
   /// state is copied from ControllerMgr to GlobalContext, then to the Player actor
@@ -107,7 +107,6 @@ struct ControllerInfo {
   u32 field_44;
 };
 
-// TODO?
 #pragma pack(push, 1)
 struct ControllerMgr {
   u8 gap_0[0x1000];
@@ -123,10 +122,10 @@ struct ControllerMgr {
   u8 field_EF;
 };
 #pragma pack(pop)
-// size 0x10F0
-// static_assert(offsetof(ControllerMgr, state) == 0x1000);
-// static_assert(offsetof(ControllerMgr, touchscreen_state) == 0x10ED);
+static_assert(sizeof(ControllerMgr) == 0x10F0);
+static_assert(offsetof(ControllerMgr, state) == 0x1000);
+static_assert(offsetof(ControllerMgr, touchscreen_state) == 0x10ED);
 
 ControllerMgr& GetControllerMgr();
 
-#endif
+}  // namespace game::pad

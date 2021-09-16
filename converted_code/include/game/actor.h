@@ -1,5 +1,4 @@
-#ifndef _GAME_ACTOR_H
-#define _GAME_ACTOR_H
+#pragma once
 
 #include <array>
 
@@ -9,8 +8,11 @@
 #include "common/utils.h"
 #include "game/sound.h"
 
+namespace game {
 struct GlobalContext;
+}
 
+namespace game::act {
 
 class Actor;
 
@@ -121,12 +123,14 @@ union DamageTableEntry {
 };
 struct DamageTable {
   DamageTableEntry entries[32];
-}; // size 0x20
+};
+static_assert(sizeof(DamageTable) == 0x20);
 
 struct PosRot {
   Vec3 pos;
   Vec3s rot;
-}; // sizeof 0x14
+};
+static_assert(sizeof(PosRot) == 0x14);
 
 struct Actor {
   enum class Flag : u32 {
@@ -239,11 +243,12 @@ struct Actor {
   u16 field_1EC;
   int field_1F0;
   float field_1F4;
-}; // size 0x1F8
-// static_assert(offsetof(Actor, field_80) == 0x80);
-// static_assert(offsetof(Actor, field_B4) == 0xB4);
-// static_assert(offsetof(Actor, field_F0) == 0xF0);
-// static_assert(offsetof(Actor, field_11C) == 0x11C);
+};
+static_assert(sizeof(Actor) == 0x1F8);
+static_assert(offsetof(Actor, field_80) == 0x80);
+static_assert(offsetof(Actor, field_B4) == 0xB4);
+static_assert(offsetof(Actor, field_F0) == 0xF0);
+static_assert(offsetof(Actor, field_11C) == 0x11C);
 
 // Name courtesy of the OoT decomp project.
 struct DynaPolyActor : Actor {
@@ -253,7 +258,8 @@ struct DynaPolyActor : Actor {
   u16 field_204;
   u8 field_206;
   u32 dyna_poly_flags;
-}; // size 0x20C
+};
+static_assert(sizeof(DynaPolyActor) == 0x20C);
 
 struct DayTimerActor {
   Actor common_actor;
@@ -266,6 +272,7 @@ struct DayTimerActor {
   u32 daytimer_calc;
   u32 field_208;
 
-}; // size 0x20C
+};
+static_assert(sizeof(DayTimerActor) == 0x20C);
 
-#endif
+}  // namespace game::act
