@@ -3,6 +3,7 @@
 
 #include "common/flags.h"
 #include "common/types.h"
+#include "z3d/z3Dvec.h"
 
 namespace game {
 
@@ -190,10 +191,10 @@ struct Camera {
 
   u32 field_0;
   u8 gap_4[76];
-  Vec3 pos1;
-  Vec3 pos2;
-  Vec3 field_68;
-  Vec3 field_74;
+  z3dVec3f pos1;
+  z3dVec3f pos2;
+  z3dVec3f field_68;
+  z3dVec3f field_74;
   float field_80;
   float field_84;
   float field_88;
@@ -204,7 +205,7 @@ struct Camera {
   float field_9C;
   GlobalContext* gctx;
   act::Actor* target_actor;
-  Vec3 target_actor_pos;
+  z3dVec3f target_actor_pos;
   int angle;
   u16 field_B8;
   u16 field_BA;
@@ -223,11 +224,11 @@ struct Camera {
   u32 field_FC;
   u16 field_100;
   u16 field_102;
-  Vec3 distance_to_target;
+  z3dVec3f distance_to_target;
   float field_110;
   float field_114;
   float field_118;
-  Vec3 field_11C;
+  z3dVec3f field_11C;
   int field_128;
   int field_12C;
   u32 field_130;

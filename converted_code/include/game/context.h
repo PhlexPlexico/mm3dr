@@ -10,6 +10,7 @@
 #include "game/pad.h"
 #include "game/scene.h"
 #include "game/states/state.h"
+#include "z3d/z3Dvec.h"
 
 namespace game {
 
@@ -163,8 +164,8 @@ struct GlobalContext : State {
   act::Player* GetPlayerActor() const;
 
   act::Actor* SpawnActor(act::Actor* actor, act::Id id, u16 rx, u16 ry, u16 rz, u16 param,
-                         Vec3 pos);
-  act::Actor* SpawnActor(act::Id id, u16 rx, u16 ry, u16 rz, u16 param, Vec3 pos);
+                         z3dVec3f pos);
+  act::Actor* SpawnActor(act::Id id, u16 rx, u16 ry, u16 rz, u16 param, z3dVec3f pos);
   void ChangeActorType(act::Actor& actor, act::Type type);
 
   void ShowMessage(u16 msgid, int unknown = 0);
@@ -202,7 +203,7 @@ struct GlobalContext : State {
   u8 gap_2004[172];
   ActorLists actors;
   u8 gap_2150[128];
-  Vec3 field_21D0;
+  z3dVec3f field_21D0;
   u8 gap_21DC[0x2394 - 0x21DC];
   std::array<act::ObjElegyStatue*, 5> elegy_statues;
   char field_23A8;

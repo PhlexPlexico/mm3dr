@@ -2,6 +2,7 @@
 #define _GAME_SOUND_H
 
 #include "common/types.h"
+#include "z3d/z3Dvec.h"
 
 namespace game::act {
 class Actor;
@@ -2645,7 +2646,7 @@ enum class EffectId : u32 {
 };
 
 bool PlayEffect(EffectId id);
-bool PlayEffect(const Vec3& position, EffectId id);
+bool PlayEffect(const z3dVec3f& position, EffectId id);
 bool PlayEffect(const act::Actor& actor, EffectId id);
 
 enum class StreamPlayer : u32 {

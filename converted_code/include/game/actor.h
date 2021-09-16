@@ -8,6 +8,7 @@
 #include "common/types.h"
 #include "common/utils.h"
 #include "game/sound.h"
+#include "z3d/z3Dvec.h"
 
 namespace game {
 struct GlobalContext;
@@ -128,8 +129,8 @@ struct DamageTable {
 static_assert(sizeof(DamageTable) == 0x20);
 
 struct PosRot {
-  Vec3 pos;
-  Vec3s rot;
+  z3dVec3f pos;
+  z3dVec3s rot;
 };
 static_assert(sizeof(PosRot) == 0x14);
 
@@ -160,8 +161,8 @@ struct Actor {
   PosRot ztarget_pos;
   sound::EffectId sound_effect;
   u8 gap_54[4];
-  Vec3 model_scale;
-  Vec3 vel;
+  z3dVec3f model_scale;
+  z3dVec3f vel;
   float vel_xz;
   float vel_y;
   u8 gap_78[8];
@@ -179,7 +180,7 @@ struct Actor {
   float height_diff_to_link;
   DamageTable* damage_table;
   // Changing x and z causes link to slide across plane in direction.
-  Vec3 target_pos_maybe;
+  z3dVec3f target_pos_maybe;
   u32 field_B4;
   u16 field_B8;
   u8 field_BA;
@@ -197,10 +198,10 @@ struct Actor {
   u32 field_CC;
   float field_D0;
   u8 gap_D4[28];
-  Vec3 field_F0;
+  z3dVec3f field_F0;
   u32 field_FC;
-  Vec3 field_100;
-  Vec3 actor_coords;
+  z3dVec3f field_100;
+  z3dVec3f actor_coords;
   u8 field_118;
   u8 gap119;
   u16 text_id_maybe;

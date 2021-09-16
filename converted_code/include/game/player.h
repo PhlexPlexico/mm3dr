@@ -9,6 +9,7 @@
 #include "game/context.h"
 #include "game/items.h"
 #include "game/pad.h"
+#include "z3d/z3Dvec.h"
 
 namespace game::act {
 
@@ -223,7 +224,7 @@ struct Player : public Actor {
   char field_92F;
   Actor* talk_actor2;
   u8 gap_934[4];
-  Vec3 field_938;
+  z3dVec3f field_938;
   u32 field_944;
   u8 gap_948[10];
   u16 talking;

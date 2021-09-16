@@ -7,18 +7,18 @@ SECTIONS{
 		*(.patch_loader)
 	}
 
-	. = 0x61CD8C;
-	. = ALIGN(4);
-	.loader : {
-		*(.loader*)
-	}
-
-    .patch_ISGCrouchStabOne 0x1D32E0 : {
+	.patch_ISGCrouchStabOne 0x1D32E0 : {
 		*(.patch_ISGCrouchStabOne)
 	}
 
     .patch_ISGCrouchStabTwo 0x1DBEA4 : {
 		*(.patch_ISGCrouchStabTwo)
+	}
+
+	. = 0x61CD8C;
+	. = ALIGN(4);
+	.loader : {
+		*(.loader*)
 	}
 
     . = 0x007D0000;

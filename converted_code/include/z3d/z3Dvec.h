@@ -28,6 +28,10 @@ typedef struct {
 } z3dVec3i;
 
 typedef struct {
+    f32 data[2][3];
+} z3d_nn_math_MTX23;
+
+typedef struct {
     f32 data[3][4];
 } z3d_nn_math_MTX34;
 

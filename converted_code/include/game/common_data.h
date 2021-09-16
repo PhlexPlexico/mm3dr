@@ -7,6 +7,7 @@
 #include "common/utils.h"
 #include "game/items.h"
 #include "game/player.h"
+#include "z3d/z3Dvec.h"
 
 namespace game {
 
@@ -556,7 +557,7 @@ struct CommonDataSub12 {
 };
 
 struct RespawnData {
-  Vec3 pos; 
+  z3dVec3f pos; 
   s16 yaw;
   s16 player_params;
   s16 entrance_index;
