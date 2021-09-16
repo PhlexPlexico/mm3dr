@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _GAME_PLAYER_H
+#define _GAME_PLAYER_H
 
 #include "common/flags.h"
 #include "common/types.h"
@@ -480,3 +481,5 @@ bool PlayerUpdateMagicCost(game::GlobalContext* gctx, int cost, int mode,
                            AllowExistingMagicUsage allow_existing_usage);
 
 }  // namespace game::act
+
+#endif

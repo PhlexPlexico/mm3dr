@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _GAME_COMMON_DATA_H
+#define _GAME_COMMON_DATA_H
 
 #include <array>
 
@@ -707,3 +708,5 @@ static_assert(sizeof(CommonData) == 0x140F8);
 CommonData& GetCommonData();
 
 }  // namespace game
+
+#endif

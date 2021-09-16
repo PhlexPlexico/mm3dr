@@ -7,8 +7,7 @@
 
 #include <stdint.h>
 #include "hid.h"
-// TODO: Get common_data imported
-// #include "z3D/z3D.h"
+#include "game/common_data.h"
 
 typedef enum {
     NORMAL = 0,

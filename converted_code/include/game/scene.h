@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _GAME_SCENE_H
+#define _GAME_SCENE_H
 
 #include "common/types.h"
 
@@ -126,3 +127,5 @@ enum class SceneId : u16 {
 };
 
 }  // namespace game
+
+#endif

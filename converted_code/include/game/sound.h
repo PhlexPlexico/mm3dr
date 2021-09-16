@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _GAME_SOUND_H
+#define _GAME_SOUND_H
 
 #include "common/types.h"
 
@@ -2808,3 +2809,5 @@ void ControlStream(StreamPlayer player, int a, int b);
 void ControlEnv(int index);
 
 }  // namespace game::sound
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _GAME_CONTEXT_H
+#define _GAME_CONTEXT_H
 
 #include <cstddef>
 
@@ -362,3 +363,5 @@ static_assert(offsetof(GlobalContext, field_C4C8) == 0xC4C8);
 static_assert(sizeof(GlobalContext) == 0x11030);
 
 }  // namespace game
+
+#endif

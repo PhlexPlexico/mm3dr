@@ -13,27 +13,27 @@ typedef uint32_t u32;
 
 typedef struct {
     f32 x, y;
-} Vec2f;
+} z3dVec2f;
 
 typedef struct {
     f32 x, y, z;
-} Vec3f;
+} z3dVec3f;
 
 typedef struct {
     s16 x, y, z;
-} Vec3s;
+} z3dVec3s;
 
 typedef struct {
     s32 x, y, z;
-} Vec3i;
+} z3dVec3i;
 
 typedef struct {
     f32 data[3][4];
-} nn_math_MTX34;
+} z3d_nn_math_MTX34;
 
 typedef struct {
     f32 data[4][4];
-} nn_math_MTX44;
+} z3d_nn_math_MTX44;
 
 
 #endif

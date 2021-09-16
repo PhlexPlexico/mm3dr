@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _GAME_CAMERA_H
+#define _GAME_CAMERA_H
 
 #include "common/flags.h"
 #include "common/types.h"
@@ -292,3 +293,5 @@ struct CameraStateInfo {
 static_assert(sizeof(CameraStateInfo) == 0xc);
 
 }  // namespace game
+
+#endif

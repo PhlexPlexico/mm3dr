@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _GAME_ITEMS_H
+#define _GAME_ITEMS_H
 
 #include <array>
 
@@ -244,3 +245,5 @@ bool CanUseItemUnsafe(ItemId item_id);
 bool CanUseItem(ItemId item_id);
 
 }  // namespace game
+
+#endif

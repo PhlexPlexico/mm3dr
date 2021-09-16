@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _GAME_ANIMATION_SEQ_H
+#define _GAME_ANIMATION_SEQ_H
 
 // Animation sequence system.
 
@@ -59,3 +60,5 @@ static_assert(offsetof(ActorUtil, gap_64) == 0x64);
 static_assert(sizeof(ActorUtil) == 0x8C);
 
 }  // namespace game::as
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _GAME_STATES_STATE_H
+#define _GAME_STATES_STATE_H
 
 #include "common/types.h"
 #include "game/pad.h"
@@ -124,3 +125,5 @@ struct SaveFile {
 static_assert(sizeof(SaveFile) == 0x14);
 
 }  // namespace game
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _GAME_PAD_H
+#define _GAME_PAD_H
 
 #include "common/flags.h"
 #include "common/types.h"
@@ -129,3 +130,5 @@ static_assert(offsetof(ControllerMgr, touchscreen_state) == 0x10ED);
 ControllerMgr& GetControllerMgr();
 
 }  // namespace game::pad
+
+#endif

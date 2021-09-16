@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _GAME_ACTOR_H
+#define _GAME_ACTOR_H
 
 #include <array>
 
@@ -276,3 +277,5 @@ struct DayTimerActor {
 static_assert(sizeof(DayTimerActor) == 0x20C);
 
 }  // namespace game::act
+
+#endif
