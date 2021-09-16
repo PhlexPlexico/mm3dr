@@ -29,7 +29,7 @@ include $(DEVKITARM)/3ds_rules
 #---------------------------------------------------------------------------------
 TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
-SOURCES		:=	source source/asm source/lib source/common source/game #TODO: Incoroporate restoration structs.  source/game source/rnd
+SOURCES		:=	source asm lib common game #TODO: Incoroporate restoration structs.  source/game source/rnd
 DATA		:=	data
 INCLUDES	:=	include 
 INCLUDES    +=  assets
@@ -62,7 +62,7 @@ CFLAGS	:=	-g -Wall -mword-relocations -D DEBUG \
 
 CFLAGS	+=	$(INCLUDE) -DARM11 -D_3DS $(VERFLAGS)
 
-CXXFLAGS	:= $(CFLAGS) -fno-rtti -fno-exceptions -std=c++17 -Wno-invalid-offsetof
+CXXFLAGS	:= $(CFLAGS) -fno-rtti -fno-exceptions -std=c++17 -I/usr/local/include/ -Wno-invalid-offsetof
 
 ASFLAGS	+=	-g $(ARCH) $(VERFLAGS)
 LDFLAGS	=	-g $(ARCH) -Wl,-Map,$(notdir $*.map) -T $(TOPDIR)/$(LINK_SCRIPT) -nostdlib $(VERFLAGS) -lgcc

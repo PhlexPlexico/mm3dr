@@ -1,11 +1,18 @@
 #include "game/player.h"
 
 #include "common/utils.h"
+#include "game/actors/obj_elegy_statue.h"
 #include "game/common_data.h"
 // #include "rnd/link.h"
 
 namespace game::act {
 
+namespace {
+static void PlayerChangeStateToStill(Player* player, GlobalContext* gctx) {
+  constexpr float speed_maybe = -6.0;
+  rnd::util::GetPointer<void(Player*, GlobalContext*, float)>(0x1E6500)(player, gctx, speed_maybe);
+}
+}  // namespace
 
 FormParam& GetFormParam(FormParamIndex idx) {
   return rnd::util::GetPointer<FormParam>(0x7AE9E8)[u8(idx) % 8];
@@ -58,5 +65,37 @@ bool PlayerUpdateMagicCost(game::GlobalContext* gctx, int cost, int mode,
       gctx, cost, mode, allow_existing_usage == AllowExistingMagicUsage::Yes);
 }
 
+RST_HOOK void PlayerStateSpawningElegyStatue(Player* player, GlobalContext* gctx) {
+  auto& pad = gctx->pad_state;
+  player->controller_info.state = &pad;
+
+  ++player->timer;
+
+  // Spawn the statue as soon as possible.
+  if (player->timer == 1) {
+    auto spawn_elegy_statue = rnd::util::GetPointer<void(GlobalContext*, Player*)>(0x1F0758);
+    spawn_elegy_statue(gctx, player);
+    auto* statue = gctx->elegy_statues[u8(player->active_form)];
+    statue->timer = 0;
+  } else if (player->timer > 5) {
+    auto* statue = gctx->elegy_statues[u8(player->active_form)];
+    const bool statue_ready = !statue || statue->pos.pos == player->pos.pos;
+    if (player->timer > 135 || statue_ready) {
+      gctx->ocarina_state = OcarinaState::StoppedPlaying;
+      PlayerChangeStateToStill(player, gctx);
+    } else if (statue && !statue_ready) {
+      // Speed up the statue fadeout. (0x18 + 8 = 0x20 per game tick)
+      statue->opacity = std::max(int(statue->opacity) - 0x18, 0);
+    }
+  }
+}
+
+RST_HOOK bool PlayerGetArrowInfo(GlobalContext* gctx, Player* player, ItemId* item_id,
+                                 int* actor_param) {
+  const Player::ArrowInfo info = player->GetArrowInfo(gctx);
+  *item_id = info.item_id;
+  *actor_param = info.actor_param;
+  return info.can_use;
+}
 
 }  // namespace game::act
