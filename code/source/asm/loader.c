@@ -30,11 +30,11 @@ void loader_main(void) {
         svcBreak(USERBREAK_ASSERT);
 
     // Hacky solution to be able to edit gDrawItemTable, which is normally in RO data
-    res = svcControlProcessMemory(getCurrentProcessHandle(), 0x4D8000, 0x4D8000, 0x1000, MEMOP_PROT,
-                                  MEMPERM_READ | MEMPERM_WRITE);
+    // res = svcControlProcessMemory(getCurrentProcessHandle(), 0x4D8000, 0x4D8000, 0x1000, MEMOP_PROT,
+    //                               MEMPERM_READ | MEMPERM_WRITE);
 
-    if (res < 0)
-        svcBreak(USERBREAK_ASSERT);
+    // if (res < 0)
+    //     svcBreak(USERBREAK_ASSERT);
 }
 
 Handle getCurrentProcessHandle(void) {
