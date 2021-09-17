@@ -62,7 +62,7 @@ CFLAGS	:=	-g -Wall -mword-relocations -D DEBUG \
 
 CFLAGS	+=	$(INCLUDE) -DARM11 -D_3DS $(VERFLAGS)
 
-CXXFLAGS	:= $(CFLAGS) -fno-rtti -fno-exceptions -std=c++17 -Wno-invalid-offsetof
+CXXFLAGS	:= $(CFLAGS) -fno-rtti -fno-exceptions -std=gnu++17 -Wno-invalid-offsetof
 
 ASFLAGS	+=	-g $(ARCH) $(VERFLAGS)
 LDFLAGS	=	-g $(ARCH) -Wl,-Map,$(notdir $*.map) -T $(TOPDIR)/$(LINK_SCRIPT) -nostdlib $(VERFLAGS) -lgcc
