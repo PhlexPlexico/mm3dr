@@ -14,7 +14,7 @@ patch_DecoupleZlZr:
 .global patch_DecoupleStartSelect
 patch_DecoupleStartSelect:
     mov r0, #1
-    nop
+    ldrsb R0, [R0]
     bx lr
 
 .section .patch_ISGCrouchStabOne
@@ -29,6 +29,5 @@ patch_ISGCrouchStabTwo:
 
 .section .patch_loader
 .global loader_patch
-
 loader_patch:
     b hook_into_loader
