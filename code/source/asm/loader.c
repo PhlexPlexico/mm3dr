@@ -5,13 +5,16 @@
 
 #include "newcodeinfo.h"
 
-#include <3ds/types.h>
-#include <3ds/svc.h>
+typedef signed int      s32;
+typedef unsigned int    u32;
 
+typedef s32 Result;
+typedef u32 Handle;
 
 
 Result svcOpenProcess(Handle* process, u32 processId);
 Result svcGetProcessId(u32* out, Handle handle);
+void svcBreak(u32 breakReason);
 Result svcControlProcessMemory(Handle process, u32 addr0, u32 addr1, u32 size, u32 type, u32 perm);
 
 void loader_main(void) __attribute__((section(".loader")));
@@ -23,11 +26,11 @@ void loader_main(void) {
     u32 address = NEWCODE_OFFSET;
     u32 neededMemory = (NEWCODE_SIZE + 0xFFF) & ~0xFFF; // rounding up
 
-    res = svcControlProcessMemory(getCurrentProcessHandle(), address, address, neededMemory, MEMOP_PROT,
-                                  MEMPERM_READ | MEMPERM_WRITE | MEMPERM_EXECUTE);
+    res = svcControlProcessMemory(getCurrentProcessHandle(), address, address, neededMemory, 6,
+                                  7);
 
     if (res < 0)
-        svcBreak(USERBREAK_ASSERT);
+        svcBreak(1);
 
     // Hacky solution to be able to edit gDrawItemTable, which is normally in RO data
     // res = svcControlProcessMemory(getCurrentProcessHandle(), 0x4D8000, 0x4D8000, 0x1000, MEMOP_PROT,
