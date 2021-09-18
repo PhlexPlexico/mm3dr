@@ -2,13 +2,13 @@
 .text
 
 @ TODO: Hook into Global Context Update/Main Game Loop.
-@.global hook_MainLoop
-@hook_MainLoop:
-@    push {r0-r12, lr}
-@    bl calc
-@    pop {r0-r12, lr}
-@    cpy r7,r0
-@    bx lr
+.global hook_MainLoop
+hook_MainLoop:
+    push {r0-r12, lr}
+    bl calc
+    pop {r0-r12, lr}
+    ldr r1, [r0,#0x138]
+    b 0x0106770
 
 .section .loader
 .global hook_into_loader
