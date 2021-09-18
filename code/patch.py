@@ -30,7 +30,8 @@ sz = lambda size: struct.pack(">H", size)
 ips = b'PATCH'
 with open(elf, 'rb') as e:
     for name, vaddr, offset, size in sections:
-
+        if ".eh_frame" in name:
+            continue
         e.seek(offset, 0)
         while size > 65535:
             patch = e.read(65535)

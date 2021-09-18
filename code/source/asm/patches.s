@@ -20,13 +20,18 @@ patch_DecoupleStartSelect:
 .section .patch_ISGCrouchStabOne
 .global patch_ISGCrouchStabOne
 patch_ISGCrouchStabOne:
-    b 0xc
+    nop
+    nop
+    nop
+
 
 .section .patch_ISGCrouchStabTwo
 .global patch_ISGCrouchStabTwo
 patch_ISGCrouchStabTwo:
-    b 0xc
-
+    nop
+    nop
+    nop
+    
 .section .patch_loader
 .global loader_patch
 loader_patch:

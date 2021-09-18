@@ -2,6 +2,7 @@ OUTPUT_FORMAT("elf32-littlearm", "elf32-littlearm", "elf32-littlearm")
 OUTPUT_ARCH(arm)
 ENTRY(loader_patch)
 SECTIONS{
+
 	. = 0x100000;
 	.patch_loader 0x100000 : {
 		*(.patch_loader)
@@ -28,7 +29,8 @@ SECTIONS{
 	}
 
 	. = 0x61CD8C;
-	. = ALIGN(4);
+	/* Addr already 4 byte aligned! */
+	/* . = ALIGN(4); */
 	.loader : {
 		*(.loader*)
 	}

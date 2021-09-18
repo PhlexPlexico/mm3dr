@@ -38,6 +38,7 @@ void loader_main(void) {
 
     // if (res < 0)
     //     svcBreak(USERBREAK_ASSERT);
+    
 }
 
 Handle getCurrentProcessHandle(void) {
