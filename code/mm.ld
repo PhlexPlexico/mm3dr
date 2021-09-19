@@ -12,9 +12,9 @@ SECTIONS{
 		*(.patch_MainLoop)
 	}
 
-	/* .patch_DecoupleZlZr 0x1166C8 :  {
+	.patch_DecoupleZlZr 0x1166C8 :  {
 		*(.patch_DecoupleZlZr)
-	} */
+	}
 
 	.patch_DecoupleStartSelect 0x121ee8 : {
 		*(.patch_DecoupleStartSelect)
@@ -26,6 +26,14 @@ SECTIONS{
 
     .patch_ISGCrouchStabTwo 0x1DBEA4 : {
 		*(.patch_ISGCrouchStabTwo)
+	}
+
+	.patch_fasterBlockMovement 0x2AC634 : {
+		*(.patch_fasterBlockMovement)
+	}
+
+	.patch_fasterBlockMovementBack 0x2D0C0C : {
+		*(.patch_fasterBlockMovementBack)
 	}
 
 	. = 0x61CD8C;

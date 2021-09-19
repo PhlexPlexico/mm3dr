@@ -3,7 +3,7 @@
 .section .patch_DecoupleZlZr
 .global patch_DecoupleZlZr
 patch_DecoupleZlZr:
-    b 0x50
+    b 0x0116718
 
 .section .patch_MainLoop
 .global patch_MainLoop
@@ -29,6 +29,16 @@ patch_ISGCrouchStabTwo:
     nop
     nop
     nop
+
+.section .patch_fasterBlockMovement
+.global patch_fasterBlockMovement
+patch_fasterBlockMovement:
+    .float 50.0
+
+.section .patch_fasterBlockMovementBack
+.global patch_fasterBlockMovementBack
+patch_fasterBlockMovementBack:
+    .float 60.0
 
 .section .patch_loader
 .global loader_patch
