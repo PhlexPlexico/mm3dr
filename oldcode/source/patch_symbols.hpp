@@ -1,2 +1,0 @@
-#pragma once
-#define RCUSTOMMESSAGES_ADDR 0x007d0000
