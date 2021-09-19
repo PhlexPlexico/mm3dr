@@ -8,7 +8,7 @@ patch_DecoupleZlZr:
 .section .patch_MainLoop
 .global patch_MainLoop
 patch_MainLoop:
-    bl hook_MainLoop
+    b hook_MainLoop
 
 .section .patch_DecoupleStartSelect
 .global patch_DecoupleStartSelect
