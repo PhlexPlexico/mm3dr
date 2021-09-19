@@ -8,7 +8,7 @@ hook_MainLoop:
     bl calc
     pop {r0-r12, lr}
     ldr r1, [r0,#0x138]
-    bx lr
+    b 0x0106770
 
 .section .loader
 .global hook_into_loader
