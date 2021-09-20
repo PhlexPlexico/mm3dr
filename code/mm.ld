@@ -36,6 +36,10 @@ SECTIONS{
 		*(.patch_fasterBlockMovementBack)
 	}
 
+	.patch_IncomingGetItemID 0x4B1394 : {
+		*(.patch_IncomingGetItemID)
+	}
+
 	. = 0x61CD8C;
 	/* Addr already 4 byte aligned! */
 	/* . = ALIGN(4); */

@@ -1,7 +1,6 @@
 .arm
 .text
 
-@ TODO: Hook into Global Context Update/Main Game Loop.
 .global hook_MainLoop
 hook_MainLoop:
     push {r0-r12, lr}
@@ -9,6 +8,17 @@ hook_MainLoop:
     pop {r0-r12, lr}
     ldr r1, [r0,#0x138]
     b 0x0106770
+
+
+.global hook_IncomingGetItemID
+hook_IncomingGetItemID:
+    push {r0-r12, lr}
+    cpy r0,r6
+    cpy r1,r5
+    cpy r2,r4
+    bl ItemOverride_GetItem
+    pop {r0-r12, lr}
+    bx lr
 
 .section .loader
 .global hook_into_loader

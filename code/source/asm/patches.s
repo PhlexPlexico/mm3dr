@@ -5,6 +5,12 @@
 patch_DecoupleZlZr:
     b 0x0116718
 
+.section .patch_IncomingGetItemID
+.global IncomingGetItemID_patch
+IncomingGetItemID_patch:
+    str r6, [r5,#0x920]
+    bl hook_IncomingGetItemID
+
 .section .patch_MainLoop
 .global patch_MainLoop
 patch_MainLoop:

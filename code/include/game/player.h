@@ -217,7 +217,7 @@ struct Player : public Actor {
   char field_914[4];
   u32 door;
   u32 get_item_id_maybe; // Index+1 to the get item ID table.
-  int field_920;
+  Actor* grabbable_actor;
   u8 gap_924[4];
   u32 field_928;
   u8 fn1_idx;
@@ -475,7 +475,7 @@ struct Player : public Actor {
   s16 field_12CCE;
 };
 static_assert(offsetof(Player, transform_mask_action) == 0x200);
-static_assert(offsetof(Player, field_920) == 0x00920);
+static_assert(offsetof(Player, grabbable_actor) == 0x00920);
 static_assert(offsetof(Player, field_12CCE) == 0x12CCE);
 static_assert(offsetof(Player, sword_active) == 0x11E3C);
 // TODO: complete the struct and add a size assertion.

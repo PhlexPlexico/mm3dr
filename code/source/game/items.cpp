@@ -875,4 +875,26 @@ bool CanUseItem(ItemId item) {
   return !gctx->hud_state.prohibit_regular_items;
 }
 
+
+extern "C" {
+  void ItemOverride_GetItem(act::Actor* fromActor, game::act::Player* player, s8 incomingItemId) {
+    // game::GlobalContext* gctx = rnd::GetContext().gctx;
+    // if (!gctx)
+    //   return;
+    //ItemOverride override = { 0 };
+    //s32 incomingNegative = incomingItemId < 0;
+
+    if (fromActor != NULL && incomingItemId != 0) {
+        //s8 itemId = incomingNegative ? -incomingItemId : incomingItemId;
+        //override = ItemOverride_Lookup(fromActor, gctx->scene, itemId);
+    }
+
+
+      // No override, use base game's item code
+      // ItemOverride_Clear();
+      player->get_item_id_maybe = 0xA1;
+      return;
+    }
+}
+
 }  // namespace game
