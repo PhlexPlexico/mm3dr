@@ -151,6 +151,12 @@ enum class ItemId : u8 {
   None = 0xff,
 };
 
+typedef struct {
+  /*0x00*/ u8 itemId;
+  /*0x01*/ char unk[7]; // contains textid, giDrawId, objectId, some other data.
+} GetItemEntry;
+static_assert(sizeof(GetItemEntry) == 0x8);
+
 const ItemId MaskSlots[] = {
   ItemId::PostmanHat, ItemId::AllNightMask, ItemId::StoneMask, ItemId::BlastMask,
   ItemId::GreatFairyMask, ItemId::DekuMask, ItemId::KeatonMask, ItemId::BremenMask,
