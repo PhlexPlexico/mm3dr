@@ -13,6 +13,8 @@ hook_MainLoop:
 .global hook_IncomingGetItemID
 hook_IncomingGetItemID:
     push {r0-r12, lr}
+    @ According to Ghidra, r6 r5 r4 are the required 
+    @ values needed for the GetItem header, if it isn't clear.
     cpy r0,r6
     cpy r1,r5
     cpy r2,r4
