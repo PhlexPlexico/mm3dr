@@ -840,7 +840,6 @@ bool CanUseItem(ItemId item) {
   // Check the item usability table now.
   const auto& usable_item_table = ItemUsabilityTable[u8(cdata.save.player_form)];
   if (u8(item) >= usable_item_table.size()) {
-    // rnd::util::Print("%s - ERROR - invalid item ID", __func__);
     return false;
   }
   // The item being allowed in the table is only a necessary condition for being allowed to use the
@@ -876,25 +875,6 @@ bool CanUseItem(ItemId item) {
 }
 
 
-extern "C" {
-  void ItemOverride_GetItem(act::Actor* fromActor, game::act::Player* player, s8 incomingItemId) {
-    // game::GlobalContext* gctx = rnd::GetContext().gctx;
-    // if (!gctx)
-    //   return;
-    //ItemOverride override = { 0 };
-    //s32 incomingNegative = incomingItemId < 0;
 
-    if (fromActor != NULL && incomingItemId != 0) {
-        //s8 itemId = incomingNegative ? -incomingItemId : incomingItemId;
-        //override = ItemOverride_Lookup(fromActor, gctx->scene, itemId);
-    }
-
-
-      // No override, use base game's item code
-      // ItemOverride_Clear();
-      player->get_item_id_maybe = 0xA1;
-      return;
-    }
-}
 
 }  // namespace game
