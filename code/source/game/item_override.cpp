@@ -20,7 +20,7 @@ extern "C" {
 
       // No override, use base game's item code
       // ItemOverride_Clear();
-      player->get_item_id_maybe = (u32) GetItemID::GI_UNK_18;
+      player->get_item_id_maybe = (u32) GetItemID::GI_BOMB_BAG_20;
       return;
     }
 }
