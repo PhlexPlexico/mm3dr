@@ -62,17 +62,43 @@ namespace game {
     /* 0x31 */ GI_ERROR_MAX_STICK_THREE, // ***ERROR TEXT MaxStick
     /* 0x32 */ GI_SHIELD_HERO,
     /* 0x33 */ GI_SHIELD_MIRROR,
-    /* 0x34 */ GI_UNK_34,
-    /* 0x35 */ GI_UNK_35,
-    /* 0x36 */ GI_UNK_36,
-    /* 0x37 */ GI_UNK_37,
-    /* 0x38 */ GI_UNK_38,
-    /* 0x39 */ GI_UNK_39,
-    /* 0x3A */ GI_UNK_3A,
-    /* 0x3B */ GI_UNK_3B,
-    /* 0x3C */ GI_KEY_SMALL = 0x3C,
-    /* 0x3E */ GI_MAP = 0x3E,
-    /* 0x3F */ GI_COMPASS,
+    /* 0x34 */ GI_POWDER_KEG,
+    /* 0x35 */ GI_MAGIC_BEAN,
+    /* 0x36 */ GI_BOMBCHUS_1,
+    /* 0x37 */ GI_ERROR_KOKIRI_SWORD, // ***ERROR TEXT Kokiri Sword
+    /* 0x38 */ GI_RAZOR_SWORD,
+    /* 0x39 */ GI_GILDED_SWORD,
+    /* 0x3A */ GI_BOMBCHUS_5,
+    /* 0x3B */ GI_UNK_3B, // Sound Like Picking Up Items such as nuts or stick. Possible item in dungeon?
+    /* 0x3C */ GI_KEY_SMALL,
+    /* 0x3D */ GI_KEY_BOSS,
+    /* 0x3E */ GI_MAP, // Item pickup noise. Perhaps dungeon specific?
+    /* 0x3F */ GI_COMPASS, // Item pickup noise. Perhaps dungeon specific?
+    /* 0x40 */ GI_RUPEE_GREEN_NO_ANIMATION_TWO, // Item above head, no animation like 0x01.
+    /* 0x41 */ GI_UNK_41, // Item Pickup Sound - Maybe dungeon dependent?
+    /* 0x42 */ GI_UNK_42, // Item Pickup Sound - Maybe dungeon dependent?
+    /* 0x43 */ GI_UNK_43, // Item Pickup Sound - Maybe dungeon dependent?
+    /* 0x44 */ GI_UNK_44, // Single Green Rupee But Fairies Work?
+    /* 0x45 */ GI_UNK_45,
+    /* 0x46 */ GI_UNK_46,
+    /* 0x47 */ GI_UNK_47,
+    /* 0x48 */ GI_UNK_48,
+    /* 0x49 */ GI_UNK_49,
+    /* 0x4A */ GI_UNK_4A,
+    /* 0x4B */ GI_UNK_4B,
+    /* 0x4C */ GI_UNK_4C,
+    /* 0x4D */ GI_UNK_4D,
+    /* 0x4E */ GI_UNK_4E,
+    /* 0x4F */ GI_UNK_4F,
+    /* 0x50 */ GI_UNK_50,
+    /* 0x51 */ GI_UNK_51,
+    /* 0x52 */ GI_UNK_52,
+    /* 0x53 */ GI_UNK_53,
+    /* 0x54 */ GI_UNK_54,
+    /* 0x55 */ GI_UNK_55,
+    /* 0x56 */ GI_UNK_56,
+    /* 0x57 */ GI_UNK_57,
+    /* 0x58 */ GI_UNK_58,
     /* 0x59 */ GI_BOTTLE_POTION_RED = 0x59,
     /* 0x5B */ GI_POTION_RED = 0x5B,
     /* 0x5C */ GI_POTION_GREEN,
