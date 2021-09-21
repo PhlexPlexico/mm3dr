@@ -6,7 +6,7 @@
 #include "game/common_data.h"
 #include "z3d/z3Dvec.h"
 
-namespace game {
+namespace rnd {
 
   // Shotouts to MM Decomp for this list so far.
   enum class GetItemID : u32 {
@@ -199,7 +199,43 @@ namespace game {
     /* 0xBA */ GI_FISHING_HOLE_PASS,
 };
 
-  extern "C" void ItemOverride_GetItem(act::Actor*, act::Player*, s8);
+
+  enum class ItemOverride_Type : u8 {
+    OVR_BASE_ITEM = 0,
+    OVR_CHEST = 1,
+    OVR_COLLECTABLE = 2,
+    OVR_SKULL = 3,
+    OVR_GROTTO_SCRUB = 4,
+    OVR_DELAYED = 5,
+    OVR_TEMPLE = 6,
+  };
+
+  typedef union ItemOverride_Key {
+      u32 all;
+      struct {
+          char    pad_;
+          u8 scene;
+          ItemOverride_Type type;
+          u8 flag;
+      };
+  } ItemOverride_Key;
+
+  typedef union ItemOverride_Value {
+      u32 all;
+      struct {
+          u16 itemId;
+          u8  player;
+          u8  looksLikeItemId;
+      };
+  } ItemOverride_Value;
+
+  typedef struct ItemOverride {
+      ItemOverride_Key   key;
+      ItemOverride_Value value;
+  } ItemOverride;
+
+  ItemOverride ItemOverride_LookupByKey(ItemOverride_Key key);
+  extern "C" void ItemOverride_GetItem(game::act::Actor*, game::act::Player*, s8);
 }
 
 #endif
