@@ -5,6 +5,12 @@
 patch_DecoupleZlZr:
     b 0x0116718
 
+@ .section .patch_startHeap
+@ .global patch_startHeap
+@ patch_startHeap:
+@     STMFD SP!, {R4-R8,LR}
+@     b hook_Start
+
 .section .patch_IncomingGetItemID
 .global IncomingGetItemID_patch
 IncomingGetItemID_patch:

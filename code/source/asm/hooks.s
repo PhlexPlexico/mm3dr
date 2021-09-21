@@ -1,6 +1,13 @@
 .arm
 .text
 
+@ .global hook_Start
+@ hook_Start:
+@     push {r0-r12, lr}
+@     bl _start
+@     pop {r0-r12, lr}
+@     b 0x0103ECC
+
 .global hook_MainLoop
 hook_MainLoop:
     push {r0-r12, lr}

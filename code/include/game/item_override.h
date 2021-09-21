@@ -28,7 +28,7 @@ namespace rnd {
     /* 0x0F */ GI_MAGIC_POT_LARGE, // Item above head, no animation like 0x01.
     /* 0x10 */ GI_RECOVERY_HEART_SINGLE_THREE, // No actor, just sound and recovery.
     /* 0x11 */ //GI_ERROR_NOTHING_11, // Item above head, no animation like 0x01.
-    /* 0x12 */ GI_RECOVERY_HEART_SINGLE_FOUR, // No actor, just sound and recovery.
+    /* 0x12 */ GI_RECOVERY_HEART_SINGLE_FOUR = 0x12, // No actor, just sound and recovery.
     /* 0x13 */ GI_RECOVERY_HEART_SINGLE_FIVE, // No actor, just sound and recovery.,
     /* 0x14 */ GI_BOMBS_1, // Item above head, no animation like 0x01. Bomb bag required.
     /* 0x15 */ GI_BOMBS_5, // Item above head, no animation like 0x01.
@@ -234,7 +234,12 @@ namespace rnd {
       ItemOverride_Value value;
   } ItemOverride;
 
-  ItemOverride ItemOverride_LookupByKey(ItemOverride_Key key);
+  ItemOverride ItemOverride_LookupByKey(ItemOverride_Key);
+  void ItemOverride_PushDelayedOverride(u8);
+  s32 ItemOverride_IsAPendingOverride(void);
+  ItemOverride ItemOverride_Lookup(game::act::Actor*, u8, u8);
+  void ItemOverride_PushDungeonReward(u8);
+  void ItemOverride_CheckStartingItem();
   extern "C" void ItemOverride_GetItem(game::act::Actor*, game::act::Player*, s8);
 }
 

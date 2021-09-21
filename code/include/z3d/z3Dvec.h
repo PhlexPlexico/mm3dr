@@ -11,6 +11,8 @@ typedef uint16_t u16;
 typedef int32_t s32;
 typedef uint32_t u32;
 
+#define ARR_SIZE(a) (sizeof(a) / sizeof(a[0]))
+
 typedef struct {
     f32 x, y;
 } z3dVec2f;
