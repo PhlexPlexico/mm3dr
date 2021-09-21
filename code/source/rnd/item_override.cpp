@@ -1,4 +1,4 @@
-#include "game/item_override.h"
+#include "rnd/item_override.h"
 #include "game/items.h"
 
 namespace rnd

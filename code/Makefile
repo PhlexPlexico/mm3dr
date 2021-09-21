@@ -29,7 +29,7 @@ include $(DEVKITARM)/3ds_rules
 #---------------------------------------------------------------------------------
 TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
-SOURCES		:=	source source/asm source/lib source/common source/game #TODO: Incoroporate restoration structs.  source/game source/rnd
+SOURCES		:=	source source/asm source/lib source/common source/game source/rnd
 DATA		:=	data
 INCLUDES	:=	include 
 INCLUDES    +=  assets

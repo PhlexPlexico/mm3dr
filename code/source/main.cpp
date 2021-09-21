@@ -7,7 +7,7 @@ namespace rnd
 {
   void Init(Context &context)
   {
-    game::sound::PlayEffect(game::sound::EffectId::NA_SE_SY_PREDEMO_OMEN);
+    game::sound::PlayEffect(game::sound::EffectId::NA_SE_PL_MAGIC_SOUL_FLASH);
     context.has_initialised = true;
   }
   extern "C"
@@ -27,7 +27,6 @@ namespace rnd
         return;
       //
       context.gctx = static_cast<game::GlobalContext*>(state);
-      //castContext(context, state);
       return;
     }
     /*void _start(void)
