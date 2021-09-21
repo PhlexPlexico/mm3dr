@@ -61,7 +61,7 @@ namespace game {
     /* 0x30 */ GI_ERROR_MAX_STICK_TWO, // ***ERROR TEXT MaxStick
     /* 0x31 */ GI_ERROR_MAX_STICK_THREE, // ***ERROR TEXT MaxStick
     /* 0x32 */ GI_SHIELD_HERO,
-    /* 0x33 */ GI_UNK_33,
+    /* 0x33 */ GI_SHIELD_MIRROR,
     /* 0x34 */ GI_UNK_34,
     /* 0x35 */ GI_UNK_35,
     /* 0x36 */ GI_UNK_36,
