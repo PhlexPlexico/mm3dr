@@ -4,15 +4,15 @@
 #include "rnd/item_override.h"
 
 namespace rnd {
-  GetItemID ItemUpgrade_None(game::SaveData *saveCtx, game::ItemId itemId);
-  GetItemID ItemUpgrade_BombBag(game::SaveData *saveCtx, game::ItemId itemId);
-  GetItemID ItemUpgrade_Quiver(game::SaveData *saveCtx, game::ItemId itemId);
-  GetItemID ItemUpgrade_Wallet(game::SaveData *saveCtx, game::ItemId itemId);
-  void ItemUpgrade_Magic(game::SaveData *saveCtx, game::ItemId itemId);
-  GetItemID ItemUpgrade_Sword(game::SaveData *saveCtx, game::ItemId itemId);
-  GetItemID ItemUpgrade_ArrowsToRupee(game::SaveData *saveCtx, game::ItemId itemId);
-  GetItemID ItemUpgrade_BombsToRupee(game::SaveData *saveCtx, game::ItemId itemId);
-  //GetItemID ItemUpgrade_LetterToBottle(game::SaveData *saveCtx, game::ItemId itemId);
+  GetItemID ItemUpgrade_None(game::SaveData*, GetItemID);
+  GetItemID ItemUpgrade_BombBag(game::SaveData*, GetItemID);
+  GetItemID ItemUpgrade_Quiver(game::SaveData*, GetItemID);
+  GetItemID ItemUpgrade_Wallet(game::SaveData*, GetItemID);
+  void ItemUpgrade_Magic(game::SaveData*, GetItemID);
+  GetItemID ItemUpgrade_Sword(game::SaveData*, GetItemID);
+  GetItemID ItemUpgrade_ArrowsToRupee(game::SaveData*, GetItemID);
+  GetItemID ItemUpgrade_BombsToRupee(game::SaveData*, GetItemID);
+  //GetItemID ItemUpgrade_LetterToBottle(game::SaveData*, GetItemID);
 } // namespace rnd
 
 #endif
