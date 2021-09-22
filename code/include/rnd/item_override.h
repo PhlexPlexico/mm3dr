@@ -241,6 +241,7 @@ namespace rnd {
   void ItemOverride_PushDungeonReward(u8);
   void ItemOverride_CheckStartingItem();
   extern "C" void ItemOverride_GetItem(game::act::Actor*, game::act::Player*, s8);
+  extern "C" int svcOutputDebugString(const char* string, size_t length);
 }
 
 #endif

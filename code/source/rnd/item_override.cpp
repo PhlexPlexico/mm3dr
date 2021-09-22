@@ -1,4 +1,5 @@
 #include "rnd/item_override.h"
+#include "common/debug.h"
 #include "game/items.h"
 
 namespace rnd
@@ -21,10 +22,14 @@ namespace rnd
 
   static ItemOverride_Key ItemOverride_GetSearchKey(game::act::Actor *actor, u8 scene, u8 itemId)
   {
+    
     game::CommonData &cdata = game::GetCommonData();
     ItemOverride_Key retKey;
+    svcOutputDebugString((const char*)actor->actor_type, sizeof(actor->actor_type));
     if (actor->actor_type == game::act::Type::Chest)
-    { // Chest
+    { 
+      
+      // Chest
       // Don't override WINNER purple rupee in the chest minigame scene
       // if (scene == 0x10) {
       //     u32 chestItemId = (actor->params >> 5) & 0x7F;
@@ -75,6 +80,15 @@ namespace rnd
       return retKey;
     }
   }
+
+  ItemOverride ItemOverride_Lookup(game::act::Actor* actor, u8 scene, u8 itemId) {
+    ItemOverride_Key key = ItemOverride_GetSearchKey(actor, scene, itemId);
+    if (key.all == 0) {
+        return (ItemOverride){ 0 };
+    }
+
+    return ItemOverride_LookupByKey(key);
+}
 
   ItemOverride ItemOverride_LookupByKey(ItemOverride_Key key)
   {
@@ -342,20 +356,21 @@ namespace rnd
     }
   }*/
 
-  void ItemOverride_PushDungeonReward(u8 dungeon) {
-    ItemOverride_Key key = { .all = 0 };
+  void ItemOverride_PushDungeonReward(u8 dungeon)
+  {
+    ItemOverride_Key key = {.all = 0};
     key.scene = 0xFF;
     key.type = ItemOverride_Type::OVR_TEMPLE;
     key.flag = dungeon;
     ItemOverride override = ItemOverride_LookupByKey(key);
     ItemOverride_PushPendingOverride(override);
   }
-  
-  
-  void ItemOverride_CheckStartingItem() {
+
+  void ItemOverride_CheckStartingItem()
+  {
     // TODO: Check for starting quest items?
-      // use eventChkInf[0] |= 0x0001 as the check for this
-      /*if (EventCheck(0x00) == 0) {
+    // use eventChkInf[0] |= 0x0001 as the check for this
+    /*if (EventCheck(0x00) == 0) {
           if (gSettingsContext.linksPocketItem != LINKSPOCKETITEM_DUNGEON_REWARD) {
               ItemOverride_PushDungeonReward(0xFF); // Push Link's Pocket Reward
           }
@@ -365,8 +380,10 @@ namespace rnd
 
   extern "C"
   {
+    
     void ItemOverride_GetItem(game::act::Actor *fromActor, game::act::Player *player, s8 incomingItemId)
     {
+      const char* test = "Here\\is\\a\\test\\string";
       game::GlobalContext *gctx = rnd::GetContext().gctx;
       if (!gctx)
         return;
@@ -376,12 +393,32 @@ namespace rnd
       if (fromActor != NULL && incomingItemId != 0)
       {
         s8 itemId = incomingNegative ? -incomingItemId : incomingItemId;
-        //override = ItemOverride_Lookup(fromActor, gctx->scene, itemId);
+        override = ItemOverride_Lookup(fromActor, (u8)gctx->scene, itemId);
       }
 
       // No override, use base game's item code
       ItemOverride_Clear();
-      player->get_item_id_maybe = (u32)GetItemID::GI_BOMBCHUS_10;
+      ItemOverride_Activate(override);
+      //s8 baseItemId = rActiveItemRow->baseItemId;
+      s8 baseItemId = 0x90;
+      if (fromActor->actor_type == game::act::Type::Chest)
+      {
+        // Update chest contents
+        if (override.value.itemId == 0x7C)
+        {
+          // Use ice trap base item ID
+          baseItemId = 0x7C;
+        }
+        fromActor->params = (fromActor->params & 0xF01F) | (baseItemId << 5);
+      }
+      // else if (override.value.itemId == 0x7C)
+      // {
+      //   rActiveItemRow->effectArg1 = override.key.all >> 16;
+      //   rActiveItemRow->effectArg2 = override.key.all & 0xFFFF;
+      // }
+      svcOutputDebugString((const char*)baseItemId, sizeof(s8));
+      player->get_item_id_maybe = incomingNegative ? -baseItemId : baseItemId;
+      //player->get_item_id_maybe = (u32)GetItemID::GI_BOMBCHUS_10;
       return;
     }
   }

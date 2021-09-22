@@ -6,8 +6,9 @@
 namespace rnd
 {
   void Init(Context &context)
-  {
-    game::sound::PlayEffect(game::sound::EffectId::NA_SE_PL_MAGIC_SOUL_FLASH);
+  {    
+    // XXX: Temp switch to ensure patch is running.
+    game::sound::PlayEffect(game::sound::EffectId::NA_SE_SY_CLEAR1);
     context.has_initialised = true;
   }
   extern "C"
