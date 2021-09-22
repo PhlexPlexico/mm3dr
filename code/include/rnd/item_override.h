@@ -8,7 +8,6 @@
 
 namespace rnd {
 
-  // Shotouts to MM Decomp for this list so far.
   enum class GetItemID : u32 {
     /* 0x00 */ GI_NONE,
     /* 0x01 */ GI_RUPEE_GREEN,

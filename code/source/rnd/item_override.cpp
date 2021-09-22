@@ -1,9 +1,10 @@
 #include "rnd/item_override.h"
 #include "common/debug.h"
 #include "game/items.h"
+//#include "rnd/item_table.h"
+#include "rnd/rheap.h"
 
-namespace rnd
-{
+namespace rnd {
   static s32 rItemOverrides_Count = 0;
   static ItemOverride rItemOverrides[640] = {0};
   static game::act::Actor *rDummyActor = NULL;
@@ -20,15 +21,13 @@ namespace rnd
 
   static u8 rSatisfiedPendingFrames = 0;
 
-  static ItemOverride_Key ItemOverride_GetSearchKey(game::act::Actor *actor, u8 scene, u8 itemId)
-  {
-    
+  static ItemOverride_Key ItemOverride_GetSearchKey(game::act::Actor *actor, u8 scene, u8 itemId) {
+
     game::CommonData &cdata = game::GetCommonData();
     ItemOverride_Key retKey;
-    svcOutputDebugString((const char*)actor->actor_type, sizeof(actor->actor_type));
-    if (actor->actor_type == game::act::Type::Chest)
-    { 
-      
+    svcOutputDebugString((const char *)actor->actor_type, sizeof(actor->actor_type));
+    if (actor->actor_type == game::act::Type::Chest) {
+
       // Chest
       // Don't override WINNER purple rupee in the chest minigame scene
       // if (scene == 0x10) {
@@ -42,38 +41,29 @@ namespace rnd
       retKey.type = ItemOverride_Type::OVR_CHEST;
       retKey.flag = actor->params & 0x1F;
       return retKey;
-    }
-    else if (actor->actor_type == game::act::Type::Item)
-    { // Collectible
+    } else if (actor->actor_type == game::act::Type::Item) { // Collectible
       // Only override heart pieces and keys
       u32 collectibleType = actor->params & 0xFF;
       // TODO: These are not correct item types? Should be 0x70 and 0x78?
-      if (collectibleType != 0x70 && collectibleType != 0x78)
-      {
+      if (collectibleType != 0x70 && collectibleType != 0x78) {
         return (ItemOverride_Key){.all = 0};
       }
       retKey.scene = scene;
       retKey.type = ItemOverride_Type::OVR_COLLECTABLE;
       retKey.flag = actor->overlay_info->info->flags;
       return retKey;
-    }
-    else if (actor->id == (game::act::Id)game::ItemId::GoldSkulltula)
-    { // Gold Skulltula Token
+    } else if (actor->id == (game::act::Id)game::ItemId::GoldSkulltula) { // Gold Skulltula Token
       retKey.scene = (actor->params >> 8) & 0x1F;
       retKey.type = ItemOverride_Type::OVR_SKULL;
       retKey.flag = actor->params & 0xFF;
       return retKey;
       // TODO: Find grotto salesman ID.
-    }
-    else if (scene == 0x07 && actor->id == (game::act::Id)0x11A)
-    { // Grotto Salesman
+    } else if (scene == 0x07 && actor->id == (game::act::Id)0x11A) { // Grotto Salesman
       retKey.scene = cdata.sub13s[8].data;
       retKey.type = ItemOverride_Type::OVR_GROTTO_SCRUB;
       retKey.flag = itemId;
       return retKey;
-    }
-    else
-    {
+    } else {
       retKey.scene = scene;
       retKey.type = ItemOverride_Type::OVR_BASE_ITEM;
       retKey.flag = itemId;
@@ -81,47 +71,38 @@ namespace rnd
     }
   }
 
-  ItemOverride ItemOverride_Lookup(game::act::Actor* actor, u8 scene, u8 itemId) {
+  ItemOverride ItemOverride_Lookup(game::act::Actor *actor, u8 scene, u8 itemId) {
     ItemOverride_Key key = ItemOverride_GetSearchKey(actor, scene, itemId);
     if (key.all == 0) {
-        return (ItemOverride){ 0 };
+      return (ItemOverride){0};
     }
 
     return ItemOverride_LookupByKey(key);
-}
+  }
 
-  ItemOverride ItemOverride_LookupByKey(ItemOverride_Key key)
-  {
+  ItemOverride ItemOverride_LookupByKey(ItemOverride_Key key) {
     s32 start = 0;
     s32 end = rItemOverrides_Count - 1;
-    while (start <= end)
-    {
+    while (start <= end) {
       s32 midIdx = (start + end) / 2;
       ItemOverride midOvr = rItemOverrides[midIdx];
-      if (key.all < midOvr.key.all)
-      {
+      if (key.all < midOvr.key.all) {
         end = midIdx - 1;
-      }
-      else if (key.all > midOvr.key.all)
-      {
+      } else if (key.all > midOvr.key.all) {
         start = midIdx + 1;
-      }
-      else
-      {
+      } else {
         return midOvr;
       }
     }
     return (ItemOverride){0};
   }
 
-  static void ItemOverride_Activate(ItemOverride override)
-  {
+  static void ItemOverride_Activate(ItemOverride override) {
     //u16 resolvedItemId = ItemTable_ResolveUpgrades(override.value.itemId);
     //ItemRow* itemRow = ItemTable_GetItemRow(resolvedItemId);
     u8 looksLikeItemId = override.value.looksLikeItemId;
 
-    if (override.value.itemId == 0x7C)
-    { // Ice trap
+    if (override.value.itemId == 0x7C) { // Ice trap
       looksLikeItemId = 0;
     }
 
@@ -134,8 +115,7 @@ namespace rnd
     //rActiveItemFastChest = itemRow->chestType & 0x01;
   }
 
-  static void ItemOverride_Clear(void)
-  {
+  static void ItemOverride_Clear(void) {
     rActiveItemOverride = (ItemOverride){0};
     //rActiveItemRow = NULL;
     rActiveItemActionId = 0;
@@ -145,57 +125,47 @@ namespace rnd
     rActiveItemFastChest = 0;
   }
 
-  static void ItemOverride_PushPendingOverride(ItemOverride override)
-  {
-    for (u32 i = 0; i < ARR_SIZE(rPendingOverrideQueue); ++i)
-    {
-      if (rPendingOverrideQueue[i].key.all == 0)
-      {
+  static void ItemOverride_PushPendingOverride(ItemOverride override) {
+    for (u32 i = 0; i < ARR_SIZE(rPendingOverrideQueue); ++i) {
+      if (rPendingOverrideQueue[i].key.all == 0) {
         rPendingOverrideQueue[i] = override;
         break;
       }
-      if (rPendingOverrideQueue[i].key.all == override.key.all)
-      {
+      if (rPendingOverrideQueue[i].key.all == override.key.all) {
         // Prevent duplicate entries
         break;
       }
     }
   }
 
-  s32 ItemOverride_IsAPendingOverride(void)
-  {
+  s32 ItemOverride_IsAPendingOverride(void) {
     return (rPendingOverrideQueue[0].key.all != 0);
   }
 
-  void ItemOverride_PushDelayedOverride(u8 flag)
-  {
+  void ItemOverride_PushDelayedOverride(u8 flag) {
     ItemOverride_Key key;
     key.all = 0;
     key.scene = 0xFF;
     key.type = ItemOverride_Type::OVR_DELAYED;
     key.flag = flag;
     ItemOverride override = ItemOverride_LookupByKey(key);
-    if (override.key.all != 0)
-    {
+    if (override.key.all != 0) {
       ItemOverride_PushPendingOverride(override);
     }
   }
 
-  static void ItemOverride_PopPendingOverride(void)
-  {
+  static void ItemOverride_PopPendingOverride(void) {
     rPendingOverrideQueue[0] = rPendingOverrideQueue[1];
     rPendingOverrideQueue[1] = rPendingOverrideQueue[2];
     rPendingOverrideQueue[2].key.all = 0;
     rPendingOverrideQueue[2].value.all = 0;
   }
 
-  static void ItemOverride_AfterKeyReceived(ItemOverride_Key key)
-  {
+  static void ItemOverride_AfterKeyReceived(ItemOverride_Key key) {
     // TODO: Is this needed? We can have many types of trade items at once according to gear screen?
   }
 
-  static void ItemOverride_PopIceTrap(void)
-  {
+  static void ItemOverride_PopIceTrap(void) {
     // TODO: Figure out ice traps?
     // ItemOverride_Key key = rPendingOverrideQueue[0].key;
     // ItemOverride_Value value = rPendingOverrideQueue[0].value;
@@ -205,8 +175,7 @@ namespace rnd
     //     ItemOverride_AfterKeyReceived(key);
     // }
   }
-  static u32 ItemOverride_PlayerIsReady(void)
-  {
+  static u32 ItemOverride_PlayerIsReady(void) {
     // TODO: Flag checks on link.
     // if ((PLAYER->stateFlags1 & 0xFCAC2485) == 0 && (PLAYER->actor.bgCheckFlags & 0x0001) &&
     //     (PLAYER->stateFlags2 & 0x000C0000) == 0 && PLAYER->actor.draw != NULL &&
@@ -226,42 +195,34 @@ namespace rnd
     // return 0;
   }
 
-  static void ItemOverride_TryPendingItem(void)
-  {
+  static void ItemOverride_TryPendingItem(void) {
     ItemOverride override = rPendingOverrideQueue[0];
     game::act::Player *player = rnd::GetContext().gctx->GetPlayerActor();
-    if (override.key.all == 0)
-    {
+    if (override.key.all == 0) {
       return;
     }
 
-    if (rDummyActor->parent_actor == NULL)
-    {
+    if (rDummyActor->parent_actor == NULL) {
       ItemOverride_Activate(override);
       player->grabbable_actor = rDummyActor;
       // TODO: rActiveItemRow need to create item_table.
       //player->get_item_id_maybe = rActiveItemRow->baseItemId;
-    }
-    else
-    {
+    } else {
       rDummyActor->parent_actor = NULL;
       ItemOverride_PopPendingOverride();
     }
   }
 
-  void ItemOverride_AfterItemReceived(void)
-  {
+  void ItemOverride_AfterItemReceived(void) {
     ItemOverride_Key key = rActiveItemOverride.key;
-    if (key.all == 0)
-    {
+    if (key.all == 0) {
       return;
     }
     ItemOverride_AfterKeyReceived(key);
     ItemOverride_Clear();
   }
 
-  void ItemOverride_Update(void)
-  {
+  void ItemOverride_Update(void) {
     // TODO
     /*ItemOverride_CheckStartingItem();
     ItemOverride_CheckZeldasLetter();
@@ -278,8 +239,7 @@ namespace rnd
     ItemOverride_TryPendingItem();
   }
 
-  void ItemOverride_GetItemTextAndItemID(game::act::Actor *actor)
-  {
+  void ItemOverride_GetItemTextAndItemID(game::act::Actor *actor) {
     // TODO: rActiveItemRow need to create item_table.
     /*if (rActiveItemRow != NULL) {
         u16 textId = rActiveItemRow->textId;
@@ -297,8 +257,7 @@ namespace rnd
     }*/
   }
 
-  void ItemOverride_EditDrawGetItemBeforeModelSpawn(void)
-  {
+  void ItemOverride_EditDrawGetItemBeforeModelSpawn(void) {
     //TODO: Custom graphics eventually.
     /*void *cmb;
 
@@ -356,8 +315,7 @@ namespace rnd
     }
   }*/
 
-  void ItemOverride_PushDungeonReward(u8 dungeon)
-  {
+  void ItemOverride_PushDungeonReward(u8 dungeon) {
     ItemOverride_Key key = {.all = 0};
     key.scene = 0xFF;
     key.type = ItemOverride_Type::OVR_TEMPLE;
@@ -366,8 +324,7 @@ namespace rnd
     ItemOverride_PushPendingOverride(override);
   }
 
-  void ItemOverride_CheckStartingItem()
-  {
+  void ItemOverride_CheckStartingItem() {
     // TODO: Check for starting quest items?
     // use eventChkInf[0] |= 0x0001 as the check for this
     /*if (EventCheck(0x00) == 0) {
@@ -378,48 +335,41 @@ namespace rnd
       }*/
   }
 
-  extern "C"
-  {
-    
-    void ItemOverride_GetItem(game::act::Actor *fromActor, game::act::Player *player, s8 incomingItemId)
-    {
-      const char* test = "Here\\is\\a\\test\\string";
-      game::GlobalContext *gctx = rnd::GetContext().gctx;
-      if (!gctx)
-        return;
-      ItemOverride override = {0};
-      s32 incomingNegative = incomingItemId < 0;
+  extern "C" {
 
-      if (fromActor != NULL && incomingItemId != 0)
-      {
-        s8 itemId = incomingNegative ? -incomingItemId : incomingItemId;
-        override = ItemOverride_Lookup(fromActor, (u8)gctx->scene, itemId);
-      }
-
-      // No override, use base game's item code
-      ItemOverride_Clear();
-      ItemOverride_Activate(override);
-      //s8 baseItemId = rActiveItemRow->baseItemId;
-      s8 baseItemId = 0x90;
-      if (fromActor->actor_type == game::act::Type::Chest)
-      {
-        // Update chest contents
-        if (override.value.itemId == 0x7C)
-        {
-          // Use ice trap base item ID
-          baseItemId = 0x7C;
-        }
-        fromActor->params = (fromActor->params & 0xF01F) | (baseItemId << 5);
-      }
-      // else if (override.value.itemId == 0x7C)
-      // {
-      //   rActiveItemRow->effectArg1 = override.key.all >> 16;
-      //   rActiveItemRow->effectArg2 = override.key.all & 0xFFFF;
-      // }
-      svcOutputDebugString((const char*)baseItemId, sizeof(s8));
-      player->get_item_id_maybe = incomingNegative ? -baseItemId : baseItemId;
-      //player->get_item_id_maybe = (u32)GetItemID::GI_BOMBCHUS_10;
+  void ItemOverride_GetItem(game::act::Actor *fromActor, game::act::Player *player, s8 incomingItemId) {
+    game::GlobalContext *gctx = rnd::GetContext().gctx;
+    if (!gctx)
       return;
+    ItemOverride override = {0};
+    s32 incomingNegative = incomingItemId < 0;
+
+    if (fromActor != NULL && incomingItemId != 0) {
+      s8 itemId = incomingNegative ? -incomingItemId : incomingItemId;
+      override = ItemOverride_Lookup(fromActor, (u8)gctx->scene, itemId);
     }
+
+    // No override, use base game's item code
+    ItemOverride_Clear();
+    ItemOverride_Activate(override);
+    //s8 baseItemId = rActiveItemRow->baseItemId;
+    s8 baseItemId = 0x90;
+    if (fromActor->actor_type == game::act::Type::Chest) {
+      // Update chest contents
+      if (override.value.itemId == 0x7C) {
+        // Use ice trap base item ID
+        baseItemId = 0x7C;
+      }
+      fromActor->params = (fromActor->params & 0xF01F) | (baseItemId << 5);
+    }
+    // else if (override.value.itemId == 0x7C)
+    // {
+    //   rActiveItemRow->effectArg1 = override.key.all >> 16;
+    //   rActiveItemRow->effectArg2 = override.key.all & 0xFFFF;
+    // }
+    //player->get_item_id_maybe = incomingNegative ? -baseItemId : baseItemId;
+    player->get_item_id_maybe = (u32)GetItemID::GI_RECOVERY_HEART_SINGLE_THREE;
+    return;
+  }
   }
 }
