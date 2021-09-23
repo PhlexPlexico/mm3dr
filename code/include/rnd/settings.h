@@ -1,5 +1,5 @@
-#ifndef _SETTINGS_H_
-#define _SETTINGS_H_
+#ifndef _RND_SETTINGS_H_
+#define _RND_SETTINGS_H_
 
 #include "common/advanced_context.h"
 #include "game/common_data.h"
@@ -39,6 +39,12 @@ namespace rnd {
     REWARDSHUFFLE_ANY_DUNGEON,
     REWARDSHUFFLE_OVERWORLD,
     REWARDSHUFFLE_ANYWHERE,
+  };
+
+  enum class GreatFairyRewardShuffleSetting : u8 {
+    GFREWARDSHUFFLE_VANILLA,
+    GFREWARDSHUFFLE_ALL_GREAT_FARIES,
+    GFREWARDSHUFFLE_ANYWHERE,
   };
 
   enum class LinksPocketSetting : u8 {
@@ -194,6 +200,7 @@ namespace rnd {
     u8 heartDropRefill;
 
     u8 shuffleRewards;
+    u8 shuffleGreatFairyRewards;
     u8 linksPocketItem;
     u8 shuffleSongs;
     u8 tokensanity;

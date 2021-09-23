@@ -1,5 +1,5 @@
-#ifndef _GAME_ITEM_OVERRIDE_H
-#define _GAME_ITEM_OVERRIDE_H
+#ifndef _RND_ITEM_OVERRIDE_H
+#define _RND_ITEM_OVERRIDE_H
 
 #include "common/advanced_context.h"
 #include "common/utils.h"

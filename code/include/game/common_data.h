@@ -161,10 +161,10 @@ struct InventoryData {
   char anonymous_33[1];
   char anonymous_34[3];
   u8 gap200[6];
-  char anonymous_35[1];
-  char anonymous_36;
-  char anonymous_37;
-  char anonymous_38;
+  u8 woodfall_temple_keys;
+  u8 snowhead_temple_keys;
+  u8 great_bay_temple_keys;
+  u8 stone_tower_temple_keys;
   u8 gap20A[5];
   char anonymous_39;
   char anonymous_40;
