@@ -56,7 +56,7 @@ struct __attribute__((packed)) __attribute__((aligned(2))) PlayerData {
   u16 anonymous_k;
   char magic_stuff;
   s8 magic_num_upgrades;
-  char anonymous_17;
+  u8 double_defense;
   char anonymous_18;
   char anonymous_19;
   char anonymous_20;
