@@ -54,7 +54,7 @@ struct __attribute__((packed)) __attribute__((aligned(2))) PlayerData {
   u16 rupee_count;
   u16 razor_sword_hp;
   u16 anonymous_k;
-  char magic_stuff;
+  char magic_acquired;
   s8 magic_num_upgrades;
   u8 double_defense;
   char anonymous_18;
@@ -158,8 +158,10 @@ struct InventoryData {
     BitField<28, 4, u32> heart_container_pieces;
   };
   CollectRegister collect_register;
-  char anonymous_33[1];
-  char anonymous_34[3];
+  u8 woodfall_boss_key;
+  u8 snowhead_boss_key;
+  u8 great_bay_boss_key;
+  u8 stone_tower_boss_key;
   u8 gap200[6];
   u8 woodfall_temple_keys;
   u8 snowhead_temple_keys;
@@ -209,7 +211,7 @@ struct SaveData {
   char anonymous_15;
   char anonymous_16;
   char gap33[205];
-  char anonymous_a[24];
+  char anonymous_a[24]; // Possible permanent scene flags? Could be put in the gap to match 0x1C size?
   char anonymous_b;
   u8 gap_115[7];
   PlayerData player;
