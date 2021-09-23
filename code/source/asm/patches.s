@@ -11,6 +11,15 @@ patch_DecoupleZlZr:
 @     STMFD SP!, {R4-R8,LR}
 @     b hook_Start
 
+.section .patch_FixSurroundSound
+.global patch_FixSurroundSound
+patch_FixSurroundSound:
+    nop
+    nop
+    nop
+    nop
+    nop
+
 .section .patch_IncomingGetItemID
 .global IncomingGetItemID_patch
 IncomingGetItemID_patch:

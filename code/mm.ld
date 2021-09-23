@@ -12,6 +12,10 @@ SECTIONS{
 		*(.patch_startHeap)
 	} */
 
+	.patch_FixSurroundSound 0x1404E8 : {
+		*(.patch_FixSurroundSound)
+	}
+
 	.patch_MainLoop 0x10676C : {
 		*(.patch_MainLoop)
 	}
