@@ -152,8 +152,12 @@ enum class ItemId : u8 {
 };
 
 typedef struct {
-  /*0x00*/ u8 itemId;
-  /*0x01*/ char unk[7]; // contains textid, giDrawId, objectId, some other data.
+  /*0x00*/ ItemId itemId;
+  /*0x01*/ char unk_01;
+  /*0x02*/ u16 unk_02;
+  /*0x04*/ u8 textId;
+  /*0x05*/ u8 unk_05;
+  /*0x06*/ u16 objectId; // contains textid, giDrawId, objectId, some other data.
 } GetItemEntry;
 static_assert(sizeof(GetItemEntry) == 0x8);
 
