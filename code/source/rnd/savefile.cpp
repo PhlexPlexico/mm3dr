@@ -273,4 +273,14 @@ namespace rnd {
     }
   }
 
+  void SaveFile_ResetItemSlotsIfMatchesID(u8 itemSlot) {
+    game::SaveData &saveData = game::GetCommonData().save;
+    // Remove the slot from child/adult grids
+    for (u32 i = 0; i < 0x18; ++i) {
+      if (saveData.inventory.items[i] == (game::ItemId)itemSlot) {
+        saveData.inventory.items[i] = game::ItemId::None;
+      }
+    }
+  }
+
 }

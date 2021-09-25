@@ -367,8 +367,8 @@ namespace rnd {
     //   rActiveItemRow->effectArg1 = override.key.all >> 16;
     //   rActiveItemRow->effectArg2 = override.key.all & 0xFFFF;
     // }
-    //player->get_item_id_maybe = incomingNegative ? -baseItemId : baseItemId;
-    player->get_item_id_maybe = (u32)GetItemID::GI_ARROWS_MEDIUM;
+    player->get_item_id_maybe = incomingNegative ? -baseItemId : baseItemId;
+    //player->get_item_id_maybe = (u32)GetItemID::GI_RECOVERY_HEART_SINGLE_THREE;
     return;
   }
   }

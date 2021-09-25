@@ -53,7 +53,7 @@ struct __attribute__((packed)) __attribute__((aligned(2))) PlayerData {
   char magic;
   u16 rupee_count;
   u16 razor_sword_hp;
-  u16 anonymous_k;
+  u16 active_player_in_frame_count;
   char magic_acquired;
   s8 magic_num_upgrades;
   u8 double_defense;
@@ -635,7 +635,7 @@ struct CommonData {
   s16 magic_cost;
   u16 field_3690;
   u16 field_3692;
-  u16 field_3694;
+  u16 health_accumulator;
   u16 field_3696;
   u16 field_3698;
   u16 field_369A;
