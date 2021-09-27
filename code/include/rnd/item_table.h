@@ -2,14 +2,16 @@
 #define _RND_ITEM_TABLE_H_
 
 #include "game/common_data.h"
+#include "rnd/item_override.h"
 #include "rnd/chest.h"
 
 namespace rnd {
-  typedef u16 (*upgradeFunc)(game::CommonData *saveCtx, u16 itemId);
+  typedef u32 (*upgradeFunc)(game::SaveData *saveCtx, GetItemID itemId);
   typedef void (*effectFunc)(game::CommonData *saveCtx, s16 arg1, s16 arg2);
 
   typedef struct {
-    s8 baseItemId; // Fall through ItemId for parts we wish to not
+    u32 baseItemId; // Fall through ItemId for parts we wish to not
+    ChestType chestType;
     u8 itemId;
     u16 textId;
 
@@ -22,7 +24,7 @@ namespace rnd {
     /* 0xFF if none. objectMeshIdx for rupees
                                  TexAnim frame for songs
                                  key ID for small keys */
-    ChestType chestType;
+    
     s16 graphicId;
 
     upgradeFunc upgrade;
