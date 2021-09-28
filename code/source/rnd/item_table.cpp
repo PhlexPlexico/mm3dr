@@ -20,12 +20,21 @@ namespace rnd {
 
   // TODO: Convert to C++
   static ItemRow rItemTable[] = {
-      [0x01] = ITEM_ROW(
-          .baseItemId_=(u32)GetItemID::GI_RUPEE_BLUE, .chestType_=ChestType::WOODEN_SMALL, .itemId_=0x59, \
-          .textId=0x0014, .objectId=0x00A5, .objectModelIdx=0x00, .cmabIndex=(s8)0xFF, \
-          .objectModelIdx2=(s8)0xFF, .cmabIndex2=(s8)0xFF, .special=(s8)0xFF, .graphicId=0x20, \
-          .upgrade=(rnd::upgradeFunc)ItemUpgrade_BombsToRupee, .effect=ItemEffect_None, \
-          .effectArg1=(s16)-1, .effectArg2=(s16)-1) // Bombs (5)
+      ITEM_ROW((u32)GetItemID::GI_NONE, ChestType::WOODEN_SMALL, 0xFF, 0x00C4, 0x0000, 0x00, (s8)0xFF, (s8)0xFF,
+               (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // None Item - So we don't have to do GetItemId-1 everywhere.
+
+      ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL, 0x59, 0x0014, 0x00A5, (s8)0xFF, (s8)0xFF,
+               (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_BombsToRupee, ItemEffect_None, (s16)-1, (s16)-1), // Bombs (5)
+
+      ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL, 0x8D, 0x0029, 0x0094, (s8)0xFF, (s8)0xFF,
+               (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Deku Nuts (5)
+
+      ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL, 0x98, 0x0014, 0x00B0, (s8)0xFF, (s8)0xFF,
+               (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Bombchus (10)
+
+      ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_SMALL, 0x10, 0x0022, 0x00BF, (s8)0xFF, (s8)0xFF,
+               (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_PlaceMagicArrowsInInventory, (s16)0, (s16)-1), // Hero's Bow
+
   };
 
 } // namespace rnd

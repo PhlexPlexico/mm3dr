@@ -19,6 +19,7 @@ namespace rnd {
   void ItemEffect_GiveDoubleMagic(game::CommonData *comData, s16 arg1, s16 arg2);
   void ItemEffect_GiveOcarina(game::CommonData *comData, s16 arg1, s16 arg2);
   void ItemEffect_GiveSong(game::CommonData *comData, s16 questBit, s16 arg2);
+  void ItemEffect_PlaceMagicArrowsInInventory(game::CommonData *comData, s16 questBit, s16 arg2);
   void ItemEffect_GiveUpgrade(game::CommonData *comData, s16 arg1, s16 arg2);
   void ItemEffect_IceTrap(game::CommonData *comData, s16 arg1, s16 arg2);
   void ItemEffect_BeanPack(game::CommonData *comData, s16 arg1, s16 arg2);

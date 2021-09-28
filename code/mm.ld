@@ -48,6 +48,17 @@ SECTIONS{
 		*(.patch_IncomingGetItemID)
 	}
 
+	.patch_readGamePad 0x59BA10 : {
+		*(.patch_readGamePad)
+	}
+
+	.patch_disableExistingTrigger 0x59BA14 : {
+		*(.patch_disableExistingTrigger)
+	}
+
+	.patch_itemCloseOnSelect 0x5C19E4 : {
+		*(.patch_itemCloseOnSelect)
+	}
 	. = 0x61CD8C;
 	/* Addr already 4 byte aligned! */
 	/* . = ALIGN(4); */

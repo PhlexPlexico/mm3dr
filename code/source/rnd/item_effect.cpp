@@ -41,125 +41,141 @@ namespace rnd {
     }
   }
 
-  void ItemEffect_GiveSmallKey(game::CommonData *saveCtx, s16 dungeonId, s16 arg2) {
+  void ItemEffect_GiveSmallKey(game::CommonData *comData, s16 dungeonId, s16 arg2) {
     s8 keys;
     switch (dungeonId) {
     case 0:
-      keys = saveCtx->save.inventory.woodfall_temple_keys < 0 ? 0 : saveCtx->save.inventory.woodfall_temple_keys;
-      saveCtx->save.inventory.woodfall_temple_keys = keys + 1;
+      keys = comData->save.inventory.woodfall_temple_keys < 0 ? 0 : comData->save.inventory.woodfall_temple_keys;
+      comData->save.inventory.woodfall_temple_keys = keys + 1;
       break;
     case 1:
-      keys = saveCtx->save.inventory.snowhead_temple_keys < 0 ? 0 : saveCtx->save.inventory.snowhead_temple_keys;
-      saveCtx->save.inventory.snowhead_temple_keys = keys + 1;
+      keys = comData->save.inventory.snowhead_temple_keys < 0 ? 0 : comData->save.inventory.snowhead_temple_keys;
+      comData->save.inventory.snowhead_temple_keys = keys + 1;
       break;
     case 2:
-      keys = saveCtx->save.inventory.great_bay_temple_keys < 0 ? 0 : saveCtx->save.inventory.great_bay_temple_keys;
-      saveCtx->save.inventory.great_bay_temple_keys = keys + 1;
+      keys = comData->save.inventory.great_bay_temple_keys < 0 ? 0 : comData->save.inventory.great_bay_temple_keys;
+      comData->save.inventory.great_bay_temple_keys = keys + 1;
       break;
     case 3:
-      keys = saveCtx->save.inventory.stone_tower_temple_keys < 0 ? 0 : saveCtx->save.inventory.stone_tower_temple_keys;
-      saveCtx->save.inventory.stone_tower_temple_keys = keys + 1;
+      keys = comData->save.inventory.stone_tower_temple_keys < 0 ? 0 : comData->save.inventory.stone_tower_temple_keys;
+      comData->save.inventory.stone_tower_temple_keys = keys + 1;
       break;
     default:
       break;
     }
   }
 
-  void ItemEffect_GiveDoubleMagic(game::CommonData *saveCtx, s16 arg1, s16 arg2) {
-    saveCtx->save.player.magic_size_type = 2;
-    saveCtx->magic_max_2 = 2;
-    saveCtx->save.player.magic_num_upgrades = 1;
-    saveCtx->save.player.magic_acquired = 3;
+  void ItemEffect_GiveDoubleMagic(game::CommonData *comData, s16 arg1, s16 arg2) {
+    comData->save.player.magic_size_type = 2;
+    comData->magic_max_2 = 2;
+    comData->save.player.magic_num_upgrades = 1;
+    comData->save.player.magic_acquired = 3;
     // So you can't use the shoot button without nuts assigned to B. If they are not assigned, assign them.
-    if (saveCtx->save.equipment.data[3].item_btns[0] != game::ItemId::DekuNuts)
-      saveCtx->save.equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
-    saveCtx->magic_accumulator = 0x60; // Fill meter
+    if (comData->save.equipment.data[3].item_btns[0] != game::ItemId::DekuNuts)
+      comData->save.equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
+    comData->magic_accumulator = 0x60; // Fill meter
     return;
   }
 
-  void ItemEffect_GiveOcarina(game::CommonData *saveCtx, s16 arg1, s16 arg2) {
+  void ItemEffect_GiveOcarina(game::CommonData *comData, s16 arg1, s16 arg2) {
     game::GiveItem(game::ItemId::Ocarina);
     return;
   }
 
   // TODO
-  /*  void ItemEffect_IceTrap(SaveContext* saveCtx, s16 arg1, s16 arg2) {
+  /*  void ItemEffect_IceTrap(SaveContext* comData, s16 arg1, s16 arg2) {
       IceTrap_Push((u16)arg1 << 16 | (u16)arg2);
   }*/
 
-  void ItemEffect_GiveSong(game::CommonData *saveCtx, s16 questBit, s16 arg2) {
+  void ItemEffect_GiveSong(game::CommonData *comData, s16 questBit, s16 arg2) {
     game::GiveItem((game::ItemId)questBit);
-    //saveCtx->save.inventory.collect_register[questBit] = 1;
+    //comData->save.inventory.collect_register[questBit] = 1;
 
     // give epona for Skip Epona Race setting
     // TODO: Skip shooting test.
     /*if (questBit == 14 && gSettingsContext.skipEponaRace == SKIP) {
-        saveCtx->eventChkInf[0x1] |= 0x0100;
+        comData->eventChkInf[0x1] |= 0x0100;
         gSaveContext.horseData.pos.y = 0xF000; // place Epona OoB, so you can't reach her without playing the song
     }*/
   }
 
-  void ItemEffect_GiveUpgrade(game::CommonData *saveCtx, s16 arg1, s16 arg2) {
+  void ItemEffect_PlaceMagicArrowsInInventory(game::CommonData *comData, s16 arg1, s16 arg2) {
+    if (arg1 == 0) { // Fairy Bow
+        SaveFile_ResetItemSlotsIfMatchesID((u8)game::ItemId::FireArrow);
+        SaveFile_ResetItemSlotsIfMatchesID((u8)game::ItemId::IceArrow);
+        SaveFile_ResetItemSlotsIfMatchesID((u8)game::ItemId::LightArrow);
+    } else if (game::HasItem(game::ItemId::Arrow)) {
+        if (arg1 == 1 && !game::HasItem(game::ItemId::FireArrow)) { // Fire Arrow
+            game::GiveItem(game::ItemId::FireArrow);
+        } else if (arg1 == 2 && !game::HasItem(game::ItemId::IceArrow)) { // Ice Arrow
+            game::GiveItem(game::ItemId::IceArrow);
+        } else if (arg1 == 3 && !game::HasItem(game::ItemId::LightArrow)) { // Light Arrow
+            game::GiveItem(game::ItemId::LightArrow);
+        }
+    }
+}
+
+  void ItemEffect_GiveUpgrade(game::CommonData *comData, s16 arg1, s16 arg2) {
     // This takes care of the item upgrade in inventory_count_register.
     util::GetPointer<void(u8, u8)>(0x023BF4C)(arg2, arg1);
     if (gSettingsContext.ammoDrops == (u8)AmmoDropsSetting::AMMODROPS_NONE) {
       switch (arg2) {
       // Arrows
       case 0:
-        saveCtx->save.inventory.item_counts[6] += 10;
+        comData->save.inventory.item_counts[6] += 10;
         break;
       // Bombs
       case 1:
-        saveCtx->save.inventory.item_counts[11] += 10;
+        comData->save.inventory.item_counts[11] += 10;
         break;
       // Deku Sticks
       case 6:
-        saveCtx->save.inventory.items[(u32)game::ItemId::DekuStick] = game::ItemId::DekuStick;
-        saveCtx->save.inventory.item_counts[13] += 10;
+        comData->save.inventory.items[(u32)game::ItemId::DekuStick] = game::ItemId::DekuStick;
+        comData->save.inventory.item_counts[13] += 10;
         break;
       // Deku Nuts
       case 7:
-        saveCtx->save.inventory.items[(u32)game::ItemId::DekuNuts] = game::ItemId::DekuNuts;
-        saveCtx->save.inventory.item_counts[14] += 10;
+        comData->save.inventory.items[(u32)game::ItemId::DekuNuts] = game::ItemId::DekuNuts;
+        comData->save.inventory.item_counts[14] += 10;
         break;
       }
     } else {
       switch (arg2) {
       case 0:
-        saveCtx->save.inventory.item_counts[6] = (20 + 10 * arg1);
+        comData->save.inventory.item_counts[6] = (20 + 10 * arg1);
         break;
       case 1:
-        saveCtx->save.inventory.item_counts[11] = (10 + 10 * arg1);
+        comData->save.inventory.item_counts[11] = (10 + 10 * arg1);
         break;
       case 6:
-        saveCtx->save.inventory.items[(u32)game::ItemId::DekuStick] = game::ItemId::DekuStick;
-        saveCtx->save.inventory.item_counts[13] = (10 * arg1);
+        comData->save.inventory.items[(u32)game::ItemId::DekuStick] = game::ItemId::DekuStick;
+        comData->save.inventory.item_counts[13] = (10 * arg1);
         break;
       case 7:
-        saveCtx->save.inventory.items[(u32)game::ItemId::DekuNuts] = game::ItemId::DekuNuts;
-        saveCtx->save.inventory.item_counts[14] = (10 + 10 * arg1);
+        comData->save.inventory.items[(u32)game::ItemId::DekuNuts] = game::ItemId::DekuNuts;
+        comData->save.inventory.item_counts[14] = (10 + 10 * arg1);
         break;
       }
     }
   }
 
-  void ItemEffect_BeanPack(game::CommonData *saveCtx, s16 arg1, s16 arg2) {
+  void ItemEffect_BeanPack(game::CommonData *comData, s16 arg1, s16 arg2) {
     game::GiveItem(game::ItemId::MagicBean);
-    saveCtx->save.inventory.item_counts[15] += 10; // 10 Magic Beans
+    comData->save.inventory.item_counts[15] += 10; // 10 Magic Beans
     return;
   }
 
-  void ItemEffect_FillWalletUpgrade(game::CommonData *saveCtx, s16 arg1, s16 arg2) {
+  void ItemEffect_FillWalletUpgrade(game::CommonData *comData, s16 arg1, s16 arg2) {
     if (gSettingsContext.startingMaxRupees) {
         if (arg1 == 1) {
-            saveCtx->save.rupee_accumulator = 200;
+            comData->save.rupee_accumulator = 200;
         } else if (arg1 == 2) {
-            saveCtx->save.rupee_accumulator = 500;
+            comData->save.rupee_accumulator = 500;
         }
     }
   }
 
-  void ItemEffect_GiveMedallion(game::CommonData *saveCtx, s16 mask, s16 arg2) {
+  void ItemEffect_GiveMedallion(game::CommonData *comData, s16 mask, s16 arg2) {
     game::GiveItem((game::ItemId)mask);
   }
 

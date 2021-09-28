@@ -29,6 +29,14 @@ hook_IncomingGetItemID:
     pop {r0-r12, lr}
     bx lr
 
+.global hook_readGamePad
+hook_readGamePad:
+    push {r0-r12, lr}
+    bl readPadInput
+    pop {r0-r12, lr}
+    tst r0,r1
+    b 0x59ba14
+
 .section .loader
 .global hook_into_loader
 hook_into_loader:

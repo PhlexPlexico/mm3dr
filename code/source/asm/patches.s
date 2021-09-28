@@ -51,6 +51,21 @@ patch_ISGCrouchStabTwo:
     nop
     nop
 
+.section .patch_readGamePad
+.global patch_readGamePad
+patch_readGamePad:
+    b hook_readGamePad
+
+.section .patch_disableExistingTrigger
+.global patch_disableExistingTrigger
+patch_disableExistingTrigger:
+    b 0x059bb60 @branches past all the checks for button presses and whatnot. We override all of this.
+
+.section .patch_itemCloseOnSelect
+.global patch_itemCloseOnSelect
+patch_itemCloseOnSelect:
+    tst r1, #14
+
 .section .patch_fasterBlockMovement
 .global patch_fasterBlockMovement
 patch_fasterBlockMovement:

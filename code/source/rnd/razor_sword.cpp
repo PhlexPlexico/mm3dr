@@ -11,7 +11,9 @@ namespace rnd {
       return Bias(Hash(randomInt)) + 1;
     case RSDURABILITYSetting::RSDURABILITY_RANDOMSAFE:
       return 10 + (randomInt % 41);
+    case RSDURABILITYSetting::RSDURABILITY_VANILLA:
+      return 100;
     }
-    return 8;
+    return 100;
   }
 }

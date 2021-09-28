@@ -1,36 +1,68 @@
 #include "common/advanced_context.h"
+#include "game/common_data.h"
 #include "game/context.h"
 #include "game/sound.h"
 #include "game/states/state.h"
+#include "game/ui.h"
 #include "z3d/z3Dvec.h"
-namespace rnd
-{
-  void Init(Context &context)
-  {    
+namespace rnd {
+  void Init(Context &context) {
     // XXX: Temp switch to ensure patch is running.
     game::sound::PlayEffect(game::sound::EffectId::NA_SE_SY_CLEAR1);
     context.has_initialised = true;
   }
-  extern "C"
-  {
-    /*char* fake_heap_start;
+  extern "C" {
+  /*char* fake_heap_start;
     char* fake_heap_end;
     extern void (*__init_array_start[])(void) __attribute__((weak));
     extern void (*__init_array_end[])(void) __attribute__((weak));*/
-    void calc(game::State *state)
-    {
-      Context &context = GetContext();
-      context.gctx = nullptr;
+  void calc(game::State *state) {
+    Context &context = GetContext();
+    context.gctx = nullptr;
 
-      if (!context.has_initialised && state->type == game::StateType::FirstGame)
-        Init(context);
-      if (state->type != game::StateType::Play)
-        return;
-      //
-      context.gctx = static_cast<game::GlobalContext*>(state);
+    if (!context.has_initialised && state->type == game::StateType::FirstGame)
+      Init(context);
+    if (state->type != game::StateType::Play)
+      return;
+    //
+    context.gctx = static_cast<game::GlobalContext *>(state);
+    return;
+  }
+  void readPadInput() {
+    auto *gctx = GetContext().gctx;
+    if (!gctx || gctx->type != game::StateType::Play)
+      return;
+
+    const bool zr = gctx->pad_state.input.buttons.IsSet(game::pad::Button::ZR);
+    const bool start = gctx->pad_state.input.new_buttons.IsSet(game::pad::Button::Start);
+    const bool select = gctx->pad_state.input.new_buttons.IsSet(game::pad::Button::Select);
+    if (!zr && select) {
+      game::ui::OpenScreen(game::ui::ScreenType::Masks);
       return;
     }
-    /*void _start(void)
+      
+    if (start && !zr) {
+      game::ui::OpenScreen(game::ui::ScreenType::Items);
+      return;
+    }
+      
+    if (zr && start) {
+      if (game::GetCommonData().save.inventory.collect_register.bombers_notebook != 0)
+        game::ui::OpenScreen(game::ui::ScreenType::Schedule);
+      else game::ui::OpenScreen(game::ui::ScreenType::Items);
+      return;
+    }
+      
+    if (zr && select) {
+      // Clear map screen type. (Needed because the screen could be in "soaring" mode.)
+      util::Write<u8>(game::ui::GetScreen(game::ui::ScreenType::Map), 0x78E, 0);
+      game::ui::OpenScreen(game::ui::ScreenType::Map);
+      gctx->pad_state.input.buttons.Clear(game::pad::Button::Select);
+      gctx->pad_state.input.new_buttons.Clear(game::pad::Button::Select);
+      return;
+    }
+  }
+  /*void _start(void)
     {
       // Just in case something needs to be dynamically allocated...
       static char s_fake_heap[0x80000];
@@ -41,4 +73,5 @@ namespace rnd
         __init_array_start[i]();
     }*/
   }
+
 }

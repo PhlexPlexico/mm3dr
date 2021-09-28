@@ -52,7 +52,7 @@ namespace rnd {
     /* 0x28 */ GI_NUTS_1,
     /* 0x29 */ GI_NUTS_5,
     /* 0x2A */ GI_NUTS_10,
-    /* 0x2B */ //GI_NUTS_30, // ***ERROR TEXT
+    /* 0x2B */ GI_NUTS_30, // ***ERROR TEXT
     /* 0x2C */ //GI_ERROR_MAX_NUT, // ***ERROR TEXT MaxNut
     /* 0x2D */ //GI_UNK_2D, // Softlock
     /* 0x2E */ GI_BOMBCHU_20 = 0x2E,
