@@ -60,7 +60,7 @@ enum class ItemId : u8 {
   LetterToKafei = 0x2f,
   PendantOfMemories = 0x30,
 
-  MapUnused = 0x31,
+  MapUnused = 0x31, // Actually, used when buying from Tingle!
 
   DekuMask = 0x32,
   GoronMask = 0x33,
@@ -147,6 +147,50 @@ enum class ItemId : u8 {
   Map = 0x76,
   StrayFairy = 0x77,
   SmallKey = 0x78,
+
+  SmallMagicAccumulator = 0x79,
+  BigMagicAccumulator = 0x7a,
+  PieceOfHeartAgain = 0x7b,
+  TwinmoldAndGyorgRemains = 0x7c,
+  RemoveNonPrimaryOcarinas = 0x7d,
+  ISOTAndScarecrow = 0x7e,
+  FourthPieceOfHeart = 0x7f, // Note: Just fills up on item screen.
+  UnkOcarinaSlot = 0x80,
+  TakeAwayLightArrows = 0x81,
+  X82 = 0x82,
+  RecoveryHeart = 0x83,
+  OneRupee = 0x84,
+  FiveRupees = 0x85,
+  TenRupees = 0x86,
+  TwentyRupees = 0x87,
+  FiftyRupees = 0x88, // Note: These all go straight to the accumulator.
+  OneHundredRupees = 0x89,
+  TwoHundredRupees = 0x8a,
+  TenSticks = 0x8b,
+  TenSticksAgain = 0x8c,
+  FiveNuts = 0x8d,
+  TenNuts = 0x8e,
+  FiveBombs  = 0x8f, // These are no item above head and allows player to move around with textbox for GetItem Tables.
+  TenBombs  = 0x90, // These are no item above head and allows player to move around with textbox for GetItem Tables.
+  TwentyBombs  = 0x91, // These are no item above head and allows player to move around with textbox for GetItem Tables.
+  ThirtyBombs  = 0x92, // These are no item above head and allows player to move around with textbox for GetItem Tables.
+  TenArrows = 0x93,
+  ThirtyArrows = 0x94,
+  FourtyArrows = 0x95,
+  FiftyArrows = 0x96,
+  OneBombchu = 0x97, // These are no item above head and allows player to move around with textbox for GetItem Tables.
+  TenBombchus = 0x98, // These are no item above head and allows player to move around with textbox for GetItem Tables.
+  OneBombchuAgain= 0x99, // These are no item above head and allows player to move around with textbox for GetItem Tables.
+  FiveBombchu = 0x9a, // These are no item above head and allows player to move around with textbox for GetItem Tables.
+  TwentySticks = 0x9b,
+  ThirtySticks = 0x9c,
+  ThirtyNuts = 0x9d,
+  FortyNuts = 0x9e,
+  ChateauRomaniFill = 0x9f, // Gives one bottle, then fills any empty bottles.
+  MilkFill = 0xa0, // Gives one bottle, then fills any empty bottles.
+  GoldDustFill = 0xa1, // Gives one bottle, then fills any empty bottles.
+  MysteryMilkFill = 0xa2, // Gives one bottle, then fills any empty bottles. Do not use as it does not set timer to 2 mins.
+  SeahorseFill = 0xa3, // Gives one bottle, then fills any empty bottles.
 
   None = 0xff,
 };
