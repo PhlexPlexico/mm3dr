@@ -1,5 +1,6 @@
 #include "rnd/item_override.h"
 
+#include "rnd/icetrap.h"
 #include "rnd/item_table.h"
 #include "rnd/rheap.h"
 #include "rnd/savefile.h"
@@ -175,14 +176,14 @@ namespace rnd {
   }
 
   static void ItemOverride_PopIceTrap(void) {
-    // TODO: Figure out ice traps?
-    // ItemOverride_Key key = rPendingOverrideQueue[0].key;
-    // ItemOverride_Value value = rPendingOverrideQueue[0].value;
-    // if (value.itemId == 0x7C) {
-    //     IceTrap_Push(key.all);
-    //     ItemOverride_PopPendingOverride();
-    //     ItemOverride_AfterKeyReceived(key);
-    // }
+    ItemOverride_Key key = rPendingOverrideQueue[0].key;
+    ItemOverride_Value value = rPendingOverrideQueue[0].value;
+    // TODO: Make Ice Trap Item IDs.
+    if (value.itemId == 0x7C) {
+        IceTrap_Push();
+        ItemOverride_PopPendingOverride();
+        ItemOverride_AfterKeyReceived(key);
+    }
   }
 
   static u32 ItemOverride_PlayerIsReady(void) {
@@ -249,18 +250,18 @@ namespace rnd {
   }
 
   void ItemOverride_Update(void) {
-    // TODO: Custom models, ice traps, trade items.
+    // TODO: Custom models, trade items.
     /*ItemOverride_CheckStartingItem();
     ItemOverride_CheckZeldasLetter();
     IceTrap_Update();
     CustomModel_Update();*/
     if (ItemOverride_PlayerIsReady()) {
-        /*ItemOverride_PopIceTrap();
+        ItemOverride_PopIceTrap();
         if (IceTrap_IsPending()) {
             IceTrap_Give();
         } else {
             ItemOverride_TryPendingItem();
-        }*/
+        }
         ItemOverride_TryPendingItem();
     }
     

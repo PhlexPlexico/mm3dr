@@ -4,6 +4,7 @@
 #include "game/sound.h"
 #include "game/states/state.h"
 #include "game/ui.h"
+#include "rnd/icetrap.h"
 #include "rnd/item_override.h"
 #include "rnd/rheap.h"
 #include "z3d/z3Dvec.h"
@@ -31,6 +32,7 @@ namespace rnd {
       return;
     context.gctx = static_cast<game::GlobalContext *>(state);
     // Before calling let's be absolutely sure we have the player available.
+    if(context.gctx->pad_state.input.buttons.IsSet(game::pad::Button::ZR)) IceTrap_Give();
     if(context.gctx->GetPlayerActor())
       ItemOverride_Update();
     return;
