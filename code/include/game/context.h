@@ -168,7 +168,7 @@ struct GlobalContext : State {
   act::Actor* SpawnActor(act::Id id, u16 rx, u16 ry, u16 rz, u16 param, z3dVec3f pos);
   void ChangeActorType(act::Actor& actor, act::Type type);
 
-  void ShowMessage(u16 msgid, int unknown = 0);
+  void ShowMessage(u16 msgid, act::Actor* = 0x0);
   void Talk(act::Actor* actor, int a = 0);
 
   void EmitLastDamageSound(const act::Actor& actor);

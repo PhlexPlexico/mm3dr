@@ -216,7 +216,7 @@ struct Player : public Actor {
   u8 gap_904[8];
   char field_914[4];
   u32 door;
-  u32 get_item_id_maybe; // Index+1 to the get item ID table.
+  u32 get_item_id; // Index+1 to the get item ID table.
   Actor* grabbable_actor;
   u8 gap_924[4];
   u32 field_928;

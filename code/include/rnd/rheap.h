@@ -3,8 +3,9 @@
 
 #include "z3D/z3Dvec.h"
 
-
-void rHeap_Init(void);
-void* rHeap_Alloc(u32 bytes);
+namespace rnd {
+  void rHeap_Init(void);
+  void *rHeap_Alloc(u32 bytes);
+} // namespace rnd
 
 #endif //_RND_RHEAP_H_

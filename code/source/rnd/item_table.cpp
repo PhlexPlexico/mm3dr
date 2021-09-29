@@ -37,7 +37,7 @@ namespace rnd {
 
       ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL, (u8)game::ItemId::DekuStick, 0x0019, 0x009F, (s8)0xFF, (s8)0xFF,
                (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Deku Stick
-      
+
       ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL, (u8)game::ItemId::LensOfTruth, 0x0042, 0x00C0, (s8)0xFF, (s8)0xFF,
                (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Lens of Truth
 
@@ -64,7 +64,7 @@ namespace rnd {
 
       ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::DekuPrincess, 0x005F, 0x009E, (s8)0xFF, (s8)0xFF,
                (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Bottled Deku Princess
-      
+
       ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::Milk, 0x0060, 0x00B6, (s8)0xFF, (s8)0xFF,
                (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Bottled Milk
 
@@ -78,5 +78,41 @@ namespace rnd {
                (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Bottled Big Poe
 
   };
+
+  ItemRow *ItemTable_GetItemRow(u16 itemId) {
+    if (itemId >= ARR_SIZE(rItemTable)) {
+      return NULL;
+    }
+    ItemRow *itemRow = &rItemTable[itemId];
+    if (itemRow->baseItemId == 0) {
+      return NULL;
+    }
+    return itemRow;
+  }
+
+  ItemRow *ItemTable_GetItemRowFromIndex(u8 rowIndex) {
+    return &rItemTable[rowIndex];
+  }
+
+  void ItemTable_SetBombchusChestType(u8 type) {
+    //rItemTable[0x6B].chestType = type;
+  }
+
+  u16 ItemTable_ResolveUpgrades(u16 itemId) {
+    game::SaveData &gSaveContext = game::GetCommonData().save;
+    for (;;) {
+      ItemRow *itemRow = ItemTable_GetItemRow(itemId);
+      u16 newItemId = (u16)itemRow->upgrade(&gSaveContext, (GetItemID)itemId);
+      if (newItemId == itemId) {
+        return itemId;
+      }
+      itemId = newItemId;
+    }
+  }
+
+  void ItemTable_CallEffect(ItemRow *itemRow) {
+    game::CommonData &commonData = game::GetCommonData();
+    itemRow->effect(&commonData, itemRow->effectArg1, itemRow->effectArg2);
+  }
 
 } // namespace rnd

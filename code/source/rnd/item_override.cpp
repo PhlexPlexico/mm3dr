@@ -1,8 +1,8 @@
 #include "rnd/item_override.h"
-#include "common/debug.h"
-#include "game/items.h"
-//#include "rnd/item_table.h"
+
+#include "rnd/item_table.h"
 #include "rnd/rheap.h"
+#include "rnd/savefile.h"
 
 namespace rnd {
   static s32 rItemOverrides_Count = 0;
@@ -10,8 +10,7 @@ namespace rnd {
   static game::act::Actor *rDummyActor = NULL;
   static ItemOverride rPendingOverrideQueue[3] = {0};
   static ItemOverride rActiveItemOverride = {0};
-  //TODO: Create ItemRow from the enum class.
-  //ItemRow* rActiveItemRow = NULL;
+  ItemRow *rActiveItemRow = NULL;
   // Split active_item_row into variables for convenience in ASM
   u32 rActiveItemActionId = 0;
   u32 rActiveItemTextId = 0;
@@ -21,14 +20,24 @@ namespace rnd {
 
   static u8 rSatisfiedPendingFrames = 0;
 
+  void ItemOverride_Init(void) {
+    while (rItemOverrides[rItemOverrides_Count].key.all != 0) {
+      rItemOverrides_Count++;
+    }
+
+    // Create an actor satisfying the minimum requirements to give the player an item
+    rDummyActor = (game::act::Actor *)rHeap_Alloc(sizeof(game::act::Actor));
+    rDummyActor->calc_fn = (game::act::MainFunc *)1;
+    rDummyActor->parent_actor = NULL;
+  }
+
   static ItemOverride_Key ItemOverride_GetSearchKey(game::act::Actor *actor, u8 scene, u8 itemId) {
 
     game::CommonData &cdata = game::GetCommonData();
     ItemOverride_Key retKey;
-    svcOutputDebugString((const char *)actor->actor_type, sizeof(actor->actor_type));
     if (actor->actor_type == game::act::Type::Chest) {
 
-      // Chest
+      // XXX: Any games like H&D or chest game to not swap?
       // Don't override WINNER purple rupee in the chest minigame scene
       // if (scene == 0x10) {
       //     u32 chestItemId = (actor->params >> 5) & 0x7F;
@@ -41,11 +50,11 @@ namespace rnd {
       retKey.type = ItemOverride_Type::OVR_CHEST;
       retKey.flag = actor->params & 0x1F;
       return retKey;
-    } else if (actor->actor_type == game::act::Type::Item) { // Collectible
+    } else if (actor->actor_type == game::act::Type::Misc) { // Heart pieces are misc apparently
       // Only override heart pieces and keys
       u32 collectibleType = actor->params & 0xFF;
-      // TODO: These are not correct item types? Should be 0x70 and 0x78?
-      if (collectibleType != 0x70 && collectibleType != 0x78) {
+      // XXX: AFAIK These are correct. Heart piece was checked.
+      if (collectibleType != 0x06 && collectibleType != 0x11) {
         return (ItemOverride_Key){.all = 0};
       }
       retKey.scene = scene;
@@ -98,8 +107,8 @@ namespace rnd {
   }
 
   static void ItemOverride_Activate(ItemOverride override) {
-    //u16 resolvedItemId = ItemTable_ResolveUpgrades(override.value.itemId);
-    //ItemRow* itemRow = ItemTable_GetItemRow(resolvedItemId);
+    u16 resolvedItemId = ItemTable_ResolveUpgrades(override.value.itemId);
+    ItemRow *itemRow = ItemTable_GetItemRow(resolvedItemId);
     u8 looksLikeItemId = override.value.looksLikeItemId;
 
     if (override.value.itemId == 0x7C) { // Ice trap
@@ -107,17 +116,17 @@ namespace rnd {
     }
 
     rActiveItemOverride = override;
-    //rActiveItemRow = itemRow;
-    //rActiveItemActionId = itemRow->actionId;
-    //rActiveItemTextId = itemRow->textId;
-    //rActiveItemObjectId = itemRow->objectId;
-    //rActiveItemGraphicId = looksLikeItemId ? ItemTable_GetItemRow(looksLikeItemId)->graphicId : itemRow->graphicId;
-    //rActiveItemFastChest = itemRow->chestType & 0x01;
+    rActiveItemRow = itemRow;
+    rActiveItemActionId = itemRow->itemId;
+    rActiveItemTextId = itemRow->textId;
+    rActiveItemObjectId = itemRow->objectId;
+    rActiveItemGraphicId = looksLikeItemId ? ItemTable_GetItemRow(looksLikeItemId)->graphicId : itemRow->graphicId;
+    rActiveItemFastChest = (u32)itemRow->chestType & 0x01;
   }
 
   static void ItemOverride_Clear(void) {
     rActiveItemOverride = (ItemOverride){0};
-    //rActiveItemRow = NULL;
+    rActiveItemRow = NULL;
     rActiveItemActionId = 0;
     rActiveItemTextId = 0;
     rActiveItemObjectId = 0;
@@ -175,24 +184,42 @@ namespace rnd {
     //     ItemOverride_AfterKeyReceived(key);
     // }
   }
+
   static u32 ItemOverride_PlayerIsReady(void) {
-    // TODO: Flag checks on link.
-    // if ((PLAYER->stateFlags1 & 0xFCAC2485) == 0 && (PLAYER->actor.bgCheckFlags & 0x0001) &&
-    //     (PLAYER->stateFlags2 & 0x000C0000) == 0 && PLAYER->actor.draw != NULL &&
-    //     gGlobalContext->actorCtx.titleCtx.delayTimer == 0 && gGlobalContext->actorCtx.titleCtx.durationTimer == 0 &&
-    //     gGlobalContext->actorCtx.titleCtx.alpha == 0
-    //     // && (z64_event_state_1 & 0x20) == 0 //TODO
-    //     // && (z64_game.camera_2 == 0) //TODO
-    // ) {
-    //     rSatisfiedPendingFrames++;
-    // } else {
-    //     rSatisfiedPendingFrames = 0;
-    // }
-    // if (rSatisfiedPendingFrames >= 2) {
-    //     rSatisfiedPendingFrames = 0;
-    //     return 1;
-    // }
-    // return 0;
+    // Using MMR's can receive item call - use the animation IDs to determine whether
+    // we can receive item. Adjust pending frames as some items may softlock?
+    game::GlobalContext *gctx = rnd::GetContext().gctx;
+    if(!gctx || gctx->type != game::StateType::Play) return 0;
+    game::act::Player *player = gctx->GetPlayerActor();
+    if(!player) return 0;
+    u32 currentAniId = player->player_util.state.id;
+    switch (currentAniId) {
+    case 0x32D: // Rolling - Human, Goron
+    case 0x11F: // Zora Rolling
+    case 0x07A: // FD Rolling
+    case 0x150: // Deku idle
+    case 0x339: // Goron idle
+    case 0x183: // Human idle
+    case 0x2CF: // Zora idle
+    case 0x0C2: // FD idle
+    case 0x225: // Walking with Sword
+    case 0x135: // Walking - Human, Deku, Zora, Goron
+    case 0x155: // Walking - Human, Deku, Zora, Goron
+    case 0x158: // Walking - Human, Deku, Zora, Goron
+    case 0x0B9: // Walking - FD
+    case 0x0DC: // Backwalking after backflip - all forms
+    case 0x0BC: // Sidewalking - DF
+    case 0x13D: // Sidewalking
+      rSatisfiedPendingFrames++;
+      break;
+    default:
+      rSatisfiedPendingFrames = 0;
+    }
+    if (rSatisfiedPendingFrames >= 2) {
+      rSatisfiedPendingFrames = 0;
+      return 1;
+    }
+    return 0;
   }
 
   static void ItemOverride_TryPendingItem(void) {
@@ -205,8 +232,7 @@ namespace rnd {
     if (rDummyActor->parent_actor == NULL) {
       ItemOverride_Activate(override);
       player->grabbable_actor = rDummyActor;
-      // TODO: rActiveItemRow need to create item_table.
-      //player->get_item_id_maybe = rActiveItemRow->baseItemId;
+      player->get_item_id = rActiveItemRow->baseItemId;
     } else {
       rDummyActor->parent_actor = NULL;
       ItemOverride_PopPendingOverride();
@@ -223,38 +249,36 @@ namespace rnd {
   }
 
   void ItemOverride_Update(void) {
-    // TODO
+    // TODO: Custom models, ice traps, trade items.
     /*ItemOverride_CheckStartingItem();
     ItemOverride_CheckZeldasLetter();
     IceTrap_Update();
     CustomModel_Update();*/
-    /*if (ItemOverride_PlayerIsReady()) {
-        ItemOverride_PopIceTrap();
+    if (ItemOverride_PlayerIsReady()) {
+        /*ItemOverride_PopIceTrap();
         if (IceTrap_IsPending()) {
             IceTrap_Give();
         } else {
             ItemOverride_TryPendingItem();
-        }
-    }*/
-    ItemOverride_TryPendingItem();
+        }*/
+        ItemOverride_TryPendingItem();
+    }
+    
   }
 
   void ItemOverride_GetItemTextAndItemID(game::act::Actor *actor) {
-    // TODO: rActiveItemRow need to create item_table.
-    /*if (rActiveItemRow != NULL) {
-        u16 textId = rActiveItemRow->textId;
-        u8 actionId = rActiveItemRow->actionId;
+    if (rActiveItemRow != NULL) {
+      game::GlobalContext *gctx = rnd::GetContext().gctx;
+      u16 textId = rActiveItemRow->textId;
+      u8 itemId = rActiveItemRow->itemId;
 
-        ItemTable_CallEffect(rActiveItemRow);
-        if (actionId == ITEM_SKULL_TOKEN) {
-            Item_Give(gGlobalContext, actionId);
-            DisplayTextbox(gGlobalContext, textId, actor);
-        } else {
-            DisplayTextbox(gGlobalContext, textId, actor);
-            Item_Give(gGlobalContext, actionId);
-        }
-        ItemOverride_AfterItemReceived();
-    }*/
+      ItemTable_CallEffect(rActiveItemRow);
+      gctx->ShowMessage(textId, actor);
+      // Get_Item_Handler.
+      rnd::util::GetPointer<int(game::GlobalContext *, game::ItemId)>(0x233BEC)(
+          gctx, (game::ItemId)itemId);
+      ItemOverride_AfterItemReceived();
+    }
   }
 
   void ItemOverride_EditDrawGetItemBeforeModelSpawn(void) {
@@ -348,27 +372,30 @@ namespace rnd {
       s8 itemId = incomingNegative ? -incomingItemId : incomingItemId;
       override = ItemOverride_Lookup(fromActor, (u8)gctx->scene, itemId);
     }
-
+    if (override.key.all == 0) {
+      ItemOverride_Clear();
+      player->get_item_id = incomingItemId;
+      return;
+    }
     // No override, use base game's item code
     ItemOverride_Clear();
     ItemOverride_Activate(override);
-    //s8 baseItemId = rActiveItemRow->baseItemId;
-    s8 baseItemId = 0x90;
+    s8 baseItemId = rActiveItemRow->baseItemId;
     if (fromActor->actor_type == game::act::Type::Chest) {
-      // Update chest contents
-      if (override.value.itemId == 0x7C) {
+      // TODO: Ice Trap - Update chest contents
+      /*if (override.value.itemId == 0x7C) {
         // Use ice trap base item ID
         baseItemId = 0x7C;
-      }
+      }*/
       fromActor->params = (fromActor->params & 0xF01F) | (baseItemId << 5);
     }
-    // else if (override.value.itemId == 0x7C)
-    // {
-    //   rActiveItemRow->effectArg1 = override.key.all >> 16;
-    //   rActiveItemRow->effectArg2 = override.key.all & 0xFFFF;
-    // }
-    player->get_item_id_maybe = incomingNegative ? -baseItemId : baseItemId;
-    //player->get_item_id_maybe = (u32)GetItemID::GI_RECOVERY_HEART_SINGLE_THREE;
+    // TODO: Ice Trap
+    /*else if (override.value.itemId == 0x7C)
+    {
+      rActiveItemRow->effectArg1 = override.key.all >> 16;
+      rActiveItemRow->effectArg2 = override.key.all & 0xFFFF;
+    }*/
+    player->get_item_id = incomingNegative ? -baseItemId : baseItemId;
     return;
   }
   }

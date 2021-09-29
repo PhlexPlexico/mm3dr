@@ -2,8 +2,11 @@
 #define _RND_ITEM_OVERRIDE_H
 
 #include "common/advanced_context.h"
+#include "common/debug.h"
 #include "common/utils.h"
 #include "game/common_data.h"
+#include "game/context.h"
+#include "game/items.h"
 #include "z3d/z3Dvec.h"
 
 namespace rnd {
@@ -101,9 +104,9 @@ namespace rnd {
     /* 0x59 */ GI_BOTTLE_POTION_RED,
     /* 0x5A */ GI_BOTTLE_EMPTY,
     /* 0x5B */ GI_POTION_RED, // If all bottles in item screen are full, it gives recovery hearts.
-    /* 0x5C */ GI_POTION_GREEN,
-    /* 0x5D */ GI_POTION_BLUE,
-    /* 0x5E */ GI_FAIRY,
+    /* 0x5C */ GI_POTION_GREEN, // Does not give new bottles.
+    /* 0x5D */ GI_POTION_BLUE, // Does not give new bottles.
+    /* 0x5E */ GI_FAIRY, // Does not give new bottles.
     /* 0x5F */ GI_DEKU_PRINCESS_FAIRY, // Shows Deku Princess Text but gives fairy
     /* 0x60 */ GI_BOTTLE_MILK = 0x60,
     /* 0x61 */ GI_BOTTLE_MILK_HALF, // ***ERROR TEXT Get Item Milk In Hand - Keeps Giving Bottles
@@ -239,6 +242,8 @@ namespace rnd {
   ItemOverride ItemOverride_Lookup(game::act::Actor*, u8, u8);
   void ItemOverride_PushDungeonReward(u8);
   void ItemOverride_CheckStartingItem();
+  void ItemOverride_Init();
+  void ItemOverride_Update();
   extern "C" void ItemOverride_GetItem(game::act::Actor*, game::act::Player*, s8);
   extern "C" int svcOutputDebugString(const char* string, size_t length);
 }

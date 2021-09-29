@@ -39,8 +39,8 @@ void GlobalContext::ChangeActorType(act::Actor& actor, act::Type type) {
   actor.actor_type = type;
 }
 
-void GlobalContext::ShowMessage(u16 msgid, int unknown) {
-  rnd::util::GetPointer<void(GlobalContext*, int msgid, int)>(0x21BAFC)(this, msgid, unknown);
+void GlobalContext::ShowMessage(u16 msgid, act::Actor* actor) {
+  rnd::util::GetPointer<void(GlobalContext*, int msgid, act::Actor*)>(0x21BAFC)(this, msgid, actor);
 }
 
 void GlobalContext::Talk(act::Actor* actor, int a) {

@@ -4,14 +4,19 @@
 #include "game/sound.h"
 #include "game/states/state.h"
 #include "game/ui.h"
+#include "rnd/item_override.h"
+#include "rnd/rheap.h"
 #include "z3d/z3Dvec.h"
 namespace rnd {
   void Init(Context &context) {
     // XXX: Temp switch to ensure patch is running.
+    rHeap_Init();
+    ItemOverride_Init();
     game::sound::PlayEffect(game::sound::EffectId::NA_SE_SY_CLEAR1);
     context.has_initialised = true;
   }
   extern "C" {
+
   /*char* fake_heap_start;
     char* fake_heap_end;
     extern void (*__init_array_start[])(void) __attribute__((weak));
@@ -24,9 +29,10 @@ namespace rnd {
       Init(context);
     if (state->type != game::StateType::Play)
       return;
-    //
     context.gctx = static_cast<game::GlobalContext *>(state);
-    //if(context.gctx->pad_state.input.buttons.IsSet(game::pad::Button::ZR))game::GiveItemWithEffect(0x5F);
+    // Before calling let's be absolutely sure we have the player available.
+    if(context.gctx->GetPlayerActor())
+      ItemOverride_Update();
     return;
   }
   void readPadInput() {
