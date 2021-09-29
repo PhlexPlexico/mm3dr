@@ -26,7 +26,7 @@ namespace rnd {
       return;
     //
     context.gctx = static_cast<game::GlobalContext *>(state);
-    if(context.gctx->pad_state.input.buttons.IsSet(game::pad::Button::ZR))game::GiveItemWithEffect(0x15);
+    //if(context.gctx->pad_state.input.buttons.IsSet(game::pad::Button::ZR))game::GiveItemWithEffect(0x5F);
     return;
   }
   void readPadInput() {
