@@ -77,6 +77,9 @@ namespace rnd {
       ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::BigPoe, 0x0066, 0x0139, (s8)0xFF, (s8)0xFF,
                (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Bottled Big Poe
 
+      ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL, (u8)game::ItemId::X82, 0x0014, 0x00FF, (s8)0xFF, (s8)0xFF,
+               (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_IceTrap, (s16)-1, (s16)-1), // Ice Trap 0x13
+
   };
 
   ItemRow *ItemTable_GetItemRow(u16 itemId) {

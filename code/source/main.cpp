@@ -32,7 +32,8 @@ namespace rnd {
       return;
     context.gctx = static_cast<game::GlobalContext *>(state);
     // Before calling let's be absolutely sure we have the player available.
-    if(context.gctx->pad_state.input.buttons.IsSet(game::pad::Button::ZR)) IceTrap_Give();
+    if(context.gctx->pad_state.input.buttons.IsSet(game::pad::Button::ZR)) game::GiveItem((game::ItemId)0x82);
+    //IceTrap_Give();
     if(context.gctx->GetPlayerActor())
       ItemOverride_Update();
     return;

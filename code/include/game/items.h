@@ -157,7 +157,7 @@ enum class ItemId : u8 {
   FourthPieceOfHeart = 0x7f, // Note: Just fills up on item screen.
   UnkOcarinaSlot = 0x80,
   TakeAwayLightArrows = 0x81,
-  X82 = 0x82,
+  X82 = 0x82, // XXX: Makeshift Item ID For Icetrap
   RecoveryHeart = 0x83,
   OneRupee = 0x84,
   FiveRupees = 0x85,

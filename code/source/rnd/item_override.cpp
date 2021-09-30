@@ -11,7 +11,7 @@ namespace rnd {
   static game::act::Actor *rDummyActor = NULL;
   static ItemOverride rPendingOverrideQueue[3] = {0};
   static ItemOverride rActiveItemOverride = {0};
-  ItemRow *rActiveItemRow = NULL;
+  extern "C" ItemRow *rActiveItemRow = NULL;
   // Split active_item_row into variables for convenience in ASM
   u32 rActiveItemActionId = 0;
   u32 rActiveItemTextId = 0;
@@ -112,7 +112,7 @@ namespace rnd {
     ItemRow *itemRow = ItemTable_GetItemRow(resolvedItemId);
     u8 looksLikeItemId = override.value.looksLikeItemId;
 
-    if (override.value.itemId == 0x7C) { // Ice trap
+    if (override.value.itemId == (u32)game::ItemId::X82) { // Ice trap
       looksLikeItemId = 0;
     }
 
@@ -178,11 +178,11 @@ namespace rnd {
   static void ItemOverride_PopIceTrap(void) {
     ItemOverride_Key key = rPendingOverrideQueue[0].key;
     ItemOverride_Value value = rPendingOverrideQueue[0].value;
-    // TODO: Make Ice Trap Item IDs.
-    if (value.itemId == 0x7C) {
-        IceTrap_Push();
-        ItemOverride_PopPendingOverride();
-        ItemOverride_AfterKeyReceived(key);
+    // Make Ice Trap Item IDs.
+    if (value.itemId == (u32)game::ItemId::X82) {
+      IceTrap_Push();
+      ItemOverride_PopPendingOverride();
+      ItemOverride_AfterKeyReceived(key);
     }
   }
 
@@ -190,9 +190,11 @@ namespace rnd {
     // Using MMR's can receive item call - use the animation IDs to determine whether
     // we can receive item. Adjust pending frames as some items may softlock?
     game::GlobalContext *gctx = rnd::GetContext().gctx;
-    if(!gctx || gctx->type != game::StateType::Play) return 0;
+    if (!gctx || gctx->type != game::StateType::Play)
+      return 0;
     game::act::Player *player = gctx->GetPlayerActor();
-    if(!player) return 0;
+    if (!player)
+      return 0;
     u32 currentAniId = player->player_util.state.id;
     switch (currentAniId) {
     case 0x32D: // Rolling - Human, Goron
@@ -256,29 +258,13 @@ namespace rnd {
     IceTrap_Update();
     CustomModel_Update();*/
     if (ItemOverride_PlayerIsReady()) {
-        ItemOverride_PopIceTrap();
-        if (IceTrap_IsPending()) {
-            IceTrap_Give();
-        } else {
-            ItemOverride_TryPendingItem();
-        }
+      ItemOverride_PopIceTrap();
+      if (IceTrap_IsPending()) {
+        IceTrap_Give();
+      } else {
         ItemOverride_TryPendingItem();
-    }
-    
-  }
-
-  void ItemOverride_GetItemTextAndItemID(game::act::Actor *actor) {
-    if (rActiveItemRow != NULL) {
-      game::GlobalContext *gctx = rnd::GetContext().gctx;
-      u16 textId = rActiveItemRow->textId;
-      u8 itemId = rActiveItemRow->itemId;
-
-      ItemTable_CallEffect(rActiveItemRow);
-      gctx->ShowMessage(textId, actor);
-      // Get_Item_Handler.
-      rnd::util::GetPointer<int(game::GlobalContext *, game::ItemId)>(0x233BEC)(
-          gctx, (game::ItemId)itemId);
-      ItemOverride_AfterItemReceived();
+      }
+      ItemOverride_TryPendingItem();
     }
   }
 
@@ -362,6 +348,22 @@ namespace rnd {
 
   extern "C" {
 
+  void ItemOverride_GetItemTextAndItemID(game::act::Actor *actor) {
+    if (rActiveItemRow != NULL) {
+      game::GlobalContext *gctx = rnd::GetContext().gctx;
+      u16 textId = rActiveItemRow->textId;
+      u8 itemId = rActiveItemRow->itemId;
+      ItemTable_CallEffect(rActiveItemRow);
+      gctx->ShowMessage(textId, actor);
+      // Get_Item_Handler. Don't give ice traps, since it may cause UB.
+      if (itemId != (u8)game::ItemId::X82) {
+        rnd::util::GetPointer<int(game::GlobalContext *, game::ItemId)>(0x233BEC)(
+            gctx, (game::ItemId)itemId);
+      }
+      ItemOverride_AfterItemReceived();
+    }
+  }
+
   void ItemOverride_GetItem(game::act::Actor *fromActor, game::act::Player *player, s8 incomingItemId) {
     game::GlobalContext *gctx = rnd::GetContext().gctx;
     if (!gctx)
@@ -374,28 +376,17 @@ namespace rnd {
       override = ItemOverride_Lookup(fromActor, (u8)gctx->scene, itemId);
     }
     if (override.key.all == 0) {
+      // No override, use base game's item code
       ItemOverride_Clear();
       player->get_item_id = incomingItemId;
       return;
     }
-    // No override, use base game's item code
-    ItemOverride_Clear();
     ItemOverride_Activate(override);
     s8 baseItemId = rActiveItemRow->baseItemId;
-    if (fromActor->actor_type == game::act::Type::Chest) {
-      // TODO: Ice Trap - Update chest contents
-      /*if (override.value.itemId == 0x7C) {
-        // Use ice trap base item ID
-        baseItemId = 0x7C;
-      }*/
-      fromActor->params = (fromActor->params & 0xF01F) | (baseItemId << 5);
-    }
-    // TODO: Ice Trap
-    /*else if (override.value.itemId == 0x7C)
-    {
+    if (override.value.itemId == (u32)game::ItemId::X82) {
       rActiveItemRow->effectArg1 = override.key.all >> 16;
       rActiveItemRow->effectArg2 = override.key.all & 0xFFFF;
-    }*/
+    }
     player->get_item_id = incomingNegative ? -baseItemId : baseItemId;
     return;
   }

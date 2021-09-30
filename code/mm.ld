@@ -36,6 +36,14 @@ SECTIONS{
 		*(.patch_ISGCrouchStabTwo)
 	}
 
+	.patch_OverrideTextID 0x2310FC : {
+		*(.patch_OverrideTextID)
+	}
+
+	.patch_OverrideItemID 0x231108 : {
+		*(.patch_OverrideItemID)
+	}
+
 	.patch_fasterBlockMovement 0x2AC634 : {
 		*(.patch_fasterBlockMovement)
 	}

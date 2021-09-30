@@ -17,6 +17,36 @@ hook_MainLoop:
     b 0x0106770
 
 
+.global rActiveItemRow
+.rActiveItemRow_addr:
+    .word rActiveItemRow
+
+.global hook_OverrideTextID
+hook_OverrideTextID:
+    ldr r2,.rActiveItemRow_addr
+    ldr r2,[r2]
+    cmp r2,#0x0
+    beq noOverrideTextID
+    b 0x231104
+noOverrideTextID:
+    cpy r0, r7
+    b 0x231100
+
+.global hook_OverrideItemID
+hook_OverrideItemID:
+    ldr r2,.rActiveItemRow_addr
+    ldr r2,[r2]
+    cmp r2,#0x0
+    beq noOverrideItemID
+    push {r0-r12, lr}
+    cpy r0,r2
+    bl ItemOverride_GetItemTextAndItemID
+    pop {r0-r12, lr}
+    b 0x231110
+noOverrideItemID:
+    cpy r0, r7
+    b 0x23110C
+
 .global hook_IncomingGetItemID
 hook_IncomingGetItemID:
     push {r0-r12, lr}

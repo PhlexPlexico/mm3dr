@@ -51,6 +51,16 @@ patch_ISGCrouchStabTwo:
     nop
     nop
 
+.section .patch_OverrideTextID
+.global OverrideTextID_patch
+OverrideTextID_patch:
+    b hook_OverrideTextID
+
+.section .patch_OverrideItemID
+.global OverrideItemID_patch
+OverrideItemID_patch:
+    b hook_OverrideItemID
+
 .section .patch_readGamePad
 .global patch_readGamePad
 patch_readGamePad:

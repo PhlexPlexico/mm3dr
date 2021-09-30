@@ -1,4 +1,5 @@
 #include "rnd/item_effect.h"
+#include "rnd/icetrap.h"
 #include "rnd/savefile.h"
 #include "rnd/settings.h"
 #include "z3d/z3Dvec.h"
@@ -82,10 +83,9 @@ namespace rnd {
     return;
   }
 
-  // TODO
-  /*  void ItemEffect_IceTrap(SaveContext* comData, s16 arg1, s16 arg2) {
-      IceTrap_Push((u16)arg1 << 16 | (u16)arg2);
-  }*/
+    void ItemEffect_IceTrap(game::CommonData *comData, s16 arg1, s16 arg2) {
+      IceTrap_Push();
+  }
 
   void ItemEffect_GiveSong(game::CommonData *comData, s16 questBit, s16 arg2) {
     game::GiveItem((game::ItemId)questBit);
