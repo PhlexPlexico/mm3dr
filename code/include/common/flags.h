@@ -4,8 +4,13 @@
 #include <array>
 #include <numeric>
 #include <type_traits>
+#include <cstdarg>
+#include <cstdio>
+#include <string>
+#include <string_view>
 
-#include "common/debug.h"
+#include "z3d/z3Dvec.h"
+
 
 namespace rnd {
 

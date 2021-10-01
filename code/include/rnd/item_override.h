@@ -2,7 +2,6 @@
 #define _RND_ITEM_OVERRIDE_H
 
 #include "common/advanced_context.h"
-#include "common/debug.h"
 #include "common/utils.h"
 #include "game/common_data.h"
 #include "game/context.h"
@@ -76,7 +75,7 @@ namespace rnd {
     /* 0x3D */ GI_KEY_BOSS,
     /* 0x3E */ GI_MAP, // Item pickup noise. Perhaps dungeon specific?
     /* 0x3F */ GI_COMPASS, // Item pickup noise. Perhaps dungeon specific?
-    /* 0x40 */ //GI_ERROR_NOTHING_40, // ***ERROR TEXT Get Item Nothing in hand - Green Rupee with Ocarina in Inventory
+    /* 0x40 */ GI_ERROR_NOTHING_40, // ***ERROR TEXT Get Item Nothing in hand - Green Rupee with Ocarina in Inventory XXX: ICE TRAP
     /* 0x41 */ GI_HOOKSHOT, // ***ERROR TEXT Get Item Nothing in hand - Green Rupee with Ocarina in Inventory
     /* 0x42 */ GI_LENS_OF_TRUTH = 0x42,
     /* 0x43 */ GI_PICTOGRAPH_BOX = 0x43,
@@ -245,7 +244,6 @@ namespace rnd {
   void ItemOverride_Init();
   void ItemOverride_Update();
   extern "C" void ItemOverride_GetItem(game::act::Actor*, game::act::Player*, s8);
-  extern "C" int svcOutputDebugString(const char* string, size_t length);
 }
 
 #endif

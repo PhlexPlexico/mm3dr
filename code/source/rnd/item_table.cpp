@@ -7,6 +7,10 @@
 
 #include "z3D/z3Dvec.h"
 
+extern "C" { 
+  #include <3ds/svc.h>
+}
+
 namespace rnd {
 
 #define ITEM_ROW(                                                                                     \
@@ -77,6 +81,12 @@ namespace rnd {
       ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::BigPoe, 0x0066, 0x0139, (s8)0xFF, (s8)0xFF,
                (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Bottled Big Poe
 
+      ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::Water, 0x0067, 0x009E, (s8)0xFF, (s8)0xFF,
+               (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Bottled Water
+
+      ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::HotSpringWater, 0x0068, 0x009E, (s8)0xFF, (s8)0xFF,
+               (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Bottled Water
+
       ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL, (u8)game::ItemId::X82, 0x0014, 0x00FF, (s8)0xFF, (s8)0xFF,
                (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_IceTrap, (s16)-1, (s16)-1), // Ice Trap 0x13
 
@@ -86,7 +96,7 @@ namespace rnd {
     if (itemId >= ARR_SIZE(rItemTable)) {
       return NULL;
     }
-    ItemRow *itemRow = &rItemTable[itemId];
+    ItemRow *itemRow = &rItemTable[18];
     if (itemRow->baseItemId == 0) {
       return NULL;
     }
@@ -103,13 +113,15 @@ namespace rnd {
 
   u16 ItemTable_ResolveUpgrades(u16 itemId) {
     game::SaveData &gSaveContext = game::GetCommonData().save;
-    for (;;) {
-      ItemRow *itemRow = ItemTable_GetItemRow(itemId);
-      u16 newItemId = (u16)itemRow->upgrade(&gSaveContext, (GetItemID)itemId);
-      if (newItemId == itemId) {
-        return itemId;
+    if (gSaveContext.has_completed_intro) {
+      for (;;) {
+        ItemRow *itemRow = ItemTable_GetItemRow(itemId);
+        u16 newItemId = (u16)itemRow->upgrade(&gSaveContext, (GetItemID)itemId);
+        if (newItemId == itemId) {
+          return itemId;
+        }
+        itemId = newItemId;
       }
-      itemId = newItemId;
     }
   }
 

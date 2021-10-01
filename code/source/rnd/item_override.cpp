@@ -1,9 +1,15 @@
 #include "rnd/item_override.h"
-
 #include "rnd/icetrap.h"
 #include "rnd/item_table.h"
 #include "rnd/rheap.h"
 #include "rnd/savefile.h"
+
+#ifdef ENABLE_DEBUG
+
+extern "C" {
+#include <3ds/svc.h>
+}
+#endif
 
 namespace rnd {
   static s32 rItemOverrides_Count = 0;
@@ -11,6 +17,7 @@ namespace rnd {
   static game::act::Actor *rDummyActor = NULL;
   static ItemOverride rPendingOverrideQueue[3] = {0};
   static ItemOverride rActiveItemOverride = {0};
+  // Accessed via hooks.
   extern "C" ItemRow *rActiveItemRow = NULL;
   // Split active_item_row into variables for convenience in ASM
   u32 rActiveItemActionId = 0;
@@ -32,7 +39,7 @@ namespace rnd {
     rDummyActor->parent_actor = NULL;
   }
 
-  static ItemOverride_Key ItemOverride_GetSearchKey(game::act::Actor *actor, u8 scene, u8 itemId) {
+  static ItemOverride_Key ItemOverride_GetSearchKey(game::act::Actor *actor, u8 scene, u8 getItemId) {
 
     game::CommonData &cdata = game::GetCommonData();
     ItemOverride_Key retKey;
@@ -71,18 +78,18 @@ namespace rnd {
     } else if (scene == 0x07 && actor->id == (game::act::Id)0x11A) { // Grotto Salesman
       retKey.scene = cdata.sub13s[8].data;
       retKey.type = ItemOverride_Type::OVR_GROTTO_SCRUB;
-      retKey.flag = itemId;
+      retKey.flag = getItemId;
       return retKey;
     } else {
       retKey.scene = scene;
       retKey.type = ItemOverride_Type::OVR_BASE_ITEM;
-      retKey.flag = itemId;
+      retKey.flag = getItemId;
       return retKey;
     }
   }
 
-  ItemOverride ItemOverride_Lookup(game::act::Actor *actor, u8 scene, u8 itemId) {
-    ItemOverride_Key key = ItemOverride_GetSearchKey(actor, scene, itemId);
+  ItemOverride ItemOverride_Lookup(game::act::Actor *actor, u8 scene, u8 getItemId) {
+    ItemOverride_Key key = ItemOverride_GetSearchKey(actor, scene, getItemId);
     if (key.all == 0) {
       return (ItemOverride){0};
     }
@@ -228,17 +235,18 @@ namespace rnd {
   static void ItemOverride_TryPendingItem(void) {
     ItemOverride override = rPendingOverrideQueue[0];
     game::act::Player *player = rnd::GetContext().gctx->GetPlayerActor();
-    if (override.key.all == 0) {
-      return;
-    }
-
-    if (rDummyActor->parent_actor == NULL) {
-      ItemOverride_Activate(override);
-      player->grabbable_actor = rDummyActor;
-      player->get_item_id = rActiveItemRow->baseItemId;
-    } else {
-      rDummyActor->parent_actor = NULL;
-      ItemOverride_PopPendingOverride();
+    if (player) {
+      if (override.key.all == 0) {
+        return;
+      }
+      if (rDummyActor->parent_actor == NULL) {
+        ItemOverride_Activate(override);
+        player->grabbable_actor = rDummyActor;
+        player->get_item_id = 0x40; //rActiveItemRow->baseItemId;
+      } else {
+        rDummyActor->parent_actor = NULL;
+        ItemOverride_PopPendingOverride();
+      }
     }
   }
 
@@ -364,21 +372,22 @@ namespace rnd {
     }
   }
 
-  void ItemOverride_GetItem(game::act::Actor *fromActor, game::act::Player *player, s8 incomingItemId) {
+  void ItemOverride_GetItem(game::act::Actor *fromActor, game::act::Player *player, s8 incomingGetItemId) {
     game::GlobalContext *gctx = rnd::GetContext().gctx;
     if (!gctx)
       return;
     ItemOverride override = {0};
-    s32 incomingNegative = incomingItemId < 0;
+    svcOutputDebugString((const char*)incomingGetItemId, sizeof(s8));
+    s32 incomingNegative = incomingGetItemId < 0;
 
-    if (fromActor != NULL && incomingItemId != 0) {
-      s8 itemId = incomingNegative ? -incomingItemId : incomingItemId;
-      override = ItemOverride_Lookup(fromActor, (u8)gctx->scene, itemId);
+    if (fromActor != NULL && incomingGetItemId != 0) {
+      s8 getItemId = incomingNegative ? -incomingGetItemId : incomingGetItemId;
+      override = ItemOverride_Lookup(fromActor, (u8)gctx->scene, getItemId);
     }
     if (override.key.all == 0) {
       // No override, use base game's item code
       ItemOverride_Clear();
-      player->get_item_id = incomingItemId;
+      player->get_item_id = incomingGetItemId;
       return;
     }
     ItemOverride_Activate(override);

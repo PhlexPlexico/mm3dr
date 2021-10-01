@@ -8,6 +8,8 @@
 #include "rnd/item_override.h"
 #include "rnd/rheap.h"
 #include "z3d/z3Dvec.h"
+
+
 namespace rnd {
   void Init(Context &context) {
     // XXX: Temp switch to ensure patch is running.
@@ -25,15 +27,27 @@ namespace rnd {
   void calc(game::State *state) {
     Context &context = GetContext();
     context.gctx = nullptr;
-
+    
     if (!context.has_initialised && state->type == game::StateType::FirstGame)
       Init(context);
     if (state->type != game::StateType::Play)
       return;
     context.gctx = static_cast<game::GlobalContext *>(state);
     // Before calling let's be absolutely sure we have the player available.
-    if(context.gctx->pad_state.input.buttons.IsSet(game::pad::Button::ZR)) game::GiveItem((game::ItemId)0x82);
-    //IceTrap_Give();
+    #ifdef ENABLE_DEBUG
+    if(context.gctx->pad_state.input.buttons.IsSet(game::pad::Button::ZR)) {
+      game::act::Player* link = context.gctx->GetPlayerActor();
+      if(link) {
+        game::act::Actor* talker = link->target_actor;
+        if(talker) {
+          svcOutputDebugString("This is our talk actor ", 23);
+          svcOutputDebugString((const char*)talker->id, sizeof(game::act::Id));
+          svcOutputDebugString("\n", 2);
+        }
+        
+      }
+    }
+    #endif
     if(context.gctx->GetPlayerActor())
       ItemOverride_Update();
     return;

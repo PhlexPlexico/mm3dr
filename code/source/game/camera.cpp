@@ -1,7 +1,6 @@
 #include "game/camera.h"
 
 #include "common/advanced_context.h"
-#include "common/debug.h"
 #include "common/utils.h"
 #include "game/context.h"
 #include "game/pad.h"
