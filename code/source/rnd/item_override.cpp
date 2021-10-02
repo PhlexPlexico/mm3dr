@@ -242,7 +242,7 @@ namespace rnd {
       if (rDummyActor->parent_actor == NULL) {
         ItemOverride_Activate(override);
         player->grabbable_actor = rDummyActor;
-        player->get_item_id = 0x40; //rActiveItemRow->baseItemId;
+        player->get_item_id = rActiveItemRow->baseItemId;
       } else {
         rDummyActor->parent_actor = NULL;
         ItemOverride_PopPendingOverride();
@@ -382,7 +382,7 @@ namespace rnd {
     svcOutputDebugString((const char*)incomingGetItemId, sizeof(s8));
     #endif
 
-    s32 incomingNegative = incomingGetItemId < 0;
+    s32 incomingNegative = 0x15 < 0;
 
     if (fromActor != NULL && incomingGetItemId != 0) {
       s8 getItemId = incomingNegative ? -incomingGetItemId : incomingGetItemId;
