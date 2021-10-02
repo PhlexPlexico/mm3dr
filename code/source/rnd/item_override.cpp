@@ -18,7 +18,7 @@ namespace rnd {
   static ItemOverride rPendingOverrideQueue[3] = {0};
   static ItemOverride rActiveItemOverride = {0};
   // Accessed via hooks.
-  extern "C" ItemRow *rActiveItemRow = NULL;
+  ItemRow *rActiveItemRow = NULL;
   // Split active_item_row into variables for convenience in ASM
   u32 rActiveItemActionId = 0;
   u32 rActiveItemTextId = 0;
@@ -377,7 +377,11 @@ namespace rnd {
     if (!gctx)
       return;
     ItemOverride override = {0};
+
+    #ifdef ENABLE_DEBUG
     svcOutputDebugString((const char*)incomingGetItemId, sizeof(s8));
+    #endif
+
     s32 incomingNegative = incomingGetItemId < 0;
 
     if (fromActor != NULL && incomingGetItemId != 0) {

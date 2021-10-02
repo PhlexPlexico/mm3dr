@@ -23,8 +23,8 @@ namespace rnd {
     .effectArg2 = effectArg2_ }
 
   // TODO: Convert to C++
-  static ItemRow rItemTable[] = {
-      ITEM_ROW((u32)GetItemID::GI_NONE, ChestType::WOODEN_SMALL, 0xFF, 0x00C4, 0x0000, 0x00, (s8)0xFF, (s8)0xFF,
+  ItemRow rItemTable[] = {
+      [0x00] = ITEM_ROW((u32)GetItemID::GI_NONE, ChestType::WOODEN_SMALL, 0xFF, 0x00C4, 0x0000, 0x00, (s8)0xFF, (s8)0xFF,
                (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // None Item - So we don't have to do GetItemId-1 everywhere.
 
       ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL, (u8)game::ItemId::FiveBombs, 0x0014, 0x00A5, (s8)0xFF, (s8)0xFF,
@@ -123,6 +123,8 @@ namespace rnd {
         itemId = newItemId;
       }
     }
+    // Should not reach.
+    return 0;
   }
 
   void ItemTable_CallEffect(ItemRow *itemRow) {

@@ -34,6 +34,8 @@ namespace rnd {
     s16 effectArg2;
   } ItemRow;
 
+  extern "C" ItemRow rItemTable[];
+  extern "C" ItemRow *rActiveItemRow;
   u16 ItemTable_ResolveUpgrades(u16 itemId);
   ItemRow *ItemTable_GetItemRow(u16 itemId);
   ItemRow *ItemTable_GetItemRowFromIndex(u8 rowIndex);
