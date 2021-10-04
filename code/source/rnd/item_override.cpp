@@ -378,10 +378,6 @@ namespace rnd {
       return;
     ItemOverride override = {0};
 
-    #ifdef ENABLE_DEBUG
-    svcOutputDebugString((const char*)incomingGetItemId, sizeof(s8));
-    #endif
-
     s32 incomingNegative = 0x15 < 0;
 
     if (fromActor != NULL && incomingGetItemId != 0) {

@@ -260,7 +260,7 @@ namespace rnd {
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Hero Sheild
 
       [0x4C] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::MirrorShield, 0x0033, 0x000C3, (s8)0xFF, (s8)0xFF,
-                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Hero Sheild
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Mirror Sheild
 
       // Progressive Items
       [0x4D] = ITEM_ROW(0xFF, ChestType::WOODEN_BIG, 0xFF, 0xFF, 0x00098, (s8)0xFF, (s8)0xFF,
@@ -274,6 +274,21 @@ namespace rnd {
 
       [0x50] = ITEM_ROW(0xFF, ChestType::WOODEN_BIG, 0xFF, 0xFF, 0x000A4, (s8)0xFF, (s8)0xFF,
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_Magic, ItemEffect_None, (s16)-1, (s16)-1), // Progressive Magic
+
+      [0x51] = ITEM_ROW(0xFF, ChestType::WOODEN_BIG, 0xFF, 0xFF, 0x000A4, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_Magic, ItemEffect_None, (s16)-1, (s16)-1), // Progressive Magic
+
+      [0x52] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::OdolwaRemains, 0x0055, 0x00000, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Odolwa's Remains
+
+      [0x53] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::GohtRemains, 0x0056, 0x00000, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Goht's Remains
+
+      [0x54] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::GyorgRemains, 0x0057, 0x00000, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Gyrog's Remains
+
+      [0x55] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::TwinmoldRemains, 0x0058, 0x00000, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Twinmold's Remains
   };
 
   ItemRow *ItemTable_GetItemRow(u16 itemId) {
