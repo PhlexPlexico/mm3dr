@@ -31,6 +31,12 @@ namespace rnd {
     saveData.inventory.items[10] = game::ItemId::DekuStick;
     saveData.inventory.items[13] = game::ItemId::PictographBox;
     saveData.inventory.items[15] = game::ItemId::Hookshot;
+
+    saveData.inventory.masks[0] = game::ItemId::DekuMask;
+    saveData.inventory.masks[1] = game::ItemId::GoronMask;
+    saveData.inventory.masks[2] = game::ItemId::ZoraMask;
+    saveData.inventory.masks[3] = game::ItemId::FierceDeityMask;
+    saveData.inventory.masks[4] = game::ItemId::GibdoMask;
     
     saveData.inventory.woodfall_temple_keys = 8;
     saveData.inventory.snowhead_temple_keys = 8;
@@ -41,13 +47,13 @@ namespace rnd {
     saveData.inventory.great_bay_boss_key = 1;
     saveData.inventory.stone_tower_boss_key = 1;
     saveData.player.magic_acquired = 1;
-    saveData.player.magic_size_type = 1;
+    saveData.player.magic_size_type = 0;
     saveData.player.magic = 96;
     saveData.player.magic_num_upgrades = 1;
     saveData.equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
     saveData.inventory.item_counts[6] = 50; // Arrows
-    saveData.inventory.item_counts[11] = 20; // Bombs
-    saveData.inventory.item_counts[12] = 20; // Bombchus
+    saveData.inventory.item_counts[11] = 40; // Bombs
+    saveData.inventory.item_counts[12] = 40; // Bombchus
     saveData.inventory.item_counts[14] = 20; // Nuts
     saveData.inventory.item_counts[13] = 20; // Sticks
 #endif
