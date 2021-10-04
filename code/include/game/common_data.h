@@ -173,7 +173,7 @@ struct InventoryData {
   char anonymous_41;
   char anonymous_42;
   char anonymous_43;
-  char gap98[60];
+  char gap98[60]; // XXX: Possible fairies location are here inside the pad.
 };
 static_assert(sizeof(InventoryData) == 0xD4);
 static_assert(offsetof(InventoryData, inventory_count_register) == 0x78);
@@ -248,8 +248,8 @@ struct SaveData {
   SkulltulaRegister skulltulas_collected;
   int anonymous_60;
   u8 gap1218[4];
-  int anonymous_61;
-  int anonymous_62;
+  int anonymous_61; // XXX: Possible scene flags.
+  int anonymous_62; // XXX: Possible scene flags.
   int anonymous_63;
   u8 gap1228[8];
   int anonymous_64;
@@ -309,7 +309,7 @@ struct SaveData {
   char anonymous_113;
   char anonymous_114;
   char anonymous_115;
-  char anonymous_116;
+  char anonymous_116; // Don Gero Flag Maybe
   char anonymous_117;
   char anonymous_118;
   char anonymous_119;
@@ -394,7 +394,7 @@ struct SaveData {
   u16 anonymous_190;
   u16 anonymous_191;
   u8 gap13A2[326];
-  char anonymous_192;
+  char num_ftickets_rank10;
   char anonymous_193;
   char anonymous_194;
   char anonymous_195;

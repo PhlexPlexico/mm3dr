@@ -157,7 +157,9 @@ struct Actor {
   u16 field_20;
   u16 field_22;
   PosRot pos;
-  u8 gap_38[4];
+  u8 gap_38;
+  u8 field_39; // Possible actor flags. 
+  u8 gap_3A[2];
   PosRot ztarget_pos;
   sound::EffectId sound_effect;
   u8 gap_54[4];
