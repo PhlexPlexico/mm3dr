@@ -27,11 +27,10 @@ namespace rnd {
     saveData.inventory.items[4] = game::ItemId::LightArrow;
     saveData.inventory.items[6] = game::ItemId::Bomb;
     saveData.inventory.items[7] = game::ItemId::Bombchu;
-    saveData.inventory.items[8] = game::ItemId::Hookshot;
     saveData.inventory.items[9] = game::ItemId::DekuNuts;
     saveData.inventory.items[10] = game::ItemId::DekuStick;
     saveData.inventory.items[13] = game::ItemId::PictographBox;
-    
+    saveData.inventory.items[15] = game::ItemId::Hookshot;
     
     saveData.inventory.woodfall_temple_keys = 8;
     saveData.inventory.snowhead_temple_keys = 8;
@@ -46,10 +45,11 @@ namespace rnd {
     saveData.player.magic = 96;
     saveData.player.magic_num_upgrades = 1;
     saveData.equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
-    saveData.inventory.item_counts[2] = 50; // Arrows
-    saveData.inventory.item_counts[9] = 20; // Bombs
-    saveData.inventory.item_counts[10] = 20; // Bombchus
-    
+    saveData.inventory.item_counts[6] = 50; // Arrows
+    saveData.inventory.item_counts[11] = 20; // Bombs
+    saveData.inventory.item_counts[12] = 20; // Bombchus
+    saveData.inventory.item_counts[14] = 20; // Nuts
+    saveData.inventory.item_counts[13] = 20; // Sticks
 #endif
     //TODO: Decomp event flags. Most likely in the large anonymous structs in the SaveData.
     saveData.has_completed_intro = 1;
