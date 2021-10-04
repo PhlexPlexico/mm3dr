@@ -1,5 +1,6 @@
 #include "rnd/item_upgrade.h"
 #include "rnd/item_override.h"
+#include "rnd/razor_sword.h"
 
 namespace rnd {
   GetItemID ItemUpgrade_None(game::SaveData *saveCtx, GetItemID GetItemId) {
@@ -39,12 +40,22 @@ namespace rnd {
     }
   }
 
-  void ItemUpgrade_Magic(game::SaveData *saveCtx, GetItemID GetItemId) {
+  GetItemID ItemUpgrade_Magic(game::SaveData *saveCtx, GetItemID GetItemId) {
     switch (saveCtx->player.magic_num_upgrades) {
     case 0:
-      saveCtx->player.magic_num_upgrades = 1; // Single Magic
+      saveCtx->player.magic_acquired = 1;
+      saveCtx->player.magic_size_type = 0;
+      saveCtx->player.magic = 48;
+      saveCtx->equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
+      saveCtx->player.magic_num_upgrades = 0; // Single Magic
+      return GetItemID::GI_MAGIC_POT_SMALL;
     default:
-      saveCtx->player.magic_num_upgrades = 2; // Double Magic
+      saveCtx->player.magic_acquired = 1;
+      saveCtx->player.magic_size_type = 0;
+      saveCtx->player.magic = 96;
+      saveCtx->equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
+      saveCtx->player.magic_num_upgrades = 1; // Double Magic
+      return GetItemID::GI_MAGIC_POT_LARGE; 
     }
   }
 
@@ -54,6 +65,7 @@ namespace rnd {
     case game::SwordType::NoSword:
       return GetItemID::GI_SWORD_KOKIRI_STOLEN; // Stolen sword?
     case game::SwordType::KokiriSword:
+      RS_SetDurability();
       return GetItemID::GI_RAZOR_SWORD; // Razor sword
     case game::SwordType::RazorSword:
       return GetItemID::GI_GILDED_SWORD; // Gilded sword

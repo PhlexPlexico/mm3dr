@@ -36,6 +36,11 @@ patch_MainLoop:
 patch_DecoupleStartSelect:
     nop
 
+.section .patch_SaveFile_init
+.global patch_SaveFile_init
+patch_SaveFile_init:
+    bl hook_SaveFile_Init
+
 .section .patch_ISGCrouchStabOne
 .global patch_ISGCrouchStabOne
 patch_ISGCrouchStabOne:

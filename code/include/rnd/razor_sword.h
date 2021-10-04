@@ -3,6 +3,9 @@
 
 #include "z3d/z3Dvec.h"
 
-u16 RS_SetDurability(void);
+namespace rnd {
+  u16 RS_SetDurability(void);
+} // namespace rnd
+
 
 #endif

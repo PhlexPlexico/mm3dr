@@ -293,6 +293,7 @@ namespace rnd {
     u8 startingDoubleDefense;
     u8 startingHealth;
 
+    // TODO: Break out into individual bitfield values.
     u32 startingQuestItems;
     u32 startingDungeonReward;
     u32 startingEquipment;

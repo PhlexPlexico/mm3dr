@@ -112,6 +112,7 @@ struct EquipmentData {
 };
 
 struct InventoryData {
+  // Slot 5 is first quest item.
   std::array<ItemId, 24> items;
   std::array<ItemId, 24> masks;
   std::array<ItemId, 7> bottles;

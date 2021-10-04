@@ -8,7 +8,7 @@ namespace rnd {
   GetItemID ItemUpgrade_BombBag(game::SaveData*, GetItemID);
   GetItemID ItemUpgrade_Quiver(game::SaveData*, GetItemID);
   GetItemID ItemUpgrade_Wallet(game::SaveData*, GetItemID);
-  void ItemUpgrade_Magic(game::SaveData*, GetItemID);
+  GetItemID ItemUpgrade_Magic(game::SaveData*, GetItemID);
   GetItemID ItemUpgrade_Sword(game::SaveData*, GetItemID);
   GetItemID ItemUpgrade_ArrowsToRupee(game::SaveData*, GetItemID);
   GetItemID ItemUpgrade_BombsToRupee(game::SaveData*, GetItemID);

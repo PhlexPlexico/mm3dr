@@ -21,6 +21,15 @@ hook_MainLoop:
 .rActiveItemRow_addr:
     .word rActiveItemRow
 
+.global hook_SaveFile_Init
+hook_SaveFile_Init:
+    push {r0-r12, lr}
+    mov r0, r5
+    bl SaveFile_Init
+    pop {r0-r12, lr}
+    strh r1, [r4, #0x10]
+    bx lr
+
 .global hook_OverrideTextID
 hook_OverrideTextID:
     ldr r2,.rActiveItemRow_addr

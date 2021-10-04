@@ -26,7 +26,11 @@ SECTIONS{
 
 	.patch_DecoupleStartSelect 0x121ee8 : {
 		*(.patch_DecoupleStartSelect)
-	} 
+	}
+
+	.patch_SaveFile_init 0x160D00 : {
+		*(.patch_SaveFile_init)
+	}
 
 	.patch_ISGCrouchStabOne 0x1D32E0 : {
 		*(.patch_ISGCrouchStabOne)

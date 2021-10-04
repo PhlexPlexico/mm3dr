@@ -35,16 +35,21 @@ namespace rnd {
     context.gctx = static_cast<game::GlobalContext *>(state);
     // Before calling let's be absolutely sure we have the player available.
     #ifdef ENABLE_DEBUG
-    if(context.gctx->pad_state.input.buttons.IsSet(game::pad::Button::ZR)) {
+    if(context.gctx->pad_state.input.buttons.IsSet(game::pad::Button::ZL)) {
       game::act::Player* link = context.gctx->GetPlayerActor();
       if(link) {
-        game::act::Actor* talker = link->target_actor;
-        if(talker) {
-          svcOutputDebugString("This is our talk actor ", 23);
-          svcOutputDebugString((const char*)talker->id, sizeof(game::act::Id));
-          svcOutputDebugString("\n", 2);
-        }
-        
+        //game::GiveItemWithEffect(0x0E);
+        game::GetCommonData().save.player.magic_acquired = 1;
+        game::GetCommonData().save.player.magic_size_type = 0;
+        //game::GetCommonData().save.player.magic = 10;
+        game::GetCommonData().save.equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
+        game::GetCommonData().save.player.magic_num_upgrades = 0; // Single Magic
+        // svcOutputDebugString("This is our talk actor ", 23);
+
+        // svcOutputDebugString((const char*)link->talk_actor->id, sizeof(char));
+        // svcOutputDebugString("\n", 2);
+
+
       }
     }
     #endif

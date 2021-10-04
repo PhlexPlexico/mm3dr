@@ -67,10 +67,10 @@ namespace rnd {
   }
 
   void ItemEffect_GiveDoubleMagic(game::CommonData *comData, s16 arg1, s16 arg2) {
-    comData->save.player.magic_size_type = 2;
-    comData->magic_max_2 = 2;
+    comData->save.player.magic_size_type = 0;
+    comData->magic_max_2 = 1;
     comData->save.player.magic_num_upgrades = 1;
-    comData->save.player.magic_acquired = 3;
+    comData->save.player.magic_acquired = 1;
     // So you can't use the shoot button without nuts assigned to B. If they are not assigned, assign them.
     if (comData->save.equipment.data[3].item_btns[0] != game::ItemId::DekuNuts)
       comData->save.equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
@@ -178,5 +178,21 @@ namespace rnd {
   void ItemEffect_GiveMedallion(game::CommonData *comData, s16 mask, s16 arg2) {
     game::GiveItem((game::ItemId)mask);
   }
+
+  void ItemEffect_GiveMagic(game::CommonData *comData, s16 arg1, s16 arg2) {
+    comData->save.player.magic_acquired = 1;
+    comData->save.player.magic_size_type = 0;
+    comData->save.player.magic = 48;
+    comData->save.equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
+    comData->save.player.magic_num_upgrades = 0; // Single Magic
+  }
+
+  // void ItemEffect_GiveDoubleMagic(game::CommonData *comData, s16 arg1, s16 arg2) {
+  //   comData->save.player.magic_acquired = 1;
+  //   comData->save.player.magic_size_type = 0;
+  //   comData->save.player.magic = 96;
+  //   comData->save.equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
+  //   comData->save.player.magic_num_upgrades = 1; // Double Magic
+  // }
 
 } // namespace rnd
