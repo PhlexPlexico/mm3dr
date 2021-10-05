@@ -61,6 +61,7 @@ namespace rnd {
     saveData.has_completed_intro = 1;
     saveData.inventory.collect_register.bombers_notebook = 1;
     saveData.inventory.collect_register.song_of_healing = 1;
+    saveData.has_tatl = true;
     //game::GiveItem(game::ItemId::BombersNotebook);
     //TODO: Things to set on
   }

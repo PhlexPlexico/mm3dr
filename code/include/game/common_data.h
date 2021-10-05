@@ -42,10 +42,7 @@ struct __attribute__((packed)) __attribute__((aligned(2))) PlayerData {
   u32 field_11C;
   u8 gap_120[2];
   u16 save_count_maybe;
-  int anonymous_d;
-  int anonymous_e;
-  int anonymous_f;
-  int anonymous_g;
+  char16_t player_name[8];
   u8 anonymous_h[2];
   u16 health_max;
   u16 health_current;
@@ -200,7 +197,7 @@ struct SaveData {
   u16 rupee_accumulator;
   act::Player::Form player_form;
   char anonymous_5;
-  char field_20;
+  bool has_tatl;
   char anonymous_7;
   char anonymous_8;
   char anonymous_9;
@@ -208,7 +205,7 @@ struct SaveData {
   char anonymous_11;
   char anonymous_12;
   char anonymous_13;
-  char anonymous_14;
+  u8 boss_started_flags;
   char anonymous_15;
   char anonymous_16;
   char gap33[205];
@@ -259,7 +256,8 @@ struct SaveData {
   int anonymous_66;
   int anonymous_67;
   int anonymous_68;
-  u8 gap124C[5];
+  u8 gap1244[4];
+  u8 event_reg_maybe;
   char anonymous_69;
   char anonymous_70;
   u8 gap1253[4];
@@ -293,7 +291,7 @@ struct SaveData {
   char anonymous_97;
   char anonymous_98;
   char anonymous_99;
-  char anonymous_100;
+  char anonymous_100_0x10_if_rock_sirloin_spawned;
   char anonymous_101;
   char anonymous_102;
   char anonymous_103;
@@ -350,7 +348,7 @@ struct SaveData {
   char anonymous_149;
   char anonymous_150;
   char anonymous_151;
-  char anonymous_152;
+  char anonymous_152_saved_once_0x10_sot_once_0x40;
   char anonymous_153;
   char anonymous_154;
   char anonymous_155;
@@ -398,7 +396,7 @@ struct SaveData {
   char num_ftickets_rank10;
   char anonymous_193;
   char anonymous_194;
-  char anonymous_195;
+  char used_instruments;
   char anonymous_196;
   char anonymous_197;
   u16 anonymous_198;
@@ -410,7 +408,7 @@ struct SaveData {
   char anonymous_199;
   char anonymous_200;
   u16 anonymous_201;
-  u8 gap1A30[20];
+  u8 gap1A30[20]; // Items?
   char anonymous_202;
   char anonymous_203;
   char anonymous_204;
@@ -441,7 +439,7 @@ struct SaveData {
   u8 gap_1A60[16];
   u32 field_1A70;
   u8 gap_1A74[12];
-  u16 anonymous_228;
+  u16 hash;
   u16 anonymous_229;
   int field_1A84;
 };
@@ -449,17 +447,18 @@ static_assert(sizeof(SaveData) == 0x1A88);
 
 struct CommonDataSub1 {
   int entrance;
-  u8 field_4;
-  u8 field_5;
-  u8 field_6;
+  u16 save_entrance;
+  u8 owl_save;
   u8 field_7;
   int field_8;
-  int field_C;
+  u8 invert_stick;
+  u8 field_D;
+  u16 field_F;
   int field_10;
   int field_14;
-  int field_18;
+  int total_owl_saves;
   int field_1C;
-};
+}; static_assert(sizeof(CommonDataSub1) == 0x20);
 
 struct CommonDataSub3 {
   u32 field_0;

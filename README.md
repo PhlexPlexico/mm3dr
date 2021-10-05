@@ -1,5 +1,7 @@
 # Majora's Mask 3D Randomizer
 
+**Status: Work In Progress** - This is currently nowhere near playable - as it is just making the base code changes in order for an app to generate seeds.
+
 This is an item randomizer for _The Legend of Zelda: Majora's Mask 3D_ for the Nintendo 3DS.
 
 * [Installation](#installation)
@@ -13,7 +15,7 @@ This is an item randomizer for _The Legend of Zelda: Majora's Mask 3D_ for the N
 
 ## Installation
 
-You can download the latest stable version of the randomizer [here](https://github.com/phlexplexico/MM3DR/releases/latest). You can use either the ```MM3DR.3dsx``` or ```MM3DR.cia``` files provided to generate randomizer patches.
+You can download the latest stable version of the randomizer ~~[here](https://github.com/phlexplexico/MM3DR/releases/latest)~~. You can use either the ```MM3DR.3dsx``` or ```MM3DR.cia``` files provided to generate randomizer patches.
 
 Please ensure that you are playing on the USA version of Majora's Mask 3D, as it is the only version supported by the randomizer. You can use either the cartridge version or the installed digital version. In all instructions below, if a directory doesn't exist, just create it.
 

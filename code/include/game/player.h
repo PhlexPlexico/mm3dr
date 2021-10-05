@@ -219,7 +219,7 @@ struct Player : public Actor {
   u32 get_item_id; // Index+1 to the get item ID table.
   Actor* grabbable_actor;
   u8 gap_924[4];
-  u32 field_928;
+  u32 field_928; // Epona Actor
   u8 fn1_idx;
   u8 fn2_idx;
   char field_92E;

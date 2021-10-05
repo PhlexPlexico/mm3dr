@@ -88,8 +88,45 @@ namespace rnd {
   }
 
   void ItemEffect_GiveSong(game::CommonData *comData, s16 questBit, s16 arg2) {
-    game::GiveItem((game::ItemId)questBit);
-    //comData->save.inventory.collect_register[questBit] = 1;
+    switch (questBit)
+    {
+    case 1:
+      comData->save.inventory.collect_register.sonata_of_awakening = 1;
+      break;
+    case 2:
+      comData->save.inventory.collect_register.lullaby_intro = 1;
+      comData->save.inventory.collect_register.goron_lullaby = 1;
+      break;
+    case 3:
+      comData->save.inventory.collect_register.new_wave_bossa_nova = 1;
+      break;
+    case 4:
+      comData->save.inventory.collect_register.elegy_of_emptiness = 1;
+      break;
+    case 5:
+      comData->save.inventory.collect_register.oath_to_order = 1;
+      break;
+    case 6:
+      comData->save.inventory.collect_register.song_of_time = 1;
+      break;
+    case 7:
+      comData->save.inventory.collect_register.song_of_healing = 1;
+      break;
+    case 8:
+      comData->save.inventory.collect_register.eponas_song = 1;
+      break;
+    case 9:
+      comData->save.inventory.collect_register.song_of_soaring = 1;
+      break;
+    case 10:
+      comData->save.inventory.collect_register.song_of_storms = 1;
+      break;
+    case 11:
+      comData->save.inventory.collect_register.lullaby_intro = 1;
+      break;
+    default:
+      break;
+    }
 
     // give epona for Skip Epona Race setting
     // TODO: Skip shooting test.
