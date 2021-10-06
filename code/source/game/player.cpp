@@ -11,6 +11,19 @@ FormParam& GetFormParam(FormParamIndex idx) {
   return rnd::util::GetPointer<FormParam>(0x7AE9E8)[u8(idx) % 8];
 }
 
+void FixSpeedIssues() {
+  // This reverts some of the MM3D changes to form-specific parameters.
+
+  // Fix Deku Link's walk acceleration value
+  auto& deku_param = GetFormParam(FormParamIndex::Deku);
+  deku_param.run_accel = 200;
+
+  // Make Giant Link less painfully slow
+  auto& giant_param = GetFormParam(FormParamIndex::Giant);
+  giant_param.run_accel = 100;
+  giant_param.walk_speed = 350;
+}
+
 Player::ArrowInfo Player::GetArrowInfo(GlobalContext* gctx) const {
   ArrowInfo info;
 

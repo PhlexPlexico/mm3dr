@@ -13,8 +13,11 @@
 namespace rnd {
   void Init(Context &context) {
     // XXX: Temp switch to ensure patch is running.
+    
     rHeap_Init();
     ItemOverride_Init();
+    // TODO: Maybe make this an option?
+    game::act::FixSpeedIssues();
     game::sound::PlayEffect(game::sound::EffectId::NA_SE_SY_CLEAR1);
     context.has_initialised = true;
   }
