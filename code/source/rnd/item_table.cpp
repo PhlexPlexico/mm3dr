@@ -278,6 +278,8 @@ namespace rnd {
       [0x51] = ITEM_ROW(0xFF, ChestType::WOODEN_BIG, 0xFF, 0xFF, 0x000A4, (s8)0xFF, (s8)0xFF,
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_Magic, ItemEffect_None, (s16)-1, (s16)-1), // Progressive Magic
 
+
+      // Remains
       [0x52] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::OdolwaRemains, 0x0055, 0x00000, (s8)0xFF, (s8)0xFF,
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Odolwa's Remains
 
@@ -324,6 +326,21 @@ namespace rnd {
 
       [0x60] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::GoronLullaby, 0x1BAC, 0x00000, (s8)0xFF, (s8)0xFF,
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveSong, (s16)11, (s16)-1), // Goron Lullaby Intro
+
+      [0x61] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::BombBag, 0x001B, 0x00098, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Bomb Bag
+
+      [0x62] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::BigBombBag, 0x001C, 0x00098, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveUpgrade, (s16)2, (s16)1), // Big Bomb Bag
+
+      [0x63] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::BiggestBombBag, 0x001D, 0x00098, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveUpgrade, (s16)3, (s16)1), // Biggest Bomb Bag
+
+      [0x64] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::LargeQuiver, 0x0023, 0x00097, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveUpgrade, (s16)2, (s16)0), // Large Quiver
+
+      [0x65] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::BiggestQuiver, 0x0024, 0x00097, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveUpgrade, (s16)3, (s16)0), // Biggest Quiver
   };
 
   ItemRow *ItemTable_GetItemRow(u16 itemId) {
