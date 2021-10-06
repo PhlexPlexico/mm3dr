@@ -45,7 +45,7 @@ namespace rnd {
         game::GetCommonData().save.equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
         game::GetCommonData().save.player.magic_num_upgrades = 0; // Single Magic
         // svcOutputDebugString("This is our talk actor ", 23);
-
+        rnd::util::GetPointer<void(game::GlobalContext*, int msgid, int)>(0x21BAFC)(context.gctx, 0x1ba1, 0x0);
         // svcOutputDebugString((const char*)link->talk_actor->id, sizeof(char));
         // svcOutputDebugString("\n", 2);
 

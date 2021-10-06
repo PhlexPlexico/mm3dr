@@ -292,11 +292,16 @@ namespace rnd {
 
 
       // Songs. TODO: Figure out what the text ID for these are, and possible object IDs.
-      [0x56] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::SonataOfAwakening, 0x0058, 0x00000, (s8)0xFF, (s8)0xFF,
+      [0x56] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::SonataOfAwakening, 0x1b9e, 0x00000, (s8)0xFF, (s8)0xFF,
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveSong, (s16)1, (s16)-1), // Sonata Of Awakening
 
       [0x57] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::GoronLullaby, 0x0058, 0x00000, (s8)0xFF, (s8)0xFF,
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveSong, (s16)2, (s16)-1), // Goron Lullaby
+
+      [0x58] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::NewWaveBossaNova, 0x1BA0, 0x00000, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveSong, (s16)2, (s16)-1), // New Wave Bossanova
+
+      //0x1ba1 is elegy of emptiness.
   };
 
   ItemRow *ItemTable_GetItemRow(u16 itemId) {
