@@ -292,16 +292,38 @@ namespace rnd {
 
 
       // Songs. TODO: Figure out what the text ID for these are, and possible object IDs.
-      [0x56] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::SonataOfAwakening, 0x1b9e, 0x00000, (s8)0xFF, (s8)0xFF,
+      [0x56] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::SonataOfAwakening, 0x1B9E, 0x00000, (s8)0xFF, (s8)0xFF,
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveSong, (s16)1, (s16)-1), // Sonata Of Awakening
 
-      [0x57] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::GoronLullaby, 0x0058, 0x00000, (s8)0xFF, (s8)0xFF,
+      [0x57] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::GoronLullaby, 0x1B9F, 0x00000, (s8)0xFF, (s8)0xFF,
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveSong, (s16)2, (s16)-1), // Goron Lullaby
 
       [0x58] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::NewWaveBossaNova, 0x1BA0, 0x00000, (s8)0xFF, (s8)0xFF,
-                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveSong, (s16)2, (s16)-1), // New Wave Bossanova
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveSong, (s16)3, (s16)-1), // New Wave Bossanova
+      
+      [0x59] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::ElegyOfEmptiness, 0x1BA1, 0x00000, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveSong, (s16)4, (s16)-1), // Elegy of Emptiness
 
-      //0x1ba1 is elegy of emptiness.
+      [0x5A] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::OathToOrder, 0x1BA2, 0x00000, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveSong, (s16)5, (s16)-1), // Oath To Order
+
+      [0x5B] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::SongOfTime, 0x1BA4, 0x00000, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveSong, (s16)6, (s16)-1), // Song Of Time
+
+      [0x5C] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::SongOfHealing, 0x1BA5, 0x00000, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveSong, (s16)7, (s16)-1), // Song Of Healing
+
+      [0x5D] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::EponaSong, 0x1BA6, 0x00000, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveSong, (s16)8, (s16)-1), // Epona's Song
+
+      [0x5E] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::SongOfSoaring, 0x1BA7, 0x00000, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveSong, (s16)9, (s16)-1), // Song Of Soaring
+
+      [0x5F] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::SongOfStorms, 0x1BA8, 0x00000, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveSong, (s16)10, (s16)-1), // Song Of Storms
+
+      [0x60] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::GoronLullaby, 0x1BAC, 0x00000, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveSong, (s16)11, (s16)-1), // Goron Lullaby Intro
   };
 
   ItemRow *ItemTable_GetItemRow(u16 itemId) {
