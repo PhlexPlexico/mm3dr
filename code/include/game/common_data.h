@@ -156,22 +156,30 @@ struct InventoryData {
     BitField<28, 4, u32> heart_container_pieces;
   };
   CollectRegister collect_register;
-  s8 woodfall_boss_key;
-  s8 snowhead_boss_key;
-  s8 great_bay_boss_key;
-  s8 stone_tower_boss_key;
+  union DungeonItems {
+    u8 raw;
+
+    BitField<0, 1, u8> boss_key;
+    BitField<1, 1, u8> compass;
+    BitField<2, 1, u8> map;
+    BitField<3, 5, u8> pad_1;
+  };
+  DungeonItems woodfall_dungeon_items;
+  DungeonItems snowhead_dungeon_items;
+  DungeonItems great_bay_dungeon_items;
+  DungeonItems stone_tower_dungeon_items;
   u8 gap200[6];
-  s8 woodfall_temple_keys;
-  s8 snowhead_temple_keys;
-  s8 great_bay_temple_keys;
-  s8 stone_tower_temple_keys;
-  s8 gap20A[5];
-  char anonymous_39;
-  char anonymous_40;
-  char anonymous_41;
-  char anonymous_42;
-  char anonymous_43;
-  char gap98[60]; // XXX: Possible fairies location are here inside the pad.
+  u8 woodfall_temple_keys;
+  u8 snowhead_temple_keys;
+  u8 great_bay_temple_keys;
+  u8 stone_tower_temple_keys;
+  u8 gap20A[5];
+  u8 anonymous_39;
+  u8 woodfall_fairies;
+  u8 snowhead_fairies;
+  u8 great_bay_fairies;
+  u8 stone_tower_fairies;
+  u8 gap98[60]; //        L I N K            L I N K            L I N K           
 };
 static_assert(sizeof(InventoryData) == 0xD4);
 static_assert(offsetof(InventoryData, inventory_count_register) == 0x78);

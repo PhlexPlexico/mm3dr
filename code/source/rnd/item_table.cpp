@@ -248,13 +248,13 @@ namespace rnd {
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Seahorse Refill
 
       [0x48] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::KokiriSword, 0x0037, 0x00148, (s8)0xFF, (s8)0xFF,
-                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_Sword, ItemEffect_None, (s16)-1, (s16)-1), // Kokiri Sword
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveKokiriSword, (s16)-1, (s16)-1), // Kokiri Sword
 
       [0x49] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::RazorSword, 0x0038, 0x00148, (s8)0xFF, (s8)0xFF,
-                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_Sword, ItemEffect_None, (s16)-1, (s16)-1), // Razor Sword
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveRazorSword, (s16)-1, (s16)-1), // Razor Sword
 
       [0x4A] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::GildedSword, 0x0039, 0x001FA, (s8)0xFF, (s8)0xFF,
-                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_Sword, ItemEffect_None, (s16)-1, (s16)-1), // Gilded Sword
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveGildedSword, (s16)-1, (s16)-1), // Gilded Sword
 
       [0x4B] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::HeroShield, 0x0032, 0x000B3, (s8)0xFF, (s8)0xFF,
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Hero Sheild
@@ -275,22 +275,22 @@ namespace rnd {
       [0x50] = ITEM_ROW(0xFF, ChestType::WOODEN_BIG, 0xFF, 0xFF, 0x000A4, (s8)0xFF, (s8)0xFF,
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_Magic, ItemEffect_None, (s16)-1, (s16)-1), // Progressive Magic
 
-      [0x51] = ITEM_ROW(0xFF, ChestType::WOODEN_BIG, 0xFF, 0xFF, 0x000A4, (s8)0xFF, (s8)0xFF,
-                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_Magic, ItemEffect_None, (s16)-1, (s16)-1), // Progressive Magic
+      [0x51] = ITEM_ROW(0xFF, ChestType::WOODEN_BIG, 0xFF, 0xFF, 0x001FA, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_Sword, ItemEffect_None, (s16)-1, (s16)-1), // Progressive Sword
 
 
       // Remains
       [0x52] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::OdolwaRemains, 0x0055, 0x00000, (s8)0xFF, (s8)0xFF,
-                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Odolwa's Remains
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)0, (s16)-1), // Odolwa's Remains
 
       [0x53] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::GohtRemains, 0x0056, 0x00000, (s8)0xFF, (s8)0xFF,
-                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Goht's Remains
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)1, (s16)-1), // Goht's Remains
 
       [0x54] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::GyorgRemains, 0x0057, 0x00000, (s8)0xFF, (s8)0xFF,
-                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Gyrog's Remains
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)2, (s16)-1), // Gyrog's Remains
 
       [0x55] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::TwinmoldRemains, 0x0058, 0x00000, (s8)0xFF, (s8)0xFF,
-                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Twinmold's Remains
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)3, (s16)-1), // Twinmold's Remains
 
 
       // Songs. TODO: Figure out what the text ID for these are, and possible object IDs.
@@ -341,6 +341,112 @@ namespace rnd {
 
       [0x65] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::BiggestQuiver, 0x0024, 0x00097, (s8)0xFF, (s8)0xFF,
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveUpgrade, (s16)3, (s16)0), // Biggest Quiver
+
+      [0x66] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::FiftyRupees, 0x0005, 0x0013F, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveUpgrade, (s16)-1, (s16)-1), // Fifty Rupees
+
+      [0x67] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::TwentyRupees, 0x0005, 0x0013F, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveUpgrade, (s16)-1, (s16)-1), // Twenty Rupees
+
+      [0x68] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::AdultWallet, 0x0005, 0x000A8, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_FillWalletUpgrade, (s16)1, (s16)-1), // Adult Wallet
+
+      [0x69] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::GiantWallet, 0x0005, 0x000A8, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_FillWalletUpgrade, (s16)2, (s16)-1), // Giant's Wallet
+      
+      [0x6A] = ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL, (u8)game::ItemId::RecoveryHeart, 0x000A, 0x00090, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Recovery Heart
+
+      [0x6B] = ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL, (u8)game::ItemId::PieceOfHeart, 0x000C, 0x00096, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Piece of Heart
+
+      [0x6C] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::HeartContainer, 0x000D, 0x00096, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Heart Container
+
+      [0x6D] = ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL, (u8)game::ItemId::TenBombs, 0x0016, 0x000A5, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_BombsToRupee, ItemEffect_None, (s16)-1, (s16)-1), // Bombs (10)
+
+      [0x6E] = ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL, (u8)game::ItemId::TwentyBombs, 0x0017, 0x000A5, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_BombsToRupee, ItemEffect_None, (s16)-1, (s16)-1), // Bombs (20)
+
+      [0x6F] = ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL, (u8)game::ItemId::ThirtyBombs, 0x0018, 0x000A5, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_BombsToRupee, ItemEffect_None, (s16)-1, (s16)-1), // Bombs (30)
+
+      [0x70] = ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL, (u8)game::ItemId::TenArrows, 0x001E, 0x000AF, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_ArrowsToRupee, ItemEffect_None, (s16)-1, (s16)-1), // Arrows (10)
+
+      [0x71] = ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL, (u8)game::ItemId::ThirtyArrows, 0x001F, 0x000AF, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_ArrowsToRupee, ItemEffect_None, (s16)-1, (s16)-1), // Arrows (30)
+
+      [0x72] = ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL, (u8)game::ItemId::FortyArrows, 0x001F, 0x000AF, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_ArrowsToRupee, ItemEffect_None, (s16)-1, (s16)-1), // Arrows (40)
+
+      [0x73] = ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL, (u8)game::ItemId::TenNuts, 0x002A, 0x0094, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Deku Nuts (10)
+
+      [0x74] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::PowderKeg, 0x0034, 0x001CA, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Powder Keg
+
+      [0x75] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::MagicBean, 0x0035, 0x000C6, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_BeanPack, (s16)-1, (s16)-1), // Magic Beans
+
+      [0x76] = ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_BIG, (u8)game::ItemId::FiveBombchu, 0x003A, 0x000B0, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_BombsToRupee, ItemEffect_None, (s16)-1, (s16)-1), // Bombchus (5)
+
+      // Dungeon Items
+
+      [0x77] = ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::DECORATED_SMALL, (u8)game::ItemId::SmallKey, 0x003C, 0x00086, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveSmallKey, (s16)0, (s16)-1), // Small Key (Woodfall)
+
+      [0x78] = ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::DECORATED_SMALL, (u8)game::ItemId::SmallKey, 0x003C, 0x00086, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveSmallKey, (s16)1, (s16)-1), // Small Key (Snowhead)
+
+      [0x79] = ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::DECORATED_SMALL, (u8)game::ItemId::SmallKey, 0x003C, 0x00086, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveSmallKey, (s16)2, (s16)-1), // Small Key (Great Bay)
+
+      [0x7A] = ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::DECORATED_SMALL, (u8)game::ItemId::SmallKey, 0x003C, 0x00086, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveSmallKey, (s16)3, (s16)-1), // Small Key (Stone Tower)
+
+      [0x7B] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::DECORATED_BIG, (u8)game::ItemId::BossKey, 0x003D, 0x00092, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveDungeonItem, (s16)1, (s16)0), // Boss Key (Woodfall)
+
+      [0x7C] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::DECORATED_BIG, (u8)game::ItemId::BossKey, 0x003D, 0x00092, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveDungeonItem, (s16)1, (s16)1), // Boss Key (Snowhead)
+
+      [0x7D] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::DECORATED_BIG, (u8)game::ItemId::BossKey, 0x003D, 0x00092, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveDungeonItem, (s16)1, (s16)2), // Boss Key (Great Bay)
+
+      [0x7E] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::DECORATED_BIG, (u8)game::ItemId::BossKey, 0x003D, 0x00092, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveDungeonItem, (s16)1, (s16)3), // Boss Key (Stone Tower)
+
+      [0x7F] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::DECORATED_BIG, (u8)game::ItemId::Compass, 0x003F, 0x00091, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveDungeonItem, (s16)2, (s16)0), // Compass (Woodfall)
+
+      [0x80] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::DECORATED_BIG, (u8)game::ItemId::Compass, 0x003F, 0x00091, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveDungeonItem, (s16)2, (s16)1), // Compass (Snowhead)
+
+      [0x81] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::DECORATED_BIG, (u8)game::ItemId::Compass, 0x003F, 0x00091, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveDungeonItem, (s16)2, (s16)2), // Compass (Great Bay)
+
+      [0x82] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::DECORATED_BIG, (u8)game::ItemId::Compass, 0x003F, 0x00091, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveDungeonItem, (s16)2, (s16)3), // Compass (Stone Tower)
+
+      [0x83] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::DECORATED_BIG, (u8)game::ItemId::Compass, 0x003E, 0x000A0, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveDungeonItem, (s16)3, (s16)0), // Map (Woodfall)
+
+      [0x84] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::DECORATED_BIG, (u8)game::ItemId::Compass, 0x003E, 0x000A0, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveDungeonItem, (s16)3, (s16)1), // Map (Snowhead)
+
+      [0x85] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::DECORATED_BIG, (u8)game::ItemId::Compass, 0x003E, 0x000A0, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveDungeonItem, (s16)3, (s16)2), // Map (Great Bay)
+
+      [0x86] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::DECORATED_BIG, (u8)game::ItemId::Compass, 0x003E, 0x000A0, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveDungeonItem, (s16)3, (s16)3), // Map (Stone Tower)
+
+      [0x87] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::DECORATED_BIG, (u8)game::ItemId::HeartContainer, 0x000CB, 0x00096, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveDoubleDefense, (s16)3, (s16)3), // Double Defense.
+
+
   };
 
   ItemRow *ItemTable_GetItemRow(u16 itemId) {

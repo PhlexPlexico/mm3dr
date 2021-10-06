@@ -89,7 +89,6 @@ void GiveItemWithEffect(u32 gi_item_index) {
   if (!player) {
     return;
   }
-    
   player->get_item_id = gi_item_index;
   rnd::util::GetPointer<int(game::GlobalContext*, game::act::Player*)>(0x231038)(
         gctx, player);

@@ -24,12 +24,16 @@ namespace rnd {
     return;
   }
 
+  void ItemEffect_GiveKokiriSword(game::CommonData *comData, s16 arg1, s16 arg2) {
+    comData->save.equipment.sword_shield.sword = game::SwordType::KokiriSword; // Set sword to kokiri.
+  }
+
   void ItemEffect_GiveRazorSword(game::CommonData *comData, s16 arg1, s16 arg2) {
     comData->save.player.razor_sword_hp = 100;                                // Set to 100 hits. Maybe randomize?
     comData->save.equipment.sword_shield.sword = game::SwordType::RazorSword; // Set sword to razor.
   }
 
-  void ItemEffect_GiveGildeddSword(game::CommonData *comData, s16 arg1, s16 arg2) {
+  void ItemEffect_GiveGildedSword(game::CommonData *comData, s16 arg1, s16 arg2) {
     comData->save.equipment.sword_shield.sword = game::SwordType::GildedSword; // Set sword to gilded.
   }
 
@@ -83,7 +87,14 @@ namespace rnd {
     return;
   }
 
-    void ItemEffect_IceTrap(game::CommonData *comData, s16 arg1, s16 arg2) {
+  void ItemEffect_GiveDoubleDefense(game::CommonData *comData, s16 arg1, s16 arg2) {
+    comData->save.player.double_defense = 1;
+    if((gSettingsContext.heartDropRefill != (u8)HeartDropRefillSetting::HEARTDROPREFILL_NOREFILL) && (gSettingsContext.heartDropRefill != (u8)HeartDropRefillSetting::HEARTDROPREFILL_NODROPREFILL)){
+        comData->health_accumulator = 20 * 0x10;
+    }
+  }
+
+  void ItemEffect_IceTrap(game::CommonData *comData, s16 arg1, s16 arg2) {
       IceTrap_Push();
   }
 
@@ -212,8 +223,51 @@ namespace rnd {
     }
   }
 
-  void ItemEffect_GiveMedallion(game::CommonData *comData, s16 mask, s16 arg2) {
-    game::GiveItem((game::ItemId)mask);
+  void ItemEffect_GiveRemains(game::CommonData *comData, s16 mask, s16 arg2) {
+    switch (mask) {
+      case 0: comData->save.inventory.collect_register.odolwas_remains = 1;
+      case 1: comData->save.inventory.collect_register.gohts_remains = 1;
+      case 2: comData->save.inventory.collect_register.gyorgs_remains = 1;
+      case 3: comData->save.inventory.collect_register.twinmolds_remains = 1;
+    }
+  }
+
+  void ItemEffect_GiveDungeonItem(game::CommonData *comData, s16 mask, s16 dungeonId) {
+    switch(dungeonId) {
+      case 0:
+        if (mask == 1)
+          comData->save.inventory.woodfall_dungeon_items.boss_key = 1;
+        else if (mask == 2)
+          comData->save.inventory.woodfall_dungeon_items.compass = 1;
+        else if (mask == 3)
+          comData->save.inventory.woodfall_dungeon_items.map = 1;
+        break;
+      case 1:
+        if (mask == 1)
+          comData->save.inventory.snowhead_dungeon_items.boss_key = 1;
+        else if (mask == 2)
+          comData->save.inventory.snowhead_dungeon_items.compass = 1;
+        else if (mask == 3)
+          comData->save.inventory.snowhead_dungeon_items.map = 1;
+        break;
+      case 2:
+        if (mask == 1)
+          comData->save.inventory.great_bay_dungeon_items.boss_key = 1;
+        else if (mask == 2)
+          comData->save.inventory.great_bay_dungeon_items.compass = 1;
+        else if (mask == 3)
+          comData->save.inventory.great_bay_dungeon_items.map = 1;
+        break;
+      case 3:
+        if (mask == 1)
+          comData->save.inventory.stone_tower_dungeon_items.boss_key = 1;
+        else if (mask == 2)
+          comData->save.inventory.stone_tower_dungeon_items.compass = 1;
+        else if (mask == 3)
+          comData->save.inventory.stone_tower_dungeon_items.map = 1;
+        break;
+    }
+    
   }
 
   void ItemEffect_GiveMagic(game::CommonData *comData, s16 arg1, s16 arg2) {
@@ -223,13 +277,5 @@ namespace rnd {
     comData->save.equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
     comData->save.player.magic_num_upgrades = 0; // Single Magic
   }
-
-  // void ItemEffect_GiveDoubleMagic(game::CommonData *comData, s16 arg1, s16 arg2) {
-  //   comData->save.player.magic_acquired = 1;
-  //   comData->save.player.magic_size_type = 0;
-  //   comData->save.player.magic = 96;
-  //   comData->save.equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
-  //   comData->save.player.magic_num_upgrades = 1; // Double Magic
-  // }
 
 } // namespace rnd

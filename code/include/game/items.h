@@ -176,7 +176,7 @@ enum class ItemId : u8 {
   ThirtyBombs  = 0x92, // These are no item above head and allows player to move around with textbox for GetItem Tables.
   TenArrows = 0x93,
   ThirtyArrows = 0x94,
-  FourtyArrows = 0x95,
+  FortyArrows = 0x95,
   FiftyArrows = 0x96,
   OneBombchu = 0x97, // These are no item above head and allows player to move around with textbox for GetItem Tables.
   TenBombchus = 0x98, // These are no item above head and allows player to move around with textbox for GetItem Tables.

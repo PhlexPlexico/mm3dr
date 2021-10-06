@@ -39,13 +39,8 @@ namespace rnd {
       game::act::Player* link = context.gctx->GetPlayerActor();
       if(link) {
         //game::GiveItemWithEffect(0x0E);
-        game::GetCommonData().save.player.magic_acquired = 1;
-        game::GetCommonData().save.player.magic_size_type = 0;
-        //game::GetCommonData().save.player.magic = 10;
-        game::GetCommonData().save.equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
-        game::GetCommonData().save.player.magic_num_upgrades = 0; // Single Magic
         // svcOutputDebugString("This is our talk actor ", 23);
-        rnd::util::GetPointer<void(game::GlobalContext*, int msgid, int)>(0x21BAFC)(context.gctx, 0x1BA3, 0x0);
+        rnd::util::GetPointer<void(game::GlobalContext*, int msgid, int)>(0x21BAFC)(context.gctx, 0x0030, 0x0);
         // svcOutputDebugString((const char*)link->talk_actor->id, sizeof(char));
         // svcOutputDebugString("\n", 2);
 
