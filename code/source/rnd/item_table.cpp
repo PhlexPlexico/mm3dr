@@ -7,10 +7,6 @@
 
 #include "z3D/z3Dvec.h"
 
-extern "C" {
-#include <3ds/svc.h>
-}
-
 namespace rnd {
 
 #define ITEM_ROW(                                                                                     \
@@ -596,19 +592,19 @@ namespace rnd {
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveKokiriSword, (s16)-1, (s16)-1), // Kokiri Sword
 
       // Progressive Items
-      [0xBC] = ITEM_ROW(0xFF, ChestType::WOODEN_BIG, 0xFF, 0xFF, 0x00098, (s8)0xFF, (s8)0xFF,
+      [0xBC] = ITEM_ROW(0xFF, ChestType::WOODEN_SMALL, 0xFF, 0xFF, 0x00098, (s8)0xFF, (s8)0xFF,
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_BombBag, ItemEffect_None, (s16)-1, (s16)-1), // Progressive Bomb Bag
 
-      [0xBD] = ITEM_ROW(0xFF, ChestType::WOODEN_BIG, 0xFF, 0xFF, 0x00097, (s8)0xFF, (s8)0xFF,
+      [0xBD] = ITEM_ROW(0xFF, ChestType::WOODEN_SMALL, 0xFF, 0xFF, 0x00097, (s8)0xFF, (s8)0xFF,
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_Quiver, ItemEffect_None, (s16)-1, (s16)-1), // Progressive Quiver
 
-      [0xBE] = ITEM_ROW(0xFF, ChestType::WOODEN_BIG, 0xFF, 0xFF, 0x000A8, (s8)0xFF, (s8)0xFF,
+      [0xBE] = ITEM_ROW(0xFF, ChestType::WOODEN_SMALL, 0xFF, 0xFF, 0x000A8, (s8)0xFF, (s8)0xFF,
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_Wallet, ItemEffect_None, (s16)-1, (s16)-1), // Progressive Wallet
 
-      [0xBF] = ITEM_ROW(0xFF, ChestType::WOODEN_BIG, 0xFF, 0xFF, 0x000A4, (s8)0xFF, (s8)0xFF,
+      [0xBF] = ITEM_ROW(0xFF, ChestType::WOODEN_SMALL, 0xFF, 0xFF, 0x000A4, (s8)0xFF, (s8)0xFF,
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_Magic, ItemEffect_None, (s16)-1, (s16)-1), // Progressive Magic
 
-      [0xC0] = ITEM_ROW(0xFF, ChestType::WOODEN_BIG, 0xFF, 0xFF, 0x001FA, (s8)0xFF, (s8)0xFF,
+      [0xC0] = ITEM_ROW(0xFF, ChestType::WOODEN_SMALL, 0xFF, 0xFF, 0x001FA, (s8)0xFF, (s8)0xFF,
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_Sword, ItemEffect_None, (s16)-1, (s16)-1), // Progressive Sword
 
       [0xC1] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::SonataOfAwakening, 0x1B9E, 0x00000, (s8)0xFF, (s8)0xFF,
@@ -696,17 +692,22 @@ namespace rnd {
       [0xDC] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::DECORATED_BIG, (u8)game::ItemId::Map, 0x003E, 0x000A0, (s8)0xFF, (s8)0xFF,
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveDungeonItem, (s16)3, (s16)3), // Map (Stone Tower)
 
-      [0xDD] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::DECORATED_BIG, (u8)game::ItemId::HeartContainer, 0x000CB, 0x00096, (s8)0xFF, (s8)0xFF,
+      [0xDD] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::None, 0x000CB, 0x00096, (s8)0xFF, (s8)0xFF,
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveDoubleDefense, (s16)3, (s16)3), // Double Defense.
 
+      [0xDE] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::SmallMagicAccumulator, 0x000CA, 0x000A4, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveMagic, (s16)-1, (s16)-1), // Small Magic
+
+      [0xDF] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::BigMagicAccumulator, 0x000CC, 0x000A4, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveDoubleMagic, (s16)-1, (s16)-1), // Double Magic
 
   };
 
-  ItemRow *ItemTable_GetItemRow(u16 itemId) {
-    if (itemId >= ARR_SIZE(rItemTable)) {
+  ItemRow *ItemTable_GetItemRow(u16 getItemId) {
+    if (getItemId >= ARR_SIZE(rItemTable)) {
       return NULL;
     }
-    ItemRow *itemRow = &rItemTable[18];
+    ItemRow *itemRow = &rItemTable[getItemId];
     if (itemRow->baseItemId == 0) {
       return NULL;
     }
@@ -721,16 +722,16 @@ namespace rnd {
     //rItemTable[0x6B].chestType = type;
   }
 
-  u16 ItemTable_ResolveUpgrades(u16 itemId) {
+  u16 ItemTable_ResolveUpgrades(u16 getItemId) {
     game::SaveData &gSaveContext = game::GetCommonData().save;
     if (gSaveContext.has_completed_intro) {
       for (;;) {
-        ItemRow *itemRow = ItemTable_GetItemRow(itemId);
-        u16 newItemId = (u16)itemRow->upgrade(&gSaveContext, (GetItemID)itemId);
-        if (newItemId == itemId) {
-          return itemId;
+        ItemRow *itemRow = ItemTable_GetItemRow(getItemId);
+        u16 newItemId = (u16)itemRow->upgrade(&gSaveContext, (GetItemID)getItemId);
+        if (newItemId == getItemId) {
+          return getItemId;
         }
-        itemId = newItemId;
+        getItemId = newItemId;
       }
     }
     // Should not reach.

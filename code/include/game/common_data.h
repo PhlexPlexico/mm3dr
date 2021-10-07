@@ -57,7 +57,22 @@ struct __attribute__((packed)) __attribute__((aligned(2))) PlayerData {
   char anonymous_18;
   char anonymous_19;
   char anonymous_20;
-  u16 owl_statue_flags;
+  union OwlStatues {
+    u16 raw;
+
+    BitField<0, 1, u16> great_bay;
+    BitField<1, 1, u16> zora_cape;
+    BitField<2, 1, u16> snowhead;
+    BitField<3, 1, u16> mountain_village;
+    BitField<4, 1, u16> clock_town;
+    BitField<5, 1, u16> milk_road;
+    BitField<6, 1, u16> woodfall;
+    BitField<7, 1, u16> southern_swamp;
+    BitField<8, 1, u16> ikana_canyon;
+    BitField<9, 1, u16> stone_tower;
+    BitField<10, 6, u16> pad_1;
+  };
+  OwlStatues owl_statue_flags;
   char field_2E;
   char field_2F;
   char field_30;
