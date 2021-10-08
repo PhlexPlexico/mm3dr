@@ -19,6 +19,7 @@ namespace rnd {
   void ItemEffect_GiveDefense(game::CommonData *comData, s16 arg1, s16 arg2);
   void ItemEffect_GiveMagic(game::CommonData *comData, s16 arg1, s16 arg2);
   void ItemEffect_GiveDoubleMagic(game::CommonData *comData, s16 arg1, s16 arg2);
+  void ItemEffect_GiveGreatSpin(game::CommonData *comData, s16 arg1, s16 arg2);
   void ItemEffect_GiveDoubleDefense(game::CommonData *comData, s16 arg1, s16 arg2);
   void ItemEffect_GiveOcarina(game::CommonData *comData, s16 arg1, s16 arg2);
   void ItemEffect_GiveSong(game::CommonData *comData, s16 questBit, s16 arg2);

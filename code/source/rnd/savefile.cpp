@@ -64,12 +64,17 @@ namespace rnd {
     saveData.inventory.item_counts[12] = 40; // Bombchus
     saveData.inventory.item_counts[14] = 20; // Nuts
     saveData.inventory.item_counts[13] = 20; // Sticks
+    saveData.has_great_spin = 2; // Set great spin.
 #endif
     //TODO: Decomp event flags. Most likely in the large anonymous structs in the SaveData.
     saveData.has_completed_intro = 1;
     saveData.inventory.collect_register.bombers_notebook = 1;
     saveData.inventory.collect_register.song_of_healing = 1;
     saveData.has_tatl = true;
+    saveData.ct_deku_flown_in_0x80_if_visited_once = 0x80;
+    saveData.ct_deku_in_flower_0x04_if_present = 0x04;
+    saveData.skip_tatl_talking_0x04 = 0x04;
+    saveData.player_form = game::act::Player::Form::Deku;
     //game::GiveItem(game::ItemId::BombersNotebook);
     //TODO: Things to set on
   }

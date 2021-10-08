@@ -46,6 +46,10 @@ namespace rnd {
     }
   }
 
+  void ItemEffect_GiveDefense(game::CommonData *comData, s16 arg1, s16 arg2) {
+    comData->save.player.double_defense = 1;
+  }
+
   void ItemEffect_GiveSmallKey(game::CommonData *comData, s16 dungeonId, s16 arg2) {
     s8 keys;
     switch (dungeonId) {
@@ -69,6 +73,11 @@ namespace rnd {
       break;
     }
   }
+  
+  void ItemEffect_GiveGreatSpin(game::CommonData *comData, s16 arg1, s16 arg2) {
+    comData->save.has_great_spin = 2;
+  }
+
 
   void ItemEffect_GiveDoubleMagic(game::CommonData *comData, s16 arg1, s16 arg2) {
     comData->save.player.magic_size_type = 0;
@@ -276,6 +285,25 @@ namespace rnd {
     comData->save.player.magic = 48;
     comData->save.equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
     comData->save.player.magic_num_upgrades = 0; // Single Magic
+  }
+
+  // XXX: Is this needed since masks are in the drop table?
+  void ItemEffect_GiveMask(game::CommonData *comData, s16 mask, s16 arg2) {
+    switch (mask)
+    {
+    case 0:
+      comData->save.inventory.collect_register.odolwas_remains = 1;
+      break;
+    case 1:
+      comData->save.inventory.collect_register.gohts_remains = 1;
+      break;
+    case 2:
+      comData->save.inventory.collect_register.gyorgs_remains = 1;
+      break;
+    case 3:
+      comData->save.inventory.collect_register.twinmolds_remains = 1;
+      break;
+    }
   }
 
 } // namespace rnd

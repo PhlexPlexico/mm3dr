@@ -38,7 +38,7 @@ enum class Quiver : u32 {
   Quiver50 = 3,
 };
 
-struct /*__attribute__((packed)) __attribute__((aligned(2)))*/ PlayerData {
+struct PlayerData {
   char field_11C[4];
   u8 gap_120[2];
   u16 save_count_maybe;
@@ -301,7 +301,7 @@ struct SaveData {
   char anonymous_83;
   char anonymous_84;
   char anonymous_85;
-  char anonymous_86;
+  u8 has_great_spin;
   char anonymous_87;
   char anonymous_88;
   char anonymous_89;
@@ -330,7 +330,7 @@ struct SaveData {
   char anonymous_111;
   char anonymous_112;
   char anonymous_113;
-  char anonymous_114;
+  char skip_tatl_talking_0x04;
   char anonymous_115;
   char anonymous_116; // Don Gero Flag Maybe
   char anonymous_117;
@@ -338,7 +338,7 @@ struct SaveData {
   char anonymous_119;
   char anonymous_120;
   u8 gap1292[7];
-  char anonymous_121;
+  u8 ct_deku_in_flower_0x04_if_present;
   char anonymous_122;
   char anonymous_123;
   char anonymous_124;
@@ -379,7 +379,7 @@ struct SaveData {
   char anonymous_156;
   char anonymous_157;
   char anonymous_158;
-  char anonymous_159;
+  u8 ct_deku_flown_in_0x80_if_visited_once; // Possible event flags? Set to 80.
   char anonymous_160;
   u8 gap12DC[20];
   int anonymous_161;
