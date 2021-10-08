@@ -38,19 +38,20 @@ enum class Quiver : u32 {
   Quiver50 = 3,
 };
 
-struct __attribute__((packed)) __attribute__((aligned(2))) PlayerData {
-  u32 field_11C;
+struct /*__attribute__((packed)) __attribute__((aligned(2)))*/ PlayerData {
+  char field_11C[4];
   u8 gap_120[2];
   u16 save_count_maybe;
-  char16_t player_name[8];
-  u8 anonymous_h[2];
+  char16_t playerName[8];
+  u16 anonymous_h;
+  
   u16 health_max;
   u16 health_current;
   u8 magic_size_type;
   u8 magic;
   u16 rupee_count;
   u16 razor_sword_hp;
-  u16 active_player_in_frame_count;
+  u16 tatl_timer_maybe;
   u8 magic_acquired;
   s8 magic_num_upgrades;
   u8 double_defense;
