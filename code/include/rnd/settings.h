@@ -99,7 +99,6 @@ namespace rnd {
 
   enum class KeysanitySetting : u8 {
     KEYSANITY_START_WITH,
-    KEYSANITY_VANILLA,
     KEYSANITY_OWN_DUNGEON,
     KEYSANITY_ANY_DUNGEON,
     KEYSANITY_OVERWORLD,
@@ -196,6 +195,11 @@ namespace rnd {
     STARTINGSWORD_GILDED,
   };
 
+  enum class StartingSpinSetting : u8 {
+    STARTINGSPIN_REGULAR,
+    STARTINGSPIN_GREAT,
+  };
+
   enum class StartingTradeItemSetting : u8 {
     STARTINGSWORD_MOON_TEAR,
     STARTINGSWORD_LAND_TITLE_DEED,
@@ -258,6 +262,8 @@ namespace rnd {
     u8 gyorgTrialSkip;
     u8 twinmoldTrialSkip;
 
+    u8 progressiveGildedSword;
+    u8 startingSpinSettting;
 
     u32 linksTradeItemBitMask;
 

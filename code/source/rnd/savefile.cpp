@@ -37,7 +37,7 @@ namespace rnd {
     saveData.inventory.masks[2] = game::ItemId::ZoraMask;
     saveData.inventory.masks[3] = game::ItemId::FierceDeityMask;
     saveData.inventory.masks[4] = game::ItemId::GibdoMask;
-    
+
     saveData.inventory.woodfall_temple_keys = 8;
     saveData.inventory.snowhead_temple_keys = 8;
     saveData.inventory.great_bay_temple_keys = 8;
@@ -59,12 +59,12 @@ namespace rnd {
     saveData.player.magic = 96;
     saveData.player.magic_num_upgrades = 1;
     saveData.equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
-    saveData.inventory.item_counts[6] = 50; // Arrows
+    saveData.inventory.item_counts[6] = 50;  // Arrows
     saveData.inventory.item_counts[11] = 40; // Bombs
     saveData.inventory.item_counts[12] = 40; // Bombchus
     saveData.inventory.item_counts[14] = 20; // Nuts
     saveData.inventory.item_counts[13] = 20; // Sticks
-    saveData.has_great_spin = 2; // Set great spin.
+    saveData.has_great_spin = 2;             // Set great spin.
 #endif
     //TODO: Decomp event flags. Most likely in the large anonymous structs in the SaveData.
     saveData.has_completed_intro = 1;
@@ -79,7 +79,7 @@ namespace rnd {
     //TODO: Things to set on
   }
 
-    //Resolve the item ID for the starting bottle
+  //Resolve the item ID for the starting bottle
   static void SaveFile_GiveStartingBottle(StartingBottleSetting startingBottle, u8 bottleSlot) {
     game::SaveData &saveData = game::GetCommonData().save;
     if (startingBottle > StartingBottleSetting::STARTINGBOTTLE_NONE) {
@@ -103,122 +103,116 @@ namespace rnd {
     game::InventoryData &inventoryData = game::GetCommonData().save.inventory;
     game::PlayerData &playerData = game::GetCommonData().save.player;
     game::EquipmentData &equipmentData = game::GetCommonData().save.equipment;
+    game::SaveData &saveData = game::GetCommonData().save;
     //give maps and compasses
-    /*if (gSettingsContext.mapsAndCompasses == MAPSANDCOMPASSES_START_WITH) {
-      for (u8 i = 0; i < 0xA; i++) {
-        gSaveContext.dungeonItems[i] |= 0x6;
-      }
+    if (gSettingsContext.mapsAndCompasses ==
+        (u8)MapsAndCompassesSetting::MAPSANDCOMPASSES_START_WITH) {
+      inventoryData.woodfall_dungeon_items.map = 1;
+      inventoryData.woodfall_dungeon_items.compass = 1;
+      inventoryData.snowhead_dungeon_items.map = 1;
+      inventoryData.snowhead_dungeon_items.compass = 1;
+      inventoryData.great_bay_dungeon_items.map = 1;
+      inventoryData.great_bay_dungeon_items.compass = 1;
+      inventoryData.stone_tower_dungeon_items.map = 1;
+      inventoryData.stone_tower_dungeon_items.compass = 1;
     }
-
+    
     //give small keys
-    if (gSettingsContext.keysanity == KEYSANITY_START_WITH) { //check if MQ dungeon               MQ : Vanilla key count
-      gSaveContext.dungeonKeys[DUNGEON_FOREST_TEMPLE] = gSettingsContext.forestTempleDungeonMode ? 6 : 5;
-      gSaveContext.dungeonKeys[DUNGEON_FIRE_TEMPLE] = gSettingsContext.fireTempleDungeonMode ? 5 : 8;
-      gSaveContext.dungeonKeys[DUNGEON_WATER_TEMPLE] = gSettingsContext.waterTempleDungeonMode ? 2 : 6;
-      gSaveContext.dungeonKeys[DUNGEON_SPIRIT_TEMPLE] = gSettingsContext.spiritTempleDungeonMode ? 7 : 5;
-      gSaveContext.dungeonKeys[DUNGEON_SHADOW_TEMPLE] = gSettingsContext.shadowTempleDungeonMode ? 6 : 5;
-      gSaveContext.dungeonKeys[DUNGEON_BOTTOM_OF_THE_WELL] = gSettingsContext.bottomOfTheWellDungeonMode ? 2 : 3;
-      gSaveContext.dungeonKeys[DUNGEON_GERUDO_TRAINING_GROUNDS] = gSettingsContext.gerudoTrainingGroundsDungeonMode ? 3 : 9;
-      gSaveContext.dungeonKeys[DUNGEON_GANONS_CASTLE_FIRST_PART] = gSettingsContext.ganonsCastleDungeonMode ? 3 : 2;
+    if (gSettingsContext.keysanity == (u8)KeysanitySetting::KEYSANITY_START_WITH) {
+      inventoryData.woodfall_temple_keys = 1;
+      inventoryData.snowhead_temple_keys = 3;
+      inventoryData.great_bay_temple_keys = 3;
+      inventoryData.stone_tower_temple_keys = 4;
       //give starting spirit keys for vanilla key locations
-    } else if (gSettingsContext.keysanity == KEYSANITY_VANILLA) {
-      if (gSettingsContext.spiritTempleDungeonMode == DUNGEONMODE_MQ) {
-        gSaveContext.dungeonKeys[DUNGEON_SPIRIT_TEMPLE] = 3;
-      }
     }
-
+    
     //give boss keys
-    if (gSettingsContext.bossKeysanity == BOSSKEYSANITY_START_WITH) {
-      for (u8 i = 3; i < 8; i++) {
-        gSaveContext.dungeonItems[i] |= 0x1;
-      }
+    if (gSettingsContext.bossKeysanity == (u8)BossKeysanitySetting::BOSSKEYSANITY_START_WITH) {
+      inventoryData.woodfall_dungeon_items.boss_key = 1;
+      inventoryData.snowhead_dungeon_items.boss_key = 1;
+      inventoryData.great_bay_dungeon_items.boss_key = 1;
+      inventoryData.stone_tower_dungeon_items.boss_key = 1;
     }
-
-    //give Ganon's Castle Boss Key
-    if (gSettingsContext.ganonsBossKey == GANONSBOSSKEY_START_WITH) {
-      gSaveContext.dungeonItems[DUNGEON_GANONS_CASTLE_SECOND_PART] |= 0x1;
-    }*/
 
     //starting Nuts and Sticks
     if (gSettingsContext.startingConsumables) {
-      game::GiveItem(game::ItemId::DekuNuts);
-      game::GiveItem(game::ItemId::DekuStick);
+      inventoryData.items[9] = game::ItemId::DekuNuts;
+      inventoryData.items[10] = game::ItemId::DekuStick;
       inventoryData.inventory_count_register.nut_upgrade = 0;
       inventoryData.inventory_count_register.stick_upgrades = 0;
     }
 
     //main inventory
     if (gSettingsContext.startingStickCapacity > 0) {
-      game::GiveItem(game::ItemId::DekuStick);
+      inventoryData.items[10] = game::ItemId::DekuStick;
       inventoryData.inventory_count_register.stick_upgrades = 0;
       inventoryData.item_counts[13] = (gSettingsContext.startingStickCapacity + 1) * 10;
     }
 
     if (gSettingsContext.startingNutCapacity > 0) {
-      game::GiveItem(game::ItemId::DekuNuts);
+      inventoryData.items[9] = game::ItemId::DekuNuts;
       inventoryData.inventory_count_register.nut_upgrade = 0;
       inventoryData.item_counts[14] = (gSettingsContext.startingNutCapacity + 1) * 10;
     }
 
     if (gSettingsContext.startingBombBag > 0) {
-      game::GiveItem(game::ItemId::BombBag);
-      game::GiveItem(game::ItemId::Bomb);
+      inventoryData.inventory_count_register.bomb_bag_upgrade = game::BombBag::BombBag20;
+      inventoryData.items[6] = game::ItemId::Bomb;
       inventoryData.item_counts[11] = (gSettingsContext.startingBombBag + 1) * 10;
     }
 
     if (gSettingsContext.startingBombchus > 0) {
-      game::GiveItem(game::ItemId::Bombchu);
+      inventoryData.inventory_count_register.bomb_bag_upgrade = game::BombBag::BombBag20;
+      inventoryData.items[7] = game::ItemId::Bombchu;
       inventoryData.item_counts[12] = 20;
     }
 
     if (gSettingsContext.startingHerosBow > 0) {
-      game::GiveItem(game::ItemId::Arrow);
+      inventoryData.items[1] = game::ItemId::Arrow;
       inventoryData.item_counts[6] = (gSettingsContext.startingHerosBow + 2) * 10;
     }
 
     if (gSettingsContext.startingFireArrows) {
-      game::GiveItem(game::ItemId::FireArrow);
+      inventoryData.items[2] = game::ItemId::FireArrow;
     }
 
     if (gSettingsContext.startingIceArrows) {
-      game::GiveItem(game::ItemId::IceArrow);
+      inventoryData.items[3] = game::ItemId::IceArrow;
     }
 
     if (gSettingsContext.startingLightArrows) {
-      game::GiveItem(game::ItemId::LightArrow);
+      inventoryData.items[4] = game::ItemId::LightArrow;
     }
 
     if (gSettingsContext.startingLensOfTruth) {
-      game::GiveItem(game::ItemId::LensOfTruth);
+      inventoryData.items[14] = game::ItemId::LensOfTruth;
     }
 
     if (gSettingsContext.startingMagicBean) {
-      game::GiveItem(game::ItemId::MagicBean);
+      inventoryData.items[10] = game::ItemId::MagicBean;
       inventoryData.item_counts[15] = 10;
     }
 
     if (gSettingsContext.startingHookshot > 0) {
-      game::GiveItem(game::ItemId::Hookshot);
+      inventoryData.items[15] = game::ItemId::Hookshot;
     }
 
     SaveFile_GiveStartingBottle((rnd::StartingBottleSetting)gSettingsContext.startingBottle1, 0);
     SaveFile_GiveStartingBottle((rnd::StartingBottleSetting)gSettingsContext.startingBottle2, 1);
     SaveFile_GiveStartingBottle((rnd::StartingBottleSetting)gSettingsContext.startingBottle3, 2);
-    SaveFile_GiveStartingBottle((rnd::StartingBottleSetting)gSettingsContext.startingBottle4, 3); 
-    SaveFile_GiveStartingBottle((rnd::StartingBottleSetting)gSettingsContext.startingBottle5, 4); 
-    SaveFile_GiveStartingBottle((rnd::StartingBottleSetting)gSettingsContext.startingBottle6, 5); 
-    SaveFile_GiveStartingBottle((rnd::StartingBottleSetting)gSettingsContext.startingBottle7, 6); 
+    SaveFile_GiveStartingBottle((rnd::StartingBottleSetting)gSettingsContext.startingBottle4, 3);
+    SaveFile_GiveStartingBottle((rnd::StartingBottleSetting)gSettingsContext.startingBottle5, 4);
+    SaveFile_GiveStartingBottle((rnd::StartingBottleSetting)gSettingsContext.startingBottle6, 5);
+    SaveFile_GiveStartingBottle((rnd::StartingBottleSetting)gSettingsContext.startingBottle7, 6);
 
     if (gSettingsContext.startingOcarina > 0) {
-      game::GiveItem(game::ItemId::Ocarina);
+      inventoryData.items[0] = game::ItemId::Ocarina;
     }
 
     if (gSettingsContext.startingGildedSword == (u8)StartingSwordSetting::STARTINGSWORD_GILDED) {
-      //game::GiveItem(game::ItemId::GildedSword);
       equipmentData.sword_shield.sword = game::SwordType::GildedSword;
     }
     if (gSettingsContext.startingRazorSword == (u8)StartingSwordSetting::STARTINGSWORD_RAZOR) {
-      //game::GiveItem(game::ItemId::RazorSword);
       playerData.razor_sword_hp = RS_SetDurability();
       equipmentData.sword_shield.sword = game::SwordType::RazorSword;
     }
@@ -238,15 +232,15 @@ namespace rnd {
       playerData.magic = 0x60;
       equipmentData.data[3].item_btns[0] = game::ItemId::DekuNuts;
     }
-    // TODO
-    /*if (gSettingsContext.startingDoubleDefense) {
-      ItemEffect_GiveDefense(&gSaveContext, 0, 0);
-    }*/
+    if (gSettingsContext.startingDoubleDefense) {
+      game::CommonData& cdata = game::GetCommonData();
+      ItemEffect_GiveDefense(&cdata, 0, 0);
+    }
 
     playerData.health_max = gSettingsContext.startingHealth << 4;
     playerData.health_current = gSettingsContext.startingHealth << 4;
 
-/*TODO
+    /*TODO
     gSaveContext.questItems |= gSettingsContext.startingQuestItems;
     gSaveContext.questItems |= gSettingsContext.startingDungeonReward;
     gSaveContext.equipment |= gSettingsContext.startingEquipment;
@@ -264,6 +258,11 @@ namespace rnd {
       } else {
         playerData.rupee_count = 999;
       }
+    }
+
+    // TODO: Starting stray fairies - need to update flags for which ones are acquired or not.
+    if (gSettingsContext.startingSpinSettting == (u8)StartingSpinSetting::STARTINGSPIN_GREAT) {
+        saveData.has_great_spin = 2;
     }
   }
 
