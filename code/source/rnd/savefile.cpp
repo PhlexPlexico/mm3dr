@@ -248,7 +248,9 @@ namespace rnd {
     playerData.health_max = gSettingsContext.startingHealth << 4;
     playerData.health_current = gSettingsContext.startingHealth << 4;
 
-    /*TODO
+    /*TODO - All these need to be broken up since we're not dealing with bitfields.
+    // Quest items belong in the iventory array so we'll have to adjust which items we start with.
+    // Use enums like everything else.
     gSaveContext.questItems |= gSettingsContext.startingQuestItems;
     gSaveContext.questItems |= gSettingsContext.startingDungeonReward;
     gSaveContext.equipment |= gSettingsContext.startingEquipment;

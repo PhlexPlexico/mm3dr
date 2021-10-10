@@ -295,7 +295,7 @@ struct SaveData {
   u8 flag_8_for_no_magic_use;
   char anonymous_78;
   char anonymous_79;
-  char anonymous_80;
+  u8 ct_deku_removed_if_c0;
   char anonymous_81;
   char anonymous_82;
   char anonymous_83;
@@ -332,7 +332,7 @@ struct SaveData {
   char anonymous_113;
   char skip_tatl_talking_0x04;
   char anonymous_115;
-  char anonymous_116; // Don Gero Flag Maybe
+  char swamp_deku_removed_if_0x10; // Don Gero Flag Maybe
   char anonymous_117;
   char anonymous_118;
   char anonymous_119;
@@ -340,7 +340,7 @@ struct SaveData {
   u8 gap1292[7];
   u8 ct_deku_in_flower_0x04_if_present;
   char anonymous_122;
-  char anonymous_123;
+  u8 anju_0x10_if_obtained_small_key;
   char anonymous_124;
   char anonymous_125;
   char anonymous_126;
