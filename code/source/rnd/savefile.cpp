@@ -9,10 +9,6 @@ extern "C" {
 #include <string.h>
 //#define DECLARE_EXTSAVEDATA
 
-extern "C" {
-  #include <3ds/svc.h>
-}
-
 namespace rnd {
   extern "C" void SaveFile_Init(u32 fileBaseIndex) {
     game::SaveData &saveData = game::GetCommonData().save;
