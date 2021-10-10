@@ -202,7 +202,7 @@ static_assert(offsetof(InventoryData, inventory_count_register) == 0x78);
 
 struct SaveData {
   MaskId mask;
-  bool has_completed_intro;
+  u8 has_completed_intro;
   char unused;
   // Possible cutscene ID?
   char anonymous_0;

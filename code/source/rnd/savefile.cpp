@@ -9,6 +9,10 @@ extern "C" {
 #include <string.h>
 //#define DECLARE_EXTSAVEDATA
 
+extern "C" {
+  #include <3ds/svc.h>
+}
+
 namespace rnd {
   extern "C" void SaveFile_Init(u32 fileBaseIndex) {
     game::SaveData &saveData = game::GetCommonData().save;
@@ -67,16 +71,24 @@ namespace rnd {
     saveData.has_great_spin = 2;             // Set great spin.
 #endif
     //TODO: Decomp event flags. Most likely in the large anonymous structs in the SaveData.
-    saveData.has_completed_intro = 1;
-    saveData.inventory.collect_register.bombers_notebook = 1;
-    saveData.inventory.collect_register.song_of_healing = 1;
-    saveData.has_tatl = true;
-    saveData.ct_deku_flown_in_0x80_if_visited_once = 0x80;
-    saveData.ct_deku_in_flower_0x04_if_present = 0x04;
-    saveData.skip_tatl_talking_0x04 = 0x04;
-    saveData.player_form = game::act::Player::Form::Deku;
-    //game::GiveItem(game::ItemId::BombersNotebook);
-    //TODO: Things to set on
+    u8 isNewFile = saveData.has_completed_intro;
+    if (isNewFile == 0) {
+      saveData.has_completed_intro = 0x2B;
+      saveData.inventory.collect_register.bombers_notebook = 1;
+      saveData.inventory.collect_register.song_of_healing = 1;
+      saveData.has_tatl = true;
+      saveData.ct_deku_flown_in_0x80_if_visited_once = 0x80;
+      saveData.ct_deku_in_flower_0x04_if_present = 0x04;
+      saveData.skip_tatl_talking_0x04 = 0x04;
+      #ifdef ENABLE_DEBUG
+      saveData.player_form = game::act::Player::Form::Human;
+      #else
+      saveData.player_form = game::act::Player::Form::Deku;
+      #endif
+      //game::GiveItem(game::ItemId::BombersNotebook);
+      //TODO: Things to set on
+    }
+    
   }
 
   //Resolve the item ID for the starting bottle
