@@ -224,16 +224,16 @@ namespace rnd {
   typedef union ItemOverride_Value {
       u32 all;
       struct {
-          u16 itemId;
+          u16 getItemId;
           u8  player;
           u8  looksLikeItemId;
       };
   } ItemOverride_Value;
 
-  typedef struct ItemOverride {
+  struct ItemOverride {
       ItemOverride_Key   key;
       ItemOverride_Value value;
-  } ItemOverride;
+  };
 
   ItemOverride ItemOverride_LookupByKey(ItemOverride_Key);
   void ItemOverride_PushDelayedOverride(u8);

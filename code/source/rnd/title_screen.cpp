@@ -8,7 +8,9 @@ namespace rnd {
 #define EnMag_Init ((ActorFunc)EnMag_Init_addr)
 
   // TODO: Init hooks for title screen.
-  void EnMag_rInit(game::act::Actor* thisx, game::GlobalContext* globalCtx) {
+  void EnMag_rInit(EnMag* self, game::GlobalContext* globalCtx) {
+    // void* cmbPtr = rnd::util::GetPointer<void*(u32)>(0x1F28AC)(3);
+    // self->model->spawn(cmbPtr);
     return;
     // EnMag *enmag = (EnMag *)thisx;
 

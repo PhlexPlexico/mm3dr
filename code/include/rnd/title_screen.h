@@ -6,13 +6,17 @@
 #include "game/context.h"
 
 // TODO: Make new struct for EnMag?
-typedef struct {
+struct SkeletonAnimationModel { 
+    void spawn(void* cmbPtr);
+};
+
+struct EnMag {
     game::act::Actor actor;
-    //SkeletonAnimationModel* logoModel;
+    //SkeletonAnimationModel* model;
     //SkeletonAnimationModel* fireModel;
     //SkeletonAnimationModel* copyrightModel;
     //char unk_1B0[0x30];
-} EnMag; //size 0x1E0;
+}; //size 0x1E0;
 
 void EnMag_rInit(game::act::Actor* thisx, game::GlobalContext* globalCtx);
 

@@ -29,6 +29,12 @@ namespace rnd {
   static u8 rSatisfiedPendingFrames = 0;
 
   void ItemOverride_Init(void) {
+    #ifdef ENABLE_DEBUG
+    rItemOverrides[0].key.scene = 0x6F;
+    rItemOverrides[0].key.type = ItemOverride_Type::OVR_BASE_ITEM;
+    rItemOverrides[0].value.getItemId = 0x42;
+    rItemOverrides[0].value.looksLikeItemId = 0x42;
+    #endif
     while (rItemOverrides[rItemOverrides_Count].key.all != 0) {
       rItemOverrides_Count++;
     }
@@ -103,6 +109,9 @@ namespace rnd {
     while (start <= end) {
       s32 midIdx = (start + end) / 2;
       ItemOverride midOvr = rItemOverrides[midIdx];
+      #ifdef ENABLE_DEBUG
+      return midOvr;
+      #endif
       if (key.all < midOvr.key.all) {
         end = midIdx - 1;
       } else if (key.all > midOvr.key.all) {
@@ -115,11 +124,14 @@ namespace rnd {
   }
 
   static void ItemOverride_Activate(ItemOverride override) {
-    u16 resolvedItemId = ItemTable_ResolveUpgrades(override.value.itemId);
-    ItemRow *itemRow = ItemTable_GetItemRow(resolvedItemId);
+    u16 resolvedGetItemId = ItemTable_ResolveUpgrades(override.value.getItemId);
+    
+    ItemRow *itemRow = ItemTable_GetItemRow(resolvedGetItemId);
     u8 looksLikeItemId = override.value.looksLikeItemId;
-
-    if (override.value.itemId == (u32)game::ItemId::X82) { // Ice trap
+    #ifdef ENABLE_DEBUG
+    svcOutputDebugString((char*)looksLikeItemId, 4);
+    #endif
+    if (override.value.getItemId == 0x12) { // Ice trap
       looksLikeItemId = 0;
     }
 
@@ -186,7 +198,7 @@ namespace rnd {
     ItemOverride_Key key = rPendingOverrideQueue[0].key;
     ItemOverride_Value value = rPendingOverrideQueue[0].value;
     // Make Ice Trap Item IDs.
-    if (value.itemId == (u32)game::ItemId::X82) {
+    if (value.getItemId == 0x12) {
       IceTrap_Push();
       ItemOverride_PopPendingOverride();
       ItemOverride_AfterKeyReceived(key);
@@ -363,6 +375,9 @@ namespace rnd {
       u8 itemId = rActiveItemRow->itemId;
       ItemTable_CallEffect(rActiveItemRow);
       gctx->ShowMessage(textId, actor);
+      #ifdef ENABLE_DEBUG
+      svcOutputDebugString((char*)itemId, 4);
+      #endif
       // Get_Item_Handler. Don't give ice traps, since it may cause UB.
       if (itemId != (u8)game::ItemId::X82) {
         rnd::util::GetPointer<int(game::GlobalContext *, game::ItemId)>(0x233BEC)(
@@ -392,7 +407,7 @@ namespace rnd {
     }
     ItemOverride_Activate(override);
     s8 baseItemId = rActiveItemRow->baseItemId;
-    if (override.value.itemId == (u32)game::ItemId::X82) {
+    if (override.value.getItemId == 0x12) {
       rActiveItemRow->effectArg1 = override.key.all >> 16;
       rActiveItemRow->effectArg2 = override.key.all & 0xFFFF;
     }
