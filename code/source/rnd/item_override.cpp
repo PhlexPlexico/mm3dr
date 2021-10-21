@@ -33,7 +33,7 @@ namespace rnd {
     rItemOverrides[0].key.scene = 0x6F;
     rItemOverrides[0].key.type = ItemOverride_Type::OVR_BASE_ITEM;
     rItemOverrides[0].value.getItemId = 0x42;
-    rItemOverrides[0].value.looksLikeItemId = 0x42;
+    rItemOverrides[0].value.looksLikeItemId = 0x0E;
     #endif
     while (rItemOverrides[rItemOverrides_Count].key.all != 0) {
       rItemOverrides_Count++;
@@ -128,9 +128,6 @@ namespace rnd {
     
     ItemRow *itemRow = ItemTable_GetItemRow(resolvedGetItemId);
     u8 looksLikeItemId = override.value.looksLikeItemId;
-    #ifdef ENABLE_DEBUG
-    svcOutputDebugString((char*)looksLikeItemId, 4);
-    #endif
     if (override.value.getItemId == 0x12) { // Ice trap
       looksLikeItemId = 0;
     }
@@ -368,16 +365,23 @@ namespace rnd {
 
   extern "C" {
 
-  void ItemOverride_GetItemTextAndItemID(game::act::Actor *actor) {
+  void ItemOverride_OverrideDrawIndex(game::GlobalContext *gctx, game::act::Player* player) {
+    
+    //player->field_11E92 = 0xe*8;
+    player->field_11E93 = 47;
+  }
+
+  void ItemOverride_GetItemTextAndItemID(game::act::Player *actor) {
     if (rActiveItemRow != NULL) {
       game::GlobalContext *gctx = rnd::GetContext().gctx;
       u16 textId = rActiveItemRow->textId;
       u8 itemId = rActiveItemRow->itemId;
+      //actor->get_item_id = rActiveItemRow->textId;
       ItemTable_CallEffect(rActiveItemRow);
       gctx->ShowMessage(textId, actor);
-      #ifdef ENABLE_DEBUG
-      svcOutputDebugString((char*)itemId, 4);
-      #endif
+      // #ifdef ENABLE_DEBUG
+      // svcOutputDebugString((char*)itemId, 4);
+      // #endif
       // Get_Item_Handler. Don't give ice traps, since it may cause UB.
       if (itemId != (u8)game::ItemId::X82) {
         rnd::util::GetPointer<int(game::GlobalContext *, game::ItemId)>(0x233BEC)(
@@ -407,6 +411,7 @@ namespace rnd {
     }
     ItemOverride_Activate(override);
     s8 baseItemId = rActiveItemRow->baseItemId;
+    //s8 baseItemId = rActiveItemRow->textId;
     if (override.value.getItemId == 0x12) {
       rActiveItemRow->effectArg1 = override.key.all >> 16;
       rActiveItemRow->effectArg2 = override.key.all & 0xFFFF;

@@ -30,6 +30,14 @@ hook_SaveFile_Init:
     strh r1, [r4, #0x10]
     bx lr
 
+.global hook_OverrideDrawIndex
+hook_OverrideDrawIndex:
+    push {r0-r12, lr}
+    bl ItemOverride_OverrideDrawIndex
+    pop {r0-r12, lr}
+    str r0,[r4,#0x270]
+    b 0x1FF034
+
 .global hook_OverrideTextID
 hook_OverrideTextID:
     ldr r2,.rActiveItemRow_addr

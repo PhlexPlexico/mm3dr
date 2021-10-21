@@ -56,6 +56,11 @@ patch_ISGCrouchStabTwo:
     nop
     nop
 
+.section .patch_ChangeDrawItemIndex
+.global OverrideDrawIndex_patch
+OverrideDrawIndex_patch:
+    b hook_OverrideDrawIndex
+
 .section .patch_OverrideTextID
 .global OverrideTextID_patch
 OverrideTextID_patch:

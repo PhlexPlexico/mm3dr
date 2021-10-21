@@ -384,8 +384,8 @@ struct Player : public Actor {
   u16 field_11E8E;
   u8 gap_11E90;
   char field_11E91;
-  char field_11E92;
-  char field_11E93;
+  u8 field_11E92;
+  s8 field_11E93;
   float field_11E94;
   u32 field_11E98;
   u8 gap_11E9C[12];

@@ -12,9 +12,6 @@ SECTIONS{
 		*(.patch_startHeap)
 	} */
 
-	.patch_FixSurroundSound 0x1404E8 : {
-		*(.patch_FixSurroundSound)
-	}
 
 	.patch_MainLoop 0x10676C : {
 		*(.patch_MainLoop)
@@ -32,12 +29,20 @@ SECTIONS{
 		*(.patch_SaveFile_init)
 	}
 
+	.patch_FixSurroundSound 0x1404E8 : {
+		*(.patch_FixSurroundSound)
+	}
+
 	.patch_ISGCrouchStabOne 0x1D32E0 : {
 		*(.patch_ISGCrouchStabOne)
 	}
 
-    .patch_ISGCrouchStabTwo 0x1DBEA4 : {
+	.patch_ISGCrouchStabTwo 0x1DBEA4 : {
 		*(.patch_ISGCrouchStabTwo)
+	}
+
+	.patch_ChangeDrawItemIndex 0x1FF030 : { 
+		*(.patch_ChangeDrawItemIndex)
 	}
 
 	.patch_OverrideTextID 0x2310FC : {
