@@ -59,14 +59,14 @@ namespace rnd {
       [0x0C] = ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL, (u8)game::ItemId::PieceOfHeartAgain, 0x000C, 0x00096, (s8)0xFF, (s8)0xFF,
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Piece of Heart
 
-      [0x0D] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::HeartContainer, 0x000D, 0x00096, (s8)0xFF, (s8)0xFF,
-                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0x14, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Heart Container
+      [0x0D] = ITEM_ROW((u32)GetItemID::GI_HEART_CONTAINER, ChestType::WOODEN_BIG, (u8)game::ItemId::HeartContainer, 0x000D, 0x00096, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0x13, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Heart Container
 
       [0x0E] = ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL, (u8)game::ItemId::SmallMagicAccumulator, 0x000E, 0x000A4, (s8)0xFF, (s8)0xFF,
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Small Magic Jar
 
       [0x0F] = ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL, (u8)game::ItemId::BigMagicAccumulator, 0x000F, 0x000A4, (s8)0xFF, (s8)0xFF,
-                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Big Magic Jar
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xE3, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Big Magic Jar
 
       [0x10] = ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL, (u8)game::ItemId::RecoveryHeart, 0x0010, 0x00090, (s8)0xFF, (s8)0xFF,
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Recovery Heart - Broken Text
@@ -218,7 +218,7 @@ namespace rnd {
       [0x41] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::Hookshot, 0x0041, 0x00BF, (s8)0xFF, (s8)0xFF,
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Hookshot
 
-      [0x42] = ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL, (u8)game::ItemId::LensOfTruth, 0x0042, 0x00C0, (s8)0xFF, (s8)0xFF,
+      [0x42] = ITEM_ROW((u32)GetItemID::GI_SHIELD_HERO, ChestType::WOODEN_SMALL, (u8)game::ItemId::LensOfTruth, 0x0042, 0x00C0, (s8)0xFF, (s8)0xFF,
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, 0x14, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Lens of Truth
 
       [0x43] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::PictographBox, 0x0043, 0x00228, (s8)0xFF, (s8)0xFF,
@@ -275,8 +275,8 @@ namespace rnd {
       [0x54] = ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL, (u8)game::ItemId::None, 0x0054, 0x00000, (s8)0xFF, (s8)0xFF,
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // No Item
       
-      [0x55] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::OdolwaRemains, 0x0055, 0x00000, (s8)0xFF, (s8)0xFF,
-                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)0, (s16)-1), // Odolwa's Remains
+      [0x55] = ITEM_ROW((u32)GetItemID::GI_HEART_CONTAINER, ChestType::WOODEN_BIG, (u8)game::ItemId::OdolwaRemains, 0x0055, 0x00000, (s8)0xFF, (s8)0xFF,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0x5D, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)0, (s16)-1), // Odolwa's Remains
 
       [0x56] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::GohtRemains, 0x0056, 0x00000, (s8)0xFF, (s8)0xFF,
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)1, (s16)-1), // Goht's Remains
