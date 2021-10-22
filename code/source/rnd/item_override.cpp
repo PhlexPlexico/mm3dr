@@ -366,9 +366,11 @@ namespace rnd {
   extern "C" {
 
   void ItemOverride_OverrideDrawIndex(game::GlobalContext *gctx, game::act::Player* player) {
-    
+    #ifdef ENABLE_DEBUG
+    svcOutputDebugString((char*)player->field_11E93, 4);
+    #endif
     //player->field_11E92 = 0xe*8;
-    player->field_11E93 = 47;
+    player->field_11E92 = 0x14;
   }
 
   void ItemOverride_GetItemTextAndItemID(game::act::Player *actor) {

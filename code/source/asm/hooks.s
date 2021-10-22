@@ -35,8 +35,8 @@ hook_OverrideDrawIndex:
     push {r0-r12, lr}
     bl ItemOverride_OverrideDrawIndex
     pop {r0-r12, lr}
-    str r0,[r4,#0x270]
-    b 0x1FF034
+    ldr r0,[r4,#0x274]
+    b 0x1FF024
 
 .global hook_OverrideTextID
 hook_OverrideTextID:

@@ -41,7 +41,7 @@ SECTIONS{
 		*(.patch_ISGCrouchStabTwo)
 	}
 
-	.patch_ChangeDrawItemIndex 0x1FF030 : { 
+	.patch_ChangeDrawItemIndex 0x1f9df0 : { 
 		*(.patch_ChangeDrawItemIndex)
 	}
 
