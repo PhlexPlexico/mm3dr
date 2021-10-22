@@ -246,6 +246,7 @@ namespace rnd {
   extern "C" void ItemOverride_GetItem(game::act::Actor*, game::act::Player*, s8);
   extern "C" void ItemOverride_OverrideDrawIndex(game::GlobalContext *, game::act::Player*);
   extern "C" void ItemOverride_GetItemTextAndItemID(game::act::Player*);
+  extern "C" u32 rActiveItemGraphicId;
 }
 
 #endif

@@ -21,6 +21,10 @@ hook_MainLoop:
 .rActiveItemRow_addr:
     .word rActiveItemRow
 
+.global rActiveItemGraphicId
+.rActiveItemGraphicId:
+    .word rActiveItemGraphicId
+
 .global hook_SaveFile_Init
 hook_SaveFile_Init:
     push {r0-r12, lr}
@@ -32,11 +36,25 @@ hook_SaveFile_Init:
 
 .global hook_OverrideDrawIndex
 hook_OverrideDrawIndex:
-    push {r0-r12, lr}
-    bl ItemOverride_OverrideDrawIndex
-    pop {r0-r12, lr}
-    ldr r0,[r4,#0x274]
-    b 0x1FF024
+    ldr r0,.rActiveItemGraphicId
+    ldr r0,[r0]
+    cmp r0,#0x0
+    beq noOverrideGraphicId
+    b 0x22F254
+noOverrideGraphicId:
+    ldrsh r0,[r7,#0x2]
+    b 0x22F250
+
+.global hook_OverrideDrawIndexSecond
+hook_OverrideDrawIndexSecond:
+    ldr r0,.rActiveItemGraphicId
+    ldr r0,[r0]
+    cmp r0,#0x0
+    beq noOverrideGraphicIdSecond
+    b 0x21D12C
+noOverrideGraphicIdSecond:
+    ldrsh r0,[r0,#-0x6]
+    b 0x21D128
 
 .global hook_OverrideTextID
 hook_OverrideTextID:

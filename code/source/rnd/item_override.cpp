@@ -4,6 +4,7 @@
 #include "rnd/rheap.h"
 #include "rnd/savefile.h"
 
+
 #ifdef ENABLE_DEBUG
 
 extern "C" {
@@ -19,11 +20,11 @@ namespace rnd {
   static ItemOverride rActiveItemOverride = {0};
   // Accessed via hooks.
   ItemRow *rActiveItemRow = NULL;
+  u32 rActiveItemGraphicId = 0;
   // Split active_item_row into variables for convenience in ASM
   u32 rActiveItemActionId = 0;
   u32 rActiveItemTextId = 0;
   u32 rActiveItemObjectId = 0;
-  u32 rActiveItemGraphicId = 0;
   u32 rActiveItemFastChest = 0;
 
   static u8 rSatisfiedPendingFrames = 0;
@@ -33,7 +34,7 @@ namespace rnd {
     rItemOverrides[0].key.scene = 0x6F;
     rItemOverrides[0].key.type = ItemOverride_Type::OVR_BASE_ITEM;
     rItemOverrides[0].value.getItemId = 0x42;
-    rItemOverrides[0].value.looksLikeItemId = 0x0E;
+    rItemOverrides[0].value.looksLikeItemId = 0x0D;
     #endif
     while (rItemOverrides[rItemOverrides_Count].key.all != 0) {
       rItemOverrides_Count++;
@@ -367,14 +368,23 @@ namespace rnd {
 
   void ItemOverride_OverrideDrawIndex(game::GlobalContext *gctx, game::act::Player* player) {
     #ifdef ENABLE_DEBUG
-    svcOutputDebugString((char*)player->field_11E93, 4);
+    svcOutputDebugString("Draw", 4);
+    
+    svcOutputDebugString((char*)&(player->get_item_id), 4);
+    //svcOutputDebugString(, 20);
     #endif
+    
+    
     //player->field_11E92 = 0xe*8;
-    player->field_11E92 = 0x14;
+    // player->field_11E92 = 0x14;
+    // player->get_item_id = 0x2b;
   }
 
   void ItemOverride_GetItemTextAndItemID(game::act::Player *actor) {
     if (rActiveItemRow != NULL) {
+      #ifdef ENABLE_DEBUG
+      svcOutputDebugString("Text", 4);
+      #endif
       game::GlobalContext *gctx = rnd::GetContext().gctx;
       u16 textId = rActiveItemRow->textId;
       u8 itemId = rActiveItemRow->itemId;
@@ -390,6 +400,7 @@ namespace rnd {
             gctx, (game::ItemId)itemId);
       }
       ItemOverride_AfterItemReceived();
+      //rActiveItemGraphicId = 20;
     }
   }
 
@@ -398,7 +409,9 @@ namespace rnd {
     if (!gctx)
       return;
     ItemOverride override = {0};
-
+    #ifdef ENABLE_DEBUG
+    svcOutputDebugString("Get1", 4);
+    #endif
     s32 incomingNegative = 0x15 < 0;
 
     if (fromActor != NULL && incomingGetItemId != 0) {

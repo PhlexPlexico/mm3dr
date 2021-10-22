@@ -41,7 +41,11 @@ SECTIONS{
 		*(.patch_ISGCrouchStabTwo)
 	}
 
-	.patch_ChangeDrawItemIndex 0x1f9df0 : { 
+	.patch_ChangeDrawItemIndexSecond 0x21D124 : { 
+		*(.patch_ChangeDrawItemIndexSecond)
+	}
+
+	.patch_ChangeDrawItemIndex 0x22F24C : { 
 		*(.patch_ChangeDrawItemIndex)
 	}
 
