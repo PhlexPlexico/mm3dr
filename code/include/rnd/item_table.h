@@ -25,7 +25,7 @@ namespace rnd {
                                  TexAnim frame for songs
                                  key ID for small keys */
     
-    s16 graphicId;
+    s32 graphicId;
 
     upgradeFunc upgrade;
 
