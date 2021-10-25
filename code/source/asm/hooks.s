@@ -34,6 +34,17 @@ hook_SaveFile_Init:
     strh r1, [r4, #0x10]
     bx lr
 
+@ State handler calls 0x5D for masks, check this value and ignore states where that is equal, since this function
+@ is also used by song of soaring and get_item.
+.global hook_RemainsCheckValue
+hook_RemainsCheckValue:
+    cmp r7,#0x5D
+    beq noIgnoreValues
+    cpy r1,r4
+    b 0x22B7C0
+noIgnoreValues:
+    b 0x22B814
+
 .global hook_OverrideDrawIndex
 hook_OverrideDrawIndex:
     ldr r0,.rActiveItemGraphicId

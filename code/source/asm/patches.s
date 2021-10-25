@@ -56,6 +56,11 @@ patch_ISGCrouchStabTwo:
     nop
     nop
 
+.section .patch_RemoveRemainsStateCheck
+.global patch_RemoveRemainsStateCheck
+patch_RemoveRemainsStateCheck:
+    b hook_RemainsCheckValue
+
 .section .patch_ChangeDrawItemIndex
 .global OverrideDrawIndex_patch
 OverrideDrawIndex_patch:

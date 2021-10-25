@@ -45,6 +45,10 @@ SECTIONS{
 		*(.patch_ChangeDrawItemIndexSecond)
 	}
 
+	.patch_RemoveRemainsStateCheck 0x22B7BC : {
+			*(.patch_RemoveRemainsStateCheck)
+		}
+
 	.patch_ChangeDrawItemIndex 0x22F24C : { 
 		*(.patch_ChangeDrawItemIndex)
 	}

@@ -287,7 +287,20 @@ namespace rnd {
     comData->save.player.magic_num_upgrades = 0; // Single Magic
   }
 
-  // XXX: Is this needed since masks are in the drop table?
+  void ItemEffect_GiveSkulltula(game::CommonData *comData, s16 whichHouse, s16 arg2) {
+    switch (whichHouse)
+    {
+    case 0:
+      comData->save.skulltulas_collected.swamp_count = comData->save.skulltulas_collected.swamp_count + 1;
+      break;
+    case 1:
+      comData->save.skulltulas_collected.ocean_count = comData->save.skulltulas_collected.ocean_count + 1;
+      break;
+    default:
+      break;
+    }
+  }
+
   void ItemEffect_GiveMask(game::CommonData *comData, s16 mask, s16 arg2) {
     switch (mask)
     {
@@ -304,6 +317,8 @@ namespace rnd {
       comData->save.inventory.collect_register.twinmolds_remains = 1;
       break;
     }
+    // Make this call as we need to update field_11 in Sub1 CommonData.
+    rnd::util::GetPointer<void(game::GlobalContext*,int)>(0x222BCC)(rnd::GetContext().gctx,0);
   }
 
 } // namespace rnd

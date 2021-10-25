@@ -479,7 +479,11 @@ struct CommonDataSub1 {
   u8 field_D;
   u16 field_F;
   int field_10;
-  int field_14;
+  //int field_14;
+  u8 option_3;
+  u8 option_6;
+  u8 option_4;
+  u8 remains;
   int total_owl_saves;
   int field_1C;
 }; static_assert(sizeof(CommonDataSub1) == 0x20);
