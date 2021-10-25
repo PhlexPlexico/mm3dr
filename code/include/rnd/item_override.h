@@ -249,6 +249,23 @@ namespace rnd {
     /* 0x002D */ DI_KEATON_MASK,
     /* 0x002E */ DI_DUNGEON_MAP_MAYBE,
     /* 0x002F */ DI_HERO_BOW,
+    /* 0x0030 */ DI_LENS_OF_TRUTH,
+    /* 0x0031 */ DI_GREEN_POTION,
+    /* 0x0032 */ DI_RED_POTION,
+    /* 0x0033 */ DI_BLUE_POTION,
+    /* 0x0034 */ DI_MIRROR_SHIELD,
+    /* 0x0035 */ DI_MAGIC_BEAN,
+    /* 0x0036 */ DI_BOTTLE_FISH,
+    /* 0x0037 */ DI_MAMAS_LETTER,
+    /* 0x0038 */ DI_GOLD_RUPEE_SIX,
+    /* 0x0039 */ DI_GOLD_RUPEE_SEVEN,
+    /* 0x003A */ DI_SUN_MASK,
+    /* 0x003B */ DI_BLAST_MASK,
+    /* 0x003C */ DI_BOTTLE_POE,
+    /* 0x003D */ DI_MASK_OF_SCENTS,
+    /* 0x003E */ DI_CAPTAINS_HAT,
+    /* 0x003F */ DI_BUNNY_HOOD,
+    /* 0x0040 */ DI_MASK_OF_TRUTH,
   };
 
   enum class ItemOverride_Type : u8 {
