@@ -232,6 +232,23 @@ namespace rnd {
     /* 0x001C */ DI_TOWN_MAP,
     /* 0x001D */ DI_SMALL_MAGIC_JAR,
     /* 0x001E */ DI_BIG_MAGIC_JAR,
+    /* 0x001F */ DI_BOMB,
+    /* 0x0020 */ DI_GOLD_RUPEE_FIVE,
+    /* 0x0021 */ DI_ADULT_WALLET,
+    /* 0x0022 */ DI_GIANT_WALLET,
+    /* 0x0023 */ DI_DON_GERO_MASK,
+    /* 0x0024 */ DI_SINGLE_ARROW,
+    /* 0x0025 */ DI_BUNDLE_ARROW_SMALL,
+    /* 0x0026 */ DI_BUNDLE_ARROW_LARGE,
+    /* 0x0027 */ DI_BOMBCHU,
+    /* 0x0028 */ DI_HERO_SHIELD,
+    /* 0x0029 */ DI_HOOKSHOT,
+    /* 0x002A */ DI_HOOKSHOT_TWO,
+    /* 0x002B */ DI_OCARINA_OF_TIME,
+    /* 0x002C */ DI_MILK_FULL,
+    /* 0x002D */ DI_KEATON_MASK,
+    /* 0x002E */ DI_DUNGEON_MAP_MAYBE,
+    /* 0x002F */ DI_HERO_BOW,
   };
 
   enum class ItemOverride_Type : u8 {
