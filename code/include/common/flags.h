@@ -5,9 +5,8 @@
 #include <numeric>
 #include <type_traits>
 #include <cstdarg>
-#include <cstdio>
-#include <string>
-#include <string_view>
+#include <cstddef>
+
 
 #include "z3d/z3Dvec.h"
 

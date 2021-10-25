@@ -1,17 +1,14 @@
 #ifndef _COMMON_DEBUG_H
 #define _COMMON_DEBUG_H
 
-#include <array>
-#include <cstdarg>
-#include <cstdio>
-#include <string>
-#include <string_view>
+#include "common/printf.h"
 
 #include "z3d/z3Dvec.h"
 
 namespace rnd::util {
+  /// Prints a debug message using svcOutputDebugString.
+  void Print(const char *format, ...);
 
-
-}  // namespace rnd::util
+} // namespace rnd::util
 
 #endif

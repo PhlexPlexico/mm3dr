@@ -6,7 +6,7 @@
 
 
 #ifdef ENABLE_DEBUG
-
+#include "common/debug.h"
 extern "C" {
 #include <3ds/svc.h>
 }
@@ -366,24 +366,10 @@ namespace rnd {
 
   extern "C" {
 
-  void ItemOverride_OverrideDrawIndex(game::GlobalContext *gctx, game::act::Player* player) {
-    #ifdef ENABLE_DEBUG
-    svcOutputDebugString("Draw", 4);
-    
-    svcOutputDebugString((char*)&(player->get_item_id), 4);
-    //svcOutputDebugString(, 20);
-    #endif
-    
-    
-    //player->field_11E92 = 0xe*8;
-    // player->field_11E92 = 0x14;
-    // player->get_item_id = 0x2b;
-  }
-
   void ItemOverride_GetItemTextAndItemID(game::act::Player *actor) {
     if (rActiveItemRow != NULL) {
       #ifdef ENABLE_DEBUG
-      svcOutputDebugString("Text", 4);
+      rnd::util::Print("Getting Item and Text IDs.\n");
       #endif
       game::GlobalContext *gctx = rnd::GetContext().gctx;
       u16 textId = rActiveItemRow->textId;
@@ -410,7 +396,7 @@ namespace rnd {
       return;
     ItemOverride override = {0};
     #ifdef ENABLE_DEBUG
-    svcOutputDebugString("Get1", 4);
+    rnd::util::Print("Inside the GetItem Custom function.\n");
     #endif
     s32 incomingNegative = 0x15 < 0;
 
