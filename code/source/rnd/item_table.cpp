@@ -219,7 +219,7 @@ namespace rnd {
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_HOOKSHOT, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Hookshot
 
       [0x42] = ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL, (u8)game::ItemId::LensOfTruth, 0x0042, 0x00C0, (s8)0xFF, (s8)0xFF,
-                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0x0090, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Lens of Truth
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_LENS_OF_TRUTH, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Lens of Truth
 
       [0x43] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::PictographBox, 0x0043, 0x00228, (s8)0xFF, (s8)0xFF,
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_PICTOGRAPH_BOX, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Pictograph Box

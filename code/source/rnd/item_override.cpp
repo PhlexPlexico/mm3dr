@@ -33,8 +33,8 @@ namespace rnd {
     #ifdef ENABLE_DEBUG
     rItemOverrides[0].key.scene = 0x6F;
     rItemOverrides[0].key.type = ItemOverride_Type::OVR_BASE_ITEM;
-    rItemOverrides[0].value.getItemId = 0xE6;
-    rItemOverrides[0].value.looksLikeItemId = 0xE6;
+    rItemOverrides[0].value.getItemId = 0x42;
+    rItemOverrides[0].value.looksLikeItemId = 0x00;
     #endif
     while (rItemOverrides[rItemOverrides_Count].key.all != 0) {
       rItemOverrides_Count++;
@@ -54,7 +54,7 @@ namespace rnd {
 
       // XXX: Any games like H&D or chest game to not swap?
       // Don't override WINNER purple rupee in the chest minigame scene
-      // if (scene == 0x10) {
+      // if (scene == 0x11 || scene == 0x17) {
       //     u32 chestItemId = (actor->params >> 5) & 0x7F;
       //     if (chestItemId == 0x75) {
       //         return (ItemOverride_Key){ .all = 0 };

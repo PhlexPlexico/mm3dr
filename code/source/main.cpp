@@ -9,6 +9,11 @@
 #include "rnd/rheap.h"
 #include "z3d/z3Dvec.h"
 
+#ifdef ENABLE_DEBUG
+extern "C" {
+  #include <3ds/svc.h>
+}
+#endif
 
 namespace rnd {
   void Init(Context &context) {
@@ -41,7 +46,8 @@ namespace rnd {
     if(context.gctx->pad_state.input.buttons.IsSet(game::pad::Button::ZL)) {
       game::act::Player* link = context.gctx->GetPlayerActor();
       if(link) {
-        game::GiveItemWithEffect(0xB9);
+        svcOutputDebugString((char*)context.gctx->scene, 4);
+        //game::GiveItemWithEffect(0xB9);
         // svcOutputDebugString("This is our talk actor ", 23);
         //rnd::util::GetPointer<void(game::GlobalContext*, int msgid, int)>(0x21BAFC)(context.gctx, 0x0020, 0x0);
         // svcOutputDebugString((const char*)link->talk_actor->id, sizeof(char));
