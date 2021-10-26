@@ -4,7 +4,6 @@
 #include "rnd/rheap.h"
 #include "rnd/savefile.h"
 
-
 #ifdef ENABLE_DEBUG
 #include "common/debug.h"
 extern "C" {
@@ -20,7 +19,7 @@ namespace rnd {
   static ItemOverride rActiveItemOverride = {0};
   // Accessed via hooks.
   ItemRow *rActiveItemRow = NULL;
-  u32 rActiveItemGraphicId = 0;
+  u32 rActiveItemGraphicId = 0x0;
   // Split active_item_row into variables for convenience in ASM
   u32 rActiveItemActionId = 0;
   u32 rActiveItemTextId = 0;
@@ -282,7 +281,6 @@ namespace rnd {
       } else {
         ItemOverride_TryPendingItem();
       }
-      ItemOverride_TryPendingItem();
     }
   }
 
@@ -374,19 +372,14 @@ namespace rnd {
       game::GlobalContext *gctx = rnd::GetContext().gctx;
       u16 textId = rActiveItemRow->textId;
       u8 itemId = rActiveItemRow->itemId;
-      //actor->get_item_id = rActiveItemRow->textId;
       ItemTable_CallEffect(rActiveItemRow);
       gctx->ShowMessage(textId, actor);
-      // #ifdef ENABLE_DEBUG
-      // svcOutputDebugString((char*)itemId, 4);
-      // #endif
       // Get_Item_Handler. Don't give ice traps, since it may cause UB.
       if (itemId != (u8)game::ItemId::X82) {
         rnd::util::GetPointer<int(game::GlobalContext *, game::ItemId)>(0x233BEC)(
             gctx, (game::ItemId)itemId);
       }
       ItemOverride_AfterItemReceived();
-      //rActiveItemGraphicId = 20;
     }
   }
 

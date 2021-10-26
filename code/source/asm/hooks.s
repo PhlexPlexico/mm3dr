@@ -64,6 +64,7 @@ hook_OverrideDrawIndexSecond:
     beq noOverrideGraphicIdSecond
     b 0x21D12C
 noOverrideGraphicIdSecond:
+    add r0,r1,r0, lsl #0x3
     ldrsh r0,[r0,#-0x6]
     b 0x21D128
 
