@@ -273,8 +273,10 @@ struct GlobalContext : State {
   u8 gap_8364[74];
   u16 field_83AE;
   u8 gap_83B0[12];
-  u32 field_83DC; // Checks during song 
-  u8 gap_83E0[72];
+  u32 field_83DC; // Checks during song
+  u16 field_83E0;
+  u16 field_83E2; // Possible stored message ID?
+  u8 gap_83E0[68];
   HudState hud_state;
   u8 gap_86A8[4];
   u16 field_86AC;

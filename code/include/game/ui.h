@@ -36,6 +36,10 @@ class ResLayout;
 class Screen;
 struct ScreenContext;
 
+class Font {
+  u8 internal[0x14];
+};
+
 enum class ScreenType {
   Black,
   Main,
