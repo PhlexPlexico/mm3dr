@@ -33,6 +33,10 @@ SECTIONS{
 		*(.patch_FixSurroundSound)
 	}
 
+	.patch_GetCustomText 0x1BDE78 : {
+		*(.patch_GetCustomText)
+	}
+
 	.patch_ISGCrouchStabOne 0x1D32E0 : {
 		*(.patch_ISGCrouchStabOne)
 	}

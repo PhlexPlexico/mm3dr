@@ -1,6 +1,7 @@
 #include "common/advanced_context.h"
 #include "game/common_data.h"
 #include "game/context.h"
+#include "game/message.h"
 #include "game/sound.h"
 #include "game/states/state.h"
 #include "game/ui.h"
@@ -48,6 +49,7 @@ namespace rnd {
     if(context.gctx->pad_state.input.buttons.IsSet(game::pad::Button::ZL)) {
       game::act::Player* link = context.gctx->GetPlayerActor();
       if(link) {
+        game::PlayMessagePassSound();
         rnd::util::Print("Our scene id is %#05x\n", context.gctx->scene);
         //game::GiveItemWithEffect(0xB9);
         // svcOutputDebugString("This is our talk actor ", 23);

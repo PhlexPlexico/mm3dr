@@ -41,6 +41,11 @@ patch_DecoupleStartSelect:
 patch_SaveFile_init:
     bl hook_SaveFile_Init
 
+.section .patch_GetCustomText
+.global patch_GetCustomText
+patch_GetCustomText:
+    b GetMessageFromId
+
 .section .patch_ISGCrouchStabOne
 .global patch_ISGCrouchStabOne
 patch_ISGCrouchStabOne:
