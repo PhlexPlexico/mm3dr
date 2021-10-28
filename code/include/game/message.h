@@ -46,7 +46,7 @@ struct MessageResHeader {
 
 struct MessageResText {
   /// Offset to the message text relative to the start of the file.
-  u32 offset;
+  const char* offset;
   /// Length (including null terminator)
   u32 length;
 };

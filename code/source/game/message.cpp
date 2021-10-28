@@ -77,7 +77,7 @@ namespace game {
       auto &text = msg->texts[i];
       text.reader = rnd::util::GetPointer<MessageReader *(Language)>(0x1C519C)(Language(i));
       if (res_header->languages.IsSet(Language(i))) {
-        text.ptr = (u8 *)res_header + entry->texts[res_idx].offset;
+        text.ptr = (u8*)res_header + (u32)entry->texts[res_idx].offset;
         text.size = entry->texts[res_idx].length;
         ++res_idx;
       } else {
