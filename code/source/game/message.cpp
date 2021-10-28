@@ -28,10 +28,10 @@ namespace game {
     if(!declareTestMessage) {
       ptrCustomMessageEntries[0].id = 0x6133;
       ptrCustomMessageEntries[0].field_2 = 0xFFFF;
-      ptrCustomMessageEntries[0].field_4 = 0xFFFFFFFF;
-      ptrCustomMessageEntries[0].flags = 0xFFFFFFFF;
-      ptrCustomMessageEntries[0].texts[0].offset = "\x7fTesting!";
-      ptrCustomMessageEntries[0].texts[0].length = 13;
+      ptrCustomMessageEntries[0].field_4 = 0x3FFFFFFF;
+      ptrCustomMessageEntries[0].flags = 0xE1000;
+      ptrCustomMessageEntries[0].texts[0].offset = "\x7f\x00:\x00\x01\x00Uh oh\x7f:\x00\x0b\x00 stinky.\x7f1\x00\x00\x00\x7f\x00\x00\x00";
+      ptrCustomMessageEntries[0].texts[0].length = 86;
       declareTestMessage = true;
     }
     #endif
@@ -113,8 +113,8 @@ namespace game {
       auto &text = msg->texts[i];
       text.reader = rnd::util::GetPointer<MessageReader *(Language)>(0x1C519C)(Language(i));
       if (res_header->languages.IsSet(Language(i))) {
-        text.ptr = isCustom ? (u8*)&entry->texts[res_idx].offset : (u8*)res_header + (u32)entry->texts[res_idx].offset;
-        text.size = entry->texts[res_idx].length;
+        text.ptr = isCustom ? (void*)entry->texts[0].offset : (u8*)res_header + (u32)entry->texts[res_idx].offset;
+        text.size = entry->texts[0].length;
         ++res_idx;
       } else {
         text.ptr = nullptr;
