@@ -87,7 +87,7 @@ struct Message {
 static_assert(sizeof(Message) == 0xCC);
 
 struct MessageData {
-  bool Get(u16 id, Message* out) const;
+  bool Get(u32 id, Message* out) const;
 
   void* vtable;
   MessageResHeader* res_header;
