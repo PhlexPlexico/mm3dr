@@ -15,7 +15,7 @@ namespace game {
   static MessageResEntry ptrCustomMessageEntries[1] = {0};
   volatile const u32 numCustomMessageEntries = 1;
   #else
-  volatile const MessageRestEntry *ptrCustomMessageEntries = {0};
+  volatile const MessageResEntry *ptrCustomMessageEntries = {0};
   volatile const u32 numCustomMessageEntries = {0};
   #endif
 
@@ -29,9 +29,9 @@ namespace game {
       ptrCustomMessageEntries[0].id = 0x6133;
       ptrCustomMessageEntries[0].field_2 = 0xFFFF;
       ptrCustomMessageEntries[0].field_4 = 0x3FFFFFFF;
-      ptrCustomMessageEntries[0].flags = 0xE1000;
-      ptrCustomMessageEntries[0].texts[0].offset = "\x7f\x00:\x00\x01\x00Uh oh\x7f:\x00\x0b\x00 stinky.\x7f1\x00\x00\x00\x7f\x00\x00\x00";
-      ptrCustomMessageEntries[0].texts[0].length = 86;
+      ptrCustomMessageEntries[0].flags = 0xC1000;
+      ptrCustomMessageEntries[0].texts[0].offset = "\x7f\x00\x27\x00Uh oh!\x7f\x00\x01\x00Stinky!\x7f\x31\0x00\x00\x00\x7f\x00\x00\x00";
+      ptrCustomMessageEntries[0].texts[0].length = 30;
       declareTestMessage = true;
     }
     #endif
@@ -47,17 +47,13 @@ namespace game {
     };
     
     const MessageResEntry *entry = nullptr;
-    while (!entry && start <= customEnd && id > 0x6132) {
+    while (!entry && start <= customEnd) {
       const int current_entry_idx = (start + customEnd) / 2;
       const auto *candidate = get_custom_entry(current_entry_idx);
-      //const MessageResEntry *candidate = &ptrCustomMessageEntries[current_entry_idx];
-      #ifdef ENABLE_DEBUG
-      rnd::util::Print("%s: Our candidate ID is %u\n", __func__, candidate->id);
-      #endif
       if (candidate->id < id)
         start = current_entry_idx + 1;
       else if (candidate->id > id)
-        end = current_entry_idx - 1;
+        customEnd = current_entry_idx - 1;
       else {
         entry = candidate;
         isCustom = true;
@@ -66,9 +62,7 @@ namespace game {
     }
 
     if (!entry) {
-      #ifdef ENABLE_DEBUG
-      rnd::util::Print("%s: Did not find our custom message... Looking for basic msg\n", __func__);
-      #endif
+      start = 0;
       while (!entry && start <= end) {
         const int current_entry_idx = (start + end) / 2;
         const auto *candidate = get_entry(current_entry_idx);
@@ -83,15 +77,6 @@ namespace game {
     if (!entry || !msg)
       return false;
 
-
-    #ifdef ENABLE_DEBUG
-    rnd::util::Print("%s: Here's some info for text id %u:\
-    \nentry_id: %u\
-    \nflags: %u\
-    \nfield_2: %u\
-    \nfield_4: %u\
-    \n", __func__, id, entry->id, entry->flags, entry->field_2, entry->field_4);
-    #endif
 
     msg->msgid = entry->id;
     msg->is_flag1 = entry->flags & 1;
@@ -113,8 +98,11 @@ namespace game {
       auto &text = msg->texts[i];
       text.reader = rnd::util::GetPointer<MessageReader *(Language)>(0x1C519C)(Language(i));
       if (res_header->languages.IsSet(Language(i))) {
-        text.ptr = isCustom ? (void*)entry->texts[0].offset : (u8*)res_header + (u32)entry->texts[res_idx].offset;
-        text.size = entry->texts[0].length;
+        #ifdef ENABLE_DEBUG
+        rnd::util::Print("%s: Here's some info for text length: %u\n", __func__, entry->texts[res_idx].length);
+        #endif
+        text.ptr = isCustom ? (u8*)entry->texts[0].offset : (u8*)res_header + (u32)entry->texts[res_idx].offset;
+        text.size = entry->texts[res_idx].length;
         ++res_idx;
       } else {
         text.ptr = nullptr;
@@ -135,9 +123,6 @@ namespace game {
 
   extern "C" {
   bool GetMessageFromId(MessageData *self, u32 id, Message *msg) {
-    #ifdef ENABLE_DEBUG
-    rnd::util::Print("%s: OUR INCOMING ID IS %u\n", __func__, id);
-    #endif
     return self->Get(id, msg);
   }
   }
