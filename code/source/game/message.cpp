@@ -29,9 +29,9 @@ namespace game {
       ptrCustomMessageEntries[0].id = 0x6133;
       ptrCustomMessageEntries[0].field_2 = 0xFFFF;
       ptrCustomMessageEntries[0].field_4 = 0x3FFFFFFF;
-      ptrCustomMessageEntries[0].flags = 0xC1000;
-      ptrCustomMessageEntries[0].texts[0].offset = "\x7f\x00\x27\x00Uh oh!\x7f\x00\x01\x00Stinky!\x7f\x31\0x00\x00\x00\x7f\x00\x00\x00";
-      ptrCustomMessageEntries[0].texts[0].length = 30;
+      ptrCustomMessageEntries[0].flags = 0xFF0022;
+      ptrCustomMessageEntries[0].texts[0].offset = "\x7f\x00\x27\x00Uh oh!\x7f\x00\x01\x00 Can't have A-F right beside hex!\x7f\x31";
+      ptrCustomMessageEntries[0].texts[0].length = 75;
       declareTestMessage = true;
     }
     #endif
