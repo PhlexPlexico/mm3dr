@@ -18,6 +18,7 @@ namespace game {
   volatile const MessageResEntry *ptrCustomMessageEntries = {0};
   volatile const u32 numCustomMessageEntries = {0};
   #endif
+  MessageResEntry customIceTrapMessage[1] = {0};
 
   MessageMgr &MessageMgr::Instance() {
     return rnd::util::GetPointer<MessageMgr &()>(0x1C51D0)();
@@ -29,9 +30,9 @@ namespace game {
       ptrCustomMessageEntries[0].id = 0x6133;
       ptrCustomMessageEntries[0].field_2 = 0xFFFF;
       ptrCustomMessageEntries[0].field_4 = 0x3FFFFFFF;
-      ptrCustomMessageEntries[0].flags = 0xFF0022;
-      ptrCustomMessageEntries[0].texts[0].offset = "\x7f\x00\x27\x00Uh oh!\x7f\x00\x01\x00 Can't have A-F right beside hex!\x7f\x31";
-      ptrCustomMessageEntries[0].texts[0].length = 75;
+      ptrCustomMessageEntries[0].flags = 0xFF0000;
+      ptrCustomMessageEntries[0].texts[0].offset = "Hmmph...  I've been made a \x7f:\x00\x01\x00\x46OOL\x7f\x00:\x00\x0b\x00 of!\x7f\x00\x31";
+      ptrCustomMessageEntries[0].texts[0].length = 55;
       declareTestMessage = true;
     }
     #endif
@@ -47,6 +48,17 @@ namespace game {
     };
     
     const MessageResEntry *entry = nullptr;
+    
+    if (id == 0x0012) {
+      customIceTrapMessage[0].id = 0x0012;
+      customIceTrapMessage[0].field_2 = 0xFFFF;
+      customIceTrapMessage[0].field_4 = 0x3FFFFFFF;
+      customIceTrapMessage[0].flags = 0xFF0000;
+      customIceTrapMessage[0].texts[0].offset = "Hmmph...  I've been made a \x7f:\x00\x01\x00\x46OOL\x7f\x00:\x00\x0b\x00 of!\x7f\x00\x31";
+      customIceTrapMessage[0].texts[0].length = 52;
+      entry = reinterpret_cast<const MessageResEntry *>((const u8 *)customIceTrapMessage + 0);
+      isCustom = true;
+    }
     while (!entry && start <= customEnd) {
       const int current_entry_idx = (start + customEnd) / 2;
       const auto *candidate = get_custom_entry(current_entry_idx);
