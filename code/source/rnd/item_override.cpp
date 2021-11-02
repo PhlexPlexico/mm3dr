@@ -31,7 +31,8 @@ namespace rnd {
   void ItemOverride_Init(void) {
     #ifdef ENABLE_DEBUG
     rItemOverrides[0].key.scene = 0x6F;
-    rItemOverrides[0].key.type = ItemOverride_Type::OVR_BASE_ITEM;
+    rItemOverrides[0].key.type = ItemOverride_Type::OVR_COLLECTABLE;
+    rItemOverrides[0].key.pad_ = 0xE0;
     rItemOverrides[0].value.getItemId = 0x42;
     rItemOverrides[0].value.looksLikeItemId = 0x42;
     #endif
@@ -99,7 +100,9 @@ namespace rnd {
     if (key.all == 0) {
       return (ItemOverride){0};
     }
-
+    #ifdef ENABLE_DEBUG
+    rnd::util::Print("%s: Our key values: Scene %u\nType: %u\nFlag: %u\nAll: %u\nPad_: %u\n", __func__, key.scene, key.type, key.flag, key.all, key.pad_);
+    #endif
     return ItemOverride_LookupByKey(key);
   }
 
@@ -110,7 +113,8 @@ namespace rnd {
       s32 midIdx = (start + end) / 2;
       ItemOverride midOvr = rItemOverrides[midIdx];
       #ifdef ENABLE_DEBUG
-      return midOvr;
+      rnd::util::Print("%s: Our key values: Scene %u\nType: %u\nFlag: %u\nAll: %u\n", __func__, midOvr.key.scene, midOvr.key.type, midOvr.key.flag, midOvr.key.all);
+      //return midOvr;
       #endif
       if (key.all < midOvr.key.all) {
         end = midIdx - 1;
@@ -367,7 +371,7 @@ namespace rnd {
   void ItemOverride_GetItemTextAndItemID(game::act::Player *actor) {
     if (rActiveItemRow != NULL) {
       #ifdef ENABLE_DEBUG
-      rnd::util::Print("Getting Item and Text IDs.\n");
+      //rnd::util::Print("Getting Item and Text IDs.\n");
       #endif
       game::GlobalContext *gctx = rnd::GetContext().gctx;
       u16 textId = rActiveItemRow->textId;
@@ -389,7 +393,7 @@ namespace rnd {
       return;
     ItemOverride override = {0};
     #ifdef ENABLE_DEBUG
-    rnd::util::Print("Inside the GetItem Custom function.\n");
+    //rnd::util::Print("Inside the GetItem Custom function.\n");
     #endif
     s32 incomingNegative = 0x15 < 0;
 
