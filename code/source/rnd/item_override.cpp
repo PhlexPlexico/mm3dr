@@ -100,6 +100,9 @@ namespace rnd {
     if (key.all == 0) {
       return (ItemOverride){0};
     }
+    #ifdef ENABLE_DEBUG
+    rnd::util::Print("%s: Our key values:\nScene %u\nType: %u\nFlag: %u\nAll: %u\nPad_: %u\n", __func__, key.scene, key.type, key.flag, key.all, key.pad_);
+    #endif
     return ItemOverride_LookupByKey(key);
   }
 
@@ -109,6 +112,9 @@ namespace rnd {
     while (start <= end) {
       s32 midIdx = (start + end) / 2;
       ItemOverride midOvr = rItemOverrides[midIdx];
+      #ifdef ENABLE_DEBUG
+      rnd::util::Print("%s: Our key values:\nScene %u\nType: %u\nFlag: %u\nAll: %u\nPad_: %u\n", __func__, midOvr.key.scene, midOvr.key.type, midOvr.key.flag, midOvr.key.all, midOvr.key.pad_);
+      #endif
       if (key.all < midOvr.key.all) {
         end = midIdx - 1;
       } else if (key.all > midOvr.key.all) {
