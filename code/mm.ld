@@ -12,7 +12,6 @@ SECTIONS{
 		*(.patch_startHeap)
 	} */
 
-
 	.patch_MainLoop 0x10676C : {
 		*(.patch_MainLoop)
 	}
@@ -51,7 +50,7 @@ SECTIONS{
 
 	.patch_RemoveRemainsStateCheck 0x22B7BC : {
 			*(.patch_RemoveRemainsStateCheck)
-		}
+	}
 
 	.patch_ChangeDrawItemIndex 0x22F24C : { 
 		*(.patch_ChangeDrawItemIndex)
@@ -65,28 +64,32 @@ SECTIONS{
 		*(.patch_OverrideItemID)
 	}
 
-	.patch_fasterBlockMovement 0x2AC634 : {
-		*(.patch_fasterBlockMovement)
+	.patch_TwinmoldConsistentDamage 0x28E544 : {
+		*(.patch_TwinmoldConsistentDamage)
 	}
 
-	.patch_fasterBlockMovementBack 0x2D0C0C : {
-		*(.patch_fasterBlockMovementBack)
+	.patch_FasterBlockMovement 0x2AC634 : {
+		*(.patch_FasterBlockMovement)
+	}
+
+	.patch_FasterBlockMovementBack 0x2D0C0C : {
+		*(.patch_FasterBlockMovementBack)
 	}
 
 	.patch_IncomingGetItemID 0x4B1394 : {
 		*(.patch_IncomingGetItemID)
 	}
 
-	.patch_readGamePad 0x59BA10 : {
-		*(.patch_readGamePad)
+	.patch_ReadGamePad 0x59BA10 : {
+		*(.patch_ReadGamePad)
 	}
 
-	.patch_disableExistingTrigger 0x59BA14 : {
-		*(.patch_disableExistingTrigger)
+	.patch_DisableExistingTrigger 0x59BA14 : {
+		*(.patch_DisableExistingTrigger)
 	}
 
-	.patch_itemCloseOnSelect 0x5C19E4 : {
-		*(.patch_itemCloseOnSelect)
+	.patch_ItemCloseOnSelect 0x5C19E4 : {
+		*(.patch_ItemCloseOnSelect)
 	}
 	. = 0x61CD8C;
 	/* Addr already 4 byte aligned! */

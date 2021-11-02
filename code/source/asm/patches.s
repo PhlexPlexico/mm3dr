@@ -86,29 +86,35 @@ OverrideTextID_patch:
 OverrideItemID_patch:
     b hook_OverrideItemID
 
-.section .patch_readGamePad
-.global patch_readGamePad
-patch_readGamePad:
+.section .patch_ReadGamePad
+.global patch_ReadGamePad
+patch_ReadGamePad:
     b hook_readGamePad
 
-.section .patch_disableExistingTrigger
-.global patch_disableExistingTrigger
-patch_disableExistingTrigger:
+.section .patch_DisableExistingTrigger
+.global patch_DisableExistingTrigger
+patch_DisableExistingTrigger:
     b 0x059bb60 @branches past all the checks for button presses and whatnot. We override all of this.
 
-.section .patch_itemCloseOnSelect
-.global patch_itemCloseOnSelect
-patch_itemCloseOnSelect:
+.section .patch_ItemCloseOnSelect
+.global patch_ItemCloseOnSelect
+patch_ItemCloseOnSelect:
     tst r1, #14
 
-.section .patch_fasterBlockMovement
-.global patch_fasterBlockMovement
-patch_fasterBlockMovement:
+@ Remove call from twinmold->life -= twinmold_min_damage.
+.section .patch_TwinmoldConsistentDamage
+.global patch_TwinmoldConsistentDamage
+patch_TwinmoldConsistentDamage:
+    nop
+
+.section .patch_FasterBlockMovement
+.global patch_FasterBlockMovement
+patch_FasterBlockMovement:
     .float 50.0
 
-.section .patch_fasterBlockMovementBack
-.global patch_fasterBlockMovementBack
-patch_fasterBlockMovementBack:
+.section .patch_FasterBlockMovementBack
+.global patch_FasterBlockMovementBack
+patch_FasterBlockMovementBack:
     .float 60.0
 
 .section .patch_loader

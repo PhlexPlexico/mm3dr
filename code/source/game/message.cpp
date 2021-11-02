@@ -18,7 +18,8 @@ namespace game {
   volatile const MessageResEntry *ptrCustomMessageEntries = {0};
   volatile const u32 numCustomMessageEntries = {0};
   #endif
-  MessageResEntry customIceTrapMessage[1] = {0};
+  MessageResEntry customIceMessage = {0};
+  MessageResEntry customSwordMessage = {0};
 
   MessageMgr &MessageMgr::Instance() {
     return rnd::util::GetPointer<MessageMgr &()>(0x1C51D0)();
@@ -50,13 +51,22 @@ namespace game {
     const MessageResEntry *entry = nullptr;
     
     if (id == 0x0012) {
-      customIceTrapMessage[0].id = 0x0012;
-      customIceTrapMessage[0].field_2 = 0xFFFF;
-      customIceTrapMessage[0].field_4 = 0x3FFFFFFF;
-      customIceTrapMessage[0].flags = 0xFF0000;
-      customIceTrapMessage[0].texts[0].offset = "Hmmph...  I've been made a \x7f:\x00\x01\x00\x46OOL\x7f\x00:\x00\x0b\x00 of!\x7f\x00\x31";
-      customIceTrapMessage[0].texts[0].length = 52;
-      entry = reinterpret_cast<const MessageResEntry *>((const u8 *)customIceTrapMessage + 0);
+      customIceMessage.id = 0x0012;
+      customIceMessage.field_2 = 0xFFFF;
+      customIceMessage.field_4 = 0x3FFFFFFF;
+      customIceMessage.flags = 0xFF0000;
+      customIceMessage.texts[0].offset = "Hmmph...  I've been made a \x7f:\x00\x01\x00\x46OOL\x7f\x00:\x00\x0b\x00 of!\x7f\x00\x31";
+      customIceMessage.texts[0].length = 52;
+      entry = &customIceMessage;
+      isCustom = true;
+    } else if (id == 0x0037) {
+      customSwordMessage.id = 0x0037;
+      customSwordMessage.field_2 = 0xFFFF;
+      customSwordMessage.field_4 = 0x3FFFFFF;
+      customSwordMessage.flags = 0x4D0000;
+      customSwordMessage.texts[0].offset = "\x7f\x00You got the trusty sword \x7f\x01\x00you're familiar with.\x7f\x00\x31";
+      customSwordMessage.texts[0].length = 125;
+      entry = &customSwordMessage;
       isCustom = true;
     }
     while (!entry && start <= customEnd) {
@@ -121,6 +131,7 @@ namespace game {
         text.size = 0;
       }
     }
+    
 
     return true;
   }

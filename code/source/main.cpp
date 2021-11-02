@@ -49,8 +49,9 @@ namespace rnd {
     if(context.gctx->pad_state.input.buttons.IsSet(game::pad::Button::ZL)) {
       game::act::Player* link = context.gctx->GetPlayerActor();
       if(link) {
-        game::PlayMessagePassSound();
-        rnd::util::Print("Our scene id is %#05x\n", context.gctx->scene);
+        //game::PlayMessagePassSound();
+        context.gctx->ShowMessage(0x9c, link);
+        //rnd::util::Print("Our scene id is %#05x\n", context.gctx->scene);
         //game::GiveItemWithEffect(0xB9);
         // svcOutputDebugString("This is our talk actor ", 23);
         //rnd::util::GetPointer<void(game::GlobalContext*, int msgid, int)>(0x21BAFC)(context.gctx, 0x0020, 0x0);

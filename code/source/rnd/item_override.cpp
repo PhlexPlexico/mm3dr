@@ -33,8 +33,8 @@ namespace rnd {
     rItemOverrides[0].key.scene = 0x6F;
     rItemOverrides[0].key.type = ItemOverride_Type::OVR_COLLECTABLE;
     rItemOverrides[0].key.pad_ = 0xE0;
-    rItemOverrides[0].value.getItemId = 0x42;
-    rItemOverrides[0].value.looksLikeItemId = 0x42;
+    rItemOverrides[0].value.getItemId = 0x37;
+    rItemOverrides[0].value.looksLikeItemId = 0x37;
     #endif
     while (rItemOverrides[rItemOverrides_Count].key.all != 0) {
       rItemOverrides_Count++;

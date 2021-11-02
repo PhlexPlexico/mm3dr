@@ -184,7 +184,7 @@ namespace rnd {
       [0x36] = ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL, (u8)game::ItemId::OneBombchu, 0x0036, 0x00B0, (s8)0xFF, (s8)0xFF,
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_BOMBCHU, (rnd::upgradeFunc)ItemUpgrade_BombsToRupee, ItemEffect_None, (s16)-1, (s16)-1), // Bombchu (1)
 
-      [0x37] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::KokiriSword, 0x1784, 0x00148, (s8)0xFF, (s8)0xFF,
+      [0x37] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::KokiriSword, 0x0037, 0x00148, (s8)0xFF, (s8)0xFF,
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_KOKIRI_SWORD, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveKokiriSword, (s16)-1, (s16)-1), // Kokiri Sword - Error Text
 
       [0x38] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::RazorSword, 0x0038, 0x001F9, (s8)0xFF, (s8)0xFF,
