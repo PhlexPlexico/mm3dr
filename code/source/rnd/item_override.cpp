@@ -32,7 +32,6 @@ namespace rnd {
     #ifdef ENABLE_DEBUG
     rItemOverrides[0].key.scene = 0x6F;
     rItemOverrides[0].key.type = ItemOverride_Type::OVR_COLLECTABLE;
-    rItemOverrides[0].key.pad_ = 0xE0;
     rItemOverrides[0].value.getItemId = 0x37;
     rItemOverrides[0].value.looksLikeItemId = 0x37;
     #endif
@@ -50,6 +49,7 @@ namespace rnd {
 
     game::CommonData &cdata = game::GetCommonData();
     ItemOverride_Key retKey;
+    retKey.all = 0;
     if (actor->actor_type == game::act::Type::Chest) {
 
       // XXX: Any games like H&D or chest game to not swap?
@@ -60,7 +60,6 @@ namespace rnd {
       //         return (ItemOverride_Key){ .all = 0 };
       //     }
       // }
-
       retKey.scene = scene;
       retKey.type = ItemOverride_Type::OVR_CHEST;
       retKey.flag = actor->params & 0x1F;
