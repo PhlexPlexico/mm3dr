@@ -64,8 +64,8 @@ namespace game {
       customSwordMessage.field_2 = 0xFFFF;
       customSwordMessage.field_4 = 0x3FFFFFF;
       customSwordMessage.flags = 0x4D0000;
-      customSwordMessage.texts[0].offset = "\x7f\x00You got the trusty sword \x7f\x01\x00you're familiar with.\x7f\x00\x31";
-      customSwordMessage.texts[0].length = 125;
+      customSwordMessage.texts[0].offset = "\x7f\x007\x00\x7f\x00:\x00\x01\x00Kokiri Sword\x7f\x00:\x00\x0b\x00\x7f\x00\x01\x00Test\x7f\x00\x31";
+      customSwordMessage.texts[0].length = 52;
       entry = &customSwordMessage;
       isCustom = true;
     }
@@ -121,7 +121,7 @@ namespace game {
       text.reader = rnd::util::GetPointer<MessageReader *(Language)>(0x1C519C)(Language(i));
       if (res_header->languages.IsSet(Language(i))) {
         #ifdef ENABLE_DEBUG
-        rnd::util::Print("%s: Here's some info for text length: %u\n", __func__, entry->texts[res_idx].length);
+        //rnd::util::Print("%s: Here's some info for text length: %u\n", __func__, entry->texts[res_idx].length);
         #endif
         text.ptr = isCustom ? (u8*)entry->texts[0].offset : (u8*)res_header + (u32)entry->texts[res_idx].offset;
         text.size = entry->texts[res_idx].length;
