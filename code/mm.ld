@@ -24,7 +24,8 @@ SECTIONS{
 		*(.patch_DecoupleStartSelect)
 	}
 
-	.patch_SaveFile_init 0x160D00 : {
+	/*TODO: Find a better place for this function call. This is called almost every frame during file selection but it works?*/
+	.patch_SaveFile_init 0x5bb44c : {
 		*(.patch_SaveFile_init)
 	}
 

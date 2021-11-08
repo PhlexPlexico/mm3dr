@@ -55,8 +55,9 @@ namespace game {
       customIceMessage.field_2 = 0xFFFF;
       customIceMessage.field_4 = 0x3FFFFFFF;
       customIceMessage.flags = 0xFF0000;
-      customIceMessage.texts[0].offset = "Hmmph...  I've been made a \x7f:\x00\x01\x00\x46OOL\x7f\x00:\x00\x0b\x00 of!\x7f\x00\x31";
-      customIceMessage.texts[0].length = 52;
+      //customIceMessage.texts[0].offset = "Hmmph...  I've been made a \x7f:\x00\x01\x00\x46OOL\x7f\x00:\x00\x0b\x00 of!\x7f\x00\x31";
+      customIceMessage.texts[0].offset = " \x7f:\x00\x01\x00\x46OOL!\x7f:\x00\x0b\x00\x7f\x00\x31";
+      customIceMessage.texts[0].length = 22;
       entry = &customIceMessage;
       isCustom = true;
     } else if (id == 0x0037) {
@@ -64,8 +65,8 @@ namespace game {
       customSwordMessage.field_2 = 0xFFFF;
       customSwordMessage.field_4 = 0x3FFFFFF;
       customSwordMessage.flags = 0x4D0000;
-      customSwordMessage.texts[0].offset = "\x7f\x007\x00\x7f\x00:\x00\x01\x00Kokiri Sword\x7f\x00:\x00\x0b\x00\x7f\x00\x01\x00Test\x7f\x00\x31";
-      customSwordMessage.texts[0].length = 52;
+      customSwordMessage.texts[0].offset = "\x7f\x00'\x00You got the Kogiri sword!\x7f\x00\x31";
+      customSwordMessage.texts[0].length = 36;
       entry = &customSwordMessage;
       isCustom = true;
     }
@@ -123,7 +124,7 @@ namespace game {
         #ifdef ENABLE_DEBUG
         //rnd::util::Print("%s: Here's some info for text length: %u\n", __func__, entry->texts[res_idx].length);
         #endif
-        text.ptr = isCustom ? (u8*)entry->texts[0].offset : (u8*)res_header + (u32)entry->texts[res_idx].offset;
+        text.ptr = isCustom ? (u8*)entry->texts[res_idx].offset : (u8*)res_header + (u32)entry->texts[res_idx].offset;
         text.size = entry->texts[res_idx].length;
         ++res_idx;
       } else {

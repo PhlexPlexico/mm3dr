@@ -25,14 +25,23 @@ hook_MainLoop:
 .rActiveItemGraphicId:
     .word rActiveItemGraphicId
 
+@ .global hook_SaveFile_Init
+@ hook_SaveFile_Init:
+@     push {r0-r12, lr}
+@     mov r0, r5
+@     bl SaveFile_Init
+@     pop {r0-r12, lr}
+@     strh r1, [r4, #0x10]
+@     bx lr
+
 .global hook_SaveFile_Init
 hook_SaveFile_Init:
     push {r0-r12, lr}
-    mov r0, r5
     bl SaveFile_Init
     pop {r0-r12, lr}
-    strh r1, [r4, #0x10]
+    cpy r4,r0
     bx lr
+    
 
 @ State handler calls 0x5D for masks, check this value and ignore states where that is equal, since this function
 @ is also used by song of soaring and get_item.

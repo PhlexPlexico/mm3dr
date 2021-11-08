@@ -7,12 +7,16 @@ extern "C" {
 #include "rnd/savefile.h"
 #include "rnd/settings.h"
 #include <string.h>
+#ifdef ENABLE_DEBUG
+#include "common/debug.h"
+#endif
 //#define DECLARE_EXTSAVEDATA
 
 namespace rnd {
-  extern "C" void SaveFile_Init(u32 fileBaseIndex) {
+  extern "C" void SaveFile_Init() {
     game::SaveData &saveData = game::GetCommonData().save;
 #ifdef ENABLE_DEBUG
+    //rnd::util::Print("%s: Made it to save debug values.", __func__);
     saveData.equipment.sword_shield.sword = game::SwordType::GildedSword;
     saveData.player.razor_sword_hp = 0x64;
     saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver50;
