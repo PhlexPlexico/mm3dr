@@ -65,8 +65,8 @@ namespace game {
       customSwordMessage.field_2 = 0xFFFF;
       customSwordMessage.field_4 = 0x3FFFFFF;
       customSwordMessage.flags = 0x4D0000;
-      customSwordMessage.texts[0].offset = "\x7f\x00'\x00You got the Kokiri sword!\x7f\x31";
-      customSwordMessage.texts[0].length = 36;
+      customSwordMessage.texts[0].offset = "\x7f\x00'\x00You got the \x7f\x00:\x00\x01\x00Kokiri sword!\x7f:\x00\x00\x00\x7f\x00\x31\x00";
+      customSwordMessage.texts[0].length = 48;
       entry = &customSwordMessage;
       isCustom = true;
     }
