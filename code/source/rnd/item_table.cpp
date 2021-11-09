@@ -185,7 +185,7 @@ namespace rnd {
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_BOMBCHU, (rnd::upgradeFunc)ItemUpgrade_BombsToRupee, ItemEffect_None, (s16)-1, (s16)-1), // Bombchu (1)
 
       [0x37] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::KokiriSword, 0x0037, 0x00148, (s8)0xFF, (s8)0xFF,
-                        (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_KOKIRI_SWORD, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveKokiriSword, (s16)-1, (s16)-1), // Kokiri Sword - Error Text
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_KOKIRI_SWORD, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveKokiriSword, (s16)-1, (s16)-1), // Kokiri Sword
 
       [0x38] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::RazorSword, 0x0038, 0x001F9, (s8)0xFF, (s8)0xFF,
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_RAZOR_SWORD, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveRazorSword, (s16)-1, (s16)-1), // Razor Sword
@@ -212,7 +212,7 @@ namespace rnd {
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_COMPASS, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Compass
 
       [0x40] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::KokiriSword, 0x009C, 0x00148, (s8)0xFF, (s8)0xFF,
-                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveKokiriSword, (s16)-1, (s16)-1), // Kokiri Sword TODO: Custom Text
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveKokiriSword, (s16)-1, (s16)-1), // Kokiri Sword
 
       [0x41] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::Hookshot, 0x0041, 0x00BF, (s8)0xFF, (s8)0xFF,
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_HOOKSHOT, (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1), // Hookshot
