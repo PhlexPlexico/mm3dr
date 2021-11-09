@@ -395,6 +395,13 @@ namespace rnd {
     #endif
     s32 incomingNegative = 0x15 < 0;
 
+    #ifdef ENABLE_NOLOGIC
+    s8 baseItemId = -1;
+    while (true) {
+      baseItemId = rnd::util::GetPointer<int(void)>(0x14F55C)();
+      if (baseItemId > 0x00 && baseItemId <= 0xBA) break;
+    }
+    #else
     if (fromActor != NULL && incomingGetItemId != 0) {
       s8 getItemId = incomingNegative ? -incomingGetItemId : incomingGetItemId;
       override = ItemOverride_Lookup(fromActor, (u8)gctx->scene, getItemId);
@@ -407,6 +414,9 @@ namespace rnd {
     }
     ItemOverride_Activate(override);
     s8 baseItemId = rActiveItemRow->baseItemId;
+    #endif
+    
+    
     //s8 baseItemId = rActiveItemRow->textId;
     if (override.value.getItemId == 0x12) {
       rActiveItemRow->effectArg1 = override.key.all >> 16;
