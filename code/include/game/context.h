@@ -7,9 +7,12 @@
 #include "common/utils.h"
 #include "game/actor.h"
 #include "game/camera.h"
+#include "game/objectbankarchive.h"
 #include "game/pad.h"
+#include "game/resarchiveheader.h"
 #include "game/scene.h"
 #include "game/states/state.h"
+#include "game/ui/screens/screen.h"
 #include "z3d/z3Dvec.h"
 
 namespace game {
@@ -177,7 +180,14 @@ struct GlobalContext : State {
 
   SceneId scene;
   u16 field_14A;
-  u8 gap_14C[200];
+  //u8 gap_14C[200];
+  u8 gap_14C[8];
+  u32 zsi;
+  ResArchiveHeader* scene_gar;
+  ObjectBankArchive scene_archive;
+  u32 field_1F8;
+  u8 gap_1FC[20];
+  float field_210;
   float field_214;
   float field_218;
   float field_21C;
@@ -343,10 +353,13 @@ struct GlobalContext : State {
   u8 field_CAAD;
   u8 gap_CAAE[2];
   u32 field_CAB0;
-  u8 gap_CAB4[16];
+  u32 field_CAB4;
+  u8 gap_CAB8[4];
+  u32 field_CABC;
+  SceneInfo* scene_info;
   u32 field_CAC4;
   u8 gap_CAC8[480];
-  char field_CCA8;
+  char setup2;
   char field_CCA9;
   char field_CCAA;
   char field_CCAB;
@@ -375,17 +388,52 @@ struct GlobalContext : State {
   u8 gap_CCBC[4];
   u32 field_CCC0;
   ui::PlayHud* play_hud;
-  u8 gap_CCC8[9230];
+  u8 gap_CCC8[134];
+  u8 has_kafei;
+  u8 gap_CD4F[9];
+  u16 field_CD58;
+  u8 gap_CD5A[46];
+  u32 transition_plane;
+  u8 gap_CD8C[52];
+  u32 field_CDC0;
+  u8 gap_CDC4[60];
+  u32 field_CE00;
+  u8 gap_CE04[180];
+  u32 field_CEB8;
+  u8 gap_CEBC[8260];
+  u16 field_EF00;
+  u8 gap_EF02[251];
+  u8 field_EFFD;
+  u16 field_EFFE;
+  u32 odolwa;
+  u32 moths;
+  z3dVec3f odolwa_position;
+  u8 gap_14[64];
+  u32 field_54;
+  u8 gap_58[8];
+  u32 field_60;
+  u8 gap_64[114];
   u8 field_F0D6;
   u8 gap_F0D7;
   float field_F0D8;
-  act::BossTwinmold* twinmold_actor_maybe;
-  act::BossTwinmold* twinmold_2_actor_maybe;
-  act::Actor* boss_actor_maybe;
+  act::BossTwinmold *twinmold_actor;
+  act::BossTwinmold *twinmold_2_actor;
+  act::Actor *boss_actor_maybe;
   u8 gap_F0E8[4];
-  act::Actor* blue_warp_actor;
-  act::Actor* some_actor;
-  u8 gap_F0F4[7996];
+  act::Actor *blue_warp_actor;
+  act::Player* self;
+  u8 gap_F0F4[3852];
+  u32 field_10000;
+  u8 gap_10004[4075];
+  u8 field_10FEF;
+  u8 field_10FF0;
+  u8 field_10FF1;
+  u8 field_10FF2;
+  u8 field_10FF3;
+  u8 gap_10FF4[20];
+  u32 field_11008;
+  u8 gap_1100C[4];
+  game::ui::ScreenCaptureContext screen_capture;
 };
 static_assert(offsetof(GlobalContext, main_camera) == 0x408);
 static_assert(offsetof(GlobalContext, pause_flags) == 0xAAC);

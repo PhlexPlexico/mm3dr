@@ -36,6 +36,21 @@ struct ScreenContext {
 };
 static_assert(sizeof(ScreenContext) == 0x14);
 
+struct ScreenCaptureContext {
+  u32 field_0;
+  u32 state;
+  u32 field_8;
+  void* data;
+  u32 data_size;
+  u16 width;
+  u16 height;
+  u8 timer;
+  u8 capture_type;
+  u8 gap_1A[2];
+  u32 field_1C;
+};
+static_assert(sizeof(ScreenCaptureContext) == 0x20);
+
 // A screen is the top-level component of the UI system.
 // It is responsible for orchestrating layouts and handling transitions between game menus.
 class Screen {

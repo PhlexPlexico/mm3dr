@@ -126,6 +126,22 @@ enum class SceneId : u16 {
   TerminaFieldCutscene2 = 0x74,
 };
 
+struct PathAndSize {
+  char path[48];
+  u32 size;
+};
+static_assert(sizeof(PathAndSize) == 0x34);
+
+struct SceneInfo {
+ PathAndSize zsi;
+ PathAndSize gar;
+ u16 field_68;
+ u8 field_6A;
+ u8 field_6B;
+ u32 bgm_id;
+};
+static_assert(sizeof(SceneInfo) == 0x70);
+
 }  // namespace game
 
 #endif
