@@ -2,8 +2,10 @@
 #define _GAME_ACTOR_RESOURCE_H
 
 #include "common/types.h"
+#include "common/utils.h"
 #include "game/objectbankarchive.h"
-namespace game {
+
+namespace game::ActorResources {
   // Same as ObjectStatus in OoT3DR
   struct ActorResource {
     u16 object_id;
@@ -24,6 +26,9 @@ namespace game {
     ActorResource resources[387];
   };
   static_assert(sizeof(ActorResources) == 0x10408);
+
+  u32 find(ActorResources*, int);
+  u32 loadActorResource(ObjectBankArchive*, u32);
 
 } // namespace game
 
