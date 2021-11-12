@@ -12,7 +12,7 @@ namespace game {
   };
   static_assert(sizeof(Archive) == 0x14);
 
-  struct ObjectBankHeader {
+  struct ObjectBankArchive {
     u32 field_0;
     Archive archive;
     u32 archive_data;
@@ -36,7 +36,7 @@ namespace game {
     void *vwx_files;
     void *other_files;
   };
-  static_assert(sizeof(ObjectBankHeader) == 0x9C);
+  static_assert(sizeof(ObjectBankArchive) == 0x9C);
 } // namespace game
 
 #endif
