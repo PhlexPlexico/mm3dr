@@ -5,7 +5,7 @@
 #include "common/utils.h"
 #include "game/resarchiveheader.h"
 
-namespace game {
+namespace game::ObjectBank {
   struct Archive {
     u8 *raw;
     ResArchiveHeader *header;
@@ -57,13 +57,12 @@ namespace game {
     void ***gfb_files;
     void ***vwx_files;
     void ***other_files;
-    void init(ObjectBankArchive*,u32,ResArchiveHeader*,int,char);
-    void* getCmbFile(ObjectBankArchive*,u32,u32);
-    void free(ObjectBankArchive*);
   };
   static_assert(sizeof(ObjectBankArchive) == 0x9C);
 
-   
+  void init(ObjectBankArchive*,u32,ResArchiveHeader*,int,char);
+  void* getCmbFile(ObjectBankArchive*,u32,u32);
+  void free(ObjectBankArchive*);
 } // namespace game
 
 #endif

@@ -5,7 +5,7 @@
 #include "common/utils.h"
 #include "game/objectbankarchive.h"
 
-namespace game {
+namespace game::ActorResource {
   // Same as ObjectStatus in OoT3DR
   struct ActorResource {
     u16 object_id;
@@ -13,9 +13,8 @@ namespace game {
     u32 file_data;
     u32 file_size;
     u32 file;
-    ObjectBankArchive archive;
-    u32 loadActorResource(ObjectBankArchive*, u32);
-    void freeActorResource(ActorResource*);
+    game::ObjectBank::ObjectBankArchive archive;
+    
   };
   static_assert(sizeof(ActorResource) == 0xAC);
 
@@ -31,7 +30,8 @@ namespace game {
   };
   static_assert(sizeof(ActorResources) == 0x10408);
 
-  
+  u32 loadActorResource(game::ObjectBank::ObjectBankArchive*, u32);
+  void freeActorResource(ActorResource*);
 
 } // namespace game
 

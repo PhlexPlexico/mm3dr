@@ -184,7 +184,7 @@ struct GlobalContext : State {
   u8 gap_14C[8];
   u32 zsi;
   ResArchiveHeader* scene_gar;
-  ObjectBankArchive scene_archive;
+  game::ObjectBank::ObjectBankArchive scene_archive;
   u32 field_1F8;
   u8 gap_1FC[20];
   float field_210;

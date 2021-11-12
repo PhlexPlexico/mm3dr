@@ -2,6 +2,7 @@
 #include "game/common_data.h"
 #include "game/context.h"
 #include "game/message.h"
+#include "game/actorresource.h"
 #include "game/sound.h"
 #include "game/states/state.h"
 #include "game/ui.h"
@@ -44,13 +45,15 @@ namespace rnd {
     if (state->type != game::StateType::Play)
       return;
     context.gctx = static_cast<game::GlobalContext *>(state);
+    
     // Before calling let's be absolutely sure we have the player available.
     #ifdef ENABLE_DEBUG
     if(context.gctx->pad_state.input.buttons.IsSet(game::pad::Button::ZL)) {
       game::act::Player* link = context.gctx->GetPlayerActor();
       if(link) {
         //game::PlayMessagePassSound();
-        context.gctx->ShowMessage(0x9c, link);
+        game::ActorResource::loadActorResource(&context.gctx->scene_archive, 0x00B8);
+        //context.gctx->ShowMessage(0x9c, link);
         //rnd::util::Print("Our scene id is %#05x\n", context.gctx->scene);
         //game::GiveItemWithEffect(0xB9);
         // svcOutputDebugString("This is our talk actor ", 23);
