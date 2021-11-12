@@ -17,6 +17,21 @@ namespace game {
   };
   static_assert(sizeof(ResArchiveHeader) == 0x20);
 
+  struct ResArchiveFileType {
+    u32 numFiles;
+    u32 file_indices_offset;
+    u32 name_offset;
+    u32 field_C;
+  };
+  static_assert(sizeof(ResArchiveFileType) == 0x10);
+
+  struct ResArchiveFileInfo {
+    u32 size;
+    u32 file_stem_offset;
+    u32 name_offset;
+  };
+  static_assert(sizeof(ResArchiveFileInfo) == 0x0C);
+
 } // namespace game
 
 #endif
