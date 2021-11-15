@@ -1,5 +1,6 @@
 #ifndef _GAME_ACTOR_RESOURCE_H
 #define _GAME_ACTOR_RESOURCE_H
+#define OBJECT_EXCHANGE_BANK_MAX 36
 
 #include "common/types.h"
 #include "common/utils.h"
@@ -18,19 +19,24 @@ namespace game::ActorResource {
   };
   static_assert(sizeof(ActorResource) == 0xAC);
 
-  // Same as ObjectContext in OoT3DR
   struct ActorResources {
     u8 flags;
     u8 field_1;
     u8 field_2;
     u8 field_3;
     ActorResource resources[387];
-    u32 find(ActorResources*, int);
-    
   };
   static_assert(sizeof(ActorResources) == 0x10408);
 
-  u32 loadActorResource(game::ObjectBank::ObjectBankArchive*, u32);
+  struct ObjectContext {
+    u8 num;
+    char gap_01[7];
+    ActorResource status[OBJECT_EXCHANGE_BANK_MAX];
+  };
+  static_assert(sizeof(ObjectContext) == 0x1838);
+
+  u32 find(ActorResources*, int);
+  u32 loadActorResource(ActorResources*, u32);
   void freeActorResource(ActorResource*);
 
 } // namespace game

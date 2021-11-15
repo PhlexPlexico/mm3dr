@@ -6,6 +6,7 @@
 #include "common/types.h"
 #include "common/utils.h"
 #include "game/actor.h"
+#include "game/actorresource.h"
 #include "game/camera.h"
 #include "game/objectbankarchive.h"
 #include "game/pad.h"
@@ -299,8 +300,9 @@ struct GlobalContext : State {
   __attribute__((aligned(2))) u8 gap_883C[2];
   u8 field_883E;
   __attribute__((aligned(2))) u8 gap_8840[3064];
-  u32 actors_spawn_stuff;
-  u8 gap_943C[11204];
+  game::ActorResource::ActorResources* actors_spawn_stuff;
+  game::ActorResource::ObjectContext object_context;
+  u8 gap_AC74[5004];
   u32 field_C000;
   u8 gap_C004[604];
   u8 room_number;
