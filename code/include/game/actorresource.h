@@ -11,7 +11,7 @@ namespace game::ActorResource {
   struct ActorResource {
     u16 object_id;
     u16 field_2;
-    u32 file_data;
+    ResArchiveHeader* file_data;
     u32 file_size;
     u32 file;
     game::ObjectBank::ObjectBankArchive archive;
