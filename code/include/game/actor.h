@@ -278,7 +278,7 @@ namespace game::act {
   };
   static_assert(sizeof(DayTimerActor) == 0x20C);
 
-  
+  ActorOverlayInfo* GetActorOverlayInfoTable();
 
 } // namespace game::act
 

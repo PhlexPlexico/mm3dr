@@ -53,13 +53,13 @@ namespace rnd {
       if(link) {
         //game::PlayMessagePassSound();
         //GlobalContext::SpawnActor(act::Id id, u16 rx, u16 ry, u16 rz, u16 param, z3dVec3f pos);
-        
-        u32 actorId = game::ActorResource::loadActorResource(context.gctx->actors_spawn_stuff, 0x7d);
+        context.gctx->SpawnActor((game::act::Id)0x1F, 0, 0, 0, 0, link->pos.pos);
         //auto* actor = context.gctx->SpawnActor(link, (game::act::Id)actorId, 0, link->angle, 0, 0, link->pos.pos);
         
         //link->projectile_actor = actor;
         //context.gctx->ShowMessage(0x9c, link);
-        rnd::util::Print("Our scene id is %#05x\n", context.gctx->scene);
+        rnd::util::Print("Our actor id is %#05x\n", 0);
+
         //game::GiveItemWithEffect(0xB9);
         // svcOutputDebugString("This is our talk actor ", 23);
         //rnd::util::GetPointer<void(game::GlobalContext*, int msgid, int)>(0x21BAFC)(context.gctx, 0x0020, 0x0);

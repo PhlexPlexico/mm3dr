@@ -10,4 +10,10 @@ void Actor::Free() {
   calc_fn = nullptr;
 }
 
+// Returns a pointer to the array of the Overlay Table.
+// This is known as gActorOverlay in OoT3DR.
+ActorOverlayInfo* GetActorOverlayInfoTable() {
+  return rnd::util::GetPointer<ActorOverlayInfo*()>(0x657768)();
+}
+
 }  // namespace game::act
