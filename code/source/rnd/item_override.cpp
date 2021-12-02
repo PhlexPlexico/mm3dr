@@ -101,6 +101,11 @@ namespace rnd {
     }
     #ifdef ENABLE_DEBUG
     rnd::util::Print("%s: Our key values:\nScene %u\nType: %u\nFlag: %u\nAll: %u\nPad_: %u\n", __func__, key.scene, key.type, key.flag, key.all, key.pad_);
+    rnd::util::Print("%s: Our param values:\nActor Type %#04x\nGet Item ID: %#04x\nActor ID: %#04x\n", \
+      __func__, \
+      actor->actor_type, \
+      getItemId,
+      actor->id);
     #endif
     return ItemOverride_LookupByKey(key);
   }
@@ -111,9 +116,6 @@ namespace rnd {
     while (start <= end) {
       s32 midIdx = (start + end) / 2;
       ItemOverride midOvr = rItemOverrides[midIdx];
-      #ifdef ENABLE_DEBUG
-      rnd::util::Print("%s: Our key values:\nScene %u\nType: %u\nFlag: %u\nAll: %u\nPad_: %u\n", __func__, midOvr.key.scene, midOvr.key.type, midOvr.key.flag, midOvr.key.all, midOvr.key.pad_);
-      #endif
       if (key.all < midOvr.key.all) {
         end = midIdx - 1;
       } else if (key.all > midOvr.key.all) {
@@ -390,10 +392,7 @@ namespace rnd {
     if (!gctx)
       return;
     ItemOverride override = {0};
-    #ifdef ENABLE_DEBUG
-    //rnd::util::Print("Inside the GetItem Custom function.\n");
-    #endif
-    s32 incomingNegative = 0x15 < 0;
+    s32 incomingNegative = incomingGetItemId < 0;
 
     #ifdef ENABLE_NOLOGIC
     s8 baseItemId = -1;
