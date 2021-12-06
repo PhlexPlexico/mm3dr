@@ -159,7 +159,6 @@ $(BUILD):
 	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
 	@if python3 patch.py $(OUTPUT).elf; then \
 		echo "created basecode.ips" ; \
-		cp basecode.ips /mnt/c/Users/Evan/AppData/Roaming/Citra/load/mods/0004000000125500/code.ips ; \
 	else \
 		python patch.py $(OUTPUT).elf; \
 		echo "created basecode.ips" ; \
