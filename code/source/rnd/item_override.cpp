@@ -13,7 +13,7 @@ extern "C" {
 
 namespace rnd {
   static s32 rItemOverrides_Count = 0;
-  static ItemOverride rItemOverrides[640] = {0};
+  ItemOverride rItemOverrides[640] = {0};
   static game::act::Actor *rDummyActor = NULL;
   static ItemOverride rPendingOverrideQueue[3] = {0};
   static ItemOverride rActiveItemOverride = {0};

@@ -308,7 +308,7 @@ namespace rnd {
 
   } SettingsContext;
 
-  extern SettingsContext gSettingsContext;
+  extern "C" SettingsContext gSettingsContext;
   extern const char hashIconNames[62][25];
 
   s32 Settings_ApplyDamageMultiplier(game::GlobalContext *, s32);
