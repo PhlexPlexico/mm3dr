@@ -2,7 +2,7 @@
 #define _GAME_SOUND_H
 
 #include "common/types.h"
-#include "z3d/z3Dvec.h"
+#include "z3d/z3DVec.h"
 
 namespace game::act {
 class Actor;

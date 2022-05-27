@@ -34,6 +34,10 @@ namespace rnd {
     rItemOverrides[0].key.type = ItemOverride_Type::OVR_COLLECTABLE;
     rItemOverrides[0].value.getItemId = 0x37;
     rItemOverrides[0].value.looksLikeItemId = 0x37;
+    rItemOverrides[1].key.scene = 0x6C;
+    rItemOverrides[1].key.type = ItemOverride_Type::OVR_CHEST;
+    rItemOverrides[1].value.getItemId = 0x37;
+    rItemOverrides[1].value.looksLikeItemId = 0x37;
     #endif
     while (rItemOverrides[rItemOverrides_Count].key.all != 0) {
       rItemOverrides_Count++;
@@ -45,7 +49,7 @@ namespace rnd {
     rDummyActor->parent_actor = NULL;
   }
 
-  static ItemOverride_Key ItemOverride_GetSearchKey(game::act::Actor *actor, u8 scene, u8 getItemId) {
+  static ItemOverride_Key ItemOverride_GetSearchKey(game::act::Actor *actor, u16 scene, s16 getItemId) {
 
     game::CommonData &cdata = game::GetCommonData();
     ItemOverride_Key retKey;
@@ -94,25 +98,28 @@ namespace rnd {
     }
   }
 
-  ItemOverride ItemOverride_Lookup(game::act::Actor *actor, u8 scene, u8 getItemId) {
+  ItemOverride ItemOverride_Lookup(game::act::Actor *actor, u16 scene, s16 getItemId) {
     ItemOverride_Key key = ItemOverride_GetSearchKey(actor, scene, getItemId);
     if (key.all == 0) {
       return (ItemOverride){0};
     }
-    #ifdef ENABLE_DEBUG
+    /*#ifdef ENABLE_DEBUG
     rnd::util::Print("%s: Our key values:\nScene %u\nType: %u\nFlag: %u\nAll: %u\nPad_: %u\n", __func__, key.scene, key.type, key.flag, key.all, key.pad_);
     rnd::util::Print("%s: Our param values:\nActor Type %#04x\nGet Item ID: %#04x\nActor ID: %#04x\n", \
       __func__, \
       actor->actor_type, \
       getItemId,
       actor->id);
-    #endif
+    #endif*/
     return ItemOverride_LookupByKey(key);
   }
 
   ItemOverride ItemOverride_LookupByKey(ItemOverride_Key key) {
     s32 start = 0;
     s32 end = rItemOverrides_Count - 1;
+    /*#ifdef ENABLE_DEBUG
+    return rItemOverrides[1];
+    #endif*/
     while (start <= end) {
       s32 midIdx = (start + end) / 2;
       ItemOverride midOvr = rItemOverrides[midIdx];
@@ -125,6 +132,7 @@ namespace rnd {
       }
     }
     return (ItemOverride){0};
+    
   }
 
   static void ItemOverride_Activate(ItemOverride override) {
@@ -370,9 +378,6 @@ namespace rnd {
 
   void ItemOverride_GetItemTextAndItemID(game::act::Player *actor) {
     if (rActiveItemRow != NULL) {
-      #ifdef ENABLE_DEBUG
-      //rnd::util::Print("Getting Item and Text IDs.\n");
-      #endif
       game::GlobalContext *gctx = rnd::GetContext().gctx;
       u16 textId = rActiveItemRow->textId;
       u8 itemId = rActiveItemRow->itemId;
@@ -387,33 +392,28 @@ namespace rnd {
     }
   }
 
-  void ItemOverride_GetItem(game::act::Actor *fromActor, game::act::Player *player, s8 incomingGetItemId) {
-    game::GlobalContext *gctx = rnd::GetContext().gctx;
-    if (!gctx)
-      return;
+  void ItemOverride_GetItem(game::GlobalContext *gctx, game::act::Actor *fromActor, game::act::Player *player, s16 incomingGetItemId) {
     ItemOverride override = {0};
     s32 incomingNegative = incomingGetItemId < 0;
 
-    #ifdef ENABLE_NOLOGIC
-    s8 baseItemId = -1;
-    while (true) {
-      baseItemId = rnd::util::GetPointer<int(void)>(0x14F55C)();
-      if (baseItemId > 0x00 && baseItemId <= 0xBA) break;
-    }
-    #else
     if (fromActor != NULL && incomingGetItemId != 0) {
-      s8 getItemId = incomingNegative ? -incomingGetItemId : incomingGetItemId;
-      override = ItemOverride_Lookup(fromActor, (u8)gctx->scene, getItemId);
+      s16 getItemId = incomingNegative ? -incomingGetItemId : incomingGetItemId;
+      override = ItemOverride_Lookup(fromActor, (u16)gctx->scene, getItemId);
     }
     if (override.key.all == 0) {
       // No override, use base game's item code
       ItemOverride_Clear();
+      #ifdef ENABLE_DEBUG
+      /*rnd::util::Print("\n%s: Our player get_item_id is %i and our " \
+       "incoming is %i and item direction is %i player angle y is %i\nfield_96 is %i\n", \
+       __func__, player->get_item_id, incomingGetItemId, player->get_item_direction, player->angle.y,fromActor->field_96);*/
+      #endif
       player->get_item_id = incomingGetItemId;
       return;
     }
+    
     ItemOverride_Activate(override);
-    s8 baseItemId = rActiveItemRow->baseItemId;
-    #endif
+    s16 baseItemId = rActiveItemRow->baseItemId;
     
     
     //s8 baseItemId = rActiveItemRow->textId;

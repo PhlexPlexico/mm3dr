@@ -7,7 +7,7 @@
 #include "common/utils.h"
 #include "game/items.h"
 #include "game/player.h"
-#include "z3d/z3Dvec.h"
+#include "z3d/z3DVec.h"
 
 namespace game {
 

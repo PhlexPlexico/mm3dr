@@ -6,7 +6,7 @@
 #include "game/common_data.h"
 #include "game/context.h"
 #include "game/items.h"
-#include "z3d/z3Dvec.h"
+#include "z3d/z3DVec.h"
 
 namespace rnd {
 
@@ -385,12 +385,12 @@ namespace rnd {
   ItemOverride ItemOverride_LookupByKey(ItemOverride_Key);
   void ItemOverride_PushDelayedOverride(u8);
   s32 ItemOverride_IsAPendingOverride(void);
-  ItemOverride ItemOverride_Lookup(game::act::Actor*, u8, u8);
+  ItemOverride ItemOverride_Lookup(game::act::Actor*, u16, s16);
   void ItemOverride_PushDungeonReward(u8);
   void ItemOverride_CheckStartingItem();
   void ItemOverride_Init();
   void ItemOverride_Update();
-  extern "C" void ItemOverride_GetItem(game::act::Actor*, game::act::Player*, s8);
+  extern "C" void ItemOverride_GetItem(game::GlobalContext*, game::act::Actor*, game::act::Player*, s16);
   extern "C" void ItemOverride_GetItemTextAndItemID(game::act::Player*);
   extern "C" u32 rActiveItemGraphicId;
   extern "C" ItemOverride rItemOverrides[640];

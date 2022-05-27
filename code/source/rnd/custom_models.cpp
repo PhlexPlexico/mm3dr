@@ -1,6 +1,6 @@
 #include <string.h>
 #include "rnd/custom_models.h"
-#include "z3d/z3Dvec.h"
+#include "z3d/z3DVec.h"
 
 #define EDIT_BYTE(offset_, val_) (BASE_[offset_] = val_)
 

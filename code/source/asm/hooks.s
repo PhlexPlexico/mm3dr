@@ -70,29 +70,29 @@ hook_OverrideDrawIndexSecond:
     ldr r0,.rActiveItemGraphicId
     ldr r0,[r0]
     cmp r0,#0x0
-    beq noOverrideGraphicIdSecond
-    b 0x21D12C
-noOverrideGraphicIdSecond:
-    add r0,r1,r0, lsl #0x3
-    ldrsh r0,[r0,#-0x6]
-    b 0x21D128
+    beq noOverrideGraphicIdThird
+    b 0x22F47C
+noOverrideGraphicIdThird:
+    ldrsh r0, [r8,#2]
+    b 0x22F478
 
 .global hook_OverrideTextID
 hook_OverrideTextID:
-    ldr r2,.rActiveItemRow_addr
-    ldr r2,[r2]
-    cmp r2,#0x0
+    ldr r3,.rActiveItemRow_addr
+    ldr r3,[r3]
+    cmp r3,#0x0
     beq noOverrideTextID
     b 0x231104
 noOverrideTextID:
+    cpy r2, r5
     cpy r0, r7
     b 0x231100
 
-.global hook_OverrideItemID
+.global hook_OverrideItemID 
 hook_OverrideItemID:
-    ldr r2,.rActiveItemRow_addr
-    ldr r2,[r2]
-    cmp r2,#0x0
+    ldr r1,.rActiveItemRow_addr
+    ldr r1,[r1]
+    cmp r1,#0x0
     beq noOverrideItemID
     push {r0-r12, lr}
     cpy r0,r2
@@ -100,7 +100,8 @@ hook_OverrideItemID:
     pop {r0-r12, lr}
     b 0x231110
 noOverrideItemID:
-    cpy r0, r7
+    LDRB R1, [R4,#0x0]
+    cpy r0,r7
     b 0x23110C
 
 .global hook_IncomingGetItemID
@@ -108,9 +109,10 @@ hook_IncomingGetItemID:
     push {r0-r12, lr}
     @ According to Ghidra, r6 r5 r4 are the required 
     @ values needed for the GetItem header, if it isn't clear.
-    cpy r0,r6
-    cpy r1,r5
-    cpy r2,r4
+    cpy r0,r7
+    cpy r1,r6
+    cpy r2,r5
+    cpy r3,r4
     bl ItemOverride_GetItem
     pop {r0-r12, lr}
     bx lr

@@ -5,11 +5,12 @@
 #include "common/types.h"
 #include "common/utils.h"
 #include "game/actor.h"
+#include "game/actorresource.h"
 #include "game/as.h"
 #include "game/context.h"
 #include "game/items.h"
 #include "game/pad.h"
-#include "z3d/z3Dvec.h"
+#include "z3d/z3DVec.h"
 
 namespace game::act {
 
@@ -194,7 +195,17 @@ struct Player : public Actor {
   char field_20C;
   MaskId previous_mask_id;
   char field_20E;
-  u8 gap_20F[293];
+  // u8 gap_20F[293];
+  u8 gap_20F[13];
+  u32 field_21C;
+  u8 gap_220[80];
+  u32 field_270;
+  game::ActorResource::ActorResource* actor_resource_file;
+  u8 gap_278[108];
+  u32 field_2E4;
+  u8 gap_2E8[56];
+  u32 field_320;
+  u8 gap_324[16];
   PlayerUtil player_util;
   PlayerUtil player_util2;
   as::ActorUtil player_util3;
@@ -218,9 +229,10 @@ struct Player : public Actor {
   u8 gap_904[8];
   char field_914[4];
   u32 door;
-  s8 get_item_id; // Index+1 to the get item ID table.
+  s16 get_item_id; // Index+1 to the get item ID table.
+  s8 get_item_direction;
   Actor* grabbable_actor;
-  u8 gap_924[4];
+  void* field_924;
   u32 field_928; // Epona Actor
   u8 fn1_idx;
   u8 fn2_idx;
@@ -235,7 +247,7 @@ struct Player : public Actor {
   s16 field_954;
   u8 gap_956[22];
   char field_96C;
-  __attribute__((aligned(2))) u8 gap_96E[50];
+  u8 gap_96E[50];
   u32 field_9A0;
   u32 field_9A4;
   u8 gap_9A8[20];
@@ -309,18 +321,18 @@ struct Player : public Actor {
   rnd::Flags<Flag1> flags1;
   rnd::Flags<Flag2> flags2;
   rnd::Flags<Flag3> flags3;
-  u32 flags4;
-  int field_11DC0;
-  u32 field_11DC4;
+  Actor* field_11DBC;
+  Actor* field_11DC0;
+  Actor* field_11DC4;
   Actor* tatl;
   u16 tatl_msgid;
-  char field_11DCE;
+  s8 pending_cutscene_id;
   Action pending_action;
   Actor* talk_actor;
   int field_11DD4;
   int field_11DD8;
   float field_11DDC;
-  u8 gap_11DE0[4];
+  u32 hintstone_maybe;
   int field_11DE4;
   float field_11DE8;
   float field_11DEC;
@@ -499,6 +511,7 @@ struct Player : public Actor {
 static_assert(offsetof(Player, transform_mask_action) == 0x200);
 static_assert(offsetof(Player, grabbable_actor) == 0x00920);
 static_assert(offsetof(Player, field_12CCE) == 0x12CCE);
+static_assert(offsetof(Player, get_item_direction) == 0x0091E);
 static_assert(offsetof(Player, sword_active) == 0x11E3C);
 // TODO: complete the struct and add a size assertion.
 

@@ -3,7 +3,7 @@
 #include "common/advanced_context.h"
 #include "game/player.h"
 #include "game/static_context.h"
-#include "z3d/z3Dvec.h"
+#include "z3d/z3DVec.h"
 
 namespace game {
 

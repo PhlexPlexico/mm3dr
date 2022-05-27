@@ -1,7 +1,7 @@
 #ifndef _RND_RHEAP_H_
 #define _RND_RHEAP_H_
 
-#include "z3D/z3Dvec.h"
+#include "z3d/z3DVec.h"
 
 namespace rnd {
   void rHeap_Init(void);

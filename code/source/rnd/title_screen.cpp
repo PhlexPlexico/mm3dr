@@ -1,5 +1,5 @@
 #include "rnd/custom_models.h"
-#include "z3D/z3Dvec.h"
+#include "z3d/z3DVec.h"
 //#include "rnd/objects.h"
 #include "rnd/title_screen.h"
 

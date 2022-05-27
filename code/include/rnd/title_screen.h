@@ -1,7 +1,7 @@
 #ifndef _RND_TITLE_SCREEN_H_
 #define _RND_TITLE_SCREEN_H_
 
-#include "z3D/z3Dvec.h"
+#include "z3d/z3DVec.h"
 #include "game/actor.h"
 #include "game/context.h"
 

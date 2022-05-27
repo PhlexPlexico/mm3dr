@@ -3,7 +3,7 @@
 
 #include "common/advanced_context.h"
 #include "game/common_data.h"
-#include "z3d/z3Dvec.h"
+#include "z3d/z3DVec.h"
 
 namespace rnd {
   enum class BooleanSetting : u8 {
@@ -19,6 +19,8 @@ namespace rnd {
   enum class LogicSetting :u8 {
     LOGIC_GLITCHLESS,
     LOGIC_NONE,
+    LOGIC_VANILLA,
+    LOGIC_GLITCHED,
   };
 
   enum class AmmoDropsSetting : u8 {

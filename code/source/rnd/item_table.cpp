@@ -2,10 +2,10 @@
 #include "rnd/item_effect.h"
 #include "rnd/item_override.h"
 #include "rnd/item_upgrade.h"
-#include "rnd/rHeap.h"
+#include "rnd/rheap.h"
 #include <stddef.h>
 
-#include "z3D/z3Dvec.h"
+#include "z3d/z3DVec.h"
 
 namespace rnd {
 

@@ -1,7 +1,7 @@
 #ifndef _RND_SPOILER_DATA_H_
 #define _RND_SPOILER_DATA_H_
 
-#include "z3d/z3Dvec.h"
+#include "z3d/z3DVec.h"
 
 #define SPOILER_SPHERES_MAX                 50
 #define SPOILER_ITEMS_MAX                   512

@@ -9,7 +9,7 @@
 #include "rnd/icetrap.h"
 #include "rnd/item_override.h"
 #include "rnd/rheap.h"
-#include "z3d/z3Dvec.h"
+#include "z3d/z3DVec.h"
 
 #ifdef ENABLE_DEBUG
 #include "common/debug.h"
@@ -53,16 +53,19 @@ namespace rnd {
       if(link) {
         //game::PlayMessagePassSound();
         //GlobalContext::SpawnActor(act::Id id, u16 rx, u16 ry, u16 rz, u16 param, z3dVec3f pos);
-        context.gctx->SpawnActor((game::act::Id)0x1F, 0, 0, 0, 0, link->pos.pos);
-        //auto* actor = context.gctx->SpawnActor(link, (game::act::Id)actorId, 0, link->angle, 0, 0, link->pos.pos);
-        
+        //context.gctx->SpawnActor((game::act::Id)0x1F, 0, 0, 0, 0, link->pos.pos);
+        game::act::Actor* actor = context.gctx->SpawnActor((game::act::Id)0x1cf, 0, link->angle.y, 0, 0, link->pos.pos);
         //link->projectile_actor = actor;
-        //context.gctx->ShowMessage(0x9c, link);
-        rnd::util::Print("Our actor id is %#05x\n", 0);
+        //context.gctx->ShowMessage(0xf4, link);
+        //rnd::util::Print("Our actor id is %#05x\n", actor->id);
 
         //game::GiveItemWithEffect(0xB9);
         // svcOutputDebugString("This is our talk actor ", 23);
-        //rnd::util::GetPointer<void(game::GlobalContext*, int msgid, int)>(0x21BAFC)(context.gctx, 0x0020, 0x0);
+        //rnd::util::GetPointer<void(game::act::Actor*, game::GlobalContext*)>(0x3b9c2c)((game::act::Actor*)actor, context.gctx);
+        //rnd::util::GetPointer<void(game::act::Actor*, game::GlobalContext*)>(0x4bf7b8)((game::act::Actor*)actor, context.gctx);
+        //rnd::util::GetPointer<void(game::act::Actor*, game::GlobalContext*)>(0x4bfab4)((game::act::Actor*)actor, context.gctx);
+        //rnd::util::GetPointer<void(game::act::Actor*, game::GlobalContext*, int, int)>(0x2df3e4)(actor, context.gctx, 0, 1);
+        //rnd::util::GetPointer<void(game::act::Actor*, game::GlobalContext*)>(0x35fcd4)(actor, context.gctx);
         // svcOutputDebugString((const char*)link->talk_actor->id, sizeof(char));
         // svcOutputDebugString("\n", 2);
 

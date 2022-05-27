@@ -8,7 +8,7 @@
 #include <cstddef>
 
 
-#include "z3d/z3Dvec.h"
+#include "z3d/z3DVec.h"
 
 
 namespace rnd {

@@ -10,7 +10,7 @@ namespace rnd {
   typedef void (*effectFunc)(game::CommonData *saveCtx, s16 arg1, s16 arg2);
 
   typedef struct {
-    u32 baseItemId; // Fall through ItemId for parts we wish to not
+    s16 baseItemId; // Fall through ItemId for parts we wish to not
     ChestType chestType;
     u8 itemId;
     u16 textId;

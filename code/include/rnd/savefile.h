@@ -2,7 +2,7 @@
 #define _RND_SAVEFILE_H_
 
 #include "game/common_data.h"
-#include "z3d/z3Dvec.h"
+#include "z3d/z3DVec.h"
 
 namespace rnd {
   u8 SaveFile_GetMedallionCount(void);

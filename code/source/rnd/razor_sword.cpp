@@ -1,7 +1,7 @@
 #include "rnd/razor_sword.h"
 #include "common/utils.h"
 #include "rnd/settings.h"
-#include "z3d/z3Dvec.h"
+#include "z3d/z3DVec.h"
 
 namespace rnd {
   u16 RS_SetDurability(void) {

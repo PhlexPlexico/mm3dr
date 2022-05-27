@@ -14,7 +14,7 @@
 #include "game/scene.h"
 #include "game/states/state.h"
 #include "game/ui/screens/screen.h"
-#include "z3d/z3Dvec.h"
+#include "z3d/z3DVec.h"
 
 namespace game {
 
@@ -327,7 +327,10 @@ struct GlobalContext : State {
   void* player_fn_x7;
   void* player_fn_x8;
   void* player_fn_x9;
-  u8 gap_C460[0x68];
+  //u8 gap_C460[0x68];
+  u32 field_C460;
+  s8 field_c462;
+  u8 gap_C464[0x63];
   char field_C4C8[4];
   u16 field_C4CC;
   u8 gap_C4CE[46];

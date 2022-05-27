@@ -2,7 +2,7 @@
 #include "rnd/icetrap.h"
 #include "rnd/savefile.h"
 #include "rnd/settings.h"
-#include "z3d/z3Dvec.h"
+#include "z3d/z3DVec.h"
 
 namespace rnd {
   void ItemEffect_None(game::CommonData *comData, s16 arg1, s16 arg2) {

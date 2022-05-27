@@ -5,7 +5,7 @@
 
 #include "common/flags.h"
 #include "common/types.h"
-#include "z3d/z3Dvec.h"
+#include "z3d/z3DVec.h"
 
 namespace game {
 

@@ -8,7 +8,7 @@
 #include "common/types.h"
 #include "common/utils.h"
 #include "game/sound.h"
-#include "z3d/z3Dvec.h"
+#include "z3d/z3DVec.h"
 
 namespace game {
   struct GlobalContext;
@@ -152,14 +152,15 @@ namespace game::act {
     rnd::Flags<Flag> flags;
     PosRot initial_pos;
     u16 params;
-    u8 field_1E;
+    u8 object_id;
     u8 field_1F;
     u16 field_20;
     u16 field_22;
     PosRot pos;
-    u8 gap_38;
-    u8 field_39; // Possible actor flags.
-    u8 gap_3A[2];
+    int field_38;
+    //u8 gap_38;
+    //u8 field_39; // Possible actor flags.
+    //u8 gap_3A[2];
     PosRot ztarget_pos;
     sound::EffectId sound_effect;
     u8 gap_54[4];
@@ -167,16 +168,21 @@ namespace game::act {
     z3dVec3f vel;
     float vel_xz;
     float vel_y;
-    u8 gap_78[8];
+    float field_78;
+    u8 gap_7c[4];
     u32 field_80;
     u8 gap_84;
     u8 field_85;
-    u8 gap86[3];
-    u8 gap_89[3];
+    //u8 gap86[3];
+    u16 field_86;
+    //u8 gap_89[3];
+    float field_88;
     // Distance to water/submerged? After -30.99 it goes to -32000.00
     float dist_to_water_maybe;
-    u8 gap_90[4];
+    //u8 gap_90[4];
+    void** cmab_file;
     rnd::Flags<Flag94> flags_94;
+    s16 field_96;
     float field_98;
     float distance_to_link;
     float height_diff_to_link;
@@ -192,14 +198,16 @@ namespace game::act {
     DamageType damage_type;
     u8 field_BE;
     u8 field_BF;
-    u16 field_C0;
-    u16 angle;
-    u16 field_C4;
+    // u16 field_C0;
+    // u16 angle;
+    z3dVec3s angle;
+    //u16 field_C4;
     u8 gap_C6[2];
     float field_C8;
     u32 field_CC;
     float field_D0;
-    u8 gap_D4[28];
+    u8 field_D4;
+    u8 gap_D5[27];
     z3dVec3f field_F0;
     u32 field_FC;
     z3dVec3f field_100;

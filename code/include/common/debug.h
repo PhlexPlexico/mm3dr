@@ -3,7 +3,7 @@
 
 #include "common/printf.h"
 
-#include "z3d/z3Dvec.h"
+#include "z3d/z3DVec.h"
 
 namespace rnd::util {
   /// Prints a debug message using svcOutputDebugString.
