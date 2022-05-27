@@ -99,6 +99,7 @@ namespace rnd {
 
   enum class KeysanitySetting : u8 {
     KEYSANITY_START_WITH,
+    KEYSANITY_VANILLA,
     KEYSANITY_OWN_DUNGEON,
     KEYSANITY_ANY_DUNGEON,
     KEYSANITY_OVERWORLD,
@@ -211,11 +212,23 @@ namespace rnd {
     STARTINGSWORD_LETTER_TO_KAFEI,
     STARTINGSWORD_PENDANT_OF_MEMORIES,
   };
-
+  enum class ShuffleChestsSetting : u8 {
+      SHUFFLECHESTS_VANILLA,
+      SHUFFLECHESTS_RANDOM,
+  };
+  enum class StrayFairySanitySetting : u8 {
+      STRAYFAIRYSANITY_VANILLA,
+      STRAYFAIRYSANITY_ANYWHERE,
+  };
+  enum class ShuffleKokiriSwordSetting : u8 {
+      SHUFFLEKOKIRISWORD_VANILLA,
+      SHUFFLEKOKIRISWROD_ANYWHERE,
+  };
   typedef struct {
     u8 hashIndexes[5];
 
     u8 logic;
+    u8 locationsReachable;
 
     u8 shuffleDungeonEntrances;
     u8 bombchusInLogic;
@@ -229,6 +242,7 @@ namespace rnd {
     u8 tokensanity;
     u8 scrubsanity;
     u8 shopsanity;
+    u8 shuffleKokiriSword;
     u8 shuffleMagicBeans;
     u8 shuffleMerchants;
 
