@@ -63,9 +63,12 @@ bool HandleOcarinaSong(game::ui::MessageWindow* self, game::OcarinaSong song) {
     __func__, played_once);
     util::Print("\n%s: Let's look at the count - %u\n And the song is %u\n", \
     __func__, s_played_songs.Count(), u16(song));
-    if (played_once)
+    if (played_once) {
+      util::Print("\n%s: Returning false.\n", __func__);
       return false;
 
+    }
+      
     EndOcarinaSession(self);
     auto* gctx = GetContext().gctx;
     game::sound::PlayEffect(game::sound::EffectId::NA_SE_SY_TRE_BOX_APPEAR);

@@ -54,7 +54,7 @@ endif
 
 VERFLAGS := -D MM3D=$(MM3D) -D MM3DJ=$(MM3DJ) -D Z3D=$(Z3D)
 
-ARCH	:=	-march=armv6k -mtune=mpcore -mfloat-abi=softfp -mtp=soft
+ARCH	:=	-march=armv6k -mtune=mpcore -mfloat-abi=softfp -mtp=soft -mfpu=vfpv2
 
 CFLAGS	:=	-g -Wall -mword-relocations -D DEBUG \
 			-fomit-frame-pointer -ffunction-sections \
@@ -163,6 +163,7 @@ $(BUILD):
 		python patch.py $(OUTPUT).elf; \
 		echo "created basecode.ips" ; \
 	fi
+	@cp basecode.ips /mnt/c/Users/Evan/AppData/Roaming/Citra/load/mods/0004000000125500/code.ips
 
 #---------------------------------------------------------------------------------
 clean:
