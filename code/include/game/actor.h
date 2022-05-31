@@ -1,7 +1,6 @@
 #ifndef _GAME_ACTOR_H
 #define _GAME_ACTOR_H
 
-#include <array>
 
 #include "common/bitfield.h"
 #include "common/flags.h"

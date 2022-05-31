@@ -60,4 +60,9 @@ bool OpenScreen(ScreenType screen) {
   return true;
 }
 
+bool CheckCurrentScreen(ScreenType screen) {
+  auto& ctx = GetScreenContext();
+  return ctx.active_screen == GetScreen(screen) && !ctx.new_screen;
+}
+
 }  // namespace game::ui

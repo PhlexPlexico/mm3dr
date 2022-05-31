@@ -75,8 +75,9 @@ public:
   constexpr WordType GetStorage(size_t idx) const { return m_storage[idx]; }
 
   constexpr size_t Count() const {
-    return std::accumulate(m_storage.begin(), m_storage.end(), 0,
-                           [](auto word) { return __builtin_popcount(word); });
+    return sizeof(m_storage);
+    //return std::accumulate(m_storage.begin(), m_storage.end(), 0,
+    //                       [](auto word) { return __builtin_popcount(word); });
   }
 
 private:

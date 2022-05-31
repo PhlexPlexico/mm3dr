@@ -92,6 +92,10 @@ SECTIONS{
 	.patch_ItemCloseOnSelect 0x5C19E4 : {
 		*(.patch_ItemCloseOnSelect)
 	}
+
+	.patch_HandleOcarinaHooks 0x604D8C : {
+		*(.patch_HandleOcarinaHooks)
+	}
 	. = 0x61CD8C;
 	/* Addr already 4 byte aligned! */
 	/* . = ALIGN(4); */
