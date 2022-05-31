@@ -53,14 +53,17 @@ bool HandleOcarinaSong(game::ui::MessageWindow* self, game::OcarinaSong song) {
   // 0x16 repeating (step 5; you played text appeared)
   // 0x17 repeating (step 6; textbox disappears)
   // 0x18 repeating (step 7; end)
-
   static rnd::BitSet<16> s_played_songs;
   const bool played_once = u16(song) < s_played_songs.Count() && s_played_songs.IsSet(u16(song));
   if (u16(song) < s_played_songs.Count())
     s_played_songs.Set(u16(song));
 
   if (song == game::OcarinaSong::SongOfSoaring) {
-    if (!played_once)
+    util::Print("\n%s: Inside handle ocarina song, testing the custom bitset. Did we play once? %u\n", \
+    __func__, played_once);
+    util::Print("\n%s: Let's look at the count - %u\n And the song is %u\n", \
+    __func__, s_played_songs.Count(), u16(song));
+    if (played_once)
       return false;
 
     EndOcarinaSession(self);

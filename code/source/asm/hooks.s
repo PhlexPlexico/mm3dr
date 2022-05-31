@@ -127,20 +127,14 @@ hook_readGamePad:
 
 .global hook_HandleOcarina
 hook_HandleOcarina:
-    push {lr}
-    push {r0-r12}
+    push {r0-r12, lr}
     mov r1, r0 // song
     mov r0, r4 // MessageWindow* this
     bl HandleOcarinaSong
-    cmp r0, #0
-    pop {r0-r12}
-    // jump out of this trampoline and MessageWindow code directly
-    addne sp, sp, #0x70
-    popne {r4-r11, pc}
-    pop {r0-r12}
+    pop {r0-r12, lr}
+    @cmp r0, #0
     cmp r0, #0x16 // original instruction
-    
-    pop {pc}
+    b 0x604d90
 
 .section .loader
 .global hook_into_loader
