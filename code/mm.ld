@@ -20,12 +20,12 @@ SECTIONS{
 		*(.patch_DecoupleZlZr)
 	}
 
-	.patch_DecoupleStartSelect 0x121ee8 : {
+	.patch_DecoupleStartSelect 0x121EE8 : {
 		*(.patch_DecoupleStartSelect)
 	}
 
 	/*TODO: Find a better place for this function call. This is called almost every frame during file selection but it works?*/
-	.patch_SaveFile_init 0x5bb44c : {
+	.patch_SaveFile_init 0x5BB44C : {
 		*(.patch_SaveFile_init)
 	}
 
@@ -45,10 +45,6 @@ SECTIONS{
 		*(.patch_ISGCrouchStabTwo)
 	}
 
-	.patch_ChangeDrawItemIndexSecond 0x21D124 : { 
-		*(.patch_ChangeDrawItemIndexSecond)
-	}
-
 	.patch_RemoveRemainsStateCheck 0x22B7BC : {
 			*(.patch_RemoveRemainsStateCheck)
 	}
@@ -56,6 +52,10 @@ SECTIONS{
 	.patch_ChangeDrawItemIndex 0x22F24C : { 
 		*(.patch_ChangeDrawItemIndex)
 	}
+
+	.patch_ChangeDrawItemIndexSecond 0x22F474 : { 
+		*(.patch_ChangeDrawItemIndexSecond)
+	}	
 
 	.patch_OverrideTextID 0x2310FC : {
 		*(.patch_OverrideTextID)
@@ -91,10 +91,6 @@ SECTIONS{
 
 	.patch_ItemCloseOnSelect 0x5C19E4 : {
 		*(.patch_ItemCloseOnSelect)
-	}
-
-	.patch_HandleOcarinaHooks 0x604D8C : {
-		*(.patch_HandleOcarinaHooks)
 	}
 	. = 0x61CD8C;
 	/* Addr already 4 byte aligned! */
