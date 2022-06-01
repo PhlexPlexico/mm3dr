@@ -33,6 +33,10 @@ SECTIONS{
 		*(.patch_FixSurroundSound)
 	}
 
+	.patch_OcarinaDive 0x1E1F0C : {
+		*(.patch_OcarinaDive)
+	}
+
 	.patch_GetCustomText 0x1BDE78 : {
 		*(.patch_GetCustomText)
 	}
@@ -96,7 +100,7 @@ SECTIONS{
 	.patch_HandleOcarinaHooks 0x604D8C : {
 		*(.patch_HandleOcarinaHooks)
 	}
-	
+
 	. = 0x61CD8C;
 	/* Addr already 4 byte aligned! */
 	/* . = ALIGN(4); */

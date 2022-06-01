@@ -132,12 +132,8 @@ hook_HandleOcarina:
     mov r0, r4 @ MessageWindow* this
     bl HandleOcarinaSong
     cmp r0, #0
-    beq noSongOverride
     pop {r0-r12, lr}
-    @cmp r0, #0x16 @ original instruction
-    b 0x606424
-noSongOverride:
-    pop {r0-r12, lr}
+    bne 0x606424
     cmp r0, #0x16 @ original instruction
     b 0x604d90
 

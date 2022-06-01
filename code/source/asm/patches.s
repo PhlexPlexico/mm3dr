@@ -20,6 +20,12 @@ patch_FixSurroundSound:
     nop
     nop
 
+.section .patch_OcarinaDive
+.global patch_OcarinaDive
+patch_OcarinaDive:
+    nop
+    nop
+
 .section .patch_IncomingGetItemID
 .global IncomingGetItemID_patch
 IncomingGetItemID_patch:
