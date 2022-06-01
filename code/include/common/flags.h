@@ -9,7 +9,7 @@
 
 
 #include "z3d/z3DVec.h"
-
+#include "common/debug.h"
 
 namespace rnd {
 
@@ -75,9 +75,21 @@ public:
   constexpr WordType GetStorage(size_t idx) const { return m_storage[idx]; }
 
   constexpr size_t Count() const {
-    return sizeof(m_storage);
+    size_t totalStorage = 0;
+    for (auto it = m_storage.begin(); it != m_storage.end(); ++it) {
+      WordType bitCheck = *it;
+      
+      while (bitCheck) {
+        rnd::util::Print("%s: totalStorage is at %u\n", __func__, *it);
+        rnd::util::Print("%s: bitCheck is at %u\n", __func__, bitCheck);
+        rnd::util::Print("%s: totalStorage is at %u\n", __func__, totalStorage);
+        totalStorage += bitCheck & 1;
+        bitCheck >>= 1;
+      }
+    }
+    return totalStorage;
     //return std::accumulate(m_storage.begin(), m_storage.end(), 0,
-    //                       [](auto word) { return __builtin_popcount(word); });
+    //                       [](auto word) {return __builtin_popcount(word); });
   }
 
 private:

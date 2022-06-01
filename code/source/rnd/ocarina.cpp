@@ -39,6 +39,7 @@ static bool IsElegyOfEmptinessAllowed() {
   return util::Contains(allowed_scenes, GetContext().gctx->scene);
 }
 
+// XXX: Maybe include gSettingsContext to allow for fast songs?
 // Returns true to make the caller return, false to continue.
 bool HandleOcarinaSong(game::ui::MessageWindow* self, game::OcarinaSong song) {
   // field_42C is MessageWindow's ocarina state
@@ -55,15 +56,15 @@ bool HandleOcarinaSong(game::ui::MessageWindow* self, game::OcarinaSong song) {
   // 0x18 repeating (step 7; end)
   static rnd::BitSet<16> s_played_songs;
   const bool played_once = u16(song) < s_played_songs.Count() && s_played_songs.IsSet(u16(song));
-  if (u16(song) < s_played_songs.Count())
-    s_played_songs.Set(u16(song));
+  //if (u16(song) < s_played_songs.Count())
+  s_played_songs.Set(u16(song));
 
   if (song == game::OcarinaSong::SongOfSoaring) {
     util::Print("\n%s: Inside handle ocarina song, testing the custom bitset. Did we play once? %u\n", \
     __func__, played_once);
-    util::Print("\n%s: Let's look at the count - %u\n And the song is %u\n", \
+    util::Print("\n%s: Let's look at the count - %u\n And the song is %i\n", \
     __func__, s_played_songs.Count(), u16(song));
-    if (played_once) {
+    if (!played_once) {
       util::Print("\n%s: Returning false.\n", __func__);
       return false;
 

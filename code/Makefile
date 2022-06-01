@@ -54,7 +54,7 @@ endif
 
 VERFLAGS := -D MM3D=$(MM3D) -D MM3DJ=$(MM3DJ) -D Z3D=$(Z3D)
 
-ARCH	:=	-march=armv6k -mtune=mpcore -mfloat-abi=softfp -mtp=soft -mfpu=vfpv2
+ARCH	:=	-march=armv6k -mtune=mpcore -mfloat-abi=softfp -mtp=soft
 
 CFLAGS	:=	-g -Wall -mword-relocations -D DEBUG \
 			-fomit-frame-pointer -ffunction-sections \
