@@ -163,7 +163,6 @@ $(BUILD):
 		python patch.py $(OUTPUT).elf; \
 		echo "created basecode.ips" ; \
 	fi
-	@cp basecode.ips /mnt/c/Users/Evan/AppData/Roaming/Citra/load/mods/0004000000125500/code.ips
 
 #---------------------------------------------------------------------------------
 clean:
