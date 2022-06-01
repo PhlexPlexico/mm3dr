@@ -125,6 +125,22 @@ hook_readGamePad:
     tst r0,r1
     b 0x59ba14
 
+.global hook_HandleOcarina
+hook_HandleOcarina:
+    push {r0-r12, lr}
+    mov r1, r0 @ song
+    mov r0, r4 @ MessageWindow* this
+    bl HandleOcarinaSong
+    cmp r0, #0
+    beq noSongOverride
+    pop {r0-r12, lr}
+    @cmp r0, #0x16 @ original instruction
+    b 0x606424
+noSongOverride:
+    pop {r0-r12, lr}
+    cmp r0, #0x16 @ original instruction
+    b 0x604d90
+
 .section .loader
 .global hook_into_loader
 hook_into_loader:

@@ -100,6 +100,12 @@ patch_DisableExistingTrigger:
 patch_ItemCloseOnSelect:
     tst r1, #14
 
+@ Adjusts ocarina songs to be in-line with restoration
+.section .patch_HandleOcarinaHooks
+.global patch_HandleOcarinaHooks
+patch_HandleOcarinaHooks:
+    b hook_HandleOcarina
+
 @ Remove call from twinmold->life -= twinmold_min_damage.
 .section .patch_TwinmoldConsistentDamage
 .global patch_TwinmoldConsistentDamage

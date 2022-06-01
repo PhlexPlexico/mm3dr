@@ -9,7 +9,7 @@
 
 
 #include "z3d/z3DVec.h"
-
+#include "common/debug.h"
 
 namespace rnd {
 
@@ -75,8 +75,7 @@ public:
   constexpr WordType GetStorage(size_t idx) const { return m_storage[idx]; }
 
   constexpr size_t Count() const {
-    return std::accumulate(m_storage.begin(), m_storage.end(), 0,
-                           [](auto word) { return __builtin_popcount(word); });
+    return N;
   }
 
 private:
@@ -88,7 +87,6 @@ private:
   constexpr const WordType& GetWord(IndexType idx) const {
     return m_storage[size_t(idx) / NumBitsPerWord];
   }
-
   std::array<WordType, NumWords> m_storage{};
 };
 
