@@ -57,7 +57,8 @@ void _putchar(char character);
  * \param format A string that specifies the format of the output
  * \return The number of characters that are written into the array, not counting the terminating null character
  */
-#define printf printf_
+// Breaks compile on app side?
+// #define printf printf_
 int printf_(const char* format, ...);
 
 
@@ -68,7 +69,7 @@ int printf_(const char* format, ...);
  * \param format A string that specifies the format of the output
  * \return The number of characters that are WRITTEN into the buffer, not counting the terminating null character
  */
-#define sprintf sprintf_
+// #define sprintf sprintf_
 int sprintf_(char* buffer, const char* format, ...);
 
 
