@@ -247,6 +247,7 @@ namespace rnd {
     u8 shuffleKokiriSword;
     u8 shuffleMagicBeans;
     u8 shuffleMerchants;
+    u8 shuffleChests;
 
     u8 mapsAndCompasses;
     u8 keysanity;
