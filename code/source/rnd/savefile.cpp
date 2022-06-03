@@ -68,7 +68,7 @@ namespace rnd {
     saveData.inventory.item_counts[12] = 40; // Bombchus
     saveData.inventory.item_counts[14] = 20; // Nuts
     saveData.inventory.item_counts[13] = 20; // Sticks
-    saveData.has_great_spin = 2;             // Set great spin.
+    saveData.has_great_spin_0x02 = 2;             // Set great spin.
 #endif
     //TODO: Decomp event flags. Most likely in the large anonymous structs in the SaveData.
     u8 isNewFile = saveData.has_completed_intro;
@@ -276,7 +276,7 @@ namespace rnd {
 
     // TODO: Starting stray fairies - need to update flags for which ones are acquired or not.
     if (gSettingsContext.startingSpinSettting == (u8)StartingSpinSetting::STARTINGSPIN_GREAT) {
-        saveData.has_great_spin = 2;
+        saveData.has_great_spin_0x02 = 2;
     }
   }
 

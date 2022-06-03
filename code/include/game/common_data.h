@@ -290,7 +290,7 @@ struct SaveData {
   char anonymous_73;
   char anonymous_74;
   char anonymous_75;
-  char anonymous_76;
+  u8 ct_guard_allows_through_if_0x30;
   char anonymous_77;
   u8 flag_8_for_no_magic_use;
   char anonymous_78;
@@ -301,7 +301,7 @@ struct SaveData {
   char anonymous_83;
   char anonymous_84;
   char anonymous_85;
-  u8 has_great_spin;
+  u8 has_great_spin_0x02;
   char anonymous_87;
   char anonymous_88;
   char anonymous_89;

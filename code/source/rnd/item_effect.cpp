@@ -83,7 +83,7 @@ namespace rnd {
   }
   
   void ItemEffect_GiveGreatSpin(game::CommonData *comData, s16 arg1, s16 arg2) {
-    comData->save.has_great_spin = 2;
+    comData->save.has_great_spin_0x02 = 2;
   }
 
 
