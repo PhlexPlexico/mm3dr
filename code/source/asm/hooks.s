@@ -16,6 +16,12 @@ hook_MainLoop:
     ldr r1, [r0,#0x138]
     b 0x0106770
 
+.global hook_SpawnFastElegyStatues
+hook_SpawnFastElegyStatues:
+    push {r0-r12, lr}
+    bl PlayerStateSpawningElegyStatue
+    pop {r0-r12, lr}
+    bx lr
 
 .global rActiveItemRow
 .rActiveItemRow_addr:

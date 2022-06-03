@@ -24,6 +24,10 @@ SECTIONS{
 		*(.patch_DecoupleStartSelect)
 	}
 
+	.patch_SpawnFastElegyStatues 0x1E9FB8 : {
+		*(.patch_SpawnFastElegyStatues)
+	}
+
 	/*TODO: Find a better place for this function call. This is called almost every frame during file selection but it works?*/
 	.patch_SaveFile_init 0x5BB44C : {
 		*(.patch_SaveFile_init)

@@ -5,6 +5,11 @@
 patch_DecoupleZlZr:
     b 0x0116718
 
+.section .patch_SpawnFastElegyStatues
+.global patch_SpawnFastElegyStatues
+patch_SpawnFastElegyStatues: 
+    b hook_SpawnFastElegyStatues
+
 @ .section .patch_startHeap
 @ .global patch_startHeap
 @ patch_startHeap:
@@ -23,7 +28,6 @@ patch_FixSurroundSound:
 .section .patch_OcarinaDive
 .global patch_OcarinaDive
 patch_OcarinaDive:
-    nop
     nop
 
 .section .patch_IncomingGetItemID

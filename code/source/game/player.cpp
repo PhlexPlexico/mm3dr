@@ -2,10 +2,16 @@
 
 #include "common/utils.h"
 #include "game/common_data.h"
+#include "game/actors/obj_elegy_statue.h"
+
 // #include "rnd/link.h"
 
 namespace game::act {
 
+static void PlayerChangeStateToStill(Player* player, GlobalContext* gctx) {
+  constexpr float speed_maybe = -6.0;
+  rnd::util::GetPointer<void(Player*, GlobalContext*, float)>(0x1E6500)(player, gctx, speed_maybe);
+}
 
 FormParam& GetFormParam(FormParamIndex idx) {
   return rnd::util::GetPointer<FormParam>(0x7AE9E8)[u8(idx) % 8];
@@ -70,6 +76,37 @@ bool PlayerUpdateMagicCost(game::GlobalContext* gctx, int cost, int mode,
   return rnd::util::GetPointer<bool(game::GlobalContext*, int, int, bool)>(0x2264CC)(
       gctx, cost, mode, allow_existing_usage == AllowExistingMagicUsage::Yes);
 }
+
+extern "C" {
+  void PlayerStateSpawningElegyStatue(Player* player, GlobalContext* gctx) {
+    auto& pad = gctx->pad_state;
+    player->controller_info.state = &pad;
+
+    ++player->timer;
+
+    // Spawn the statue as soon as possible.
+    if (player->timer == 1) {
+      auto spawn_elegy_statue = rnd::util::GetPointer<void(GlobalContext*, Player*)>(0x1F0758);
+      spawn_elegy_statue(gctx, player);
+      auto* statue = gctx->elegy_statues[u8(player->active_form)];
+      statue->timer = 0;
+    } else if (player->timer > 5) {
+      auto* statue = gctx->elegy_statues[u8(player->active_form)];
+      const bool statue_ready = !statue
+        || (statue->pos.pos.x == player->pos.pos.x && statue->pos.pos.y == player->pos.pos.y
+          && statue->pos.pos.z == player->pos.pos.z);
+      if (player->timer > 135 || statue_ready) {
+        gctx->ocarina_state = OcarinaState::StoppedPlaying;
+        PlayerChangeStateToStill(player, gctx);
+      } else if (statue && !statue_ready) {
+        // Speed up the statue fadeout. (0x18 + 8 = 0x20 per game tick)
+        statue->opacity = std::max(int(statue->opacity) - 0x18, 0);
+      }
+    }
+  }
+}
+
+
 
 
 }  // namespace game::act
