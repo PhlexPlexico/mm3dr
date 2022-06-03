@@ -28,7 +28,7 @@ patch_FixSurroundSound:
 .section .patch_OcarinaDive
 .global patch_OcarinaDive
 patch_OcarinaDive:
-    nop
+    bl hook_CheckOcarinaDive
 
 .section .patch_IncomingGetItemID
 .global IncomingGetItemID_patch

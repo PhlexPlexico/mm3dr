@@ -23,6 +23,17 @@ hook_SpawnFastElegyStatues:
     pop {r0-r12, lr}
     bx lr
 
+.global hook_CheckOcarinaDive
+hook_CheckOcarinaDive:
+    push {r0-r12, lr}
+    bl SettingsEnableOcarinaDive
+    cmp r0, #0x0
+    pop {r0-r12, lr}
+    bne 0x1e1f10
+    tst r0,#0x1
+    beq 0x1E1FB4
+    b 0x1e1f10
+
 .global rActiveItemRow
 .rActiveItemRow_addr:
     .word rActiveItemRow

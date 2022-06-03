@@ -75,6 +75,17 @@ namespace rnd {
   u32 FairyUseHealAmount(void) {
     return Settings_SetFullHealthRestore(0x30);
   }
+
+  // ARM patch settings.
+  extern "C"  {
+    u8 SettingsEnabledFastSwim(void) {
+      return gSettingsContext.enableFastZoraSwim;
+    }
+    
+    u8 SettingsEnableOcarinaDive(void) {
+      return gSettingsContext.enableOcarinaDiving;
+    }
+  }
   // TODO: Change the addr 
  /* typedef void (*Health_ChangeBy_proc)(GlobalContext *arg1, u32 arg2);
 #define Health_ChangeBy_addr 0x352dbc
