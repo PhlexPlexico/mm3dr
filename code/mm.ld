@@ -28,6 +28,18 @@ SECTIONS{
 		*(.patch_SpawnFastElegyStatues)
 	}
 
+	.patch_ThirdZoraSwimCheck 0x1FFDBC : {
+		*(.patch_ThirdZoraSwimCheck)
+	}
+
+	.patch_FirstZoraSwimCheck 0x220F60 : {
+		*(.patch_FirstZoraSwimCheck)
+	}
+
+	.patch_SecondZoraSwimCheck 0x2210DC : {
+		*(.patch_SecondZoraSwimCheck)
+	}
+
 	/*TODO: Find a better place for this function call. This is called almost every frame during file selection but it works?*/
 	.patch_SaveFile_init 0x5BB44C : {
 		*(.patch_SaveFile_init)
