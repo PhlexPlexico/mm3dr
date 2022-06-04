@@ -3,7 +3,7 @@
 #include "common/utils.h"
 #include "game/common_data.h"
 #include "game/actors/obj_elegy_statue.h"
-
+#include "rnd/settings.h"
 // #include "rnd/link.h"
 
 namespace game::act {
@@ -78,7 +78,8 @@ bool PlayerUpdateMagicCost(game::GlobalContext* gctx, int cost, int mode,
 }
 
 extern "C" {
-  void PlayerStateSpawningElegyStatue(Player* player, GlobalContext* gctx) {
+  bool PlayerStateSpawningElegyStatue(Player* player, GlobalContext* gctx) {
+    if (!rnd::gSettingsContext.enableFastElegyStatues) return false;
     auto& pad = gctx->pad_state;
     player->controller_info.state = &pad;
 
@@ -103,6 +104,7 @@ extern "C" {
         statue->opacity = std::max(int(statue->opacity) - 0x18, 0);
       }
     }
+    return true;
   }
 }
 

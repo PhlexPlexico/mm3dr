@@ -20,7 +20,10 @@ hook_MainLoop:
 hook_SpawnFastElegyStatues:
     push {r0-r12, lr}
     bl PlayerStateSpawningElegyStatue
+    cmp r0, #0x0
     pop {r0-r12, lr}
+    cpy r2, r1
+    beq 0x1E9FBC
     bx lr
 
 .global hook_CheckOcarinaDive

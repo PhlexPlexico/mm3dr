@@ -85,6 +85,10 @@ namespace rnd {
     u8 SettingsEnableOcarinaDive(void) {
       return gSettingsContext.enableOcarinaDiving;
     }
+
+    u8 SettingsEnableFastElegy(void) {
+      return gSettingsContext.enableFastElegyStatues;
+    }
   }
   // TODO: Change the addr 
  /* typedef void (*Health_ChangeBy_proc)(GlobalContext *arg1, u32 arg2);
