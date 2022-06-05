@@ -8,7 +8,6 @@ hook_ThirdZoraSwimCheck:
   cmp r0, #0x0
   pop {r0-r12, lr}
   bne runZoraPatch
-  mov r0,#0x1
   cmp r0,#0x0
   b 0x1FFDC0
 
@@ -20,7 +19,6 @@ hook_FirstZoraSwimCheck:
   cmp r0, #0x0
   pop {r0-r12, lr}
   bne runZoraPatch
-  cmp r2,#0x0
   mov r0,#0x1
   b 0x220F64
 
