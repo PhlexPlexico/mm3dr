@@ -7,7 +7,7 @@ hook_ThirdZoraSwimCheck:
   bl SettingsEnabledFastSwim
   cmp r0, #0x0
   pop {r0-r12, lr}
-  bne runZoraPatch
+  bne runZoraPatch 
   cmp r0,#0x0
   b 0x1FFDC0
 
@@ -19,6 +19,7 @@ hook_FirstZoraSwimCheck:
   cmp r0, #0x0
   pop {r0-r12, lr}
   bne runZoraPatch
+  cmp r2,#0x0
   mov r0,#0x1
   b 0x220F64
 
@@ -29,8 +30,7 @@ hook_SecondZoraSwimCheck:
   cmp r0, #0x0
   pop {r0-r12, lr}
   bne runZoraPatch
-  mov r0,#0x1
-  b 0x2210E0
+  b 0x2210E4
 
 runZoraPatch:
   smlatteq r0, r3, r0, sl

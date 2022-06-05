@@ -323,7 +323,7 @@ namespace rnd {
     u32 startingUpgrades;
 
     // ARM Patch Checks
-    u8 enableFastZoraSwim = 0x0;
+    u8 enableFastZoraSwim = 1;
     u8 enableOcarinaDiving = 1;
     u8 enableFastElegyStatues = 0;
   } SettingsContext;
