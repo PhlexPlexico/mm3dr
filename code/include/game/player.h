@@ -56,7 +56,6 @@ struct PlayerUtil : public as::ActorUtil {
 };
 static_assert(sizeof(PlayerUtil) == 0xa0);
 
-void FixSpeedIssues();
 
 // XXX: Very incomplete.
 struct Player : public Actor {

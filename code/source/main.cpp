@@ -8,6 +8,7 @@
 #include "game/ui.h"
 #include "rnd/icetrap.h"
 #include "rnd/item_override.h"
+#include "rnd/link.h"
 #include "rnd/rheap.h"
 #include "z3d/z3DVec.h"
 
@@ -26,7 +27,7 @@ namespace rnd {
     rHeap_Init();
     ItemOverride_Init();
     // TODO: Maybe make this an option?
-    game::act::FixSpeedIssues();
+    link::FixSpeedIssues();
     game::sound::PlayEffect(game::sound::EffectId::NA_SE_SY_CLEAR1);
     context.has_initialised = true;
   }
