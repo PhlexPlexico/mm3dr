@@ -28,17 +28,17 @@ SECTIONS{
 		*(.patch_SpawnFastElegyStatues)
 	}
 
-	/* .patch_UseZoraASwimSecond 0X1FFD74 : {
+	.patch_UseZoraASwimSecond 0X1FFD74 : {
 		*(.patch_UseZoraASwimSecond)
-	} */
+	}
 
 	.patch_ThirdZoraSwimCheck 0x1FFDBC : {
 		*(.patch_ThirdZoraSwimCheck)
 	}
 
-	/* .patch_UseZoraASwimFirst 0x220EFC : {
+	.patch_UseZoraASwimFirst 0x220EFC : {
 		*(.patch_UseZoraASwimFirst)
-	} */
+	}
 
 	.patch_FirstZoraSwimCheck 0x220F60 : {
 		*(.patch_FirstZoraSwimCheck)

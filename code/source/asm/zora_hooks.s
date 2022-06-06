@@ -6,8 +6,8 @@ hook_UseZoraASwimSecond:
   push {r0-r12, lr}
   bl SettingsEnabledFastSwim
   cmp r0, #0x0
+  blne ShouldUseZoraFastSwim
   pop {r0-r12, lr}
-  bne ShouldUseZoraFastSwim
   cmpeq r0,#0x0
   ldr r1,[r10,#0x9cc]
   b 0x1FFD78
@@ -27,12 +27,12 @@ hook_UseZoraASwimFirst:
   push {r0-r12, lr}
   bl SettingsEnabledFastSwim
   cmp r0, #0x0
+  blne ShouldUseZoraFastSwim
   pop {r0-r12, lr}
-  bne runZoraASwim
   cmp r2,#0x0
   ldr r0,[r0,r4]
   b 0x220F00
-
+  
 .global hook_FirstZoraSwimCheck
 hook_FirstZoraSwimCheck:
   push {r0-r12, lr}

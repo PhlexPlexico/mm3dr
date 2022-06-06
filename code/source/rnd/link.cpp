@@ -7,7 +7,9 @@ extern "C" bool ShouldUseZoraFastSwim() {
 
   if (!input.buttons.IsSet(game::pad::Button::A))
     return false;
-
+  #ifdef ENABLE_DEBUG 
+  rnd::util::Print("%s: Our current fast swim is %u and we are in fast swim.\n", __func__, GetContext().use_fast_swim);
+  #endif
   // Toggle fast swim with D-Pad Up/Down or ZL
   if (input.new_buttons.IsOneSet(game::pad::Button::Up, game::pad::Button::Down,
                                  game::pad::Button::ZL)) {
