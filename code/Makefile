@@ -33,7 +33,7 @@ SOURCES		:=	source source/asm source/lib source/common source/game source/rnd
 DATA		:=	data
 INCLUDES	:=	include 
 INCLUDES    +=  assets
-#ROMFS		:=	romfs
+ROMFS		:=	romfs
 
 #---------------------------------------------------------------------------------
 # options for code generation

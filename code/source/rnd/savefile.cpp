@@ -17,8 +17,7 @@ namespace rnd {
     game::SaveData &saveData = game::GetCommonData().save;
 #ifdef ENABLE_DEBUG
     //rnd::util::Print("%s: Made it to save debug values.", __func__);
-    saveData.equipment.sword_shield.sword = game::SwordType::GildedSword;
-    saveData.player.razor_sword_hp = 0x64;
+    saveData.equipment.sword_shield.sword = game::SwordType::RazorSword;
     saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver50;
     saveData.inventory.inventory_count_register.bomb_bag_upgrade = game::BombBag::BombBag40;
     saveData.inventory.inventory_count_register.wallet_upgrade = 2;
@@ -41,6 +40,8 @@ namespace rnd {
     saveData.inventory.masks[2] = game::ItemId::ZoraMask;
     saveData.inventory.masks[3] = game::ItemId::FierceDeityMask;
     saveData.inventory.masks[4] = game::ItemId::GibdoMask;
+    saveData.inventory.masks[5] = game::ItemId::BunnyHood;
+    saveData.inventory.masks[6] = game::ItemId::GaroMask;
 
     saveData.inventory.woodfall_temple_keys = 8;
     saveData.inventory.snowhead_temple_keys = 8;
@@ -59,7 +60,7 @@ namespace rnd {
     saveData.inventory.stone_tower_dungeon_items.compass = 1;
     saveData.inventory.stone_tower_dungeon_items.boss_key = 1;
     saveData.player.magic_acquired = 1;
-    saveData.player.magic_size_type = 0;
+    saveData.player.magic_size_type = 2; //not init until saved?
     saveData.player.magic = 96;
     saveData.player.magic_num_upgrades = 1;
     saveData.equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
@@ -69,24 +70,127 @@ namespace rnd {
     saveData.inventory.item_counts[14] = 20; // Nuts
     saveData.inventory.item_counts[13] = 20; // Sticks
     saveData.has_great_spin_0x02 = 2;             // Set great spin.
+
+    saveData.player.owl_statue_flags.great_bay = 1;
+    saveData.player.owl_statue_flags.zora_cape = 1;
+    saveData.player.owl_statue_flags.snowhead = 1;
+    saveData.player.owl_statue_flags.mountain_village = 1;
+    saveData.player.owl_statue_flags.woodfall = 1;
+    saveData.player.owl_statue_flags.ikana_canyon = 1;
+    saveData.player.owl_statue_flags.stone_tower = 1;
+
+    saveData.inventory.collect_register.sonata_of_awakening = 1;
+    saveData.inventory.collect_register.goron_lullaby = 1;
+    saveData.inventory.collect_register.new_wave_bossa_nova = 1;
+    saveData.inventory.collect_register.elegy_of_emptiness = 1;
+    saveData.inventory.collect_register.eponas_song = 1;
+
+    //extra/temp testing items
+    saveData.inventory.collect_register.sarias_song = 1;
 #endif
     //TODO: Decomp event flags. Most likely in the large anonymous structs in the SaveData.
     u8 isNewFile = saveData.has_completed_intro;
     if (isNewFile == 0) {
       saveData.has_completed_intro = 0x2B;
+      saveData.inventory.items[0] = game::ItemId::Ocarina;
+      saveData.player.razor_sword_hp = 0xFFFF;
+
+
+      //TODO Time Savers:
+      //Bomber's minigame skip
+      //Allow first time transformation to be skipable
+      //Find flag for navi diologue at woodfall temple entrance platform
+      //Find flag for navi diologue at snowhead entrance
+      //Faster dungeon cutscene for swamp, mountain and zora
+      //Fast songs works but needs to be applied to first time played too
+      //skip Ikana king diolouge intro
+      //skip pushing zora to shore
+      //skip pirate leader diologue
+
+      //Mass cutscene skip attemps
+      //found a potential bitfeild for a large number of camera pan cutscenes
+      //0x1250 to 0x1253 and 0x12F0 to 0x12F4
+      //Have yet to decipher which bits correspond to what cutscene
+      //failed at deku palace interior
+      //failed at ikana castle
+      
+      saveData.event_reg_maybe = 0xFE;
+      saveData.anonymous_69 = 0xFF;
+      saveData.anonymous_70 = 0xFE;
+      saveData.gap1253[0] = 0x06;
+
+      saveData.anonymous_161 = 0x7FEFEF1D;
+      saveData.anonymous_128 = 0x20;
+      
+      //Cutscene skip comment explanation:
+      //name_of_cutscene: offset_address_in_save_file = value_in_hex
+      //offest address in save file has a quivalent address in save struct
+
+      //deku palace interior: 
+      //0x0A28 = 0x01 and 0x0A2C = 0x10
+      //0x07C8 = 0x01 and 0x07CC = 0x10 
+      saveData.gap8A9[383] = 0x01;
+      saveData.gap8A9[387] = 0x10;
+      saveData.gap728[160] = 0x01;
+      saveData.gap728[164] = 0x10;
+
+      //Road to Woodfall: 0x12D9 = 0x08 or 0000 1000
+      saveData.anonymous_158 = 0x08;
+
+      //Ikana Castle: 0x05F4 = 0x08 and 0x05F8 = 0x80
+      //0x125C = 0xB0 <- the front bit got flipped
+      saveData.gap249[931] = 0x08;
+      saveData.gap249[935] = 0x80;
+      saveData.anonymous_75 = 0xB0;
+
+      //Meeting the Happy Mask Salesman: 0x0EB4 = 0x01, 0x0EC8 = 0x01
+      //0x0ECC = 0x10,
+
+      saveData.gapCAC[520] = 0x01;
+      saveData.gapCAC[540] = 0x01;
+      saveData.gapCAC[544] = 0x10;
+
+      //ClockTown Owl statue: 0x12AC = 0x80, 0x12D3 = 0x10 
+      saveData.anonymous_140 = 0x80;
+      saveData.anonymous_152_saved_once_0x10_sot_once_0x40 = 0x10;
+
+      //SkullKid backstory cutscene: 0x07F4 = 0x10 and 0x12F3 = 10
+      //0x0F08 = 0x04 and 0x0F0C = 0x10
+      saveData.gap728[204] = 0x10;
+      saveData.anonymous_162 = 0x10;
+      saveData.gapCAC[604] = 0x04;
+      saveData.gapCAC[608] = 0x10;
+
+
+      saveData.ct_guard_allows_through_if_0x30 = 0x30;
+
+      //Preinitialized owl statues
+      saveData.player.owl_statue_flags.clock_town = 1;
+      saveData.player.owl_statue_flags.milk_road = 1;
+      saveData.player.owl_statue_flags.southern_swamp = 1;
+
       saveData.inventory.collect_register.bombers_notebook = 1;
-      saveData.inventory.collect_register.song_of_healing = 1;
+      saveData.inventory.collect_register.song_of_time = 1;
+
+      //Soaring can stay default until songsanity works
+      saveData.inventory.collect_register.song_of_soaring = 1;
+
       saveData.has_tatl = true;
       saveData.ct_deku_flown_in_0x80_if_visited_once = 0x80;
       saveData.ct_deku_in_flower_0x04_if_present = 0x04;
       saveData.skip_tatl_talking_0x04 = 0x04;
+      //saveData.player.tatl_timer_maybe = 0x1000;
+      //saveData.ct_deku_removed_if_c0 = 0xC0;
+      saveData.player_form = game::act::Player::Form::Human;
+
+      /*
       #ifdef ENABLE_DEBUG
       saveData.player_form = game::act::Player::Form::Human;
       #else
       saveData.player_form = game::act::Player::Form::Deku;
       #endif
+      */
       //game::GiveItem(game::ItemId::BombersNotebook);
-      //TODO: Things to set on
     }
     
   }

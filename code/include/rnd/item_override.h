@@ -198,6 +198,7 @@ namespace rnd {
     /* 0xB8 */ GI_MAP_OF_GREAT_BAY,
     /* 0xB9 */ GI_MAP_OF_STONE_TOWER,
     /* 0xBA */ GI_FISHING_HOLE_PASS,
+    /* 0xBB */ //GAME CRASH no more item IDs after?
 };
 
   enum class DrawGraphicItemID : s32 {

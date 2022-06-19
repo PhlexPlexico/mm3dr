@@ -34,10 +34,12 @@ namespace rnd {
     rItemOverrides[0].key.type = ItemOverride_Type::OVR_COLLECTABLE;
     rItemOverrides[0].value.getItemId = 0x37;
     rItemOverrides[0].value.looksLikeItemId = 0x37;
+    rItemOverrides_Count++;
     rItemOverrides[1].key.scene = 0x6C;
     rItemOverrides[1].key.type = ItemOverride_Type::OVR_CHEST;
     rItemOverrides[1].value.getItemId = 0x37;
     rItemOverrides[1].value.looksLikeItemId = 0x37;
+    rItemOverrides_Count++;
     #endif
     while (rItemOverrides[rItemOverrides_Count].key.all != 0) {
       rItemOverrides_Count++;
@@ -140,9 +142,10 @@ namespace rnd {
     
     ItemRow *itemRow = ItemTable_GetItemRow(resolvedGetItemId);
     u8 looksLikeItemId = override.value.looksLikeItemId;
+    /*
     if (override.value.getItemId == 0x12) { // Ice trap
       looksLikeItemId = 0;
-    }
+    }*/
 
     rActiveItemOverride = override;
     rActiveItemRow = itemRow;
@@ -150,6 +153,9 @@ namespace rnd {
     rActiveItemTextId = itemRow->textId;
     rActiveItemObjectId = itemRow->objectId;
     rActiveItemGraphicId = looksLikeItemId ? ItemTable_GetItemRow(looksLikeItemId)->graphicId : itemRow->graphicId;
+    #ifdef ENABLE_DEBUG
+      //rActiveItemGraphicId = 0x87;
+    #endif
     rActiveItemFastChest = (u32)itemRow->chestType & 0x01;
   }
 
@@ -415,6 +421,7 @@ namespace rnd {
     ItemOverride_Activate(override);
     s16 baseItemId = rActiveItemRow->baseItemId;
     
+    //fromActor->params = (fromActor->params & 0xF01F) | (baseItemId << 5);
     
     //s8 baseItemId = rActiveItemRow->textId;
     if (override.value.getItemId == 0x12) {
