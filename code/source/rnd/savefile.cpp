@@ -34,6 +34,7 @@ namespace rnd {
     saveData.inventory.items[10] = game::ItemId::DekuStick;
     saveData.inventory.items[13] = game::ItemId::PictographBox;
     saveData.inventory.items[15] = game::ItemId::Hookshot;
+    saveData.inventory.items[16] = game::ItemId::PowderKeg;
 
     saveData.inventory.masks[0] = game::ItemId::DekuMask;
     saveData.inventory.masks[1] = game::ItemId::GoronMask;
@@ -59,10 +60,10 @@ namespace rnd {
     saveData.inventory.stone_tower_dungeon_items.map = 1;
     saveData.inventory.stone_tower_dungeon_items.compass = 1;
     saveData.inventory.stone_tower_dungeon_items.boss_key = 1;
-    saveData.player.magic_acquired = 1;
-    saveData.player.magic_size_type = 2; //not init until saved?
-    saveData.player.magic = 96;
-    saveData.player.magic_num_upgrades = 1;
+    //saveData.player.magic_acquired = 1;
+    //saveData.player.magic_size_type = 2; //not init until saved?
+    //saveData.player.magic = 96;
+    //saveData.player.magic_num_upgrades = 1;
     saveData.equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
     saveData.inventory.item_counts[6] = 50;  // Arrows
     saveData.inventory.item_counts[11] = 40; // Bombs
@@ -107,20 +108,8 @@ namespace rnd {
       //skip pushing zora to shore
       //skip pirate leader diologue
 
-      //Mass cutscene skip attemps
-      //found a potential bitfeild for a large number of camera pan cutscenes
-      //0x1250 to 0x1253 and 0x12F0 to 0x12F4
-      //Have yet to decipher which bits correspond to what cutscene
-      //failed at deku palace interior
-      //failed at ikana castle
-      
-      saveData.event_reg_maybe = 0xFE;
-      saveData.anonymous_69 = 0xFF;
-      saveData.anonymous_70 = 0xFE;
-      saveData.gap1253[0] = 0x06;
-
-      saveData.anonymous_161 = 0x7FEFEF1D;
-      saveData.anonymous_128 = 0x20;
+      //Mass cutscene skip attemp
+      MassCutSceneSkip();
       
       //Cutscene skip comment explanation:
       //name_of_cutscene: offset_address_in_save_file = value_in_hex
@@ -134,14 +123,20 @@ namespace rnd {
       saveData.gap728[160] = 0x01;
       saveData.gap728[164] = 0x10;
 
-      //Road to Woodfall: 0x12D9 = 0x08 or 0000 1000
+      //Road to Woodfall: 0x12D9 = 0x08, read as 1000 0000 in game
       saveData.anonymous_158 = 0x08;
 
-      //Ikana Castle: 0x05F4 = 0x08 and 0x05F8 = 0x80
-      //0x125C = 0xB0 <- the front bit got flipped
-      saveData.gap249[931] = 0x08;
-      saveData.gap249[935] = 0x80;
-      saveData.anonymous_75 = 0xB0;
+      //Ikana Castle from canyon: 0x04C8 = 0x01 and 0x04CC = 0x08
+      //0x05F4 = 0x08, 0x05FB = 0x80
+      //0x0604 = 0x01, 0x0608 = 0x04
+      saveData.gap249[955] = 0x01;
+      saveData.gap249[959] = 0x04;
+      //0x1048 = 0x01, 0x104C = 0x10
+      saveData.gapCAC[924] = 0x01;
+      saveData.gapCAC[928] = 0x10;
+      //0x128B = 0x05, 0x012DC = 0x88
+      saveData.skip_tatl_talking_0x04 = 0x05;
+      saveData.ct_deku_flown_in_0x80_if_visited_once = 0x88;
 
       //Meeting the Happy Mask Salesman: 0x0EB4 = 0x01, 0x0EC8 = 0x01
       //0x0ECC = 0x10,
@@ -176,9 +171,9 @@ namespace rnd {
       saveData.inventory.collect_register.song_of_soaring = 1;
 
       saveData.has_tatl = true;
-      saveData.ct_deku_flown_in_0x80_if_visited_once = 0x80;
+      //saveData.ct_deku_flown_in_0x80_if_visited_once = 0x80;
       saveData.ct_deku_in_flower_0x04_if_present = 0x04;
-      saveData.skip_tatl_talking_0x04 = 0x04;
+      //saveData.skip_tatl_talking_0x04 = 0x04;
       //saveData.player.tatl_timer_maybe = 0x1000;
       //saveData.ct_deku_removed_if_c0 = 0xC0;
       saveData.player_form = game::act::Player::Form::Human;
@@ -195,6 +190,102 @@ namespace rnd {
     
   }
 
+  void MassCutSceneSkip() {
+    game::SaveData &saveData = game::GetCommonData().save;
+    //found a potential bitfeild for a large number of camera pan cutscenes
+    //Have yet to decipher which bits correspond to what cutscene
+
+    //failed at pirate fortress exterior
+    //failed at deku palace interior
+    //failed at ikana castle
+
+    /*
+    //0x1250 to 0x1253
+    saveData.event_reg_maybe = 0xFE; written as 0111 1111 in bitfield/savefile
+    saveData.anonymous_69 = 0xFF;
+    saveData.anonymous_70 = 0xFE;
+    saveData.gap1253 = 0x06; written as 0110 0000 in bitfield/savefile
+    */
+
+    saveData.CutSceneFlagBundle1.unknown0 = 0;
+    saveData.CutSceneFlagBundle1.unknown1 = 1;
+    saveData.CutSceneFlagBundle1.unknown2 = 1;
+    saveData.CutSceneFlagBundle1.unknown3 = 1;
+    saveData.CutSceneFlagBundle1.unknown4 = 1;
+    saveData.CutSceneFlagBundle1.unknown5 = 1;
+    saveData.CutSceneFlagBundle1.unknown6 = 1;
+    saveData.CutSceneFlagBundle1.unknown7 = 1;
+
+    saveData.CutSceneFlagBundle1.unknown8 = 1;
+    saveData.CutSceneFlagBundle1.unknown9 = 1;
+    saveData.CutSceneFlagBundle1.unknown10 = 1;
+    saveData.CutSceneFlagBundle1.unknown11 = 1;
+    saveData.CutSceneFlagBundle1.unknown12 = 1;
+    saveData.CutSceneFlagBundle1.unknown13 = 1;
+    saveData.CutSceneFlagBundle1.unknown14 = 1;
+    saveData.CutSceneFlagBundle1.unknown15 = 1;
+
+    saveData.CutSceneFlagBundle1.unknown16 = 0;
+    saveData.CutSceneFlagBundle1.unknown17 = 1;
+    saveData.CutSceneFlagBundle1.unknown18 = 1;
+    saveData.CutSceneFlagBundle1.unknown19 = 1;
+    saveData.CutSceneFlagBundle1.unknown20 = 1;
+    saveData.CutSceneFlagBundle1.unknown21 = 1;
+    saveData.CutSceneFlagBundle1.unknown22 = 1;
+    saveData.CutSceneFlagBundle1.unknown23 = 1;
+
+    saveData.CutSceneFlagBundle1.unknown24 = 0;
+    saveData.CutSceneFlagBundle1.unknown25 = 1;
+    saveData.CutSceneFlagBundle1.unknown26 = 1;
+    saveData.CutSceneFlagBundle1.unknown27 = 0;
+    saveData.CutSceneFlagBundle1.unknown28 = 0;
+    saveData.CutSceneFlagBundle1.unknown29 = 0;
+    saveData.CutSceneFlagBundle1.unknown30 = 0;
+    saveData.CutSceneFlagBundle1.unknown31 = 0;
+    
+    //0x12F0 to 0x12F4
+    //saveData.anonymous_161 = 0x7F EF EF 7F;
+    // written as 1111 1110   1111 0111   1111 0111   1111 1110 in bitfield/savefile
+
+    saveData.CutSceneFlagBundle2.unknown0 = 1;
+    saveData.CutSceneFlagBundle2.unknown1 = 1;
+    saveData.CutSceneFlagBundle2.unknown2 = 1;
+    saveData.CutSceneFlagBundle2.unknown3 = 1;
+    saveData.CutSceneFlagBundle2.unknown4 = 1;
+    saveData.CutSceneFlagBundle2.unknown5 = 1;
+    saveData.CutSceneFlagBundle2.unknown6 = 1;
+    saveData.CutSceneFlagBundle2.unknown7 = 0;
+
+    saveData.CutSceneFlagBundle2.unknown8 = 1;
+    saveData.CutSceneFlagBundle2.unknown9 = 1;
+    saveData.CutSceneFlagBundle2.unknown10 = 1;
+    saveData.CutSceneFlagBundle2.unknown11 = 1;
+    saveData.CutSceneFlagBundle2.unknown12 = 0;
+    saveData.CutSceneFlagBundle2.unknown13 = 1;
+    saveData.CutSceneFlagBundle2.unknown14 = 1;
+    saveData.CutSceneFlagBundle2.unknown15 = 1;
+
+    saveData.CutSceneFlagBundle2.unknown16 = 1;
+    saveData.CutSceneFlagBundle2.unknown17 = 1;
+    saveData.CutSceneFlagBundle2.unknown18 = 1;
+    saveData.CutSceneFlagBundle2.unknown19 = 1;
+    saveData.CutSceneFlagBundle2.unknown20 = 0;
+    saveData.CutSceneFlagBundle2.unknown21 = 1;
+    saveData.CutSceneFlagBundle2.unknown22 = 1;
+    saveData.CutSceneFlagBundle2.unknown23 = 1;
+
+    saveData.CutSceneFlagBundle2.unknown24 = 1;
+    saveData.CutSceneFlagBundle2.unknown25 = 1;
+    saveData.CutSceneFlagBundle2.unknown26 = 1;
+    saveData.CutSceneFlagBundle2.unknown27 = 1;
+    saveData.CutSceneFlagBundle2.unknown28 = 1;
+    saveData.CutSceneFlagBundle2.unknown29 = 1;
+    saveData.CutSceneFlagBundle2.unknown30 = 1;
+    saveData.CutSceneFlagBundle2.unknown31 = 0;
+
+    saveData.anonymous_128 = 0x20;
+      
+  } 
   //Resolve the item ID for the starting bottle
   static void SaveFile_GiveStartingBottle(StartingBottleSetting startingBottle, u8 bottleSlot) {
     game::SaveData &saveData = game::GetCommonData().save;

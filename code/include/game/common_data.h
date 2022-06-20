@@ -281,10 +281,54 @@ struct SaveData {
   int anonymous_67;
   int anonymous_68;
   u8 gap1244[4];
+  //Cutscene flag bundle
+  /*
   u8 event_reg_maybe;
   char anonymous_69;
   char anonymous_70;
-  u8 gap1253[4];
+  u8 gap1253;
+  */
+  union CutSceneFlagsU32 {
+    u32 raw;
+    
+    BitField<0, 1, u32> unknown0;
+    BitField<1, 1, u32> unknown1;
+    BitField<2, 1, u32> unknown2;
+    BitField<3, 1, u32> unknown3;
+    BitField<4, 2, u32> unknown4;
+    BitField<5, 1, u32> unknown5;
+    BitField<6, 1, u32> unknown6;
+    BitField<7, 1, u32> unknown7;
+
+    BitField<8, 1, u32> unknown8;
+    BitField<9, 1, u32> unknown9;
+    BitField<10, 1, u32> unknown10;
+    BitField<11, 1, u32> unknown11;
+    BitField<12, 1, u32> unknown12;
+    BitField<13, 1, u32> unknown13;
+    BitField<14, 1, u32> unknown14;
+    BitField<15, 1, u32> unknown15;
+
+    BitField<16, 1, u32> unknown16;
+    BitField<17, 1, u32> unknown17;
+    BitField<18, 1, u32> unknown18;
+    BitField<19, 1, u32> unknown19;
+    BitField<20, 1, u32> unknown20;
+    BitField<21, 1, u32> unknown21;
+    BitField<22, 1, u32> unknown22;
+    BitField<23, 1, u32> unknown23;
+
+    BitField<24, 1, u32> unknown24;
+    BitField<25, 1, u32> unknown25;
+    BitField<26, 1, u32> unknown26;
+    BitField<27, 1, u32> unknown27;
+    BitField<28, 1, u32> unknown28;
+    BitField<29, 1, u32> unknown29;
+    BitField<30, 1, u32> unknown30;
+    BitField<31, 1, u32> unknown31;
+  };
+  CutSceneFlagsU32 CutSceneFlagBundle1;
+  u8 gap1254[3];
   char anonymous_71;
   char anonymous_72;
   char anonymous_73;
@@ -321,7 +365,7 @@ struct SaveData {
   char anonymous_103;
   char anonymous_104;
   u8 gap127A[8];
-  char anonymous_105;
+  char anonymous_105; //0x1282
   char anonymous_106;
   char anonymous_107;
   char anonymous_108;
@@ -345,7 +389,7 @@ struct SaveData {
   char anonymous_125;
   char anonymous_126;
   char anonymous_127;
-  char anonymous_128;
+  char anonymous_128;  //Possibly more Cutscene flags
   char anonymous_129;
   char anonymous_130;
   char anonymous_131;
@@ -382,7 +426,9 @@ struct SaveData {
   u8 ct_deku_flown_in_0x80_if_visited_once; // Possible event flags? Set to 80.
   char anonymous_160;
   u8 gap12DC[20];
-  int anonymous_161;
+  //More Event flags
+  //int anonymous_161;
+  CutSceneFlagsU32 CutSceneFlagBundle2;
   int anonymous_162;
   u8 gap12F8;
   char anonymous_163;
