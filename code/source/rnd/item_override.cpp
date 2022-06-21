@@ -421,8 +421,6 @@ namespace rnd {
     ItemOverride_Activate(override);
     s16 baseItemId = rActiveItemRow->baseItemId;
     
-    //fromActor->params = (fromActor->params & 0xF01F) | (baseItemId << 5);
-    
     //s8 baseItemId = rActiveItemRow->textId;
     if (override.value.getItemId == 0x12) {
       rActiveItemRow->effectArg1 = override.key.all >> 16;
