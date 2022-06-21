@@ -201,7 +201,7 @@ static_assert(sizeof(InventoryData) == 0xD4);
 static_assert(offsetof(InventoryData, inventory_count_register) == 0x78);
 
 struct SaveData {
-  //Todo rename gaps to account for byte differences
+  //Todo: rename gaps to match savefile location
   MaskId mask;
   u8 has_completed_intro;
   char unused;
@@ -243,7 +243,7 @@ struct SaveData {
   char field_24C;
   u8 gap249[938];
   u8 IkanaCastleCameraPan_0x08;
-  u8 gap5FC[295]; //address name has been corrected
+  u8 gap5FC[295]; //address name has been corrected to match savefile adddress
   int anonymous_44;
   u8 gap728[204];
   u8 SkullKidBackstoryCutscene_0x10;
@@ -374,7 +374,7 @@ struct SaveData {
   char anonymous_103;
   char anonymous_104;
   u8 gap127A[8];
-  char anonymous_105; //0x1282
+  char anonymous_105;
   char anonymous_106;
   char anonymous_107;
   char anonymous_108;
