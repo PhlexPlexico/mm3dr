@@ -96,66 +96,20 @@ namespace rnd {
       saveData.inventory.items[0] = game::ItemId::Ocarina;
       saveData.player.razor_sword_hp = 0xFFFF;
 
-
       //TODO Time Savers:
-      //Bomber's minigame skip
+      //Bomber's minigame skip ie. open hideout
       //Allow first time transformation to be skipable
-      //Find flag for navi diologue at woodfall temple entrance platform
-      //Find flag for navi diologue at snowhead entrance
-      //Faster dungeon cutscene for swamp, mountain and zora
+      //Find flag for tatl dialogue at woodfall temple entrance platform
+      //Find flag for tatl dialogue at snowhead entrance
+      //Faster/skip dungeon unlock cutscene for swamp, mountain and zora
       //Fast songs works but needs to be applied to first time played too
       //skip Ikana king diolouge intro
       //skip pushing zora to shore
       //skip pirate leader diologue
 
-      //Mass cutscene skip attemp
+      //Skips cutscenes with no item checks attached
+      //Also does not skip location access cutscenes like woodfall temple rise
       MassCutSceneSkip();
-      
-      //Cutscene skip comment explanation:
-      //name_of_cutscene: offset_address_in_save_file = value_in_hex
-      //offest address in save file has a quivalent address in save struct
-
-      //deku palace interior: 
-      //0x0A28 = 0x01 and 0x0A2C = 0x10
-      //0x07C8 = 0x01 and 0x07CC = 0x10 
-      saveData.gap8A9[383] = 0x01;
-      saveData.gap8A9[387] = 0x10;
-      saveData.gap728[160] = 0x01;
-      saveData.gap728[164] = 0x10;
-
-      //Road to Woodfall: 0x12D9 = 0x08, read as 1000 0000 in game
-      saveData.anonymous_158 = 0x08;
-
-      //Ikana Castle from canyon: 0x04C8 = 0x01 and 0x04CC = 0x08
-      //0x05F4 = 0x08, 0x05FB = 0x80
-      //0x0604 = 0x01, 0x0608 = 0x04
-      saveData.gap249[955] = 0x01;
-      saveData.gap249[959] = 0x04;
-      //0x1048 = 0x01, 0x104C = 0x10
-      saveData.gapCAC[924] = 0x01;
-      saveData.gapCAC[928] = 0x10;
-      //0x128B = 0x05, 0x012DC = 0x88
-      saveData.skip_tatl_talking_0x04 = 0x05;
-      saveData.ct_deku_flown_in_0x80_if_visited_once = 0x88;
-
-      //Meeting the Happy Mask Salesman: 0x0EB4 = 0x01, 0x0EC8 = 0x01
-      //0x0ECC = 0x10,
-
-      saveData.gapCAC[520] = 0x01;
-      saveData.gapCAC[540] = 0x01;
-      saveData.gapCAC[544] = 0x10;
-
-      //ClockTown Owl statue: 0x12AC = 0x80, 0x12D3 = 0x10 
-      saveData.anonymous_140 = 0x80;
-      saveData.anonymous_152_saved_once_0x10_sot_once_0x40 = 0x10;
-
-      //SkullKid backstory cutscene: 0x07F4 = 0x10 and 0x12F3 = 10
-      //0x0F08 = 0x04 and 0x0F0C = 0x10
-      saveData.gap728[204] = 0x10;
-      saveData.anonymous_162 = 0x10;
-      saveData.gapCAC[604] = 0x04;
-      saveData.gapCAC[608] = 0x10;
-
 
       saveData.ct_guard_allows_through_if_0x30 = 0x30;
 
@@ -171,20 +125,12 @@ namespace rnd {
       saveData.inventory.collect_register.song_of_soaring = 1;
 
       saveData.has_tatl = true;
-      //saveData.ct_deku_flown_in_0x80_if_visited_once = 0x80;
+      saveData.ct_deku_flown_in_0x80_if_visited_once = 0x80;
       saveData.ct_deku_in_flower_0x04_if_present = 0x04;
-      //saveData.skip_tatl_talking_0x04 = 0x04;
+      saveData.skip_tatl_talking_0x04 = 0x04;
       //saveData.player.tatl_timer_maybe = 0x1000;
       //saveData.ct_deku_removed_if_c0 = 0xC0;
       saveData.player_form = game::act::Player::Form::Human;
-
-      /*
-      #ifdef ENABLE_DEBUG
-      saveData.player_form = game::act::Player::Form::Human;
-      #else
-      saveData.player_form = game::act::Player::Form::Deku;
-      #endif
-      */
       //game::GiveItem(game::ItemId::BombersNotebook);
     }
     
@@ -192,99 +138,83 @@ namespace rnd {
 
   void MassCutSceneSkip() {
     game::SaveData &saveData = game::GetCommonData().save;
-    //found a potential bitfeild for a large number of camera pan cutscenes
-    //Have yet to decipher which bits correspond to what cutscene
-
-    //failed at pirate fortress exterior
-    //failed at deku palace interior
-    //failed at ikana castle
-
-    /*
-    //0x1250 to 0x1253
-    saveData.event_reg_maybe = 0xFE; written as 0111 1111 in bitfield/savefile
-    saveData.anonymous_69 = 0xFF;
-    saveData.anonymous_70 = 0xFE;
-    saveData.gap1253 = 0x06; written as 0110 0000 in bitfield/savefile
-    */
-
+    //addresses listed in comments is where it is in the savefile
+    
+    //Addresses 0x1250 to 0x1253
+    //saveData.event_reg_maybe = 0xFE; as 1111 1110 in savefile
     saveData.CutSceneFlagBundle1.unknown0 = 0;
-    saveData.CutSceneFlagBundle1.unknown1 = 1;
-    saveData.CutSceneFlagBundle1.unknown2 = 1;
-    saveData.CutSceneFlagBundle1.unknown3 = 1;
-    saveData.CutSceneFlagBundle1.unknown4 = 1;
-    saveData.CutSceneFlagBundle1.unknown5 = 1;
-    saveData.CutSceneFlagBundle1.unknown6 = 1;
-    saveData.CutSceneFlagBundle1.unknown7 = 1;
+    saveData.CutSceneFlagBundle1.TerminaField = 1;
+    saveData.CutSceneFlagBundle1.Graveyard = 1;
+    saveData.CutSceneFlagBundle1.RomaniRanch = 1;
+    saveData.CutSceneFlagBundle1.GormanTrack = 1;
+    saveData.CutSceneFlagBundle1.MountainVillage = 1;
+    saveData.CutSceneFlagBundle1.GoronCity = 1;
+    saveData.CutSceneFlagBundle1.Snowhead = 1;
 
-    saveData.CutSceneFlagBundle1.unknown8 = 1;
-    saveData.CutSceneFlagBundle1.unknown9 = 1;
-    saveData.CutSceneFlagBundle1.unknown10 = 1;
-    saveData.CutSceneFlagBundle1.unknown11 = 1;
-    saveData.CutSceneFlagBundle1.unknown12 = 1;
-    saveData.CutSceneFlagBundle1.unknown13 = 1;
-    saveData.CutSceneFlagBundle1.unknown14 = 1;
-    saveData.CutSceneFlagBundle1.unknown15 = 1;
+    //saveData.anonymous_69 = 0xFF;
+    saveData.CutSceneFlagBundle1.SouthernSwamp = 1;
+    saveData.CutSceneFlagBundle1.Woodfall = 1;
+    saveData.CutSceneFlagBundle1.DekuPalace = 1;
+    saveData.CutSceneFlagBundle1.GreatBayCoast = 1;
+    saveData.CutSceneFlagBundle1.PiratesFortress = 1;
+    saveData.CutSceneFlagBundle1.ZoraDomain = 1;
+    saveData.CutSceneFlagBundle1.WaterfallRapids = 1;
+    saveData.CutSceneFlagBundle1.IkanaCanyon = 1;
 
+    //saveData.anonymous_70 = 0xFE; as 1111 1110 in savefile
     saveData.CutSceneFlagBundle1.unknown16 = 0;
-    saveData.CutSceneFlagBundle1.unknown17 = 1;
-    saveData.CutSceneFlagBundle1.unknown18 = 1;
-    saveData.CutSceneFlagBundle1.unknown19 = 1;
-    saveData.CutSceneFlagBundle1.unknown20 = 1;
-    saveData.CutSceneFlagBundle1.unknown21 = 1;
-    saveData.CutSceneFlagBundle1.unknown22 = 1;
-    saveData.CutSceneFlagBundle1.unknown23 = 1;
+    saveData.CutSceneFlagBundle1.StoneTower = 1;
+    saveData.CutSceneFlagBundle1.StoneTowerInverted = 1;
+    saveData.CutSceneFlagBundle1.EastClockTown = 1;
+    saveData.CutSceneFlagBundle1.WestClockTown = 1;
+    saveData.CutSceneFlagBundle1.NorthClockTown = 1;
+    saveData.CutSceneFlagBundle1.WoodfallTemple = 1;
+    saveData.CutSceneFlagBundle1.SnowheadTemple = 1;
 
+    //saveData.gap1253 = 0x06; written as 0000 0110 in savefile
     saveData.CutSceneFlagBundle1.unknown24 = 0;
-    saveData.CutSceneFlagBundle1.unknown25 = 1;
-    saveData.CutSceneFlagBundle1.unknown26 = 1;
+    saveData.CutSceneFlagBundle1.StoneTowerTemple = 1; 
+    saveData.CutSceneFlagBundle1.StoneTowerTempleInverted = 1;  
     saveData.CutSceneFlagBundle1.unknown27 = 0;
     saveData.CutSceneFlagBundle1.unknown28 = 0;
     saveData.CutSceneFlagBundle1.unknown29 = 0;
     saveData.CutSceneFlagBundle1.unknown30 = 0;
     saveData.CutSceneFlagBundle1.unknown31 = 0;
     
-    //0x12F0 to 0x12F4
-    //saveData.anonymous_161 = 0x7F EF EF 7F;
-    // written as 1111 1110   1111 0111   1111 0111   1111 1110 in bitfield/savefile
+    //GreatbayTemple not in bundle above, does not seem to have a camera pan scene
 
-    saveData.CutSceneFlagBundle2.unknown0 = 1;
-    saveData.CutSceneFlagBundle2.unknown1 = 1;
-    saveData.CutSceneFlagBundle2.unknown2 = 1;
-    saveData.CutSceneFlagBundle2.unknown3 = 1;
-    saveData.CutSceneFlagBundle2.unknown4 = 1;
-    saveData.CutSceneFlagBundle2.unknown5 = 1;
-    saveData.CutSceneFlagBundle2.unknown6 = 1;
+    //ClockTown Owl statue: 0x12D3 = 0x10
+    //saveData.anonymous_152_saved_once_0x10_sot_once_0x40 = 0x11;// 0x01 is deku palace
+    saveData.CutSceneFlagBundle2.OwlStatueCutScene = 1;
+    saveData.CutSceneFlagBundle2.unknown1 = 0;
+    saveData.CutSceneFlagBundle2.unknown2 = 0;
+    saveData.CutSceneFlagBundle2.unknown3 = 0;
+    saveData.CutSceneFlagBundle2.DekuPalaceThroneRoomCutScene = 1;
+    saveData.CutSceneFlagBundle2.unknown5 = 0;
+    saveData.CutSceneFlagBundle2.unknown6 = 0;
     saveData.CutSceneFlagBundle2.unknown7 = 0;
 
-    saveData.CutSceneFlagBundle2.unknown8 = 1;
-    saveData.CutSceneFlagBundle2.unknown9 = 1;
-    saveData.CutSceneFlagBundle2.unknown10 = 1;
-    saveData.CutSceneFlagBundle2.unknown11 = 1;
-    saveData.CutSceneFlagBundle2.unknown12 = 0;
-    saveData.CutSceneFlagBundle2.unknown13 = 1;
-    saveData.CutSceneFlagBundle2.unknown14 = 1;
-    saveData.CutSceneFlagBundle2.unknown15 = 1;
+    //Meeting the Happy Mask Salesman: 
+    //0x0EB4 = 0x01
+    saveData.MeetingTheHappyMaskMan_0x01 = 0x01;
 
-    saveData.CutSceneFlagBundle2.unknown16 = 1;
-    saveData.CutSceneFlagBundle2.unknown17 = 1;
-    saveData.CutSceneFlagBundle2.unknown18 = 1;
-    saveData.CutSceneFlagBundle2.unknown19 = 1;
-    saveData.CutSceneFlagBundle2.unknown20 = 0;
-    saveData.CutSceneFlagBundle2.unknown21 = 1;
-    saveData.CutSceneFlagBundle2.unknown22 = 1;
-    saveData.CutSceneFlagBundle2.unknown23 = 1;
+    //SkullKid backstory cutscene:
+    //0x07F4 = 0x10 
+    saveData.SkullKidBackstoryCutscene_0x10 = 0x10;
 
-    saveData.CutSceneFlagBundle2.unknown24 = 1;
-    saveData.CutSceneFlagBundle2.unknown25 = 1;
-    saveData.CutSceneFlagBundle2.unknown26 = 1;
-    saveData.CutSceneFlagBundle2.unknown27 = 1;
-    saveData.CutSceneFlagBundle2.unknown28 = 1;
-    saveData.CutSceneFlagBundle2.unknown29 = 1;
-    saveData.CutSceneFlagBundle2.unknown30 = 1;
-    saveData.CutSceneFlagBundle2.unknown31 = 0;
+    //Road to Woodfall: 
+    //0x12D9 = 0x08
+    saveData.RoadtoWoodfallCameraPan_0x08 = 0x08;
+    
+    //Pirate's fortress exterior:
+    //0x09B5 = 0x04
+    saveData.PiratesFortressExteriorCameraPan_0x04 = 0x04;
 
-    saveData.anonymous_128 = 0x20;
-      
+    //Ikana Castle from canyon: 
+    //0x05F4 = 0x08
+    //saveData.gap249[931] = 0x08; //<- this gets rid of the Sunblock
+    //0x05FB = 0x80
+    saveData.IkanaCastleCameraPan_0x08 = 0x80;
   } 
   //Resolve the item ID for the starting bottle
   static void SaveFile_GiveStartingBottle(StartingBottleSetting startingBottle, u8 bottleSlot) {
