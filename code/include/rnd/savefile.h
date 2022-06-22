@@ -5,7 +5,7 @@
 #include "z3d/z3DVec.h"
 
 namespace rnd {
-  void MassCutSceneSkip();
+  void SaveFile_SkipMinorCutscenes();
   u8 SaveFile_GetMedallionCount(void);
   u8 SaveFile_GetStoneCount(void);
   u8 SaveFile_GetDungeonCount(void);
