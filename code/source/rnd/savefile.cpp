@@ -87,14 +87,13 @@ namespace rnd {
     saveData.inventory.collect_register.eponas_song = 1;
 
     //extra/temp testing items
-    saveData.inventory.collect_register.sarias_song = 1;
+    //saveData.inventory.collect_register.sarias_song = 1;
 #endif
     //TODO: Decomp event flags. Most likely in the large anonymous structs in the SaveData.
     u8 isNewFile = saveData.has_completed_intro;
     if (isNewFile == 0) {
       saveData.has_completed_intro = 0x2B;
       saveData.inventory.items[0] = game::ItemId::Ocarina;
-      saveData.player.razor_sword_hp = 0xFFFF;
 
       //TODO Time Savers:
       //Bomber's minigame skip ie. open hideout
@@ -142,7 +141,7 @@ namespace rnd {
     
     //Addresses 0x1250 to 0x1253
     //saveData.event_reg_maybe = 0xFE; as 1111 1110 in savefile
-    saveData.CutSceneFlagBundle1.unknown0 = 0;
+    //saveData.CutSceneFlagBundle1.unknown0 = 0;
     saveData.CutSceneFlagBundle1.TerminaField = 1;
     saveData.CutSceneFlagBundle1.Graveyard = 1;
     saveData.CutSceneFlagBundle1.RomaniRanch = 1;
@@ -162,7 +161,7 @@ namespace rnd {
     saveData.CutSceneFlagBundle1.IkanaCanyon = 1;
 
     //saveData.anonymous_70 = 0xFE; as 1111 1110 in savefile
-    saveData.CutSceneFlagBundle1.unknown16 = 0;
+    //saveData.CutSceneFlagBundle1.unknown16 = 0;
     saveData.CutSceneFlagBundle1.StoneTower = 1;
     saveData.CutSceneFlagBundle1.StoneTowerInverted = 1;
     saveData.CutSceneFlagBundle1.EastClockTown = 1;
@@ -172,27 +171,27 @@ namespace rnd {
     saveData.CutSceneFlagBundle1.SnowheadTemple = 1;
 
     //saveData.gap1253 = 0x06; written as 0000 0110 in savefile
-    saveData.CutSceneFlagBundle1.unknown24 = 0;
+    //saveData.CutSceneFlagBundle1.unknown24 = 0;
     saveData.CutSceneFlagBundle1.StoneTowerTemple = 1; 
     saveData.CutSceneFlagBundle1.StoneTowerTempleInverted = 1;  
-    saveData.CutSceneFlagBundle1.unknown27 = 0;
-    saveData.CutSceneFlagBundle1.unknown28 = 0;
-    saveData.CutSceneFlagBundle1.unknown29 = 0;
-    saveData.CutSceneFlagBundle1.unknown30 = 0;
-    saveData.CutSceneFlagBundle1.unknown31 = 0;
+    //saveData.CutSceneFlagBundle1.unknown27 = 0;
+    //saveData.CutSceneFlagBundle1.unknown28 = 0;
+    //saveData.CutSceneFlagBundle1.unknown29 = 0;
+    //saveData.CutSceneFlagBundle1.unknown30 = 0;
+    //saveData.CutSceneFlagBundle1.unknown31 = 0;
     
     //GreatbayTemple not in bundle above, does not seem to have a camera pan scene
 
     //ClockTown Owl statue: 0x12D3 = 0x10
     //saveData.anonymous_152_saved_once_0x10_sot_once_0x40 = 0x11;// 0x01 is deku palace
     saveData.CutSceneFlagBundle2.OwlStatueCutScene = 1;
-    saveData.CutSceneFlagBundle2.unknown1 = 0;
-    saveData.CutSceneFlagBundle2.unknown2 = 0;
-    saveData.CutSceneFlagBundle2.unknown3 = 0;
+    //saveData.CutSceneFlagBundle2.unknown1 = 0;
+    //saveData.CutSceneFlagBundle2.unknown2 = 0;
+    //saveData.CutSceneFlagBundle2.unknown3 = 0;
     saveData.CutSceneFlagBundle2.DekuPalaceThroneRoomCutScene = 1;
-    saveData.CutSceneFlagBundle2.unknown5 = 0;
-    saveData.CutSceneFlagBundle2.unknown6 = 0;
-    saveData.CutSceneFlagBundle2.unknown7 = 0;
+    //saveData.CutSceneFlagBundle2.unknown5 = 0;
+    //saveData.CutSceneFlagBundle2.unknown6 = 0;
+    //saveData.CutSceneFlagBundle2.unknown7 = 0;
 
     //Meeting the Happy Mask Salesman: 
     //0x0EB4 = 0x01
