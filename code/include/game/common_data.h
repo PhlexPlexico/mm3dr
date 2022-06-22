@@ -242,19 +242,19 @@ struct SaveData {
   InventoryData inventory;
   char field_24C;
   u8 gap249[938];
-  u8 IkanaCastleCameraPan_0x08;
+  u8 ikana_castle_camera_pan_0x08;
   u8 gap5FC[295]; //address name has been corrected to match savefile adddress
   int anonymous_44;
   u8 gap728[204];
-  u8 SkullKidBackstoryCutscene_0x10;
+  u8 skullkid_backstory_cutscene_0x10;
   u8 gap7F5[178]; //also been corrected
   char anonymous_45;
   u8 gap8A9[269];
-  u8 PiratesFortressExteriorCameraPan_0x04;
+  u8 pirates_fortress_exterior_camera_pan_0x04;
   u8 gap9B6[752]; //corrected
   int anonymous_46;
   u8 gapCAC[520];
-  u8 MeetingTheHappyMaskMan_0x01;
+  u8 meeting_happy_mask_salesman_0x01;
   u8 gapEB5[762]; //corrected
   int anonymous_47;
   int anonymous_48;
@@ -301,35 +301,35 @@ struct SaveData {
     u32 raw;
     
     BitField<0, 1, u32> unknown0;
-    BitField<1, 1, u32> TerminaField;
-    BitField<2, 1, u32> Graveyard;
-    BitField<3, 1, u32> RomaniRanch;
-    BitField<4, 2, u32> GormanTrack;
-    BitField<5, 1, u32> MountainVillage;
-    BitField<6, 1, u32> GoronCity;
-    BitField<7, 1, u32> Snowhead;
+    BitField<1, 1, u32> termina_field;
+    BitField<2, 1, u32> graveyard;
+    BitField<3, 1, u32> romani_ranch;
+    BitField<4, 2, u32> gorman_track;
+    BitField<5, 1, u32> mountain_village;
+    BitField<6, 1, u32> goron_city;
+    BitField<7, 1, u32> snowhead;
 
-    BitField<8, 1, u32> SouthernSwamp;
-    BitField<9, 1, u32> Woodfall;
-    BitField<10, 1, u32> DekuPalace;
-    BitField<11, 1, u32> GreatBayCoast;
-    BitField<12, 1, u32> PiratesFortress;
-    BitField<13, 1, u32> ZoraDomain;
-    BitField<14, 1, u32> WaterfallRapids;
-    BitField<15, 1, u32> IkanaCanyon;
+    BitField<8, 1, u32> southern_swamp;
+    BitField<9, 1, u32> woodfall;
+    BitField<10, 1, u32> deku_palace;
+    BitField<11, 1, u32> great_bay_coast;
+    BitField<12, 1, u32> pirates_fortress;
+    BitField<13, 1, u32> zora_domain;
+    BitField<14, 1, u32> waterfall_rapids;
+    BitField<15, 1, u32> ikana_canyon;
 
     BitField<16, 1, u32> unknown16;
-    BitField<17, 1, u32> StoneTower;
-    BitField<18, 1, u32> StoneTowerInverted;
-    BitField<19, 1, u32> EastClockTown;
-    BitField<20, 1, u32> WestClockTown;
-    BitField<21, 1, u32> NorthClockTown;
-    BitField<22, 1, u32> WoodfallTemple;
-    BitField<23, 1, u32> SnowheadTemple;
+    BitField<17, 1, u32> stone_tower;
+    BitField<18, 1, u32> stone_tower_inverted;
+    BitField<19, 1, u32> east_clock_town;
+    BitField<20, 1, u32> west_clock_town;
+    BitField<21, 1, u32> north_clock_town;
+    BitField<22, 1, u32> woodfall_temple;
+    BitField<23, 1, u32> snowhead_temple;
 
     BitField<24, 1, u32> unknown24;
-    BitField<25, 1, u32> StoneTowerTemple;
-    BitField<26, 1, u32> StoneTowerTempleInverted;
+    BitField<25, 1, u32> stone_tower_temple;
+    BitField<26, 1, u32> stone_tower_temple_inverted;
     BitField<27, 1, u32> unknown27;
     BitField<28, 1, u32> unknown28;
     BitField<29, 1, u32> unknown29;
@@ -428,11 +428,11 @@ struct SaveData {
   union CutSceneFlagsU8 {
     u8 raw;
 
-    BitField<0, 1, u8> OwlStatueCutScene;
+    BitField<0, 1, u8> owl_statue_cut_scene;
     BitField<1, 1, u8> unknown1;
     BitField<2, 1, u8> unknown2;
     BitField<3, 1, u8> unknown3;
-    BitField<4, 2, u8> DekuPalaceThroneRoomCutScene;
+    BitField<4, 2, u8> deku_palace_throne_room_cutscene;
     BitField<5, 1, u8> unknown5;
     BitField<6, 1, u8> unknown6;
     BitField<7, 1, u8> unknown7;
@@ -443,7 +443,7 @@ struct SaveData {
   char anonymous_155;
   char anonymous_156;
   char anonymous_157;
-  u8 RoadtoWoodfallCameraPan_0x08;
+  u8 road_to_woodfall_camera_pan_0x08;
   u8 ct_deku_flown_in_0x80_if_visited_once; // Possible event flags? Set to 80.
   char anonymous_160;
   u8 gap12DC[20];
@@ -452,8 +452,8 @@ struct SaveData {
   union UnknownFlags_U32 {
     u32 raw;
     
-    BitField<0, 1, u32> ClockTown;
-    BitField<1, 1, u32> TerminaField;
+    BitField<0, 1, u32> clock_town;
+    BitField<1, 1, u32> termina_field;
     BitField<2, 1, u32> unknown2;
     BitField<3, 1, u32> unknown3;
     BitField<4, 2, u32> unknown4;

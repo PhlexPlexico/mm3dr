@@ -321,11 +321,12 @@ namespace rnd {
     u32 startingDungeonReward;
     u32 startingEquipment;
     u32 startingUpgrades;
+    //u16 startingOwlStatues;
 
     // ARM Patch Checks
     u8 enableFastZoraSwim = 1;
     u8 enableOcarinaDiving = 1;
-    u8 enableFastElegyStatues = 0;
+    u8 enableFastElegyStatues = 1;
   } SettingsContext;
 
   extern "C" SettingsContext gSettingsContext;

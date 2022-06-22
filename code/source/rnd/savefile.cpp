@@ -17,7 +17,8 @@ namespace rnd {
     game::SaveData &saveData = game::GetCommonData().save;
 #ifdef ENABLE_DEBUG
     //rnd::util::Print("%s: Made it to save debug values.", __func__);
-    saveData.equipment.sword_shield.sword = game::SwordType::RazorSword;
+    saveData.equipment.sword_shield.sword = game::SwordType::GildedSword;
+    saveData.player.razor_sword_hp = 0x64;
     saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver50;
     saveData.inventory.inventory_count_register.bomb_bag_upgrade = game::BombBag::BombBag40;
     saveData.inventory.inventory_count_register.wallet_upgrade = 2;
@@ -60,23 +61,26 @@ namespace rnd {
     saveData.inventory.stone_tower_dungeon_items.map = 1;
     saveData.inventory.stone_tower_dungeon_items.compass = 1;
     saveData.inventory.stone_tower_dungeon_items.boss_key = 1;
-    //saveData.player.magic_acquired = 1;
-    //saveData.player.magic_size_type = 2; //not init until saved?
-    //saveData.player.magic = 96;
-    //saveData.player.magic_num_upgrades = 1;
+    saveData.player.magic_acquired = 1; //Game does not check if value = 0, magic items still work
+    saveData.player.magic_size_type = 2; //not init until saved?
+    saveData.player.magic = 96;
+    saveData.player.magic_num_upgrades = 1;
     saveData.equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
     saveData.inventory.item_counts[6] = 50;  // Arrows
     saveData.inventory.item_counts[11] = 40; // Bombs
     saveData.inventory.item_counts[12] = 40; // Bombchus
     saveData.inventory.item_counts[14] = 20; // Nuts
     saveData.inventory.item_counts[13] = 20; // Sticks
-    saveData.has_great_spin_0x02 = 2;             // Set great spin.
+    saveData.has_great_spin_0x02 = 2;        // Set great spin.
 
     saveData.player.owl_statue_flags.great_bay = 1;
     saveData.player.owl_statue_flags.zora_cape = 1;
     saveData.player.owl_statue_flags.snowhead = 1;
     saveData.player.owl_statue_flags.mountain_village = 1;
+    saveData.player.owl_statue_flags.clock_town = 1;
+    saveData.player.owl_statue_flags.milk_road = 1;
     saveData.player.owl_statue_flags.woodfall = 1;
+    saveData.player.owl_statue_flags.southern_swamp = 1;
     saveData.player.owl_statue_flags.ikana_canyon = 1;
     saveData.player.owl_statue_flags.stone_tower = 1;
 
@@ -85,16 +89,15 @@ namespace rnd {
     saveData.inventory.collect_register.new_wave_bossa_nova = 1;
     saveData.inventory.collect_register.elegy_of_emptiness = 1;
     saveData.inventory.collect_register.eponas_song = 1;
+    saveData.inventory.collect_register.song_of_soaring = 1;
+    saveData.inventory.collect_register.song_of_time = 1;
 
     //extra/temp testing items
-    //saveData.inventory.collect_register.sarias_song = 1;
+    
 #endif
     //TODO: Decomp event flags. Most likely in the large anonymous structs in the SaveData.
     u8 isNewFile = saveData.has_completed_intro;
     if (isNewFile == 0) {
-      saveData.has_completed_intro = 0x2B;
-      saveData.inventory.items[0] = game::ItemId::Ocarina;
-
       //TODO Time Savers:
       //Bomber's minigame skip ie. open hideout
       //Allow first time transformation to be skipable
@@ -105,75 +108,76 @@ namespace rnd {
       //skip Ikana king diolouge intro
       //skip pushing zora to shore
       //skip pirate leader diologue
+      //Skip all giants cutscenes except for woodfall
+      //Boss warp skipping the boss fight entirely
 
       //Skips cutscenes with no item checks attached
       //Also does not skip location access cutscenes like woodfall temple rise
-      MassCutSceneSkip();
+      SaveFile_SkipMinorCutscenes();
 
-      saveData.ct_guard_allows_through_if_0x30 = 0x30;
+      //OOT equivalent of starting with certain warp songs
+      SaveFile_SetStartingOwlStatues(); //still needs to be fully added to options
 
-      //Preinitialized owl statues
-      saveData.player.owl_statue_flags.clock_town = 1;
-      saveData.player.owl_statue_flags.milk_road = 1;
-      saveData.player.owl_statue_flags.southern_swamp = 1;
-
-      saveData.inventory.collect_register.bombers_notebook = 1;
-      saveData.inventory.collect_register.song_of_time = 1;
-
-      //Soaring can stay default until songsanity works
-      saveData.inventory.collect_register.song_of_soaring = 1;
+      //Currently starting with ocarina and song of time is default in MM rando
+      //These two items allows for skipping the first three day cycle
+      saveData.inventory.collect_register.song_of_time = 1; //Part of starting equipment options
+      saveData.inventory.items[0] = game::ItemId::Ocarina; //Part of starting quest items options
+      //SaveFile_SetStartingInventory();
 
       saveData.has_tatl = true;
+      saveData.has_completed_intro = 0x2B;
       saveData.ct_deku_flown_in_0x80_if_visited_once = 0x80;
       saveData.ct_deku_in_flower_0x04_if_present = 0x04;
       saveData.skip_tatl_talking_0x04 = 0x04;
+
+      //This flag gets reset by song of time
+      saveData.ct_guard_allows_through_if_0x30 = 0x30;
+
       //saveData.player.tatl_timer_maybe = 0x1000;
-      //saveData.ct_deku_removed_if_c0 = 0xC0;
       saveData.player_form = game::act::Player::Form::Human;
-      //game::GiveItem(game::ItemId::BombersNotebook);
     }
     
   }
 
-  void MassCutSceneSkip() {
+  void SaveFile_SkipMinorCutscenes() {
     game::SaveData &saveData = game::GetCommonData().save;
     //addresses listed in comments is where it is in the savefile
     
     //Addresses 0x1250 to 0x1253
     //saveData.event_reg_maybe = 0xFE; as 1111 1110 in savefile
     //saveData.CutSceneFlagBundle1.unknown0 = 0;
-    saveData.CutSceneFlagBundle1.TerminaField = 1;
-    saveData.CutSceneFlagBundle1.Graveyard = 1;
-    saveData.CutSceneFlagBundle1.RomaniRanch = 1;
-    saveData.CutSceneFlagBundle1.GormanTrack = 1;
-    saveData.CutSceneFlagBundle1.MountainVillage = 1;
-    saveData.CutSceneFlagBundle1.GoronCity = 1;
-    saveData.CutSceneFlagBundle1.Snowhead = 1;
+    saveData.CutSceneFlagBundle1.termina_field = 1;
+    saveData.CutSceneFlagBundle1.graveyard = 1;
+    saveData.CutSceneFlagBundle1.romani_ranch = 1;
+    saveData.CutSceneFlagBundle1.gorman_track = 1;
+    saveData.CutSceneFlagBundle1.mountain_village = 1;
+    saveData.CutSceneFlagBundle1.goron_city = 1;
+    saveData.CutSceneFlagBundle1.snowhead = 1;
 
     //saveData.anonymous_69 = 0xFF;
-    saveData.CutSceneFlagBundle1.SouthernSwamp = 1;
-    saveData.CutSceneFlagBundle1.Woodfall = 1;
-    saveData.CutSceneFlagBundle1.DekuPalace = 1;
-    saveData.CutSceneFlagBundle1.GreatBayCoast = 1;
-    saveData.CutSceneFlagBundle1.PiratesFortress = 1;
-    saveData.CutSceneFlagBundle1.ZoraDomain = 1;
-    saveData.CutSceneFlagBundle1.WaterfallRapids = 1;
-    saveData.CutSceneFlagBundle1.IkanaCanyon = 1;
+    saveData.CutSceneFlagBundle1.southern_swamp = 1;
+    saveData.CutSceneFlagBundle1.woodfall = 1;
+    saveData.CutSceneFlagBundle1.deku_palace = 1;
+    saveData.CutSceneFlagBundle1.great_bay_coast = 1;
+    saveData.CutSceneFlagBundle1.pirates_fortress = 1;
+    saveData.CutSceneFlagBundle1.zora_domain = 1;
+    saveData.CutSceneFlagBundle1.waterfall_rapids = 1;
+    saveData.CutSceneFlagBundle1.ikana_canyon = 1;
 
     //saveData.anonymous_70 = 0xFE; as 1111 1110 in savefile
     //saveData.CutSceneFlagBundle1.unknown16 = 0;
-    saveData.CutSceneFlagBundle1.StoneTower = 1;
-    saveData.CutSceneFlagBundle1.StoneTowerInverted = 1;
-    saveData.CutSceneFlagBundle1.EastClockTown = 1;
-    saveData.CutSceneFlagBundle1.WestClockTown = 1;
-    saveData.CutSceneFlagBundle1.NorthClockTown = 1;
-    saveData.CutSceneFlagBundle1.WoodfallTemple = 1;
-    saveData.CutSceneFlagBundle1.SnowheadTemple = 1;
+    saveData.CutSceneFlagBundle1.stone_tower = 1;
+    saveData.CutSceneFlagBundle1.stone_tower_inverted = 1;
+    saveData.CutSceneFlagBundle1.east_clock_town = 1;
+    saveData.CutSceneFlagBundle1.west_clock_town = 1;
+    saveData.CutSceneFlagBundle1.north_clock_town = 1;
+    saveData.CutSceneFlagBundle1.woodfall_temple = 1;
+    saveData.CutSceneFlagBundle1.snowhead_temple = 1;
 
     //saveData.gap1253 = 0x06; written as 0000 0110 in savefile
     //saveData.CutSceneFlagBundle1.unknown24 = 0;
-    saveData.CutSceneFlagBundle1.StoneTowerTemple = 1; 
-    saveData.CutSceneFlagBundle1.StoneTowerTempleInverted = 1;  
+    saveData.CutSceneFlagBundle1.stone_tower_temple = 1; 
+    saveData.CutSceneFlagBundle1.stone_tower_temple_inverted = 1;  
     //saveData.CutSceneFlagBundle1.unknown27 = 0;
     //saveData.CutSceneFlagBundle1.unknown28 = 0;
     //saveData.CutSceneFlagBundle1.unknown29 = 0;
@@ -184,37 +188,48 @@ namespace rnd {
 
     //ClockTown Owl statue: 0x12D3 = 0x10
     //saveData.anonymous_152_saved_once_0x10_sot_once_0x40 = 0x11;// 0x01 is deku palace
-    saveData.CutSceneFlagBundle2.OwlStatueCutScene = 1;
+    saveData.CutSceneFlagBundle2.owl_statue_cut_scene = 1;
     //saveData.CutSceneFlagBundle2.unknown1 = 0;
     //saveData.CutSceneFlagBundle2.unknown2 = 0;
     //saveData.CutSceneFlagBundle2.unknown3 = 0;
-    saveData.CutSceneFlagBundle2.DekuPalaceThroneRoomCutScene = 1;
+    saveData.CutSceneFlagBundle2.deku_palace_throne_room_cutscene = 1;
     //saveData.CutSceneFlagBundle2.unknown5 = 0;
     //saveData.CutSceneFlagBundle2.unknown6 = 0;
     //saveData.CutSceneFlagBundle2.unknown7 = 0;
 
     //Meeting the Happy Mask Salesman: 
     //0x0EB4 = 0x01
-    saveData.MeetingTheHappyMaskMan_0x01 = 0x01;
+    saveData.meeting_happy_mask_salesman_0x01 = 0x01;
 
     //SkullKid backstory cutscene:
     //0x07F4 = 0x10 
-    saveData.SkullKidBackstoryCutscene_0x10 = 0x10;
+    saveData.skullkid_backstory_cutscene_0x10 = 0x10;
 
     //Road to Woodfall: 
     //0x12D9 = 0x08
-    saveData.RoadtoWoodfallCameraPan_0x08 = 0x08;
+    saveData.road_to_woodfall_camera_pan_0x08 = 0x08;
     
     //Pirate's fortress exterior:
     //0x09B5 = 0x04
-    saveData.PiratesFortressExteriorCameraPan_0x04 = 0x04;
+    saveData.pirates_fortress_exterior_camera_pan_0x04 = 0x04;
 
     //Ikana Castle from canyon: 
     //0x05F4 = 0x08
     //saveData.gap249[931] = 0x08; //<- this gets rid of the Sunblock
     //0x05FB = 0x80
-    saveData.IkanaCastleCameraPan_0x08 = 0x80;
+    saveData.ikana_castle_camera_pan_0x08 = 0x80;
   } 
+  void SaveFile_SetStartingOwlStatues() {
+      //future comfort option
+      /*
+      if(gSettingsContext.startingOwlStatues.ClockTown)
+      saveData.player.owl_statue_flags.clock_town = 1;
+      else if(gSettingsContext.startingOwlStatues.MilkRoad)
+      saveData.player.owl_statue_flags.milk_road = 1;
+      else if(gSettingsContext.startingOwlStatues.SouthernSwamp)
+      saveData.player.owl_statue_flags.southern_swamp = 1;
+      */
+  }
   //Resolve the item ID for the starting bottle
   static void SaveFile_GiveStartingBottle(StartingBottleSetting startingBottle, u8 bottleSlot) {
     game::SaveData &saveData = game::GetCommonData().save;
