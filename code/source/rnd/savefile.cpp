@@ -145,57 +145,57 @@ namespace rnd {
     
     //Addresses 0x1250 to 0x1253
     //saveData.event_reg_maybe = 0xFE; as 1111 1110 in savefile
-    //saveData.CutSceneFlagBundle1.unknown0 = 0;
-    saveData.CutSceneFlagBundle1.termina_field = 1;
-    saveData.CutSceneFlagBundle1.graveyard = 1;
-    saveData.CutSceneFlagBundle1.romani_ranch = 1;
-    saveData.CutSceneFlagBundle1.gorman_track = 1;
-    saveData.CutSceneFlagBundle1.mountain_village = 1;
-    saveData.CutSceneFlagBundle1.goron_city = 1;
-    saveData.CutSceneFlagBundle1.snowhead = 1;
+    //saveData.cut_scene_flag_bundle1.unknown0 = 0;
+    saveData.cut_scene_flag_bundle1.termina_field = 1;
+    saveData.cut_scene_flag_bundle1.graveyard = 1;
+    saveData.cut_scene_flag_bundle1.romani_ranch = 1;
+    saveData.cut_scene_flag_bundle1.gorman_track = 1;
+    saveData.cut_scene_flag_bundle1.mountain_village = 1;
+    saveData.cut_scene_flag_bundle1.goron_city = 1;
+    saveData.cut_scene_flag_bundle1.snowhead = 1;
 
     //saveData.anonymous_69 = 0xFF;
-    saveData.CutSceneFlagBundle1.southern_swamp = 1;
-    saveData.CutSceneFlagBundle1.woodfall = 1;
-    saveData.CutSceneFlagBundle1.deku_palace = 1;
-    saveData.CutSceneFlagBundle1.great_bay_coast = 1;
-    saveData.CutSceneFlagBundle1.pirates_fortress = 1;
-    saveData.CutSceneFlagBundle1.zora_domain = 1;
-    saveData.CutSceneFlagBundle1.waterfall_rapids = 1;
-    saveData.CutSceneFlagBundle1.ikana_canyon = 1;
+    saveData.cut_scene_flag_bundle1.southern_swamp = 1;
+    saveData.cut_scene_flag_bundle1.woodfall = 1;
+    saveData.cut_scene_flag_bundle1.deku_palace = 1;
+    saveData.cut_scene_flag_bundle1.great_bay_coast = 1;
+    saveData.cut_scene_flag_bundle1.pirates_fortress = 1;
+    saveData.cut_scene_flag_bundle1.zora_domain = 1;
+    saveData.cut_scene_flag_bundle1.waterfall_rapids = 1;
+    saveData.cut_scene_flag_bundle1.ikana_canyon = 1;
 
     //saveData.anonymous_70 = 0xFE; as 1111 1110 in savefile
-    //saveData.CutSceneFlagBundle1.unknown16 = 0;
-    saveData.CutSceneFlagBundle1.stone_tower = 1;
-    saveData.CutSceneFlagBundle1.stone_tower_inverted = 1;
-    saveData.CutSceneFlagBundle1.east_clock_town = 1;
-    saveData.CutSceneFlagBundle1.west_clock_town = 1;
-    saveData.CutSceneFlagBundle1.north_clock_town = 1;
-    saveData.CutSceneFlagBundle1.woodfall_temple = 1;
-    saveData.CutSceneFlagBundle1.snowhead_temple = 1;
+    //saveData.cut_scene_flag_bundle1.unknown16 = 0;
+    saveData.cut_scene_flag_bundle1.stone_tower = 1;
+    saveData.cut_scene_flag_bundle1.stone_tower_inverted = 1;
+    saveData.cut_scene_flag_bundle1.east_clock_town = 1;
+    saveData.cut_scene_flag_bundle1.west_clock_town = 1;
+    saveData.cut_scene_flag_bundle1.north_clock_town = 1;
+    saveData.cut_scene_flag_bundle1.woodfall_temple = 1;
+    saveData.cut_scene_flag_bundle1.snowhead_temple = 1;
 
     //saveData.gap1253 = 0x06; written as 0000 0110 in savefile
-    //saveData.CutSceneFlagBundle1.unknown24 = 0;
-    saveData.CutSceneFlagBundle1.stone_tower_temple = 1; 
-    saveData.CutSceneFlagBundle1.stone_tower_temple_inverted = 1;  
-    //saveData.CutSceneFlagBundle1.unknown27 = 0;
-    //saveData.CutSceneFlagBundle1.unknown28 = 0;
-    //saveData.CutSceneFlagBundle1.unknown29 = 0;
-    //saveData.CutSceneFlagBundle1.unknown30 = 0;
-    //saveData.CutSceneFlagBundle1.unknown31 = 0;
+    //saveData.cut_scene_flag_bundle1.unknown24 = 0;
+    saveData.cut_scene_flag_bundle1.stone_tower_temple = 1; 
+    saveData.cut_scene_flag_bundle1.stone_tower_temple_inverted = 1;  
+    //saveData.cut_scene_flag_bundle1.unknown27 = 0;
+    //saveData.cut_scene_flag_bundle1.unknown28 = 0;
+    //saveData.cut_scene_flag_bundle1.unknown29 = 0;
+    //saveData.cut_scene_flag_bundle1.unknown30 = 0;
+    //saveData.cut_scene_flag_bundle1.unknown31 = 0;
     
     //GreatbayTemple not in bundle above, does not seem to have a camera pan scene
 
     //ClockTown Owl statue: 0x12D3 = 0x10
     //saveData.anonymous_152_saved_once_0x10_sot_once_0x40 = 0x11;// 0x01 is deku palace
-    saveData.CutSceneFlagBundle2.owl_statue_cut_scene = 1;
-    //saveData.CutSceneFlagBundle2.unknown1 = 0;
-    //saveData.CutSceneFlagBundle2.unknown2 = 0;
-    //saveData.CutSceneFlagBundle2.unknown3 = 0;
-    saveData.CutSceneFlagBundle2.deku_palace_throne_room_cutscene = 1;
-    //saveData.CutSceneFlagBundle2.unknown5 = 0;
-    //saveData.CutSceneFlagBundle2.unknown6 = 0;
-    //saveData.CutSceneFlagBundle2.unknown7 = 0;
+    saveData.cut_scene_flag_bundle2.owl_statue_cut_scene = 1;
+    //saveData.cut_scene_flag_bundle2.unknown1 = 0;
+    //saveData.cut_scene_flag_bundle2.unknown2 = 0;
+    //saveData.cut_scene_flag_bundle2.unknown3 = 0;
+    saveData.cut_scene_flag_bundle2.deku_palace_throne_room_cutscene = 1;
+    //saveData.cut_scene_flag_bundle2.unknown5 = 0;
+    //saveData.cut_scene_flag_bundle2.unknown6 = 0;
+    //saveData.cut_scene_flag_bundle2.unknown7 = 0;
 
     //Meeting the Happy Mask Salesman: 
     //0x0EB4 = 0x01

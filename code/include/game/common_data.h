@@ -336,7 +336,7 @@ struct SaveData {
     BitField<30, 1, u32> unknown30;
     BitField<31, 1, u32> unknown31;
   };
-  CutSceneFlagsU32 CutSceneFlagBundle1;
+  CutSceneFlagsU32 cut_scene_flag_bundle1;
   u8 gap1254[3];
   char anonymous_71;
   char anonymous_72;
@@ -437,7 +437,7 @@ struct SaveData {
     BitField<6, 1, u8> unknown6;
     BitField<7, 1, u8> unknown7;
   };
-  CutSceneFlagsU8 CutSceneFlagBundle2; //char anonymous_152_saved_once_0x10_sot_once_0x40;
+  CutSceneFlagsU8 cut_scene_flag_bundle2; //char anonymous_152_saved_once_0x10_sot_once_0x40;
   char anonymous_153;
   char anonymous_154;
   char anonymous_155;
@@ -488,7 +488,7 @@ struct SaveData {
     BitField<30, 1, u32> unknown30;
     BitField<31, 1, u32> unknown31;
   };
-  UnknownFlags_U32 UnknownFlagBundle; //int anonymous_161;
+  UnknownFlags_U32 unknown_flag_bundle; //int anonymous_161;
   int anonymous_162;
   u8 gap12F8;
   char anonymous_163;
