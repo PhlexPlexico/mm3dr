@@ -201,6 +201,7 @@ static_assert(sizeof(InventoryData) == 0xD4);
 static_assert(offsetof(InventoryData, inventory_count_register) == 0x78);
 
 struct SaveData {
+  //Todo: rename gaps to match savefile location
   MaskId mask;
   u8 has_completed_intro;
   char unused;
@@ -240,13 +241,21 @@ struct SaveData {
   EquipmentData equipment;
   InventoryData inventory;
   char field_24C;
-  u8 gap249[1235];
+  u8 gap249[938];
+  u8 ikana_castle_camera_pan_0x08;
+  u8 gap5FC[295]; //address name has been corrected to match savefile adddress
   int anonymous_44;
-  u8 gap728[384];
+  u8 gap728[204];
+  u8 skullkid_backstory_cutscene_0x10;
+  u8 gap7F5[178]; //also been corrected
   char anonymous_45;
-  u8 gap8A9[1023];
+  u8 gap8A9[269];
+  u8 pirates_fortress_exterior_camera_pan_0x04;
+  u8 gap9B6[752]; //corrected
   int anonymous_46;
-  u8 gapCAC[1284];
+  u8 gapCAC[520];
+  u8 meeting_happy_mask_salesman_0x01;
+  u8 gapEB5[762]; //corrected
   int anonymous_47;
   int anonymous_48;
   int anonymous_49;
@@ -281,10 +290,54 @@ struct SaveData {
   int anonymous_67;
   int anonymous_68;
   u8 gap1244[4];
+  //Cutscene flag bundle
+  /*
   u8 event_reg_maybe;
   char anonymous_69;
   char anonymous_70;
-  u8 gap1253[4];
+  u8 gap1253;
+  */
+  union CutSceneFlagsU32 {
+    u32 raw;
+    
+    BitField<0, 1, u32> unknown0;
+    BitField<1, 1, u32> termina_field;
+    BitField<2, 1, u32> graveyard;
+    BitField<3, 1, u32> romani_ranch;
+    BitField<4, 2, u32> gorman_track;
+    BitField<5, 1, u32> mountain_village;
+    BitField<6, 1, u32> goron_city;
+    BitField<7, 1, u32> snowhead;
+
+    BitField<8, 1, u32> southern_swamp;
+    BitField<9, 1, u32> woodfall;
+    BitField<10, 1, u32> deku_palace;
+    BitField<11, 1, u32> great_bay_coast;
+    BitField<12, 1, u32> pirates_fortress;
+    BitField<13, 1, u32> zora_domain;
+    BitField<14, 1, u32> waterfall_rapids;
+    BitField<15, 1, u32> ikana_canyon;
+
+    BitField<16, 1, u32> unknown16;
+    BitField<17, 1, u32> stone_tower;
+    BitField<18, 1, u32> stone_tower_inverted;
+    BitField<19, 1, u32> east_clock_town;
+    BitField<20, 1, u32> west_clock_town;
+    BitField<21, 1, u32> north_clock_town;
+    BitField<22, 1, u32> woodfall_temple;
+    BitField<23, 1, u32> snowhead_temple;
+
+    BitField<24, 1, u32> unknown24;
+    BitField<25, 1, u32> stone_tower_temple;
+    BitField<26, 1, u32> stone_tower_temple_inverted;
+    BitField<27, 1, u32> unknown27;
+    BitField<28, 1, u32> unknown28;
+    BitField<29, 1, u32> unknown29;
+    BitField<30, 1, u32> unknown30;
+    BitField<31, 1, u32> unknown31;
+  };
+  CutSceneFlagsU32 cut_scene_flag_bundle1;
+  u8 gap1254[3];
   char anonymous_71;
   char anonymous_72;
   char anonymous_73;
@@ -345,7 +398,7 @@ struct SaveData {
   char anonymous_125;
   char anonymous_126;
   char anonymous_127;
-  char anonymous_128;
+  char anonymous_128;  //Possibly more Cutscene flags
   char anonymous_129;
   char anonymous_130;
   char anonymous_131;
@@ -372,17 +425,70 @@ struct SaveData {
   char anonymous_149;
   char anonymous_150;
   char anonymous_151;
-  char anonymous_152_saved_once_0x10_sot_once_0x40;
+  union CutSceneFlagsU8 {
+    u8 raw;
+
+    BitField<0, 1, u8> owl_statue_cut_scene;
+    BitField<1, 1, u8> unknown1;
+    BitField<2, 1, u8> unknown2;
+    BitField<3, 1, u8> unknown3;
+    BitField<4, 2, u8> deku_palace_throne_room_cutscene;
+    BitField<5, 1, u8> unknown5;
+    BitField<6, 1, u8> unknown6;
+    BitField<7, 1, u8> unknown7;
+  };
+  CutSceneFlagsU8 cut_scene_flag_bundle2; //char anonymous_152_saved_once_0x10_sot_once_0x40;
   char anonymous_153;
   char anonymous_154;
   char anonymous_155;
   char anonymous_156;
   char anonymous_157;
-  char anonymous_158;
+  u8 road_to_woodfall_camera_pan_0x08;
   u8 ct_deku_flown_in_0x80_if_visited_once; // Possible event flags? Set to 80.
   char anonymous_160;
   u8 gap12DC[20];
-  int anonymous_161;
+  //Possibly flags for locations visted or game progression counter
+  //Does not affect cutscenes
+  union UnknownFlags_U32 {
+    u32 raw;
+    
+    BitField<0, 1, u32> clock_town;
+    BitField<1, 1, u32> termina_field;
+    BitField<2, 1, u32> unknown2;
+    BitField<3, 1, u32> unknown3;
+    BitField<4, 2, u32> unknown4;
+    BitField<5, 1, u32> unknown5;
+    BitField<6, 1, u32> unknown6;
+    BitField<7, 1, u32> unknown7;
+
+    BitField<8, 1, u32> unknown8;
+    BitField<9, 1, u32> unknown9;
+    BitField<10, 1, u32> unknown10;
+    BitField<11, 1, u32> unknown11;
+    BitField<12, 1, u32> unknown12;
+    BitField<13, 1, u32> unknown13;
+    BitField<14, 1, u32> unknown14;
+    BitField<15, 1, u32> unknown15;
+
+    BitField<16, 1, u32> unknown16;
+    BitField<17, 1, u32> unknown17;
+    BitField<18, 1, u32> unknown18;
+    BitField<19, 1, u32> unknown19;
+    BitField<20, 1, u32> unknown20;
+    BitField<21, 1, u32> unknown21;
+    BitField<22, 1, u32> unknown22;
+    BitField<23, 1, u32> unknown23;
+
+    BitField<24, 1, u32> unknown24;
+    BitField<25, 1, u32> unknown25;
+    BitField<26, 1, u32> unknown26;
+    BitField<27, 1, u32> unknown27;
+    BitField<28, 1, u32> unknown28;
+    BitField<29, 1, u32> unknown29;
+    BitField<30, 1, u32> unknown30;
+    BitField<31, 1, u32> unknown31;
+  };
+  UnknownFlags_U32 unknown_flag_bundle; //int anonymous_161;
   int anonymous_162;
   u8 gap12F8;
   char anonymous_163;

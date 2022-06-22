@@ -321,6 +321,7 @@ namespace rnd {
     u32 startingDungeonReward;
     u32 startingEquipment;
     u32 startingUpgrades;
+    //u16 startingOwlStatues;
 
     // ARM Patch Checks
     u8 enableFastZoraSwim = 1;

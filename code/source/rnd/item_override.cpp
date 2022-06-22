@@ -140,6 +140,7 @@ namespace rnd {
     
     ItemRow *itemRow = ItemTable_GetItemRow(resolvedGetItemId);
     u8 looksLikeItemId = override.value.looksLikeItemId;
+    
     if (override.value.getItemId == 0x12) { // Ice trap
       looksLikeItemId = 0;
     }
@@ -150,6 +151,9 @@ namespace rnd {
     rActiveItemTextId = itemRow->textId;
     rActiveItemObjectId = itemRow->objectId;
     rActiveItemGraphicId = looksLikeItemId ? ItemTable_GetItemRow(looksLikeItemId)->graphicId : itemRow->graphicId;
+    #ifdef ENABLE_DEBUG
+      //rActiveItemGraphicId = 0x87;
+    #endif
     rActiveItemFastChest = (u32)itemRow->chestType & 0x01;
   }
 
@@ -414,7 +418,6 @@ namespace rnd {
     
     ItemOverride_Activate(override);
     s16 baseItemId = rActiveItemRow->baseItemId;
-    
     
     //s8 baseItemId = rActiveItemRow->textId;
     if (override.value.getItemId == 0x12) {

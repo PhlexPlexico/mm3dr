@@ -5,6 +5,8 @@
 #include "z3d/z3DVec.h"
 
 namespace rnd {
+  void SaveFile_SkipMinorCutscenes();
+  void SaveFile_SetStartingOwlStatues();
   u8 SaveFile_GetMedallionCount(void);
   u8 SaveFile_GetStoneCount(void);
   u8 SaveFile_GetDungeonCount(void);
