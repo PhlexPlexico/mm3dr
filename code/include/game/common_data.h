@@ -290,7 +290,6 @@ struct SaveData {
   int anonymous_67;
   int anonymous_68;
   u8 gap1244[4];
-  //Cutscene flag bundle
   /*
   u8 event_reg_maybe;
   char anonymous_69;

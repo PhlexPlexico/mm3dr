@@ -13,6 +13,8 @@ namespace rnd {
       return 10 + (randomInt % 41);
     case RSDURABILITYSetting::RSDURABILITY_VANILLA:
       return 100;
+    case RSDURABILITYSetting::RSDURABILITY_INF:
+      return 65500; //roughly close to the u16 bit limit
     }
     return 100;
   }
