@@ -208,26 +208,26 @@ namespace rnd {
       game::SaveData &saveData = game::GetCommonData().save;
       //Walkable statues, could have an option to bundle this subgroup
       if(gSettingsContext.startingOwlStatues.clock_town)
-      saveData.player.owl_statue_flags.clock_town = 1;
+        saveData.player.owl_statue_flags.clock_town = 1;
       if(gSettingsContext.startingOwlStatues.milk_road)
-      saveData.player.owl_statue_flags.milk_road = 1;
+        saveData.player.owl_statue_flags.milk_road = 1;
       if(gSettingsContext.startingOwlStatues.southern_swamp)
-      saveData.player.owl_statue_flags.southern_swamp = 1;
+        saveData.player.owl_statue_flags.southern_swamp = 1;
       //These give early location access
       if(gSettingsContext.startingOwlStatues.great_bay)
-      saveData.player.owl_statue_flags.southern_swamp = 1;
+        saveData.player.owl_statue_flags.southern_swamp = 1;
       if(gSettingsContext.startingOwlStatues.zora_cape)
-      saveData.player.owl_statue_flags.southern_swamp = 1;
+        saveData.player.owl_statue_flags.southern_swamp = 1;
       if(gSettingsContext.startingOwlStatues.snowhead)
-      saveData.player.owl_statue_flags.southern_swamp = 1;
+        saveData.player.owl_statue_flags.southern_swamp = 1;
       if(gSettingsContext.startingOwlStatues.mountain_village)
-      saveData.player.owl_statue_flags.southern_swamp = 1;
+        saveData.player.owl_statue_flags.southern_swamp = 1;
       if(gSettingsContext.startingOwlStatues.woodfall)
-      saveData.player.owl_statue_flags.southern_swamp = 1;
+        saveData.player.owl_statue_flags.southern_swamp = 1;
       if(gSettingsContext.startingOwlStatues.ikana_canyon)
-      saveData.player.owl_statue_flags.southern_swamp = 1;
+        saveData.player.owl_statue_flags.southern_swamp = 1;
       if(gSettingsContext.startingOwlStatues.stone_tower)
-      saveData.player.owl_statue_flags.southern_swamp = 1;
+        saveData.player.owl_statue_flags.southern_swamp = 1;
   }
   //Resolve the item ID for the starting bottle
   static void SaveFile_GiveStartingBottle(StartingBottleSetting startingBottle, u8 bottleSlot) {
