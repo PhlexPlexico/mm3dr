@@ -69,7 +69,7 @@ namespace rnd {
     saveData.inventory.item_counts[6] = 50;  // Arrows
     saveData.inventory.item_counts[11] = 40; // Bombs
     saveData.inventory.item_counts[12] = 40; // Bombchus
-    saveData.inventory.item_counts[14] = 20; // Nuts
+    saveData.inventory.item_counts[14] = 30; // Nuts
     saveData.inventory.item_counts[13] = 20; // Sticks
     saveData.has_great_spin_0x02 = 2;        // Set great spin.
 
@@ -92,48 +92,33 @@ namespace rnd {
     saveData.inventory.collect_register.song_of_soaring = 1;
     saveData.inventory.collect_register.song_of_time = 1;
 
-    //extra/temp testing items
-    
 #endif
     //TODO: Decomp event flags. Most likely in the large anonymous structs in the SaveData.
     u8 isNewFile = saveData.has_completed_intro;
     if (isNewFile == 0) {
-      //TODO Time Savers:
-      //Bomber's minigame skip ie. open hideout
-      //Allow first time transformation to be skipable
-      //Find flag for tatl dialogue at woodfall temple entrance platform
-      //Find flag for tatl dialogue at snowhead entrance
-      //Faster/skip dungeon unlock cutscene for swamp, mountain and zora
-      //Fast songs works but needs to be applied to first time played too
-      //skip Ikana king diolouge intro
-      //skip pushing zora to shore
-      //skip pirate leader diologue
-      //Skip all giants cutscenes except for woodfall
-      //Boss warp skipping the boss fight entirely
+      saveData.has_tatl = true;
 
       //Skips cutscenes with no item checks attached
       //Also does not skip location access cutscenes like woodfall temple rise
       SaveFile_SkipMinorCutscenes();
 
       //OOT equivalent of starting with certain warp songs
-      SaveFile_SetStartingOwlStatues(); //still needs to be fully added to options
+      SaveFile_SetStartingOwlStatues();
 
-      //Currently starting with ocarina and song of time is default in MM rando
-      //These two items allows for skipping the first three day cycle
-      saveData.inventory.collect_register.song_of_time = 1; //Part of starting equipment options
-      saveData.inventory.items[0] = game::ItemId::Ocarina; //Part of starting quest items options
-      //SaveFile_SetStartingInventory();
+      /*Currently starting with ocarina and song of time is default in MM rando.
+        These two items allows for skipping the first three day cycle.
+        Currently there is no known way to get termina field to load 
+        in properly without ocarina in inventory.                                */
+      saveData.inventory.collect_register.song_of_time = 1; //Part of starting quest items options 
+      gSettingsContext.startingOcarina = 1;
+      SaveFile_SetStartingInventory();
 
-      saveData.has_tatl = true;
-      saveData.has_completed_intro = 0x2B;
+      //These events replay after song of time
+      saveData.ct_guard_allows_through_if_0x30 = 0x30;
+      //Business skrub has a new short animation after reset
       saveData.ct_deku_flown_in_0x80_if_visited_once = 0x80;
       saveData.ct_deku_in_flower_0x04_if_present = 0x04;
-      saveData.skip_tatl_talking_0x04 = 0x04;
 
-      //This flag gets reset by song of time
-      saveData.ct_guard_allows_through_if_0x30 = 0x30;
-
-      //saveData.player.tatl_timer_maybe = 0x1000;
       saveData.player_form = game::act::Player::Form::Human;
     }
     
@@ -141,10 +126,11 @@ namespace rnd {
 
   void SaveFile_SkipMinorCutscenes() {
     game::SaveData &saveData = game::GetCommonData().save;
+    saveData.has_completed_intro = 0x2B;
+    saveData.skip_tatl_talking_0x04 = 0x04;
     //addresses listed in comments is where it is in the savefile
     
-    //Addresses 0x1250 to 0x1253
-    //saveData.event_reg_maybe = 0xFE; as 1111 1110 in savefile
+    //0x1250
     //saveData.cut_scene_flag_bundle1.unknown0 = 0;
     saveData.cut_scene_flag_bundle1.termina_field = 1;
     saveData.cut_scene_flag_bundle1.graveyard = 1;
@@ -154,7 +140,7 @@ namespace rnd {
     saveData.cut_scene_flag_bundle1.goron_city = 1;
     saveData.cut_scene_flag_bundle1.snowhead = 1;
 
-    //saveData.anonymous_69 = 0xFF;
+    //0x1251
     saveData.cut_scene_flag_bundle1.southern_swamp = 1;
     saveData.cut_scene_flag_bundle1.woodfall = 1;
     saveData.cut_scene_flag_bundle1.deku_palace = 1;
@@ -164,7 +150,7 @@ namespace rnd {
     saveData.cut_scene_flag_bundle1.waterfall_rapids = 1;
     saveData.cut_scene_flag_bundle1.ikana_canyon = 1;
 
-    //saveData.anonymous_70 = 0xFE; as 1111 1110 in savefile
+    //0x1252
     //saveData.cut_scene_flag_bundle1.unknown16 = 0;
     saveData.cut_scene_flag_bundle1.stone_tower = 1;
     saveData.cut_scene_flag_bundle1.stone_tower_inverted = 1;
@@ -174,7 +160,7 @@ namespace rnd {
     saveData.cut_scene_flag_bundle1.woodfall_temple = 1;
     saveData.cut_scene_flag_bundle1.snowhead_temple = 1;
 
-    //saveData.gap1253 = 0x06; written as 0000 0110 in savefile
+    //0x1253
     //saveData.cut_scene_flag_bundle1.unknown24 = 0;
     saveData.cut_scene_flag_bundle1.stone_tower_temple = 1; 
     saveData.cut_scene_flag_bundle1.stone_tower_temple_inverted = 1;  
@@ -186,8 +172,7 @@ namespace rnd {
     
     //GreatbayTemple not in bundle above, does not seem to have a camera pan scene
 
-    //ClockTown Owl statue: 0x12D3 = 0x10
-    //saveData.anonymous_152_saved_once_0x10_sot_once_0x40 = 0x11;// 0x01 is deku palace
+    //0x12D3
     saveData.cut_scene_flag_bundle2.owl_statue_cut_scene = 1;
     //saveData.cut_scene_flag_bundle2.unknown1 = 0;
     //saveData.cut_scene_flag_bundle2.unknown2 = 0;
@@ -220,15 +205,29 @@ namespace rnd {
     saveData.ikana_castle_camera_pan_0x08 = 0x80;
   } 
   void SaveFile_SetStartingOwlStatues() {
-      //future comfort option
-      /*
-      if(gSettingsContext.startingOwlStatues.ClockTown)
+      game::SaveData &saveData = game::GetCommonData().save;
+      //Walkable statues, could have an option to bundle this subgroup
+      if(gSettingsContext.startingOwlStatues.clock_town)
       saveData.player.owl_statue_flags.clock_town = 1;
-      else if(gSettingsContext.startingOwlStatues.MilkRoad)
+      if(gSettingsContext.startingOwlStatues.milk_road)
       saveData.player.owl_statue_flags.milk_road = 1;
-      else if(gSettingsContext.startingOwlStatues.SouthernSwamp)
+      if(gSettingsContext.startingOwlStatues.southern_swamp)
       saveData.player.owl_statue_flags.southern_swamp = 1;
-      */
+      //These give early location access
+      if(gSettingsContext.startingOwlStatues.great_bay)
+      saveData.player.owl_statue_flags.southern_swamp = 1;
+      if(gSettingsContext.startingOwlStatues.zora_cape)
+      saveData.player.owl_statue_flags.southern_swamp = 1;
+      if(gSettingsContext.startingOwlStatues.snowhead)
+      saveData.player.owl_statue_flags.southern_swamp = 1;
+      if(gSettingsContext.startingOwlStatues.mountain_village)
+      saveData.player.owl_statue_flags.southern_swamp = 1;
+      if(gSettingsContext.startingOwlStatues.woodfall)
+      saveData.player.owl_statue_flags.southern_swamp = 1;
+      if(gSettingsContext.startingOwlStatues.ikana_canyon)
+      saveData.player.owl_statue_flags.southern_swamp = 1;
+      if(gSettingsContext.startingOwlStatues.stone_tower)
+      saveData.player.owl_statue_flags.southern_swamp = 1;
   }
   //Resolve the item ID for the starting bottle
   static void SaveFile_GiveStartingBottle(StartingBottleSetting startingBottle, u8 bottleSlot) {
