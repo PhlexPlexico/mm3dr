@@ -114,6 +114,6 @@ namespace rnd {
   u8 SpoilerData_ScrubCheck(SpoilerItemLocation itemLoc);
   u8 SpoilerData_ShopItemCheck(SpoilerItemLocation itemLoc);
   u8 SpoilerData_MagicBeansCheck(SpoilerItemLocation itemLoc);
-} // namespace rnd
+}  // namespace rnd
 
-#endif // _RND_SPOILER_DATA_H_
+#endif  // _RND_SPOILER_DATA_H_

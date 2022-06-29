@@ -10,16 +10,16 @@ namespace rnd {
   typedef void (*effectFunc)(game::CommonData* saveCtx, s16 arg1, s16 arg2);
 
   typedef struct {
-    s16 baseItemId; // Fall through ItemId for parts we wish to not
+    s16 baseItemId;  // Fall through ItemId for parts we wish to not
     ChestType chestType;
     u8 itemId;
     u16 textId;
 
     u16 objectId;
     s8 objectModelIdx;
-    s8 cmabIndex;       // 0xFF if none
-    s8 objectModelIdx2; // 0xFF if none
-    s8 cmabIndex2;      // 0xFF if none
+    s8 cmabIndex;        // 0xFF if none
+    s8 objectModelIdx2;  // 0xFF if none
+    s8 cmabIndex2;       // 0xFF if none
     s8 special;
     /* 0xFF if none. objectMeshIdx for rupees
                                  TexAnim frame for songs
@@ -42,6 +42,6 @@ namespace rnd {
   void ItemTable_SetBombchusChestType(u8 type);
   void ItemTable_CallEffect(ItemRow* itemRow);
 
-} // namespace rnd
+}  // namespace rnd
 
-#endif //_ITEM_TABLE_H_
+#endif  //_ITEM_TABLE_H_

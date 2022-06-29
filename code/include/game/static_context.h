@@ -2805,6 +2805,6 @@ namespace game {
 
   StaticContext& GetStaticContext();
 
-} // namespace game
+}  // namespace game
 
 #endif

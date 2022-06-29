@@ -8,7 +8,8 @@
 namespace game {
 
   act::Actor* GlobalContext::FindActorWithId(act::Id id, act::Type type) const {
-    if (u8(type) >= actors.lists.size()) return nullptr;
+    if (u8(type) >= actors.lists.size())
+      return nullptr;
 
     act::Actor* actor = this->actors.lists[u8(type)].first;
     while (actor && actor->id != id)
@@ -20,17 +21,18 @@ namespace game {
     return static_cast<act::Player*>(this->actors.lists[u8(act::Type::Player)].first);
   }
 
-  act::Actor* GlobalContext::SpawnActor(act::Actor* actor, act::Id id, u16 rx, u16 ry, u16 rz, u16 param,
-                                        z3dVec3f pos) {
-    auto spawn_actor_wrapper = rnd::util::GetPointer<act::Actor*(ActorLists*, act::Actor*, GlobalContext*, act::Id, u16,
-                                                                 u16, u16, u16 param, z3dVec3f)>(0x22CAAC);
+  act::Actor* GlobalContext::SpawnActor(act::Actor* actor, act::Id id, u16 rx, u16 ry, u16 rz,
+                                        u16 param, z3dVec3f pos) {
+    auto spawn_actor_wrapper =
+        rnd::util::GetPointer<act::Actor*(ActorLists*, act::Actor*, GlobalContext*, act::Id, u16,
+                                          u16, u16, u16 param, z3dVec3f)>(0x22CAAC);
     return spawn_actor_wrapper(&actors, actor, this, id, rx, ry, rz, param, pos);
   }
 
-  act::Actor* GlobalContext::SpawnActor(act::Id id, u16 rx, u16 ry, u16 rz, u16 param, z3dVec3f pos) {
-    auto spawn_actor_wrapper =
-        rnd::util::GetPointer<act::Actor*(ActorLists*, GlobalContext*, act::Id, u16, u16, u16, u16 param, z3dVec3f)>(
-            0x22074C);
+  act::Actor* GlobalContext::SpawnActor(act::Id id, u16 rx, u16 ry, u16 rz, u16 param,
+                                        z3dVec3f pos) {
+    auto spawn_actor_wrapper = rnd::util::GetPointer<act::Actor*(
+        ActorLists*, GlobalContext*, act::Id, u16, u16, u16, u16 param, z3dVec3f)>(0x22074C);
     return spawn_actor_wrapper(&actors, this, id, rx, ry, rz, param, pos);
   }
 
@@ -40,7 +42,8 @@ namespace game {
   }
 
   void GlobalContext::ShowMessage(u16 msgid, act::Actor* actor) {
-    rnd::util::GetPointer<void(GlobalContext*, int msgid, act::Actor*)>(0x21BAFC)(this, msgid, actor);
+    rnd::util::GetPointer<void(GlobalContext*, int msgid, act::Actor*)>(0x21BAFC)(this, msgid,
+                                                                                  actor);
   }
 
   void GlobalContext::Talk(act::Actor* actor, int a) {
@@ -56,4 +59,4 @@ namespace game {
     rnd::util::GetPointer<void(GlobalContext*)>(0x230ec8)(this);
   }
 
-} // namespace game
+}  // namespace game

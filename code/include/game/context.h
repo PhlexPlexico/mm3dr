@@ -22,7 +22,7 @@ namespace game {
     class BossTwinmold;
     class ObjElegyStatue;
     class Player;
-  } // namespace act
+  }  // namespace act
 
   namespace ui {
     class PlayHud;
@@ -44,12 +44,8 @@ namespace game {
   static_assert(sizeof(ActorList) == 0xc);
 
   struct ActorLists {
-    ActorList& GetList(act::Type type) {
-      return lists[u8(type)];
-    }
-    const ActorList& GetList(act::Type type) const {
-      return lists[u8(type)];
-    }
+    ActorList& GetList(act::Type type) { return lists[u8(type)]; }
+    const ActorList& GetList(act::Type type) const { return lists[u8(type)]; }
     u8 gap_0[4];
     u8 field_4;
     u8 field_5;
@@ -162,7 +158,8 @@ namespace game {
     }
 
     act::Actor* FindActorWithId(act::Id id, act::Type type) const;
-    template <typename T> T* FindActorWithId(act::Id id, act::Type type) const {
+    template <typename T>
+    T* FindActorWithId(act::Id id, act::Type type) const {
       return static_cast<T*>(FindActorWithId(id, type));
     }
     bool IsActorVisible(act::Id id, act::Type type) const {
@@ -172,7 +169,8 @@ namespace game {
 
     act::Player* GetPlayerActor() const;
 
-    act::Actor* SpawnActor(act::Actor* actor, act::Id id, u16 rx, u16 ry, u16 rz, u16 param, z3dVec3f pos);
+    act::Actor* SpawnActor(act::Actor* actor, act::Id id, u16 rx, u16 ry, u16 rz, u16 param,
+                           z3dVec3f pos);
     act::Actor* SpawnActor(act::Id id, u16 rx, u16 ry, u16 rz, u16 param, z3dVec3f pos);
     void ChangeActorType(act::Actor& actor, act::Type type);
 
@@ -288,9 +286,9 @@ namespace game {
     u8 gap_8364[74];
     u16 field_83AE;
     u8 gap_83B0[12];
-    u32 field_83DC; // Checks during song
+    u32 field_83DC;  // Checks during song
     u16 field_83E0;
-    u16 field_83E2; // Possible stored message ID?
+    u16 field_83E2;  // Possible stored message ID?
     u8 gap_83E0[68];
     HudState hud_state;
     u8 gap_86A8[4];
@@ -380,9 +378,10 @@ namespace game {
     /// Opacity of the dimming overlay for the bottom screen.
     /// This is automatically updated every frame depending on flags (see below).
     ///
-    /// If this value is > 0.001 and dim_overlay_alpha == dim_heart_overlay_alpha, a semi-transparent
-    /// rectangle is drawn over the entire bottom screen. Otherwise, if this value is only > 0.001,
-    /// several rectangles are drawn over the screen to dim everything except the heart status widget.
+    /// If this value is > 0.001 and dim_overlay_alpha == dim_heart_overlay_alpha, a
+    /// semi-transparent rectangle is drawn over the entire bottom screen. Otherwise, if this value
+    /// is only > 0.001, several rectangles are drawn over the screen to dim everything except the
+    /// heart status widget.
     float dim_overlay_alpha;
 
     /// Opacity of the dimming overlay for the heart status widget on the bottom screen.
@@ -455,6 +454,6 @@ namespace game {
   static_assert(offsetof(GlobalContext, field_C4C8) == 0xC4C8);
   static_assert(sizeof(GlobalContext) == 0x11030);
 
-} // namespace game
+}  // namespace game
 
 #endif

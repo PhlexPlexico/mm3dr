@@ -195,7 +195,7 @@ namespace game {
     u8 snowhead_fairies;
     u8 great_bay_fairies;
     u8 stone_tower_fairies;
-    u8 gap98[60]; //        L I N K            L I N K            L I N K
+    u8 gap98[60];  //        L I N K            L I N K            L I N K
   };
   static_assert(sizeof(InventoryData) == 0xD4);
   static_assert(offsetof(InventoryData, inventory_count_register) == 0x78);
@@ -234,7 +234,8 @@ namespace game {
     char anonymous_15;
     char anonymous_16;
     char gap33[205];
-    char anonymous_a[24]; // Possible permanent scene flags? Could be put in the gap to match 0x1C size?
+    char anonymous_a[24];  // Possible permanent scene flags? Could be put in the gap to match 0x1C
+                           // size?
     char anonymous_b;
     u8 gap_115[7];
     PlayerData player;
@@ -243,19 +244,19 @@ namespace game {
     char field_24C;
     u8 gap249[938];
     u8 ikana_castle_camera_pan_0x08;
-    u8 gap5FC[295]; // address name has been corrected to match savefile adddress
+    u8 gap5FC[295];  // address name has been corrected to match savefile adddress
     int anonymous_44;
     u8 gap728[204];
     u8 skullkid_backstory_cutscene_0x10;
-    u8 gap7F5[178]; // also been corrected
+    u8 gap7F5[178];  // also been corrected
     char anonymous_45;
     u8 gap8A9[269];
     u8 pirates_fortress_exterior_camera_pan_0x04;
-    u8 gap9B6[752]; // corrected
+    u8 gap9B6[752];  // corrected
     int anonymous_46;
     u8 gapCAC[520];
     u8 meeting_happy_mask_salesman_0x01;
-    u8 gapEB5[762]; // corrected
+    u8 gapEB5[762];  // corrected
     int anonymous_47;
     int anonymous_48;
     int anonymous_49;
@@ -279,8 +280,8 @@ namespace game {
     SkulltulaRegister skulltulas_collected;
     int anonymous_60;
     u8 gap1218[4];
-    int anonymous_61; // XXX: Possible scene flags.
-    int anonymous_62; // XXX: Possible scene flags.
+    int anonymous_61;  // XXX: Possible scene flags.
+    int anonymous_62;  // XXX: Possible scene flags.
     int anonymous_63;
     u8 gap1228[8];
     int anonymous_64;
@@ -384,7 +385,7 @@ namespace game {
     char anonymous_113;
     char skip_tatl_talking_0x04;
     char anonymous_115;
-    char swamp_deku_removed_if_0x10; // Don Gero Flag Maybe
+    char swamp_deku_removed_if_0x10;  // Don Gero Flag Maybe
     char anonymous_117;
     char anonymous_118;
     char anonymous_119;
@@ -397,7 +398,7 @@ namespace game {
     char anonymous_125;
     char anonymous_126;
     char anonymous_127;
-    char anonymous_128; // Possibly more Cutscene flags
+    char anonymous_128;  // Possibly more Cutscene flags
     char anonymous_129;
     char anonymous_130;
     char anonymous_131;
@@ -436,14 +437,14 @@ namespace game {
       BitField<6, 1, u8> unknown6;
       BitField<7, 1, u8> unknown7;
     };
-    CutSceneFlagsU8 cut_scene_flag_bundle2; // char anonymous_152_saved_once_0x10_sot_once_0x40;
+    CutSceneFlagsU8 cut_scene_flag_bundle2;  // char anonymous_152_saved_once_0x10_sot_once_0x40;
     char anonymous_153;
     char anonymous_154;
     char anonymous_155;
     char anonymous_156;
     char anonymous_157;
     u8 road_to_woodfall_camera_pan_0x08;
-    u8 ct_deku_flown_in_0x80_if_visited_once; // Possible event flags? Set to 80.
+    u8 ct_deku_flown_in_0x80_if_visited_once;  // Possible event flags? Set to 80.
     char anonymous_160;
     u8 gap12DC[20];
     // Possibly flags for locations visted or game progression counter
@@ -487,7 +488,7 @@ namespace game {
       BitField<30, 1, u32> unknown30;
       BitField<31, 1, u32> unknown31;
     };
-    UnknownFlags_U32 unknown_flag_bundle; // int anonymous_161;
+    UnknownFlags_U32 unknown_flag_bundle;  // int anonymous_161;
     int anonymous_162;
     u8 gap12F8;
     char anonymous_163;
@@ -537,7 +538,7 @@ namespace game {
     char anonymous_199;
     char anonymous_200;
     u16 anonymous_201;
-    u8 gap1A30[20]; // Items?
+    u8 gap1A30[20];  // Items?
     char anonymous_202;
     char anonymous_203;
     char anonymous_204;
@@ -844,6 +845,6 @@ namespace game {
 
   CommonData& GetCommonData();
 
-} // namespace game
+}  // namespace game
 
 #endif

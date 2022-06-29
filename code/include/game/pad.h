@@ -112,7 +112,7 @@ namespace game::pad {
   struct ControllerMgr {
     u8 gap_0[0x1000];
     State state;
-    State state2; // unused?
+    State state2;  // unused?
     void* pad_readers;
     u32 field_DC;
     u32 field_E0;
@@ -129,6 +129,6 @@ namespace game::pad {
 
   ControllerMgr& GetControllerMgr();
 
-} // namespace game::pad
+}  // namespace game::pad
 
 #endif

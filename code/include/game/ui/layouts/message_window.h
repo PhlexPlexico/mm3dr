@@ -93,4 +93,4 @@ namespace game::ui {
   static_assert(sizeof(MessageWindow) == 0xA34);
 #pragma pack(pop)
 
-} // namespace game::ui
+}  // namespace game::ui

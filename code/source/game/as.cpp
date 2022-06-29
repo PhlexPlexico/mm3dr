@@ -16,4 +16,4 @@ namespace game::as {
     return rnd::util::GetPointer<int(ActorUtil*, u32)>(0x240DD8)(this, id);
   }
 
-} // namespace game::as
+}  // namespace game::as

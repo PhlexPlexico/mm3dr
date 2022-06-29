@@ -221,6 +221,6 @@ namespace game {
 
   void PlayMessagePassSound();
   void PlayMessageCancelSound();
-} // namespace game
+}  // namespace game
 
 #endif

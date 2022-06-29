@@ -142,6 +142,6 @@ namespace game {
   };
   static_assert(sizeof(SceneInfo) == 0x70);
 
-} // namespace game
+}  // namespace game
 
 #endif

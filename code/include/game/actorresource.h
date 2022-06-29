@@ -38,6 +38,6 @@ namespace game::ActorResource {
   u32 loadActorResource(ActorResources*, u32);
   void freeActorResource(ActorResource*);
 
-} // namespace game::ActorResource
+}  // namespace game::ActorResource
 
 #endif

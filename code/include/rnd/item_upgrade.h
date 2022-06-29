@@ -13,6 +13,6 @@ namespace rnd {
   GetItemID ItemUpgrade_ArrowsToRupee(game::SaveData*, GetItemID);
   GetItemID ItemUpgrade_BombsToRupee(game::SaveData*, GetItemID);
   // GetItemID ItemUpgrade_LetterToBottle(game::SaveData*, GetItemID);
-} // namespace rnd
+}  // namespace rnd
 
 #endif

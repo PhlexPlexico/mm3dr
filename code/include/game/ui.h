@@ -70,25 +70,16 @@ namespace game::ui {
     Pane2Ex = 7,
   };
 
-  template <typename T> struct Array {
+  template <typename T>
+  struct Array {
     T* data;
     size_t size;
 
-    auto begin() const {
-      return data;
-    }
-    auto end() const {
-      return data + size;
-    }
-    explicit operator bool() const {
-      return data != nullptr;
-    }
-    auto& operator[](size_t index) {
-      return data[index];
-    }
-    const auto& operator[](size_t index) const {
-      return data[index];
-    }
+    auto begin() const { return data; }
+    auto end() const { return data + size; }
+    explicit operator bool() const { return data != nullptr; }
+    auto& operator[](size_t index) { return data[index]; }
+    const auto& operator[](size_t index) const { return data[index]; }
   };
 
   class Pane {
@@ -101,12 +92,8 @@ namespace game::ui {
     virtual void m6();
     virtual void m7();
 
-    PaneType GetType() const {
-      return type;
-    }
-    const char* GetName() const {
-      return name;
-    }
+    PaneType GetType() const { return type; }
+    const char* GetName() const { return name; }
 
   private:
     PaneType type;
@@ -193,33 +180,24 @@ namespace game::ui {
       DefaultOpacity = 0x4000000,
     };
 
-    bool IsVisible() const {
-      return flags.IsSet(Flag::Visible);
-    }
+    bool IsVisible() const { return flags.IsSet(Flag::Visible); }
 
     void SetVisible(bool visible) {
-      if (IsVisible() == visible) return;
+      if (IsVisible() == visible)
+        return;
       flags.Set(Flag::Visible, visible);
       ValueChanged(Flag::Visible2, visible, true);
     }
 
-    void SetOpacity(float opacity) {
-      Set(&color.w, opacity, Flag::DefaultOpacity, 1.0f);
-    }
+    void SetOpacity(float opacity) { Set(&color.w, opacity, Flag::DefaultOpacity, 1.0f); }
 
     void AddOpacity(float delta, float min = 0.0f, float max = 1.0f) {
       SetOpacity(std::clamp(color.w + delta, min, max));
     }
 
-    void SetTranslateX(float x) {
-      Set(&translate.x, x, Flag::DefaultTranslateX, 0.0f);
-    }
-    void SetTranslateY(float y) {
-      Set(&translate.y, y, Flag::DefaultTranslateY, 0.0f);
-    }
-    void SetTranslateZ(float z) {
-      Set(&translate.z, z, Flag::DefaultTranslateZ, 0.0f);
-    }
+    void SetTranslateX(float x) { Set(&translate.x, x, Flag::DefaultTranslateX, 0.0f); }
+    void SetTranslateY(float y) { Set(&translate.y, y, Flag::DefaultTranslateY, 0.0f); }
+    void SetTranslateZ(float z) { Set(&translate.z, z, Flag::DefaultTranslateZ, 0.0f); }
 
     void ScaleChanged() {
       ValueChanged(Flag::DefaultScaleX, scale.x, 1.0f);
@@ -242,13 +220,16 @@ namespace game::ui {
     rnd::Flags<Flag> active_flags;
 
   private:
-    template <typename T> void Set(T* variable, const T& value, Flag flag, const T& default_value) {
-      if (*variable == value) return;
+    template <typename T>
+    void Set(T* variable, const T& value, Flag flag, const T& default_value) {
+      if (*variable == value)
+        return;
       *variable = value;
       ValueChanged(flag, value, default_value);
     }
 
-    template <typename T> void ValueChanged(Flag flag, const T& value, const T& default_value) {
+    template <typename T>
+    void ValueChanged(Flag flag, const T& value, const T& default_value) {
       flags.Set(flag);
       active_flags.Set(flag, value == default_value);
     }
@@ -268,40 +249,26 @@ namespace game::ui {
     virtual void init0(LayoutBase* layout, const char* name);
     virtual void init(LayoutBase* layout, const char* name);
     virtual void reset();
-    virtual void calc(z3d_nn_math_MTX34& mtx, z3dVec4f& vec, z3d_nn_math_MTX23& mtx23, int, float time_delta);
+    virtual void calc(z3d_nn_math_MTX34& mtx, z3dVec4f& vec, z3d_nn_math_MTX23& mtx23, int,
+                      float time_delta);
 
-    const char* GetName() const {
-      return name;
-    }
+    const char* GetName() const { return name; }
     WidgetType GetType() const;
-    Widget* GetParent() const {
-      return parent;
-    }
-    Layout* GetLayout() const {
-      return layout;
-    }
-    Pane* GetPane() const {
-      return pane;
-    }
+    Widget* GetParent() const { return parent; }
+    Layout* GetLayout() const { return layout; }
+    Pane* GetPane() const { return pane; }
 
-    template <typename T> T* AsLayout() const {
+    template <typename T>
+    T* AsLayout() const {
       return static_cast<T*>(layout);
     }
 
     Widget* GetWidget(std::string_view name);
-    const Array<Widget*>& GetWidgets() const {
-      return widgets;
-    }
+    const Array<Widget*>& GetWidgets() const { return widgets; }
 
-    z3d_nn_math_MTX34& GetMtx() {
-      return mtx;
-    }
-    WidgetPos& GetPos() {
-      return pos;
-    }
-    WidgetPos& GetOldPos() {
-      return old_pos;
-    }
+    z3d_nn_math_MTX34& GetMtx() { return mtx; }
+    WidgetPos& GetPos() { return pos; }
+    WidgetPos& GetOldPos() { return old_pos; }
 
     void PrintDebug();
 
@@ -340,9 +307,7 @@ namespace game::ui {
   public:
     virtual ~AnimEntry();
 
-    ResAnimEntry* GetData() {
-      return data;
-    }
+    ResAnimEntry* GetData() { return data; }
 
   private:
     ResAnimEntry* data;
@@ -352,12 +317,8 @@ namespace game::ui {
   public:
     virtual ~Anim();
 
-    const char* GetName() const {
-      return name;
-    }
-    Array<AnimEntry*>& GetEntries() {
-      return entries;
-    }
+    const char* GetName() const { return name; }
+    Array<AnimEntry*>& GetEntries() { return entries; }
 
   private:
     float fps = 60.0;
@@ -377,34 +338,18 @@ namespace game::ui {
     void ChangeAnim(Anim* anim);
     void Stop();
     void Reset();
-    void Pause() {
-      m_playing = false;
-    }
-    void Resume() {
-      m_playing = true;
-    }
+    void Pause() { m_playing = false; }
+    void Resume() { m_playing = true; }
 
-    bool IsPlaying() const {
-      return m_playing;
-    }
+    bool IsPlaying() const { return m_playing; }
 
-    const char* GetName() const {
-      return m_name;
-    }
-    Anim* GetAnim() const {
-      return m_anim;
-    }
+    const char* GetName() const { return m_name; }
+    Anim* GetAnim() const { return m_anim; }
 
-    float GetFrame() const {
-      return m_frame;
-    }
+    float GetFrame() const { return m_frame; }
     void SetFrame(float frame);
-    float GetSpeed() const {
-      return m_speed;
-    }
-    void SetSpeed(float speed) {
-      m_speed = speed;
-    }
+    float GetSpeed() const { return m_speed; }
+    void SetSpeed(float speed) { m_speed = speed; }
 
   private:
     const char* m_name = nullptr;
@@ -421,9 +366,7 @@ namespace game::ui {
   public:
     virtual ~LayoutClass();
 
-    const char* GetName() const {
-      return name;
-    }
+    const char* GetName() const { return name; }
     Anim* GetAnim(std::string_view name) const;
     // tcb::span<Anim> GetAnims() const { return {anims, num_anims}; }
 
@@ -444,32 +387,21 @@ namespace game::ui {
   class LayoutBase {
   public:
     virtual ~LayoutBase();
-    virtual void init(LayoutClass*, MainWidget** main_widgets, int num_main_widgets, AnimPlayer** players,
-                      int num_players, const char* name);
+    virtual void init(LayoutClass*, MainWidget** main_widgets, int num_main_widgets,
+                      AnimPlayer** players, int num_players, const char* name);
     virtual void m3();
-    virtual void calc(z3d_nn_math_MTX34& mtx, z3dVec4f& vec, z3d_nn_math_MTX23& mtx2, int, float time_delta);
+    virtual void calc(z3d_nn_math_MTX34& mtx, z3dVec4f& vec, z3d_nn_math_MTX23& mtx2, int,
+                      float time_delta);
 
     void calc(float time_delta = 0.033333);
 
-    const char* GetName() const {
-      return name;
-    }
-    LayoutClass& GetCl() const {
-      return *cl;
-    }
-    Widget* GetRootWidget() {
-      return &root_widget;
-    }
-    const Array<Widget*>& GetWidgets() const {
-      return widgets;
-    }
-    const Array<AnimPlayer*>& GetAnimPlayers() const {
-      return players;
-    }
+    const char* GetName() const { return name; }
+    LayoutClass& GetCl() const { return *cl; }
+    Widget* GetRootWidget() { return &root_widget; }
+    const Array<Widget*>& GetWidgets() const { return widgets; }
+    const Array<AnimPlayer*>& GetAnimPlayers() const { return players; }
     AnimPlayer* GetAnimPlayer(std::string_view name) const;
-    Anim* GetAnim(std::string_view name) const {
-      return cl->GetAnim(name);
-    }
+    Anim* GetAnim(std::string_view name) const { return cl->GetAnim(name); }
     Widget* GetWidget(std::string_view name);
     Pane* GetPane(std::string_view name) const;
 
@@ -489,7 +421,8 @@ namespace game::ui {
   public:
     // Usually called from the calc function to detect on-screen button presses and update button
     // state accordingly.
-    virtual void HandleTouch(bool a, bool b, bool c, ScreenContext& ctx, int d, float time_delta, float x, float y);
+    virtual void HandleTouch(bool a, bool b, bool c, ScreenContext& ctx, int d, float time_delta,
+                             float x, float y);
     virtual void m6();
     virtual void DoInit();
     virtual void m8();
@@ -500,6 +433,6 @@ namespace game::ui {
   };
   static_assert(sizeof(Layout) == 0x170);
 
-} // namespace game::ui
+}  // namespace game::ui
 
 #endif

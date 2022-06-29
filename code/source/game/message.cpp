@@ -33,7 +33,8 @@ namespace game {
       ptrCustomMessageEntries[0].field_4 = 0x3FFFFFFF;
       ptrCustomMessageEntries[0].flags = 0xFF0000;
       ptrCustomMessageEntries[0].texts[0].offset =
-          "Hmmph...  I've been made a \x7f:\x00\x01\x00\x46OOL\x7f\x00:\x00\x0b\x00 of!\x7f\x00\x31";
+          "Hmmph...  I've been made a \x7f:\x00\x01\x00\x46OOL\x7f\x00:\x00\x0b\x00 "
+          "of!\x7f\x00\x31";
       ptrCustomMessageEntries[0].texts[0].length = 55;
       declareTestMessage = true;
     }
@@ -43,7 +44,8 @@ namespace game {
     int customEnd = numCustomMessageEntries - 1;
     bool isCustom = false;
     const auto get_entry = [this](size_t idx) {
-      return reinterpret_cast<const MessageResEntry*>((const u8*)res_entries + res_entry_size * idx);
+      return reinterpret_cast<const MessageResEntry*>((const u8*)res_entries +
+                                                      res_entry_size * idx);
     };
     const auto get_custom_entry = [this](size_t idx) {
       return reinterpret_cast<const MessageResEntry*>((const u8*)ptrCustomMessageEntries + idx);
@@ -56,8 +58,8 @@ namespace game {
       customIceMessage.field_2 = 0xFFFF;
       customIceMessage.field_4 = 0x3FFFFFFF;
       customIceMessage.flags = 0xFF0000;
-      // customIceMessage.texts[0].offset = "Hmmph...  I've been made a \x7f:\x00\x01\x00\x46OOL\x7f\x00:\x00\x0b\x00
-      // of!\x7f\x00\x31";
+      // customIceMessage.texts[0].offset = "Hmmph...  I've been made a
+      // \x7f:\x00\x01\x00\x46OOL\x7f\x00:\x00\x0b\x00 of!\x7f\x00\x31";
       customIceMessage.texts[0].offset = " \x7f:\x00\x01\x00\x46OOL!\x7f:\x00\x0b\x00\x7f\x00\x31";
       customIceMessage.texts[0].length = 22;
       entry = &customIceMessage;
@@ -67,8 +69,8 @@ namespace game {
       customSwordMessage.field_2 = 0xFFFF;
       customSwordMessage.field_4 = 0x3FFFFFF;
       customSwordMessage.flags = 0x4D0000;
-      customSwordMessage.texts[0].offset =
-          "\x7f\x00'\x00You got the \x7f\x00:\x00\x01\x00Kokiri sword!\x7f:\x00\x00\x00\x7f\x00\x31\x00";
+      customSwordMessage.texts[0].offset = "\x7f\x00'\x00You got the \x7f\x00:\x00\x01\x00Kokiri "
+                                           "sword!\x7f:\x00\x00\x00\x7f\x00\x31\x00";
       customSwordMessage.texts[0].length = 48;
       entry = &customSwordMessage;
       isCustom = true;
@@ -76,8 +78,10 @@ namespace game {
     while (!entry && start <= customEnd) {
       const int current_entry_idx = (start + customEnd) / 2;
       const auto* candidate = get_custom_entry(current_entry_idx);
-      if (candidate->id < id) start = current_entry_idx + 1;
-      else if (candidate->id > id) customEnd = current_entry_idx - 1;
+      if (candidate->id < id)
+        start = current_entry_idx + 1;
+      else if (candidate->id > id)
+        customEnd = current_entry_idx - 1;
       else {
         entry = candidate;
         isCustom = true;
@@ -89,12 +93,16 @@ namespace game {
       while (!entry && start <= end) {
         const int current_entry_idx = (start + end) / 2;
         const auto* candidate = get_entry(current_entry_idx);
-        if (candidate->id < id) start = current_entry_idx + 1;
-        else if (candidate->id > id) end = current_entry_idx - 1;
-        else entry = candidate;
+        if (candidate->id < id)
+          start = current_entry_idx + 1;
+        else if (candidate->id > id)
+          end = current_entry_idx - 1;
+        else
+          entry = candidate;
       }
     }
-    if (!entry || !msg) return false;
+    if (!entry || !msg)
+      return false;
 
     msg->msgid = entry->id;
     msg->is_flag1 = entry->flags & 1;
@@ -117,9 +125,11 @@ namespace game {
       text.reader = rnd::util::GetPointer<MessageReader*(Language)>(0x1C519C)(Language(i));
       if (res_header->languages.IsSet(Language(i))) {
 #ifdef ENABLE_DEBUG
-// rnd::util::Print("%s: Here's some info for text length: %u\n", __func__, entry->texts[res_idx].length);
+// rnd::util::Print("%s: Here's some info for text length: %u\n", __func__,
+// entry->texts[res_idx].length);
 #endif
-        text.ptr = isCustom ? (u8*)entry->texts[res_idx].offset : (u8*)res_header + (u32)entry->texts[res_idx].offset;
+        text.ptr = isCustom ? (u8*)entry->texts[res_idx].offset :
+                              (u8*)res_header + (u32)entry->texts[res_idx].offset;
         text.size = entry->texts[res_idx].length;
         ++res_idx;
       } else {
@@ -145,4 +155,4 @@ namespace game {
   }
   }
 
-} // namespace game
+}  // namespace game

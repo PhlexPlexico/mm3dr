@@ -62,16 +62,16 @@ namespace rnd {
     saveData.inventory.stone_tower_dungeon_items.compass = 1;
     saveData.inventory.stone_tower_dungeon_items.boss_key = 1;
     saveData.player.magic_acquired = 1;  // Game does not check if value = 0, magic items still work
-    saveData.player.magic_size_type = 2; // not init until saved?
+    saveData.player.magic_size_type = 2;  // not init until saved?
     saveData.player.magic = 96;
     saveData.player.magic_num_upgrades = 1;
     saveData.equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
-    saveData.inventory.item_counts[6] = 50;  // Arrows
-    saveData.inventory.item_counts[11] = 40; // Bombs
-    saveData.inventory.item_counts[12] = 40; // Bombchus
-    saveData.inventory.item_counts[14] = 30; // Nuts
-    saveData.inventory.item_counts[13] = 20; // Sticks
-    saveData.has_great_spin_0x02 = 2;        // Set great spin.
+    saveData.inventory.item_counts[6] = 50;   // Arrows
+    saveData.inventory.item_counts[11] = 40;  // Bombs
+    saveData.inventory.item_counts[12] = 40;  // Bombchus
+    saveData.inventory.item_counts[14] = 30;  // Nuts
+    saveData.inventory.item_counts[13] = 20;  // Sticks
+    saveData.has_great_spin_0x02 = 2;         // Set great spin.
 
     saveData.player.owl_statue_flags.great_bay = 1;
     saveData.player.owl_statue_flags.zora_cape = 1;
@@ -109,7 +109,7 @@ namespace rnd {
         These two items allows for skipping the first three day cycle.
         Currently there is no known way to get termina field to load
         in properly without ocarina in inventory.                                */
-      saveData.inventory.collect_register.song_of_time = 1; // Part of starting quest items options
+      saveData.inventory.collect_register.song_of_time = 1;  // Part of starting quest items options
       gSettingsContext.startingOcarina = 1;
       SaveFile_SetStartingInventory();
 
@@ -206,17 +206,27 @@ namespace rnd {
   void SaveFile_SetStartingOwlStatues() {
     game::SaveData& saveData = game::GetCommonData().save;
     // Walkable statues, could have an option to bundle this subgroup
-    if (gSettingsContext.startingOwlStatues.clock_town) saveData.player.owl_statue_flags.clock_town = 1;
-    if (gSettingsContext.startingOwlStatues.milk_road) saveData.player.owl_statue_flags.milk_road = 1;
-    if (gSettingsContext.startingOwlStatues.southern_swamp) saveData.player.owl_statue_flags.southern_swamp = 1;
+    if (gSettingsContext.startingOwlStatues.clock_town)
+      saveData.player.owl_statue_flags.clock_town = 1;
+    if (gSettingsContext.startingOwlStatues.milk_road)
+      saveData.player.owl_statue_flags.milk_road = 1;
+    if (gSettingsContext.startingOwlStatues.southern_swamp)
+      saveData.player.owl_statue_flags.southern_swamp = 1;
     // These give early location access
-    if (gSettingsContext.startingOwlStatues.great_bay) saveData.player.owl_statue_flags.southern_swamp = 1;
-    if (gSettingsContext.startingOwlStatues.zora_cape) saveData.player.owl_statue_flags.southern_swamp = 1;
-    if (gSettingsContext.startingOwlStatues.snowhead) saveData.player.owl_statue_flags.southern_swamp = 1;
-    if (gSettingsContext.startingOwlStatues.mountain_village) saveData.player.owl_statue_flags.southern_swamp = 1;
-    if (gSettingsContext.startingOwlStatues.woodfall) saveData.player.owl_statue_flags.southern_swamp = 1;
-    if (gSettingsContext.startingOwlStatues.ikana_canyon) saveData.player.owl_statue_flags.southern_swamp = 1;
-    if (gSettingsContext.startingOwlStatues.stone_tower) saveData.player.owl_statue_flags.southern_swamp = 1;
+    if (gSettingsContext.startingOwlStatues.great_bay)
+      saveData.player.owl_statue_flags.southern_swamp = 1;
+    if (gSettingsContext.startingOwlStatues.zora_cape)
+      saveData.player.owl_statue_flags.southern_swamp = 1;
+    if (gSettingsContext.startingOwlStatues.snowhead)
+      saveData.player.owl_statue_flags.southern_swamp = 1;
+    if (gSettingsContext.startingOwlStatues.mountain_village)
+      saveData.player.owl_statue_flags.southern_swamp = 1;
+    if (gSettingsContext.startingOwlStatues.woodfall)
+      saveData.player.owl_statue_flags.southern_swamp = 1;
+    if (gSettingsContext.startingOwlStatues.ikana_canyon)
+      saveData.player.owl_statue_flags.southern_swamp = 1;
+    if (gSettingsContext.startingOwlStatues.stone_tower)
+      saveData.player.owl_statue_flags.southern_swamp = 1;
   }
   // Resolve the item ID for the starting bottle
   static void SaveFile_GiveStartingBottle(StartingBottleSetting startingBottle, u8 bottleSlot) {
@@ -244,7 +254,8 @@ namespace rnd {
     game::EquipmentData& equipmentData = game::GetCommonData().save.equipment;
     game::SaveData& saveData = game::GetCommonData().save;
     // give maps and compasses
-    if (gSettingsContext.mapsAndCompasses == (u8)MapsAndCompassesSetting::MAPSANDCOMPASSES_START_WITH) {
+    if (gSettingsContext.mapsAndCompasses ==
+        (u8)MapsAndCompassesSetting::MAPSANDCOMPASSES_START_WITH) {
       inventoryData.woodfall_dungeon_items.map = 1;
       inventoryData.woodfall_dungeon_items.compass = 1;
       inventoryData.snowhead_dungeon_items.map = 1;
@@ -416,4 +427,4 @@ namespace rnd {
     }
   }
 
-} // namespace rnd
+}  // namespace rnd

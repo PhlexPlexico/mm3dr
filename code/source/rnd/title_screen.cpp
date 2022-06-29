@@ -27,14 +27,14 @@ namespace rnd {
 
     // EnMag_Init(thisx, globalCtx);
 
-    // cmabMan = ZAR_GetCMABByIndex(&rExtendedObjectCtx.status[exObjectBankIdx].zarInfo, TEXANIM_TITLE_LOGO_US);
-    // TexAnim_Spawn(enmag->logoModel->unk_0C, cmabMan);
+    // cmabMan = ZAR_GetCMABByIndex(&rExtendedObjectCtx.status[exObjectBankIdx].zarInfo,
+    // TEXANIM_TITLE_LOGO_US); TexAnim_Spawn(enmag->logoModel->unk_0C, cmabMan);
     // enmag->logoModel->unk_0C->animSpeed = 0.0f;
     // enmag->logoModel->unk_0C->animMode = 0;
 
-    // cmabMan = ZAR_GetCMABByIndex(&rExtendedObjectCtx.status[exObjectBankIdx].zarInfo, TEXANIM_COPY_NINTENDO);
-    // TexAnim_Spawn(enmag->copyrightModel->unk_0C, cmabMan);
+    // cmabMan = ZAR_GetCMABByIndex(&rExtendedObjectCtx.status[exObjectBankIdx].zarInfo,
+    // TEXANIM_COPY_NINTENDO); TexAnim_Spawn(enmag->copyrightModel->unk_0C, cmabMan);
     // enmag->copyrightModel->unk_0C->animSpeed = 0.0f;
     // enmag->copyrightModel->unk_0C->animMode = 0;
   }
-} // namespace rnd
+}  // namespace rnd

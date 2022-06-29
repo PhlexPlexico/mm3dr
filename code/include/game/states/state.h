@@ -86,7 +86,8 @@ namespace game {
   };
   static_assert(sizeof(State) == 0x148);
 
-  template <typename T, typename Base = State> struct StateSimple : Base {
+  template <typename T, typename Base = State>
+  struct StateSimple : Base {
     StateSimple() {
       State::calc_fn = [](auto* state) { static_cast<T*>(state)->Calc(); };
       State::exit_fn = [](auto* state) { static_cast<T*>(state)->~T(); };
@@ -123,6 +124,6 @@ namespace game {
   };
   static_assert(sizeof(SaveFile) == 0x14);
 
-} // namespace game
+}  // namespace game
 
 #endif

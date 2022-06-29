@@ -25,6 +25,6 @@ namespace game::act {
   };
   static_assert(sizeof(ObjElegyStatue) == 0x258);
 
-} // namespace game::act
+}  // namespace game::act
 
 #endif

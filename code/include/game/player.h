@@ -227,11 +227,11 @@ namespace game::act {
     u8 gap_904[8];
     char field_914[4];
     u32 door;
-    s16 get_item_id; // Index+1 to the get item ID table.
+    s16 get_item_id;  // Index+1 to the get item ID table.
     s8 get_item_direction;
     Actor* grabbable_actor;
     void* field_924;
-    u32 field_928; // Epona Actor
+    u32 field_928;  // Epona Actor
     u8 fn1_idx;
     u8 fn2_idx;
     char field_92E;
@@ -517,6 +517,6 @@ namespace game::act {
   bool PlayerUpdateMagicCost(game::GlobalContext* gctx, int cost, int mode,
                              AllowExistingMagicUsage allow_existing_usage);
 
-} // namespace game::act
+}  // namespace game::act
 
 #endif

@@ -9,7 +9,7 @@ namespace game {
 
   namespace act {
     struct Actor;
-  } // namespace act
+  }  // namespace act
   struct GlobalContext;
 
   // Names might be incorrect for MM3D.
@@ -293,6 +293,6 @@ namespace game {
   };
   static_assert(sizeof(CameraStateInfo) == 0xc);
 
-} // namespace game
+}  // namespace game
 
 #endif

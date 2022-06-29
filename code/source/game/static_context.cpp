@@ -8,4 +8,4 @@ namespace game {
     return *rnd::util::GetPointer<StaticContext>(0x7892D0);
   }
 
-} // namespace game
+}  // namespace game

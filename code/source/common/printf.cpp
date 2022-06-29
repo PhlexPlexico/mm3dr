@@ -159,8 +159,8 @@ static unsigned int _atoi(const char** str) {
 }
 
 // output the specified string in reverse, taking care of any zero-padding
-static size_t _out_rev(out_fct_type out, char* buffer, size_t idx, size_t maxlen, const char* buf, size_t len,
-                       unsigned int width, unsigned int flags) {
+static size_t _out_rev(out_fct_type out, char* buffer, size_t idx, size_t maxlen, const char* buf,
+                       size_t len, unsigned int width, unsigned int flags) {
   const size_t start_idx = idx;
 
   // pad spaces up to given width
@@ -186,8 +186,9 @@ static size_t _out_rev(out_fct_type out, char* buffer, size_t idx, size_t maxlen
 }
 
 // internal itoa format
-static size_t _ntoa_format(out_fct_type out, char* buffer, size_t idx, size_t maxlen, char* buf, size_t len,
-                           bool negative, bool hex, unsigned int prec, unsigned int width, unsigned int flags) {
+static size_t _ntoa_format(out_fct_type out, char* buffer, size_t idx, size_t maxlen, char* buf,
+                           size_t len, bool negative, bool hex, unsigned int prec,
+                           unsigned int width, unsigned int flags) {
   // pad leading zeros
   if (!(flags & FLAGS_LEFT)) {
     if (width && (flags & FLAGS_ZEROPAD) && (negative || (flags & (FLAGS_PLUS | FLAGS_SPACE)))) {
@@ -223,7 +224,7 @@ static size_t _ntoa_format(out_fct_type out, char* buffer, size_t idx, size_t ma
     if (negative) {
       buf[len++] = '-';
     } else if (flags & FLAGS_PLUS) {
-      buf[len++] = '+'; // ignore the space if the '+' exists
+      buf[len++] = '+';  // ignore the space if the '+' exists
     } else if (flags & FLAGS_SPACE) {
       buf[len++] = ' ';
     }
@@ -233,8 +234,9 @@ static size_t _ntoa_format(out_fct_type out, char* buffer, size_t idx, size_t ma
 }
 
 // internal itoa for 'long' type
-static size_t _ntoa_long(out_fct_type out, char* buffer, size_t idx, size_t maxlen, unsigned long value, bool negative,
-                         bool hex, unsigned int prec, unsigned int width, unsigned int flags) {
+static size_t _ntoa_long(out_fct_type out, char* buffer, size_t idx, size_t maxlen,
+                         unsigned long value, bool negative, bool hex, unsigned int prec,
+                         unsigned int width, unsigned int flags) {
   char buf[PRINTF_NTOA_BUFFER_SIZE];
   size_t len = 0U;
 
@@ -265,30 +267,33 @@ static size_t _ntoa_long(out_fct_type out, char* buffer, size_t idx, size_t maxl
 
 #if defined(PRINTF_SUPPORT_EXPONENTIAL)
 // forward declaration so that _ftoa can switch to exp notation for values > PRINTF_MAX_FLOAT
-static size_t _etoa(out_fct_type out, char* buffer, size_t idx, size_t maxlen, double value, unsigned int prec,
-                    unsigned int width, unsigned int flags);
+static size_t _etoa(out_fct_type out, char* buffer, size_t idx, size_t maxlen, double value,
+                    unsigned int prec, unsigned int width, unsigned int flags);
 #endif
 
 // internal ftoa for fixed decimal floating point
-static size_t _ftoa(out_fct_type out, char* buffer, size_t idx, size_t maxlen, double value, unsigned int prec,
-                    unsigned int width, unsigned int flags) {
+static size_t _ftoa(out_fct_type out, char* buffer, size_t idx, size_t maxlen, double value,
+                    unsigned int prec, unsigned int width, unsigned int flags) {
   char buf[PRINTF_FTOA_BUFFER_SIZE];
   size_t len = 0U;
   double diff = 0.0;
 
   // powers of 10
-  static const double pow10[] = {1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000};
+  static const double pow10[] = {1,      10,      100,      1000,      10000,
+                                 100000, 1000000, 10000000, 100000000, 1000000000};
 
   // test for special values
-  if (value != value) return _out_rev(out, buffer, idx, maxlen, "nan", 3, width, flags);
-  if (value < -DBL_MAX) return _out_rev(out, buffer, idx, maxlen, "fni-", 4, width, flags);
+  if (value != value)
+    return _out_rev(out, buffer, idx, maxlen, "nan", 3, width, flags);
+  if (value < -DBL_MAX)
+    return _out_rev(out, buffer, idx, maxlen, "fni-", 4, width, flags);
   if (value > DBL_MAX)
-    return _out_rev(out, buffer, idx, maxlen, (flags & FLAGS_PLUS) ? "fni+" : "fni", (flags & FLAGS_PLUS) ? 4U : 3U,
-                    width, flags);
+    return _out_rev(out, buffer, idx, maxlen, (flags & FLAGS_PLUS) ? "fni+" : "fni",
+                    (flags & FLAGS_PLUS) ? 4U : 3U, width, flags);
 
   // test for very large values
-  // standard printf behavior is to print EVERY whole number digit -- which could be 100s of characters overflowing your
-  // buffers == bad
+  // standard printf behavior is to print EVERY whole number digit -- which could be 100s of
+  // characters overflowing your buffers == bad
   if ((value > PRINTF_MAX_FLOAT) || (value < -PRINTF_MAX_FLOAT)) {
 #if defined(PRINTF_SUPPORT_EXPONENTIAL)
     return _etoa(out, buffer, idx, maxlen, value, prec, width, flags);
@@ -381,7 +386,7 @@ static size_t _ftoa(out_fct_type out, char* buffer, size_t idx, size_t maxlen, d
     if (negative) {
       buf[len++] = '-';
     } else if (flags & FLAGS_PLUS) {
-      buf[len++] = '+'; // ignore the space if the '+' exists
+      buf[len++] = '+';  // ignore the space if the '+' exists
     } else if (flags & FLAGS_SPACE) {
       buf[len++] = ' ';
     }
@@ -391,9 +396,10 @@ static size_t _ftoa(out_fct_type out, char* buffer, size_t idx, size_t maxlen, d
 }
 
 #if defined(PRINTF_SUPPORT_EXPONENTIAL)
-// internal ftoa variant for exponential floating-point type, contributed by Martijn Jasperse <m.jasperse@gmail.com>
-static size_t _etoa(out_fct_type out, char* buffer, size_t idx, size_t maxlen, double value, unsigned int prec,
-                    unsigned int width, unsigned int flags) {
+// internal ftoa variant for exponential floating-point type, contributed by Martijn Jasperse
+// <m.jasperse@gmail.com>
+static size_t _etoa(out_fct_type out, char* buffer, size_t idx, size_t maxlen, double value,
+                    unsigned int prec, unsigned int width, unsigned int flags) {
   // check for NaN and special values
   if ((value != value) || (value > DBL_MAX) || (value < -DBL_MAX)) {
     return _ftoa(out, buffer, idx, maxlen, value, prec, width, flags);
@@ -418,10 +424,12 @@ static size_t _etoa(out_fct_type out, char* buffer, size_t idx, size_t maxlen, d
   } conv;
 
   conv.F = value;
-  int exp2 = (int)((conv.U >> 52U) & 0x07FFU) - 1023;          // effectively log2
-  conv.U = (conv.U & ((1ULL << 52U) - 1U)) | (1023ULL << 52U); // drop the exponent so conv.F is now in [1,2)
+  int exp2 = (int)((conv.U >> 52U) & 0x07FFU) - 1023;  // effectively log2
+  conv.U = (conv.U & ((1ULL << 52U) - 1U)) |
+           (1023ULL << 52U);  // drop the exponent so conv.F is now in [1,2)
   // now approximate log10 from the log2 integer part and an expansion of ln around 1.5
-  int expval = (int)(0.1760912590558 + exp2 * 0.301029995663981 + (conv.F - 1.5) * 0.289529654602168);
+  int expval =
+      (int)(0.1760912590558 + exp2 * 0.301029995663981 + (conv.F - 1.5) * 0.289529654602168);
   // now we want to compute 10^expval but we want to be sure it won't overflow
   exp2 = (int)(expval * 3.321928094887362 + 0.5);
   const double z = expval * 2.302585092994046 - exp2 * 0.6931471805599453;
@@ -448,7 +456,7 @@ static size_t _etoa(out_fct_type out, char* buffer, size_t idx, size_t maxlen, d
       } else {
         prec = 0;
       }
-      flags |= FLAGS_PRECISION; // make sure _ftoa respects precision
+      flags |= FLAGS_PRECISION;  // make sure _ftoa respects precision
       // no characters in exponent
       minwidth = 0U;
       expval = 0;
@@ -481,15 +489,16 @@ static size_t _etoa(out_fct_type out, char* buffer, size_t idx, size_t maxlen, d
 
   // output the floating part
   const size_t start_idx = idx;
-  idx = _ftoa(out, buffer, idx, maxlen, negative ? -value : value, prec, fwidth, flags & ~FLAGS_ADAPT_EXP);
+  idx = _ftoa(out, buffer, idx, maxlen, negative ? -value : value, prec, fwidth,
+              flags & ~FLAGS_ADAPT_EXP);
 
   // output the exponent part
   if (minwidth) {
     // output the exponential symbol
     out((flags & FLAGS_UPPERCASE) ? 'E' : 'e', buffer, idx++, maxlen);
     // output the exponent value
-    idx = _ntoa_long(out, buffer, idx, maxlen, (expval < 0) ? -expval : expval, expval < 0, false, 0, minwidth - 1,
-                     FLAGS_ZEROPAD | FLAGS_PLUS);
+    idx = _ntoa_long(out, buffer, idx, maxlen, (expval < 0) ? -expval : expval, expval < 0, false,
+                     0, minwidth - 1, FLAGS_ZEROPAD | FLAGS_PLUS);
     // might need to right-pad spaces
     if (flags & FLAGS_LEFT) {
       while (idx - start_idx < width)
@@ -498,11 +507,12 @@ static size_t _etoa(out_fct_type out, char* buffer, size_t idx, size_t maxlen, d
   }
   return idx;
 }
-#endif // PRINTF_SUPPORT_EXPONENTIAL
-#endif // PRINTF_SUPPORT_FLOAT
+#endif  // PRINTF_SUPPORT_EXPONENTIAL
+#endif  // PRINTF_SUPPORT_FLOAT
 
 // internal vsnprintf
-static int _vsnprintf(out_fct_type out, char* buffer, const size_t maxlen, const char* format, va_list va) {
+static int _vsnprintf(out_fct_type out, char* buffer, const size_t maxlen, const char* format,
+                      va_list va) {
   unsigned int flags, width, precision, n;
   size_t idx = 0U;
 
@@ -565,7 +575,7 @@ static int _vsnprintf(out_fct_type out, char* buffer, const size_t maxlen, const
     } else if (*format == '*') {
       const int w = va_arg(va, int);
       if (w < 0) {
-        flags |= FLAGS_LEFT; // reverse padding
+        flags |= FLAGS_LEFT;  // reverse padding
         width = (unsigned int)-w;
       } else {
         width = (unsigned int)w;
@@ -624,7 +634,7 @@ static int _vsnprintf(out_fct_type out, char* buffer, const size_t maxlen, const
       // }
       else {
         hex = false;
-        flags &= ~FLAGS_HASH; // no hash for dec format
+        flags &= ~FLAGS_HASH;  // no hash for dec format
       }
       // uppercase
       if (*format == 'X') {
@@ -646,23 +656,25 @@ static int _vsnprintf(out_fct_type out, char* buffer, const size_t maxlen, const
         // signed
         if (flags & FLAGS_LONG) {
           const long value = va_arg(va, long);
-          idx = _ntoa_long(out, buffer, idx, maxlen, (unsigned long)(value > 0 ? value : 0 - value), value < 0, hex,
-                           precision, width, flags);
+          idx = _ntoa_long(out, buffer, idx, maxlen, (unsigned long)(value > 0 ? value : 0 - value),
+                           value < 0, hex, precision, width, flags);
         } else {
-          const int value = (flags & FLAGS_CHAR)    ? (char)va_arg(va, int)
-                            : (flags & FLAGS_SHORT) ? (short int)va_arg(va, int)
-                                                    : va_arg(va, int);
-          idx = _ntoa_long(out, buffer, idx, maxlen, (unsigned int)(value > 0 ? value : 0 - value), value < 0, hex,
-                           precision, width, flags);
+          const int value = (flags & FLAGS_CHAR)  ? (char)va_arg(va, int) :
+                            (flags & FLAGS_SHORT) ? (short int)va_arg(va, int) :
+                                                    va_arg(va, int);
+          idx = _ntoa_long(out, buffer, idx, maxlen, (unsigned int)(value > 0 ? value : 0 - value),
+                           value < 0, hex, precision, width, flags);
         }
       } else {
         // unsigned
         if (flags & FLAGS_LONG) {
-          idx = _ntoa_long(out, buffer, idx, maxlen, va_arg(va, unsigned long), false, hex, precision, width, flags);
+          idx = _ntoa_long(out, buffer, idx, maxlen, va_arg(va, unsigned long), false, hex,
+                           precision, width, flags);
         } else {
-          const unsigned int value = (flags & FLAGS_CHAR)    ? (unsigned char)va_arg(va, unsigned int)
-                                     : (flags & FLAGS_SHORT) ? (unsigned short int)va_arg(va, unsigned int)
-                                                             : va_arg(va, unsigned int);
+          const unsigned int value =
+              (flags & FLAGS_CHAR)  ? (unsigned char)va_arg(va, unsigned int) :
+              (flags & FLAGS_SHORT) ? (unsigned short int)va_arg(va, unsigned int) :
+                                      va_arg(va, unsigned int);
           idx = _ntoa_long(out, buffer, idx, maxlen, value, false, hex, precision, width, flags);
         }
       }
@@ -672,7 +684,8 @@ static int _vsnprintf(out_fct_type out, char* buffer, const size_t maxlen, const
 #if defined(PRINTF_SUPPORT_FLOAT)
     case 'f':
     case 'F':
-      if (*format == 'F') flags |= FLAGS_UPPERCASE;
+      if (*format == 'F')
+        flags |= FLAGS_UPPERCASE;
       idx = _ftoa(out, buffer, idx, maxlen, va_arg(va, double), precision, width, flags);
       format++;
       break;
@@ -681,13 +694,15 @@ static int _vsnprintf(out_fct_type out, char* buffer, const size_t maxlen, const
     case 'E':
     case 'g':
     case 'G':
-      if ((*format == 'g') || (*format == 'G')) flags |= FLAGS_ADAPT_EXP;
-      if ((*format == 'E') || (*format == 'G')) flags |= FLAGS_UPPERCASE;
+      if ((*format == 'g') || (*format == 'G'))
+        flags |= FLAGS_ADAPT_EXP;
+      if ((*format == 'E') || (*format == 'G'))
+        flags |= FLAGS_UPPERCASE;
       idx = _etoa(out, buffer, idx, maxlen, va_arg(va, double), precision, width, flags);
       format++;
       break;
-#endif // PRINTF_SUPPORT_EXPONENTIAL
-#endif // PRINTF_SUPPORT_FLOAT
+#endif  // PRINTF_SUPPORT_EXPONENTIAL
+#endif  // PRINTF_SUPPORT_FLOAT
     case 'c': {
       unsigned int l = 1U;
       // pre padding
@@ -737,8 +752,8 @@ static int _vsnprintf(out_fct_type out, char* buffer, const size_t maxlen, const
     case 'p': {
       width = sizeof(void*) * 2U;
       flags |= FLAGS_ZEROPAD | FLAGS_UPPERCASE;
-      idx = _ntoa_long(out, buffer, idx, maxlen, (unsigned long)((uintptr_t)va_arg(va, void*)), false, true, precision,
-                       width, flags);
+      idx = _ntoa_long(out, buffer, idx, maxlen, (unsigned long)((uintptr_t)va_arg(va, void*)),
+                       false, true, precision, width, flags);
       format++;
       break;
     }

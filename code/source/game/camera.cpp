@@ -11,4 +11,4 @@ namespace game {
     return rnd::util::GetPointer<u32(Camera*, CameraMode, u32)>(0x18B31C)(this, mode, unknown);
   }
 
-} // namespace game
+}  // namespace game

@@ -36,6 +36,6 @@ namespace rnd {
   #endif
 
     EXTERN ExtSaveData gExtSaveData;*/
-} // namespace rnd
+}  // namespace rnd
 
-#endif //_SAVEFILE_H_
+#endif  //_SAVEFILE_H_

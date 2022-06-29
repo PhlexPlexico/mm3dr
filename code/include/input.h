@@ -1,5 +1,5 @@
-#include "z3d/z3DVec.h"
 #include "hid.h"
+#include "z3d/z3DVec.h"
 
 typedef struct {
   btn_t cur;

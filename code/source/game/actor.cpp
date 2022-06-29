@@ -16,4 +16,4 @@ namespace game::act {
     return rnd::util::GetPointer<ActorOverlayInfo*()>(0x657768)();
   }
 
-} // namespace game::act
+}  // namespace game::act

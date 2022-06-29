@@ -1,5 +1,5 @@
-#include <string.h>
 #include "rnd/custom_models.h"
+#include <string.h>
 #include "z3d/z3DVec.h"
 
 #define EDIT_BYTE(offset_, val_) (BASE_[offset_] = val_)
@@ -11,11 +11,11 @@ void CustomModel_EditTitleScreenLogo(void* titleScreenZAR) {
   // copy_nintendo.cmb:
   EDIT_BYTE(0x4F3, 0x40);
   EDIT_BYTE(0x5905, 0x00);
-  EDIT_BYTE(0x5906, 0x01); // Change texture dataLength
-  EDIT_BYTE(0x590A, 0x01); // IsETC1 = true
-  EDIT_BYTE(0x590D, 0x02); // Width  = 512
-  EDIT_BYTE(0x590E, 0x80); // Height = 128
-  EDIT_BYTE(0x5910, 0x5B); // ETC1a4
+  EDIT_BYTE(0x5906, 0x01);  // Change texture dataLength
+  EDIT_BYTE(0x590A, 0x01);  // IsETC1 = true
+  EDIT_BYTE(0x590D, 0x02);  // Width  = 512
+  EDIT_BYTE(0x590E, 0x80);  // Height = 128
+  EDIT_BYTE(0x5910, 0x5B);  // ETC1a4
   // Edit positionOffset of each shape
   EDIT_BYTE(0x597A, 0x80);
   EDIT_BYTE(0x597B, 0x3F);
@@ -58,16 +58,16 @@ void CustomModel_EditTitleScreenLogo(void* titleScreenZAR) {
   EDIT_BYTE(0x38633, 0x40);
 
   // g_title_fire.cmab
-  EDIT_BYTE(0x5E570, 0x01); // Change keyframe count to 1 so we only have to change one keyframe
+  EDIT_BYTE(0x5E570, 0x01);  // Change keyframe count to 1 so we only have to change one keyframe
   EDIT_BYTE(0x5E580, 0x0A);
   EDIT_BYTE(0x5E581, 0xD7);
   EDIT_BYTE(0x5E582, 0x23);
-  EDIT_BYTE(0x5E583, 0x3D); // Red to 0.04
+  EDIT_BYTE(0x5E583, 0x3D);  // Red to 0.04
   EDIT_BYTE(0x5E660, 0x01);
   EDIT_BYTE(0x5E670, 0x91);
   EDIT_BYTE(0x5E671, 0xED);
   EDIT_BYTE(0x5E672, 0x5C);
-  EDIT_BYTE(0x5E673, 0x3F); // Green 0.863
+  EDIT_BYTE(0x5E673, 0x3F);  // Green 0.863
 
   // g_title_fire_ura.cmab
   EDIT_BYTE(0x5EA80, 0x01);

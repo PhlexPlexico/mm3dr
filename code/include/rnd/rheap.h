@@ -6,6 +6,6 @@
 namespace rnd {
   void rHeap_Init(void);
   void* rHeap_Alloc(u32 bytes);
-} // namespace rnd
+}  // namespace rnd
 
-#endif //_RND_RHEAP_H_
+#endif  //_RND_RHEAP_H_

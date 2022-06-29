@@ -41,11 +41,13 @@ extern "C" {
 
 #define REG32(addr) (*(vu32*)(PA_PTR(addr)))
 
-static inline u32 makeARMBranch(const void* src, const void* dst, bool link) // the macros for those are ugly and buggy
+static inline u32 makeARMBranch(const void* src, const void* dst,
+                                bool link)  // the macros for those are ugly and buggy
 {
   u32 instrBase = link ? 0xEB000000 : 0xEA000000;
-  u32 off =
-      (u32)((const u8*)dst - ((const u8*)src + 8)); // the PC is always two instructions ahead of the one being executed
+  u32 off = (u32)((const u8*)dst -
+                  ((const u8*)src +
+                   8));  // the PC is always two instructions ahead of the one being executed
 
   return instrBase | ((off >> 2) & 0xFFFFFF);
 }
@@ -53,7 +55,7 @@ static inline u32 makeARMBranch(const void* src, const void* dst, bool link) // 
 static inline void* decodeARMBranch(const void* src) {
   u32 instr = *(const u32*)src;
   s32 off = (instr & 0xFFFFFF) << 2;
-  off = (off << 6) >> 6; // sign extend
+  off = (off << 6) >> 6;  // sign extend
 
   return (void*)((const u8*)src + 8 + off);
 }

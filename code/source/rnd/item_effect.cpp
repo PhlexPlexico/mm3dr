@@ -1,5 +1,5 @@
-#include "rnd/icetrap.h"
 #include "rnd/item_effect.h"
+#include "rnd/icetrap.h"
 #include "rnd/savefile.h"
 #include "rnd/settings.h"
 #include "z3d/z3DVec.h"
@@ -11,8 +11,10 @@ namespace rnd {
 
   void ItemEffect_FullHeal(game::CommonData* comData, s16 arg1, s16 arg) {
     // With the No Health Refills option on, store-bought health upgrades do not heal the player
-    if ((gSettingsContext.heartDropRefill != (u8)HeartDropRefillSetting::HEARTDROPREFILL_NOREFILL) &&
-        (gSettingsContext.heartDropRefill != (u8)HeartDropRefillSetting::HEARTDROPREFILL_NODROPREFILL)) {
+    if ((gSettingsContext.heartDropRefill !=
+         (u8)HeartDropRefillSetting::HEARTDROPREFILL_NOREFILL) &&
+        (gSettingsContext.heartDropRefill !=
+         (u8)HeartDropRefillSetting::HEARTDROPREFILL_NODROPREFILL)) {
       comData->health_accumulator = 20 * 0x10;
     }
     return;
@@ -20,7 +22,8 @@ namespace rnd {
 
   void ItemEffect_GiveGiantsWallet(game::CommonData* comData, s16 arg1, s16 arg) {
     comData->save.inventory.inventory_count_register.wallet_upgrade = 2;
-    if (gSettingsContext.startingMaxRupees) comData->save.player.rupee_count = 999;
+    if (gSettingsContext.startingMaxRupees)
+      comData->save.player.rupee_count = 999;
     return;
   }
 
@@ -29,7 +32,8 @@ namespace rnd {
     if (comData->save.equipment.sword_shield.sword > game::SwordType::KokiriSword) {
       return;
     }
-    comData->save.equipment.sword_shield.sword = game::SwordType::KokiriSword; // Set sword to kokiri.
+    comData->save.equipment.sword_shield.sword =
+        game::SwordType::KokiriSword;  // Set sword to kokiri.
   }
 
   void ItemEffect_GiveRazorSword(game::CommonData* comData, s16 arg1, s16 arg2) {
@@ -37,12 +41,14 @@ namespace rnd {
     if (comData->save.equipment.sword_shield.sword > game::SwordType::RazorSword) {
       return;
     }
-    comData->save.player.razor_sword_hp = 100;                                // Set to 100 hits. Maybe randomize?
-    comData->save.equipment.sword_shield.sword = game::SwordType::RazorSword; // Set sword to razor.
+    comData->save.player.razor_sword_hp = 100;  // Set to 100 hits. Maybe randomize?
+    comData->save.equipment.sword_shield.sword =
+        game::SwordType::RazorSword;  // Set sword to razor.
   }
 
   void ItemEffect_GiveGildedSword(game::CommonData* comData, s16 arg1, s16 arg2) {
-    comData->save.equipment.sword_shield.sword = game::SwordType::GildedSword; // Set sword to gilded.
+    comData->save.equipment.sword_shield.sword =
+        game::SwordType::GildedSword;  // Set sword to gilded.
   }
 
   void ItemEffect_GiveBottle(game::CommonData* comData, s16 bottleItemId, s16 arg2) {
@@ -62,19 +68,27 @@ namespace rnd {
     s8 keys;
     switch (dungeonId) {
     case 0:
-      keys = comData->save.inventory.woodfall_temple_keys < 0 ? 0 : comData->save.inventory.woodfall_temple_keys;
+      keys = comData->save.inventory.woodfall_temple_keys < 0 ?
+                 0 :
+                 comData->save.inventory.woodfall_temple_keys;
       comData->save.inventory.woodfall_temple_keys = keys + 1;
       break;
     case 1:
-      keys = comData->save.inventory.snowhead_temple_keys < 0 ? 0 : comData->save.inventory.snowhead_temple_keys;
+      keys = comData->save.inventory.snowhead_temple_keys < 0 ?
+                 0 :
+                 comData->save.inventory.snowhead_temple_keys;
       comData->save.inventory.snowhead_temple_keys = keys + 1;
       break;
     case 2:
-      keys = comData->save.inventory.great_bay_temple_keys < 0 ? 0 : comData->save.inventory.great_bay_temple_keys;
+      keys = comData->save.inventory.great_bay_temple_keys < 0 ?
+                 0 :
+                 comData->save.inventory.great_bay_temple_keys;
       comData->save.inventory.great_bay_temple_keys = keys + 1;
       break;
     case 3:
-      keys = comData->save.inventory.stone_tower_temple_keys < 0 ? 0 : comData->save.inventory.stone_tower_temple_keys;
+      keys = comData->save.inventory.stone_tower_temple_keys < 0 ?
+                 0 :
+                 comData->save.inventory.stone_tower_temple_keys;
       comData->save.inventory.stone_tower_temple_keys = keys + 1;
       break;
     default:
@@ -91,10 +105,11 @@ namespace rnd {
     comData->magic_max_2 = 1;
     comData->save.player.magic_num_upgrades = 1;
     comData->save.player.magic_acquired = 1;
-    // So you can't use the shoot button without nuts assigned to B. If they are not assigned, assign them.
+    // So you can't use the shoot button without nuts assigned to B. If they are not assigned,
+    // assign them.
     if (comData->save.equipment.data[3].item_btns[0] != game::ItemId::DekuNuts)
       comData->save.equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
-    comData->magic_accumulator = 0x60; // Fill meter
+    comData->magic_accumulator = 0x60;  // Fill meter
     return;
   }
 
@@ -105,8 +120,10 @@ namespace rnd {
 
   void ItemEffect_GiveDoubleDefense(game::CommonData* comData, s16 arg1, s16 arg2) {
     comData->save.player.double_defense = 1;
-    if ((gSettingsContext.heartDropRefill != (u8)HeartDropRefillSetting::HEARTDROPREFILL_NOREFILL) &&
-        (gSettingsContext.heartDropRefill != (u8)HeartDropRefillSetting::HEARTDROPREFILL_NODROPREFILL)) {
+    if ((gSettingsContext.heartDropRefill !=
+         (u8)HeartDropRefillSetting::HEARTDROPREFILL_NOREFILL) &&
+        (gSettingsContext.heartDropRefill !=
+         (u8)HeartDropRefillSetting::HEARTDROPREFILL_NODROPREFILL)) {
       comData->health_accumulator = 20 * 0x10;
     }
   }
@@ -159,21 +176,22 @@ namespace rnd {
     // TODO: Skip shooting test.
     /*if (questBit == 14 && gSettingsContext.skipEponaRace == SKIP) {
         comData->eventChkInf[0x1] |= 0x0100;
-        gSaveContext.horseData.pos.y = 0xF000; // place Epona OoB, so you can't reach her without playing the song
+        gSaveContext.horseData.pos.y = 0xF000; // place Epona OoB, so you can't reach her without
+    playing the song
     }*/
   }
 
   void ItemEffect_PlaceMagicArrowsInInventory(game::CommonData* comData, s16 arg1, s16 arg2) {
-    if (arg1 == 0) { // Fairy Bow
+    if (arg1 == 0) {  // Fairy Bow
       SaveFile_ResetItemSlotsIfMatchesID((u8)game::ItemId::FireArrow);
       SaveFile_ResetItemSlotsIfMatchesID((u8)game::ItemId::IceArrow);
       SaveFile_ResetItemSlotsIfMatchesID((u8)game::ItemId::LightArrow);
     } else if (game::HasItem(game::ItemId::Arrow)) {
-      if (arg1 == 1 && !game::HasItem(game::ItemId::FireArrow)) { // Fire Arrow
+      if (arg1 == 1 && !game::HasItem(game::ItemId::FireArrow)) {  // Fire Arrow
         game::GiveItem(game::ItemId::FireArrow);
-      } else if (arg1 == 2 && !game::HasItem(game::ItemId::IceArrow)) { // Ice Arrow
+      } else if (arg1 == 2 && !game::HasItem(game::ItemId::IceArrow)) {  // Ice Arrow
         game::GiveItem(game::ItemId::IceArrow);
-      } else if (arg1 == 3 && !game::HasItem(game::ItemId::LightArrow)) { // Light Arrow
+      } else if (arg1 == 3 && !game::HasItem(game::ItemId::LightArrow)) {  // Light Arrow
         game::GiveItem(game::ItemId::LightArrow);
       }
     }
@@ -225,7 +243,7 @@ namespace rnd {
 
   void ItemEffect_BeanPack(game::CommonData* comData, s16 arg1, s16 arg2) {
     game::GiveItem(game::ItemId::MagicBean);
-    comData->save.inventory.item_counts[15] += 10; // 10 Magic Beans
+    comData->save.inventory.item_counts[15] += 10;  // 10 Magic Beans
     return;
   }
 
@@ -255,24 +273,36 @@ namespace rnd {
   void ItemEffect_GiveDungeonItem(game::CommonData* comData, s16 mask, s16 dungeonId) {
     switch (dungeonId) {
     case 0:
-      if (mask == 1) comData->save.inventory.woodfall_dungeon_items.boss_key = 1;
-      else if (mask == 2) comData->save.inventory.woodfall_dungeon_items.compass = 1;
-      else if (mask == 3) comData->save.inventory.woodfall_dungeon_items.map = 1;
+      if (mask == 1)
+        comData->save.inventory.woodfall_dungeon_items.boss_key = 1;
+      else if (mask == 2)
+        comData->save.inventory.woodfall_dungeon_items.compass = 1;
+      else if (mask == 3)
+        comData->save.inventory.woodfall_dungeon_items.map = 1;
       break;
     case 1:
-      if (mask == 1) comData->save.inventory.snowhead_dungeon_items.boss_key = 1;
-      else if (mask == 2) comData->save.inventory.snowhead_dungeon_items.compass = 1;
-      else if (mask == 3) comData->save.inventory.snowhead_dungeon_items.map = 1;
+      if (mask == 1)
+        comData->save.inventory.snowhead_dungeon_items.boss_key = 1;
+      else if (mask == 2)
+        comData->save.inventory.snowhead_dungeon_items.compass = 1;
+      else if (mask == 3)
+        comData->save.inventory.snowhead_dungeon_items.map = 1;
       break;
     case 2:
-      if (mask == 1) comData->save.inventory.great_bay_dungeon_items.boss_key = 1;
-      else if (mask == 2) comData->save.inventory.great_bay_dungeon_items.compass = 1;
-      else if (mask == 3) comData->save.inventory.great_bay_dungeon_items.map = 1;
+      if (mask == 1)
+        comData->save.inventory.great_bay_dungeon_items.boss_key = 1;
+      else if (mask == 2)
+        comData->save.inventory.great_bay_dungeon_items.compass = 1;
+      else if (mask == 3)
+        comData->save.inventory.great_bay_dungeon_items.map = 1;
       break;
     case 3:
-      if (mask == 1) comData->save.inventory.stone_tower_dungeon_items.boss_key = 1;
-      else if (mask == 2) comData->save.inventory.stone_tower_dungeon_items.compass = 1;
-      else if (mask == 3) comData->save.inventory.stone_tower_dungeon_items.map = 1;
+      if (mask == 1)
+        comData->save.inventory.stone_tower_dungeon_items.boss_key = 1;
+      else if (mask == 2)
+        comData->save.inventory.stone_tower_dungeon_items.compass = 1;
+      else if (mask == 3)
+        comData->save.inventory.stone_tower_dungeon_items.map = 1;
       break;
     }
   }
@@ -282,16 +312,18 @@ namespace rnd {
     comData->save.player.magic_size_type = 0;
     comData->save.player.magic = 48;
     comData->save.equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
-    comData->save.player.magic_num_upgrades = 0; // Single Magic
+    comData->save.player.magic_num_upgrades = 0;  // Single Magic
   }
 
   void ItemEffect_GiveSkulltula(game::CommonData* comData, s16 whichHouse, s16 arg2) {
     switch (whichHouse) {
     case 0:
-      comData->save.skulltulas_collected.swamp_count = comData->save.skulltulas_collected.swamp_count + 1;
+      comData->save.skulltulas_collected.swamp_count =
+          comData->save.skulltulas_collected.swamp_count + 1;
       break;
     case 1:
-      comData->save.skulltulas_collected.ocean_count = comData->save.skulltulas_collected.ocean_count + 1;
+      comData->save.skulltulas_collected.ocean_count =
+          comData->save.skulltulas_collected.ocean_count + 1;
       break;
     default:
       break;
@@ -317,4 +349,4 @@ namespace rnd {
     rnd::util::GetPointer<void(game::GlobalContext*, int)>(0x222BCC)(rnd::GetContext().gctx, 0);
   }
 
-} // namespace rnd
+}  // namespace rnd

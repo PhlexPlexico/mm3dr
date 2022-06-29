@@ -2809,6 +2809,6 @@ namespace game::sound {
 
   void ControlEnv(int index);
 
-} // namespace game::sound
+}  // namespace game::sound
 
 #endif

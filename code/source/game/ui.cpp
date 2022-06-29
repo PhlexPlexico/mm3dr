@@ -33,14 +33,15 @@ namespace game::ui {
     case ScreenType::Ocarina:
       return *rnd::util::GetPointer<Screen*>(0x656B1C);
     }
-    return nullptr; // should be unreachable
+    return nullptr;  // should be unreachable
   }
 
   bool OpenScreen(ScreenType screen) {
     GlobalContext* gctx = rnd::GetContext().gctx;
     ScreenContext& ui_ctx = GetScreenContext();
 
-    if (!gctx || gctx->type != StateType::Play) return false;
+    if (!gctx || gctx->type != StateType::Play)
+      return false;
 
     ui_ctx.new_screen = GetScreen(screen);
     gctx->pause_flags = PauseFlag::PauseCalc;
@@ -50,9 +51,11 @@ namespace game::ui {
       GetStaticContext().field_D38 = 0;
       gctx->field_CAB0 = 0xA0A0A000;
     }
-    if (!gctx->field_CAAD) gctx->field_CAB0 = 0;
+    if (!gctx->field_CAAD)
+      gctx->field_CAB0 = 0;
 
-    if (gctx->some_fn2 && !gctx->some_fn2(&gctx->some_ptr) && gctx->some_fn1) gctx->some_fn1(&gctx->some_ptr, 0);
+    if (gctx->some_fn2 && !gctx->some_fn2(&gctx->some_ptr) && gctx->some_fn1)
+      gctx->some_fn1(&gctx->some_ptr, 0);
 
     return true;
   }
@@ -62,4 +65,4 @@ namespace game::ui {
     return ctx.active_screen == GetScreen(screen) && !ctx.new_screen;
   }
 
-} // namespace game::ui
+}  // namespace game::ui

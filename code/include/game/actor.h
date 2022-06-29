@@ -74,7 +74,8 @@ namespace game::act {
   using MainFunc = void(Actor* self, GlobalContext* gctx);
 
   // Typically used in derived actors to implement states ("modes") for actor state machines.
-  template <typename ActorType> using ActionFunc = void(ActorType* self, GlobalContext* gctx);
+  template <typename ActorType>
+  using ActionFunc = void(ActorType* self, GlobalContext* gctx);
 
   struct ActorInfo {
     Id id;
@@ -285,6 +286,6 @@ namespace game::act {
 
   ActorOverlayInfo* GetActorOverlayInfoTable();
 
-} // namespace game::act
+}  // namespace game::act
 
 #endif

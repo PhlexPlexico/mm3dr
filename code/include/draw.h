@@ -28,7 +28,7 @@
 #include <3ds/gfx.h>
 #include <3ds/types.h>
 
-#define FB_BOTTOM_VRAM_ADDR ((void*)0x1F48F000) // cached
+#define FB_BOTTOM_VRAM_ADDR ((void*)0x1F48F000)  // cached
 #define FB_BOTTOM_VRAM_PA 0x1848F000
 #define FB_BOTTOM_SIZE (320 * 240 * 3)
 #define FB_TOP_SIZE (400 * 240 * 3)

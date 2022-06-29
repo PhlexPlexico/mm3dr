@@ -16,8 +16,8 @@ struct EnMag {
   // SkeletonAnimationModel* fireModel;
   // SkeletonAnimationModel* copyrightModel;
   // char unk_1B0[0x30];
-}; // size 0x1E0;
+};  // size 0x1E0;
 
 void EnMag_rInit(game::act::Actor* thisx, game::GlobalContext* globalCtx);
 
-#endif //_TITLE_SCREEN_H_
+#endif  //_TITLE_SCREEN_H_

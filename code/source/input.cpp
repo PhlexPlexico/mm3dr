@@ -1,9 +1,9 @@
 
 
-#include "z3d/z3DVec.h"
-#include "hid.h"
 #include "input.h"
+#include "hid.h"
 #include "utils.h"
+#include "z3d/z3DVec.h"
 
 extern "C" {
 #include <3ds/svc.h>
@@ -27,7 +27,8 @@ void Input_Update(void) {
 
 u32 buttonCheck(u32 key) {
   for (u32 i = 0x26000; i > 0; i--) {
-    if (key != real_hid.pad.pads[real_hid.pad.index].curr.val) return 0;
+    if (key != real_hid.pad.pads[real_hid.pad.index].curr.val)
+      return 0;
   }
   return 1;
 }
@@ -43,11 +44,10 @@ u32 Input_WaitWithTimeout(u32 msec, u32 closingButton) {
     svcSleepThread(reinterpret_cast<s64>(1 * 1000 * 1000LL));
     n++;
 
-    // If the player presses the closing button while still holding other buttons, the menu closes (useful for
-    // buffering);
+    // If the player presses the closing button while still holding other buttons, the menu closes
+    // (useful for buffering);
     u32 tempButtons = HID_PAD;
     if (tempButtons != startingButtonState && buttonCheck(tempButtons)) {
-
       if (tempButtons & closingButton) {
         break;
       } else {

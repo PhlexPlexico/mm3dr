@@ -336,5 +336,5 @@ namespace rnd {
   s32 Settings_ApplyDamageMultiplier(game::GlobalContext*, s32);
   u32 Hash(u32);
   u8 Bias(u32);
-} // namespace rnd
+}  // namespace rnd
 #endif

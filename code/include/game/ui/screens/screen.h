@@ -21,7 +21,8 @@ namespace game::ui {
 
   struct ScreenContext {
     virtual ~ScreenContext() = default;
-    template <typename T> T* GetState() const {
+    template <typename T>
+    T* GetState() const {
       return ctx ? static_cast<T*>(ctx->game_state) : nullptr;
     }
 
@@ -61,9 +62,7 @@ namespace game::ui {
     virtual void m4() {}
     /// Called while opening the screen.
     /// Return true when finished.
-    virtual bool CalcOpen(ScreenContext&) {
-      return true;
-    }
+    virtual bool CalcOpen(ScreenContext&) { return true; }
     virtual void Open(ScreenContext&) {}
     virtual void Calc(ScreenContext&) {}
     /// Called after game state calc.
@@ -71,13 +70,11 @@ namespace game::ui {
     virtual void PrepareClose(ScreenContext&) {}
     /// Called while closing the screen.
     /// Return true when finished (typically, after animations have completed).
-    virtual bool CalcClose(ScreenContext&) {
-      return true;
-    }
+    virtual bool CalcClose(ScreenContext&) { return true; }
     virtual void Close(ScreenContext&) {}
   };
   static_assert(sizeof(Screen) == 0x4);
 
-} // namespace game::ui
+}  // namespace game::ui
 
 #endif

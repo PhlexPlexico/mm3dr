@@ -24,5 +24,5 @@ namespace rnd {
 
   Context& GetContext();
 
-} // namespace rnd
+}  // namespace rnd
 #endif

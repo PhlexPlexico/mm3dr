@@ -19,7 +19,7 @@ namespace game::ObjectBank {
     u32 field_0;
     u32 field_4;
     u8 field_8;
-  }; // size == 0x09?
+  };  // size == 0x09?
   static_assert(sizeof(Csab) == 0x0C);
 
   struct Cmab {
@@ -31,7 +31,7 @@ namespace game::ObjectBank {
     u32 field_10;
     u32 field_14;
     u32 field_18;
-  }; // size == 0x09?
+  };  // size == 0x09?
   static_assert(sizeof(Cmab) == 0x1C);
 
   struct ObjectBankArchive {
@@ -63,6 +63,6 @@ namespace game::ObjectBank {
   void init(ObjectBankArchive*, u32, ResArchiveHeader*, int, char);
   void* getCmbFile(ObjectBankArchive*, u32, u32);
   void free(ObjectBankArchive*);
-} // namespace game::ObjectBank
+}  // namespace game::ObjectBank
 
 #endif

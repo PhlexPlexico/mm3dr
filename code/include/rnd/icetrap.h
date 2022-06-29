@@ -9,6 +9,6 @@ namespace rnd {
   void IceTrap_Push();
   void IceTrap_Give();
   bool IceTrap_IsPending();
-} // namespace rnd
+}  // namespace rnd
 
-#endif // ICETRAP_H
+#endif  // ICETRAP_H

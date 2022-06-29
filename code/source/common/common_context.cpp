@@ -7,4 +7,4 @@ namespace rnd {
     return s_context;
   }
 
-} // namespace rnd
+}  // namespace rnd

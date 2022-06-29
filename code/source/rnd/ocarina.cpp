@@ -18,7 +18,8 @@ namespace rnd {
     const auto set_ocarina_fadeout = util::GetPointer<void(int zero, int duration)>(0x4FE0BC);
     set_ocarina_fadeout(0, fade_durations[u8(gctx->GetPlayerActor()->active_form)]);
 
-    const auto set_ocarina_mode = util::GetPointer<void(game::ui::MessageWindow*, int mode)>(0x1D1A18);
+    const auto set_ocarina_mode =
+        util::GetPointer<void(game::ui::MessageWindow*, int mode)>(0x1D1A18);
     set_ocarina_mode(window, 1);
 
     // Disable BGM fadeout
@@ -55,7 +56,8 @@ namespace rnd {
     // 0x18 repeating (step 7; end)
     static rnd::BitSet<16> s_played_songs;
     const bool played_once = u16(song) < s_played_songs.Count() && s_played_songs.IsSet(u16(song));
-    if (u16(song) < s_played_songs.Count()) s_played_songs.Set(u16(song));
+    if (u16(song) < s_played_songs.Count())
+      s_played_songs.Set(u16(song));
 
     if (song == game::OcarinaSong::SongOfSoaring) {
       if (!played_once) {
@@ -78,7 +80,8 @@ namespace rnd {
     }
 
     if (song == game::OcarinaSong::ElegyOfEmptiness) {
-      if (!played_once) return false;
+      if (!played_once)
+        return false;
 
       EndOcarinaSession(self);
 
@@ -88,7 +91,7 @@ namespace rnd {
         gctx->ocarina_song = game::OcarinaSong::ElegyOfEmptiness;
         gctx->ocarina_state = game::OcarinaState::PlayingAndReplayDone;
       } else {
-        gctx->ShowMessage(0x1B95, 0); // "Your notes echoed far..."
+        gctx->ShowMessage(0x1B95, 0);  // "Your notes echoed far..."
         gctx->ocarina_state = game::OcarinaState::StoppedPlaying;
         util::GetPointer<void(int)>(0x1D8C5C)(0);
       }
@@ -99,7 +102,7 @@ namespace rnd {
     return false;
   }
 
-} // namespace rnd
+}  // namespace rnd
 
 extern "C" {
 bool HandleOcarinaSong(game::ui::MessageWindow* self, game::OcarinaSong song) {

@@ -1,6 +1,6 @@
+#include "rnd/spoiler_data.h"
 #include "game/common_data.h"
 #include "rnd/settings.h"
-#include "rnd/spoiler_data.h"
 #include "z3d/z3DVec.h"
 
 namespace rnd {
@@ -15,8 +15,8 @@ namespace rnd {
   }
 
   SpoilerItemLocation GetSpoilerItemLocation(u8 sphere, u16 itemIndex) {
-    return gSpoilerData
-        .ItemLocations[gSpoilerData.SphereItemLocations[gSpoilerData.Spheres[sphere].ItemLocationsOffset]];
+    return gSpoilerData.ItemLocations
+        [gSpoilerData.SphereItemLocations[gSpoilerData.Spheres[sphere].ItemLocationsOffset]];
   }
 
   u8 SpoilerData_ChestCheck(SpoilerItemLocation itemLoc) {
@@ -101,35 +101,37 @@ namespace rnd {
     SpoilerItemLocation itemLoc = gSpoilerData.ItemLocations[itemIndex];
     // game::SaveData &gSaveContext = game::GetCommonData().save;
     switch (itemLoc.CollectionCheckType) {
-    case SPOILER_CHK_NONE: { // Not ever 'collectable' (Ganon, or any item that didn't have a type set)
+    case SPOILER_CHK_NONE: {  // Not ever 'collectable' (Ganon, or any item that didn't have a type
+                              // set)
       return 0;
     }
-    case SPOILER_CHK_ALWAYS_COLLECTED: { // Items that are considered always collected, like Link's Pocket
+    case SPOILER_CHK_ALWAYS_COLLECTED: {  // Items that are considered always collected, like Link's
+                                          // Pocket
       return 1;
     }
-    case SPOILER_CHK_CHEST: { // Chest
+    case SPOILER_CHK_CHEST: {  // Chest
       return rnd::SpoilerData_ChestCheck(itemLoc);
     }
-    case SPOILER_CHK_COLLECTABLE: { // Placed in world, saved in the collect flags of a scene
+    case SPOILER_CHK_COLLECTABLE: {  // Placed in world, saved in the collect flags of a scene
       return SpoilerData_CollectableCheck(itemLoc);
     }
-    case SPOILER_CHK_SWAMP_SKULLTULA: { // Swamp skulltula
+    case SPOILER_CHK_SWAMP_SKULLTULA: {  // Swamp skulltula
       // gSaveContext.skulltulas_collected.swamp_count
       return -1;
     }
-    case SPOILER_CHK_OCEAN_SKULLTULA: { // Ocean skulltula
+    case SPOILER_CHK_OCEAN_SKULLTULA: {  // Ocean skulltula
       // gSaveContext.skulltulas_collected.ocean_count
       return -1;
     }
-    case SPOILER_CHK_ITEM_GET_INF: { // Check a flag set in item_get_inf
+    case SPOILER_CHK_ITEM_GET_INF: {  // Check a flag set in item_get_inf
       return SpoilerData_ItemGetInfCheck(itemLoc.LocationFlag);
     }
-    case SPOILER_CHK_EVENT_CHK_INF: { // Check a flag set in event_check_inf
+    case SPOILER_CHK_EVENT_CHK_INF: {  // Check a flag set in event_check_inf
       return -1;
       // TODO: Implement EventCheck.
       // return EventCheck(itemLoc.LocationFlag) != 0;
     }
-    case SPOILER_CHK_INF_TABLE: { // Check a flag set in event_check_inf
+    case SPOILER_CHK_INF_TABLE: {  // Check a flag set in event_check_inf
       return SpoilerData_InfTableCheck(itemLoc.LocationScene, itemLoc.LocationFlag);
     }
     case SPOILER_CHK_COW: {
@@ -155,4 +157,4 @@ namespace rnd {
     return 0;
   }
 
-} // namespace rnd
+}  // namespace rnd

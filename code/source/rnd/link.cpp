@@ -5,19 +5,23 @@ namespace rnd::link {
   extern "C" bool ShouldUseZoraFastSwim() {
     const auto& input = GetContext().gctx->pad_state.input;
 
-    if (!input.buttons.IsSet(game::pad::Button::A)) return false;
+    if (!input.buttons.IsSet(game::pad::Button::A))
+      return false;
 #ifdef ENABLE_DEBUG
     rnd::util::Print("%s: Our current fast swim is %u and we are in fast swim.\n", __func__,
                      GetContext().use_fast_swim);
 #endif
     // Toggle fast swim with D-Pad Up/Down or ZL
-    if (input.new_buttons.IsOneSet(game::pad::Button::Up, game::pad::Button::Down, game::pad::Button::ZL)) {
+    if (input.new_buttons.IsOneSet(game::pad::Button::Up, game::pad::Button::Down,
+                                   game::pad::Button::ZL)) {
       GetContext().use_fast_swim ^= true;
     }
 
     // Overrides
-    if (input.buttons.IsSet(game::pad::Button::R)) return true;
-    if (input.buttons.IsSet(game::pad::Button::ZR)) return false;
+    if (input.buttons.IsSet(game::pad::Button::R))
+      return true;
+    if (input.buttons.IsSet(game::pad::Button::ZR))
+      return false;
 
     return GetContext().use_fast_swim;
   }
@@ -35,4 +39,4 @@ namespace rnd::link {
     giant_param.walk_speed = 350;
   }
 
-} // namespace rnd::link
+}  // namespace rnd::link

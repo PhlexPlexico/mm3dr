@@ -15,7 +15,7 @@ namespace game::ActorResource {
     return rnd::util::GetPointer<void(ActorResource*)>(0x14E8F4)(resource);
   }
 
-} // namespace game::ActorResource
+}  // namespace game::ActorResource
 
 // 0x804af5c
 // 0x804af5c Object Context - Watch point this

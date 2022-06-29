@@ -26,4 +26,4 @@ typedef struct {
 extern advance_ctx_t advance_ctx;
 extern advance_input_t inputs;
 
-#endif // ADVANCE_H
+#endif  // ADVANCE_H

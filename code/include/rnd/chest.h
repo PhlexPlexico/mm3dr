@@ -27,5 +27,5 @@ namespace rnd {
   u8 Chest_OverrideAnimation();
   u8 Chest_OverrideDecoration();
   u8 Chest_OverrideIceSmoke(game::act::Actor* thisx);
-} // namespace rnd
-#endif //_CHEST_H_
+}  // namespace rnd
+#endif  //_CHEST_H_

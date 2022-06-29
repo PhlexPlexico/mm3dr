@@ -45,8 +45,8 @@ namespace rnd {
       }
     }
 
-    // Double defense seems to round up after halving so values of -1 should instead alternate between -2 and 0 (-1
-    // would also work, but -2 was easier)
+    // Double defense seems to round up after halving so values of -1 should instead alternate
+    // between -2 and 0 (-1 would also work, but -2 was easier)
     if (saveData.player.double_defense == 1 && modifiedChangeHealth == -1) {
       modifiedChangeHealth = -(Damage32 & 2);
       Damage32 ^= 2;
@@ -54,12 +54,14 @@ namespace rnd {
 
     return modifiedChangeHealth;
   }
-  // With the No Health Refill option on, full health refills from health upgrades and Bombchu Bowling are turned off,
-  // and fairies restore 3 hearts Otherwise, they grant a full heal, and the default effect applies (full heal from
-  // bottle, 8 hearts on contact)
+  // With the No Health Refill option on, full health refills from health upgrades and Bombchu
+  // Bowling are turned off, and fairies restore 3 hearts Otherwise, they grant a full heal, and the
+  // default effect applies (full heal from bottle, 8 hearts on contact)
   u32 Settings_SetFullHealthRestore(u8 setAmount) {
-    if ((gSettingsContext.heartDropRefill == (u8)HeartDropRefillSetting::HEARTDROPREFILL_NOREFILL) ||
-        (gSettingsContext.heartDropRefill == (u8)HeartDropRefillSetting::HEARTDROPREFILL_NODROPREFILL)) {
+    if ((gSettingsContext.heartDropRefill ==
+         (u8)HeartDropRefillSetting::HEARTDROPREFILL_NOREFILL) ||
+        (gSettingsContext.heartDropRefill ==
+         (u8)HeartDropRefillSetting::HEARTDROPREFILL_NODROPREFILL)) {
       return setAmount;
     } else {
       return 0x140;
@@ -108,7 +110,8 @@ namespace rnd {
 
   // From section 5 of https://www.cs.ubc.ca/~rbridson/docs/schechter-sca08-turbulence.pdf
   u32 Hash(u32 state) {
-    // Added salt based on the seed hash so traps in the same location in different seeds can have different effects
+    // Added salt based on the seed hash so traps in the same location in different seeds can have
+    // different effects
     u32 salt = 0;
     for (int i = 0; i < 5; i++) {
       salt |= gSettingsContext.hashIndexes[i] << (i * 6);
@@ -208,4 +211,4 @@ namespace rnd {
       "Adult Wallet",
       "Bomber's Notebook",
   };
-} // namespace rnd
+}  // namespace rnd

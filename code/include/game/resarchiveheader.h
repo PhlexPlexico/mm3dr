@@ -32,6 +32,6 @@ namespace game {
   };
   static_assert(sizeof(ResArchiveFileInfo) == 0x0C);
 
-} // namespace game
+}  // namespace game
 
 #endif

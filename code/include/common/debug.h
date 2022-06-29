@@ -9,6 +9,6 @@ namespace rnd::util {
   /// Prints a debug message using svcOutputDebugString.
   void Print(const char* format, ...);
 
-} // namespace rnd::util
+}  // namespace rnd::util
 
 #endif

@@ -59,6 +59,6 @@ namespace game::as {
   static_assert(offsetof(ActorUtil, gap_64) == 0x64);
   static_assert(sizeof(ActorUtil) == 0x8C);
 
-} // namespace game::as
+}  // namespace game::as
 
 #endif
