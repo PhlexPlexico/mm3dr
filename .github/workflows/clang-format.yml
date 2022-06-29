@@ -1,0 +1,28 @@
+name: Clang Format Code
+
+# TODO: Remove main branch at some point
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+      - dev
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: PuneetMatharu/clang-format-lint-action@v0.13
+      with:
+        files: .*\.\(cpp\|h\|cc\|cxx\)
+        clangFormatVersion: 14
+        style: file
+        inplace: True
+
+    - uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_user_name: clang-format-bot
+        commit_message: 'Automated commit of clang-format CI changes.'
