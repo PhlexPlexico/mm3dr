@@ -14,11 +14,11 @@ extern "C" {
 namespace rnd {
   static s32 rItemOverrides_Count = 0;
   ItemOverride rItemOverrides[640] = {0};
-  static game::act::Actor *rDummyActor = NULL;
+  static game::act::Actor* rDummyActor = NULL;
   static ItemOverride rPendingOverrideQueue[3] = {0};
   static ItemOverride rActiveItemOverride = {0};
   // Accessed via hooks.
-  ItemRow *rActiveItemRow = NULL;
+  ItemRow* rActiveItemRow = NULL;
   u32 rActiveItemGraphicId = 0x0;
   // Split active_item_row into variables for convenience in ASM
   u32 rActiveItemActionId = 0;
@@ -29,36 +29,35 @@ namespace rnd {
   static u8 rSatisfiedPendingFrames = 0;
 
   void ItemOverride_Init(void) {
-    #ifdef ENABLE_DEBUG
-    /*
-    //Manual overide example code 
-    rItemOverrides[0].key.scene = 0x6F;
-    rItemOverrides[0].key.type = ItemOverride_Type::OVR_COLLECTABLE;
-    rItemOverrides[0].value.getItemId = 0x37;
-    rItemOverrides[0].value.looksLikeItemId = 0x37;
-    rItemOverrides[1].key.scene = 0x6C;
-    rItemOverrides[1].key.type = ItemOverride_Type::OVR_CHEST;
-    rItemOverrides[1].value.getItemId = 0x37;
-    rItemOverrides[1].value.looksLikeItemId = 0x37;
-    */
-    #endif
+#ifdef ENABLE_DEBUG
+/*
+//Manual overide example code
+rItemOverrides[0].key.scene = 0x6F;
+rItemOverrides[0].key.type = ItemOverride_Type::OVR_COLLECTABLE;
+rItemOverrides[0].value.getItemId = 0x37;
+rItemOverrides[0].value.looksLikeItemId = 0x37;
+rItemOverrides[1].key.scene = 0x6C;
+rItemOverrides[1].key.type = ItemOverride_Type::OVR_CHEST;
+rItemOverrides[1].value.getItemId = 0x37;
+rItemOverrides[1].value.looksLikeItemId = 0x37;
+*/
+#endif
     while (rItemOverrides[rItemOverrides_Count].key.all != 0) {
       rItemOverrides_Count++;
     }
 
     // Create an actor satisfying the minimum requirements to give the player an item
-    rDummyActor = (game::act::Actor *)rHeap_Alloc(sizeof(game::act::Actor));
-    rDummyActor->calc_fn = (game::act::MainFunc *)1;
+    rDummyActor = (game::act::Actor*)rHeap_Alloc(sizeof(game::act::Actor));
+    rDummyActor->calc_fn = (game::act::MainFunc*)1;
     rDummyActor->parent_actor = NULL;
   }
 
-  static ItemOverride_Key ItemOverride_GetSearchKey(game::act::Actor *actor, u16 scene, s16 getItemId) {
-
-    game::CommonData &cdata = game::GetCommonData();
+  static ItemOverride_Key ItemOverride_GetSearchKey(game::act::Actor* actor, u16 scene,
+                                                    s16 getItemId) {
+    game::CommonData& cdata = game::GetCommonData();
     ItemOverride_Key retKey;
     retKey.all = 0;
     if (actor->actor_type == game::act::Type::Chest) {
-
       // XXX: Any games like H&D or chest game to not swap?
       // Don't override WINNER purple rupee in the chest minigame scene
       // if (scene == 0x11 || scene == 0x17) {
@@ -71,7 +70,7 @@ namespace rnd {
       retKey.type = ItemOverride_Type::OVR_CHEST;
       retKey.flag = actor->params & 0x1F;
       return retKey;
-    } else if (actor->actor_type == game::act::Type::Misc) { // Heart pieces are misc apparently
+    } else if (actor->actor_type == game::act::Type::Misc) {  // Heart pieces are misc apparently
       // Only override heart pieces and keys
       u32 collectibleType = actor->params & 0xFF;
       // XXX: AFAIK These are correct. Heart piece was checked.
@@ -82,13 +81,13 @@ namespace rnd {
       retKey.type = ItemOverride_Type::OVR_COLLECTABLE;
       retKey.flag = actor->overlay_info->info->flags;
       return retKey;
-    } else if (actor->id == (game::act::Id)game::ItemId::GoldSkulltula) { // Gold Skulltula Token
+    } else if (actor->id == (game::act::Id)game::ItemId::GoldSkulltula) {  // Gold Skulltula Token
       retKey.scene = (actor->params >> 8) & 0x1F;
       retKey.type = ItemOverride_Type::OVR_SKULL;
       retKey.flag = actor->params & 0xFF;
       return retKey;
       // TODO: Find grotto salesman ID.
-    } else if (scene == 0x07 && actor->id == (game::act::Id)0x11A) { // Grotto Salesman
+    } else if (scene == 0x07 && actor->id == (game::act::Id)0x11A) {  // Grotto Salesman
       retKey.scene = cdata.sub13s[8].data;
       retKey.type = ItemOverride_Type::OVR_GROTTO_SCRUB;
       retKey.flag = getItemId;
@@ -101,14 +100,16 @@ namespace rnd {
     }
   }
 
-  ItemOverride ItemOverride_Lookup(game::act::Actor *actor, u16 scene, s16 getItemId) {
+  ItemOverride ItemOverride_Lookup(game::act::Actor* actor, u16 scene, s16 getItemId) {
     ItemOverride_Key key = ItemOverride_GetSearchKey(actor, scene, getItemId);
     if (key.all == 0) {
       return (ItemOverride){0};
     }
     /*#ifdef ENABLE_DEBUG
-    rnd::util::Print("%s: Our key values:\nScene %u\nType: %u\nFlag: %u\nAll: %u\nPad_: %u\n", __func__, key.scene, key.type, key.flag, key.all, key.pad_);
-    rnd::util::Print("%s: Our param values:\nActor Type %#04x\nGet Item ID: %#04x\nActor ID: %#04x\n", \
+    rnd::util::Print("%s: Our key values:\nScene %u\nType: %u\nFlag: %u\nAll: %u\nPad_: %u\n",
+    __func__, key.scene, key.type, key.flag, key.all, key.pad_);
+    rnd::util::Print("%s: Our param values:\nActor Type %#04x\nGet Item ID: %#04x\nActor ID:
+    %#04x\n", \
       __func__, \
       actor->actor_type, \
       getItemId,
@@ -135,16 +136,15 @@ namespace rnd {
       }
     }
     return (ItemOverride){0};
-    
   }
 
   static void ItemOverride_Activate(ItemOverride override) {
     u16 resolvedGetItemId = ItemTable_ResolveUpgrades(override.value.getItemId);
-    
-    ItemRow *itemRow = ItemTable_GetItemRow(resolvedGetItemId);
+
+    ItemRow* itemRow = ItemTable_GetItemRow(resolvedGetItemId);
     u8 looksLikeItemId = override.value.looksLikeItemId;
-    
-    if (override.value.getItemId == 0x12) { // Ice trap
+
+    if (override.value.getItemId == 0x12) {  // Ice trap
       looksLikeItemId = 0;
     }
 
@@ -153,10 +153,11 @@ namespace rnd {
     rActiveItemActionId = itemRow->itemId;
     rActiveItemTextId = itemRow->textId;
     rActiveItemObjectId = itemRow->objectId;
-    rActiveItemGraphicId = looksLikeItemId ? ItemTable_GetItemRow(looksLikeItemId)->graphicId : itemRow->graphicId;
-    #ifdef ENABLE_DEBUG
-      //rActiveItemGraphicId = 0x87;
-    #endif
+    rActiveItemGraphicId =
+        looksLikeItemId ? ItemTable_GetItemRow(looksLikeItemId)->graphicId : itemRow->graphicId;
+#ifdef ENABLE_DEBUG
+    // rActiveItemGraphicId = 0x87;
+#endif
     rActiveItemFastChest = (u32)itemRow->chestType & 0x01;
   }
 
@@ -224,30 +225,30 @@ namespace rnd {
   static u32 ItemOverride_PlayerIsReady(void) {
     // Using MMR's can receive item call - use the animation IDs to determine whether
     // we can receive item. Adjust pending frames as some items may softlock?
-    game::GlobalContext *gctx = rnd::GetContext().gctx;
+    game::GlobalContext* gctx = rnd::GetContext().gctx;
     if (!gctx || gctx->type != game::StateType::Play)
       return 0;
-    game::act::Player *player = gctx->GetPlayerActor();
+    game::act::Player* player = gctx->GetPlayerActor();
     if (!player)
       return 0;
     u32 currentAniId = player->player_util.state.id;
     switch (currentAniId) {
-    case 0x32D: // Rolling - Human, Goron
-    case 0x11F: // Zora Rolling
-    case 0x07A: // FD Rolling
-    case 0x150: // Deku idle
-    case 0x339: // Goron idle
-    case 0x183: // Human idle
-    case 0x2CF: // Zora idle
-    case 0x0C2: // FD idle
-    case 0x225: // Walking with Sword
-    case 0x135: // Walking - Human, Deku, Zora, Goron
-    case 0x155: // Walking - Human, Deku, Zora, Goron
-    case 0x158: // Walking - Human, Deku, Zora, Goron
-    case 0x0B9: // Walking - FD
-    case 0x0DC: // Backwalking after backflip - all forms
-    case 0x0BC: // Sidewalking - DF
-    case 0x13D: // Sidewalking
+    case 0x32D:  // Rolling - Human, Goron
+    case 0x11F:  // Zora Rolling
+    case 0x07A:  // FD Rolling
+    case 0x150:  // Deku idle
+    case 0x339:  // Goron idle
+    case 0x183:  // Human idle
+    case 0x2CF:  // Zora idle
+    case 0x0C2:  // FD idle
+    case 0x225:  // Walking with Sword
+    case 0x135:  // Walking - Human, Deku, Zora, Goron
+    case 0x155:  // Walking - Human, Deku, Zora, Goron
+    case 0x158:  // Walking - Human, Deku, Zora, Goron
+    case 0x0B9:  // Walking - FD
+    case 0x0DC:  // Backwalking after backflip - all forms
+    case 0x0BC:  // Sidewalking - DF
+    case 0x13D:  // Sidewalking
       rSatisfiedPendingFrames++;
       break;
     default:
@@ -262,7 +263,7 @@ namespace rnd {
 
   static void ItemOverride_TryPendingItem(void) {
     ItemOverride override = rPendingOverrideQueue[0];
-    game::act::Player *player = rnd::GetContext().gctx->GetPlayerActor();
+    game::act::Player* player = rnd::GetContext().gctx->GetPlayerActor();
     if (player) {
       if (override.key.all == 0) {
         return;
@@ -304,7 +305,7 @@ namespace rnd {
   }
 
   void ItemOverride_EditDrawGetItemBeforeModelSpawn(void) {
-    //TODO: Custom graphics eventually.
+    // TODO: Custom graphics eventually.
     /*void *cmb;
 
     switch (rActiveItemGraphicId)
@@ -332,22 +333,20 @@ namespace rnd {
     }*/
   }
 
-  //TODO: Get skeleanimation models.
+  // TODO: Get skeleanimation models.
   /*void ItemOverride_EditDrawGetItemAfterModelSpawn(SkeletonAnimationModel* model) {
     void* cmabMan;
 
     switch (rActiveItemGraphicId) {
         case GID_CUSTOM_CHILD_SONGS:
-            cmabMan = ExtendedObject_GetCMABByIndex(OBJECT_CUSTOM_GENERAL_ASSETS, TEXANIM_CHILD_SONG);
-            TexAnim_Spawn(model->unk_0C, cmabMan);
-            model->unk_0C->animSpeed = 0.0f;
+            cmabMan = ExtendedObject_GetCMABByIndex(OBJECT_CUSTOM_GENERAL_ASSETS,
+  TEXANIM_CHILD_SONG); TexAnim_Spawn(model->unk_0C, cmabMan); model->unk_0C->animSpeed = 0.0f;
             model->unk_0C->animMode = 0;
             model->unk_0C->curFrame = rActiveItemRow->special;
             break;
         case GID_CUSTOM_ADULT_SONGS:
-            cmabMan = ExtendedObject_GetCMABByIndex(OBJECT_CUSTOM_GENERAL_ASSETS, TEXANIM_ADULT_SONG);
-            TexAnim_Spawn(model->unk_0C, cmabMan);
-            model->unk_0C->animSpeed = 0.0f;
+            cmabMan = ExtendedObject_GetCMABByIndex(OBJECT_CUSTOM_GENERAL_ASSETS,
+  TEXANIM_ADULT_SONG); TexAnim_Spawn(model->unk_0C, cmabMan); model->unk_0C->animSpeed = 0.0f;
             model->unk_0C->animMode = 0;
             model->unk_0C->curFrame = rActiveItemRow->special;
             break;
@@ -383,23 +382,24 @@ namespace rnd {
 
   extern "C" {
 
-  void ItemOverride_GetItemTextAndItemID(game::act::Player *actor) {
+  void ItemOverride_GetItemTextAndItemID(game::act::Player* actor) {
     if (rActiveItemRow != NULL) {
-      game::GlobalContext *gctx = rnd::GetContext().gctx;
+      game::GlobalContext* gctx = rnd::GetContext().gctx;
       u16 textId = rActiveItemRow->textId;
       u8 itemId = rActiveItemRow->itemId;
       ItemTable_CallEffect(rActiveItemRow);
       gctx->ShowMessage(textId, actor);
       // Get_Item_Handler. Don't give ice traps, since it may cause UB.
       if (itemId != (u8)game::ItemId::X82) {
-        rnd::util::GetPointer<int(game::GlobalContext *, game::ItemId)>(0x233BEC)(
+        rnd::util::GetPointer<int(game::GlobalContext*, game::ItemId)>(0x233BEC)(
             gctx, (game::ItemId)itemId);
       }
       ItemOverride_AfterItemReceived();
     }
   }
 
-  void ItemOverride_GetItem(game::GlobalContext *gctx, game::act::Actor *fromActor, game::act::Player *player, s16 incomingGetItemId) {
+  void ItemOverride_GetItem(game::GlobalContext* gctx, game::act::Actor* fromActor,
+                            game::act::Player* player, s16 incomingGetItemId) {
     ItemOverride override = {0};
     s32 incomingNegative = incomingGetItemId < 0;
 
@@ -410,19 +410,20 @@ namespace rnd {
     if (override.key.all == 0) {
       // No override, use base game's item code
       ItemOverride_Clear();
-      #ifdef ENABLE_DEBUG
-      /*rnd::util::Print("\n%s: Our player get_item_id is %i and our " \
-       "incoming is %i and item direction is %i player angle y is %i\nfield_96 is %i\n", \
-       __func__, player->get_item_id, incomingGetItemId, player->get_item_direction, player->angle.y,fromActor->field_96);*/
-      #endif
+#ifdef ENABLE_DEBUG
+/*rnd::util::Print("\n%s: Our player get_item_id is %i and our " \
+ "incoming is %i and item direction is %i player angle y is %i\nfield_96 is %i\n", \
+ __func__, player->get_item_id, incomingGetItemId, player->get_item_direction,
+ player->angle.y,fromActor->field_96);*/
+#endif
       player->get_item_id = incomingGetItemId;
       return;
     }
-    
+
     ItemOverride_Activate(override);
     s16 baseItemId = rActiveItemRow->baseItemId;
-    
-    //s8 baseItemId = rActiveItemRow->textId;
+
+    // s8 baseItemId = rActiveItemRow->textId;
     if (override.value.getItemId == 0x12) {
       rActiveItemRow->effectArg1 = override.key.all >> 16;
       rActiveItemRow->effectArg2 = override.key.all & 0xFFFF;
@@ -431,4 +432,4 @@ namespace rnd {
     return;
   }
   }
-}
+}  // namespace rnd

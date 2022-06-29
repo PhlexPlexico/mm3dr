@@ -7,6 +7,6 @@
 
 namespace rnd::link {
   void FixSpeedIssues();
-} // namespace rnd::link
+}  // namespace rnd::link
 
 #endif

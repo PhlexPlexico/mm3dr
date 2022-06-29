@@ -15,7 +15,6 @@ namespace game::ActorResource {
     u32 file_size;
     u32 file;
     game::ObjectBank::ObjectBankArchive archive;
-    
   };
   static_assert(sizeof(ActorResource) == 0xAC);
 
@@ -39,6 +38,6 @@ namespace game::ActorResource {
   u32 loadActorResource(ActorResources*, u32);
   void freeActorResource(ActorResource*);
 
-} // namespace game
+}  // namespace game::ActorResource
 
 #endif

@@ -10,7 +10,7 @@ namespace rnd {
     SIZE_MATCHES_CONTENT,
   };
 
-  enum class ChestAnim : u8{
+  enum class ChestAnim : u8 {
     ALWAYS_FAST,
     ANIMATION_MATCHES_CONTENT,
   };
@@ -27,5 +27,5 @@ namespace rnd {
   u8 Chest_OverrideAnimation();
   u8 Chest_OverrideDecoration();
   u8 Chest_OverrideIceSmoke(game::act::Actor* thisx);
-} // namespace rnd
-#endif //_CHEST_H_
+}  // namespace rnd
+#endif  //_CHEST_H_

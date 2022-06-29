@@ -5,7 +5,6 @@
 
 namespace rnd {
   u16 RS_SetDurability(void);
-} // namespace rnd
-
+}  // namespace rnd
 
 #endif
