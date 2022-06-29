@@ -7,14 +7,13 @@ extern "C" {
 
 namespace rnd::util {
 
-  void Print(const char *format, ...) {
+  void Print(const char* format, ...) {
     char buffer[0x200];
     va_list arg;
     va_start(arg, format);
     const int written = vsnprintf_(buffer, sizeof(buffer), format, arg);
     va_end(arg);
-    if (written >= 0)
-      svcOutputDebugString(buffer, sizeof(buffer));
+    if (written >= 0) svcOutputDebugString(buffer, sizeof(buffer));
   }
 
-}
+} // namespace rnd::util

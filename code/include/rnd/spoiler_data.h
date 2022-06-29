@@ -3,9 +3,9 @@
 
 #include "z3d/z3DVec.h"
 
-#define SPOILER_SPHERES_MAX                 50
-#define SPOILER_ITEMS_MAX                   512
-#define SPOILER_STRING_DATA_SIZE            16384
+#define SPOILER_SPHERES_MAX 50
+#define SPOILER_ITEMS_MAX 512
+#define SPOILER_STRING_DATA_SIZE 16384
 
 namespace rnd {
   typedef enum {
@@ -29,30 +29,30 @@ namespace rnd {
   typedef enum {
     GROUP_NO_GROUP,
     GROUP_STARTING_ITEM,
-    GROUP_DEKU_PALACE,                       
-    GROUP_EAST_CLOCK_TOWN,                   
-    GROUP_DUNGEON_WOODFALL_TEMPLE,           
-    GROUP_DUNGEON_SNOWHEAD_TEMPLE,           
-    GROUP_E_CLOCK_TOWN,                      
-    GROUP_GORON_VILLAGE,                     
-    GROUP_GREAT_BAY_COAST,                     
-    GROUP_IKANA_CANYON,                        
-    GROUP_IKANA_GRAVEYARD,                     
-    GROUP_LAUNDRY_POOL,                        
-    GROUP_MILK_ROAD,                            
-    GROUP_MOUNTAIN_VILLAGE,                     
-    GROUP_N_CLOCK_TOWN,                         
-    GROUP_PATH_SNOWHEAD,                        
-    GROUP_PINNACLE_ROCK,                        
-    GROUP_ROAD_IKANA,                           
-    GROUP_ROAD_SWAMP,                           
-    GROUP_ROMANI_RANCH,                         
-    GROUP_S_CLOCK_TOWN,                         
-    GROUP_SNOWHEAD,                             
-    GROUP_SOUTHERN_SWAMP,                       
-    GROUP_STOCKPOTINN,                          
-    GROUP_STONE_TOWER,                                
-    GROUP_TERMINA_FIELD,                        
+    GROUP_DEKU_PALACE,
+    GROUP_EAST_CLOCK_TOWN,
+    GROUP_DUNGEON_WOODFALL_TEMPLE,
+    GROUP_DUNGEON_SNOWHEAD_TEMPLE,
+    GROUP_E_CLOCK_TOWN,
+    GROUP_GORON_VILLAGE,
+    GROUP_GREAT_BAY_COAST,
+    GROUP_IKANA_CANYON,
+    GROUP_IKANA_GRAVEYARD,
+    GROUP_LAUNDRY_POOL,
+    GROUP_MILK_ROAD,
+    GROUP_MOUNTAIN_VILLAGE,
+    GROUP_N_CLOCK_TOWN,
+    GROUP_PATH_SNOWHEAD,
+    GROUP_PINNACLE_ROCK,
+    GROUP_ROAD_IKANA,
+    GROUP_ROAD_SWAMP,
+    GROUP_ROMANI_RANCH,
+    GROUP_S_CLOCK_TOWN,
+    GROUP_SNOWHEAD,
+    GROUP_SOUTHERN_SWAMP,
+    GROUP_STOCKPOTINN,
+    GROUP_STONE_TOWER,
+    GROUP_TERMINA_FIELD,
     GROUP_TWIN_ISLANDS,
     GROUP_W_CLOCK_TOWN,
     GROUP_WOODFALL,
@@ -100,8 +100,8 @@ namespace rnd {
 
   extern "C" SpoilerData gSpoilerData;
 
-  char *SpoilerData_GetItemLocationString(u16 itemIndex);
-  char *SpoilerData_GetItemNameString(u16 itemIndex);
+  char* SpoilerData_GetItemLocationString(u16 itemIndex);
+  char* SpoilerData_GetItemNameString(u16 itemIndex);
   SpoilerItemLocation GetSpoilerItemLocation(u8 sphere, u16 itemIndex);
   u8 SpoilerData_GetIsItemLocationCollected(u16 itemIndex);
   u8 SpoilerData_ChestCheck(SpoilerItemLocation itemLoc);
@@ -114,7 +114,6 @@ namespace rnd {
   u8 SpoilerData_ScrubCheck(SpoilerItemLocation itemLoc);
   u8 SpoilerData_ShopItemCheck(SpoilerItemLocation itemLoc);
   u8 SpoilerData_MagicBeansCheck(SpoilerItemLocation itemLoc);
-}
-
+} // namespace rnd
 
 #endif // _RND_SPOILER_DATA_H_

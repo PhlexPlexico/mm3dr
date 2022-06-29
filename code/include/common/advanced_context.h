@@ -3,26 +3,26 @@
 #include "z3d/z3DVec.h"
 #ifdef ENABLE_DEBUG
 extern "C" {
-  #include <3ds/svc.h>
+#include <3ds/svc.h>
 }
 #endif
 namespace game {
-struct GlobalContext;
+  struct GlobalContext;
 }
 
 namespace rnd {
 
-struct Context {
-  game::GlobalContext* gctx;
-  bool has_initialised = false;
+  struct Context {
+    game::GlobalContext* gctx;
+    bool has_initialised = false;
 
-  bool going_back_in_time = false;
+    bool going_back_in_time = false;
 
-  bool use_fast_swim = true;
-  u32 a_press_duration = 0;
-};
+    bool use_fast_swim = true;
+    u32 a_press_duration = 0;
+  };
 
-Context& GetContext();
+  Context& GetContext();
 
-}  // namespace rnd
-#endif 
+} // namespace rnd
+#endif

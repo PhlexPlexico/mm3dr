@@ -1,5 +1,5 @@
-#include "rnd/razor_sword.h"
 #include "common/utils.h"
+#include "rnd/razor_sword.h"
 #include "rnd/settings.h"
 #include "z3d/z3DVec.h"
 
@@ -14,8 +14,8 @@ namespace rnd {
     case RSDURABILITYSetting::RSDURABILITY_VANILLA:
       return 100;
     case RSDURABILITYSetting::RSDURABILITY_INF:
-      return 65500; //roughly close to the u16 bit limit
+      return 65500; // roughly close to the u16 bit limit
     }
     return 100;
   }
-}
+} // namespace rnd

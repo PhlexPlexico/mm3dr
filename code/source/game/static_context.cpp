@@ -4,8 +4,8 @@
 
 namespace game {
 
-StaticContext& GetStaticContext() {
-  return *rnd::util::GetPointer<StaticContext>(0x7892D0);
-}
+  StaticContext& GetStaticContext() {
+    return *rnd::util::GetPointer<StaticContext>(0x7892D0);
+  }
 
-}  // namespace game
+} // namespace game

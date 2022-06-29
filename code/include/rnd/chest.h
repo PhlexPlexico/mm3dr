@@ -10,7 +10,7 @@ namespace rnd {
     SIZE_MATCHES_CONTENT,
   };
 
-  enum class ChestAnim : u8{
+  enum class ChestAnim : u8 {
     ALWAYS_FAST,
     ANIMATION_MATCHES_CONTENT,
   };

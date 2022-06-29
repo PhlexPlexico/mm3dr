@@ -1,8 +1,8 @@
 #ifndef _RND_ICETRAP_H
 #define _RND_ICETRAP_H
 
-#include "game/common_data.h"
 #include "common/advanced_context.h"
+#include "game/common_data.h"
 #include "game/player.h"
 
 namespace rnd {

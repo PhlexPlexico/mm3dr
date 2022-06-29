@@ -37,4 +37,4 @@ namespace rnd {
     // enmag->copyrightModel->unk_0C->animSpeed = 0.0f;
     // enmag->copyrightModel->unk_0C->animMode = 0;
   }
-}
+} // namespace rnd

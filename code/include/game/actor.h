@@ -1,7 +1,6 @@
 #ifndef _GAME_ACTOR_H
 #define _GAME_ACTOR_H
 
-
 #include "common/bitfield.h"
 #include "common/flags.h"
 #include "common/types.h"
@@ -72,11 +71,10 @@ namespace game::act {
     Chest = 11,
   };
 
-  using MainFunc = void(Actor *self, GlobalContext *gctx);
+  using MainFunc = void(Actor* self, GlobalContext* gctx);
 
   // Typically used in derived actors to implement states ("modes") for actor state machines.
-  template <typename ActorType>
-  using ActionFunc = void(ActorType *self, GlobalContext *gctx);
+  template <typename ActorType> using ActionFunc = void(ActorType* self, GlobalContext* gctx);
 
   struct ActorInfo {
     Id id;
@@ -86,10 +84,10 @@ namespace game::act {
     u16 object_id;
     u8 anonymous_3[2];
     size_t inst_size;
-    MainFunc *init_fn;
-    MainFunc *deinit_fn;
-    MainFunc *calc_fn;
-    MainFunc *draw_fn;
+    MainFunc* init_fn;
+    MainFunc* deinit_fn;
+    MainFunc* calc_fn;
+    MainFunc* draw_fn;
   };
 
   // Actor overlay info. Same structure as Majora's Mask, though most fields are now unused.
@@ -99,8 +97,8 @@ namespace game::act {
     int increment_loaded_count;
     int field_C;
     int field_10;
-    ActorInfo *info;
-    const char *name;
+    ActorInfo* info;
+    const char* name;
     u16 allocation_type;
     u8 loaded_count;
   };
@@ -157,9 +155,9 @@ namespace game::act {
     u16 field_22;
     PosRot pos;
     int field_38;
-    //u8 gap_38;
-    //u8 field_39; // Possible actor flags.
-    //u8 gap_3A[2];
+    // u8 gap_38;
+    // u8 field_39; // Possible actor flags.
+    // u8 gap_3A[2];
     PosRot ztarget_pos;
     sound::EffectId sound_effect;
     u8 gap_54[4];
@@ -172,20 +170,20 @@ namespace game::act {
     u32 field_80;
     u8 gap_84;
     u8 field_85;
-    //u8 gap86[3];
+    // u8 gap86[3];
     u16 field_86;
-    //u8 gap_89[3];
+    // u8 gap_89[3];
     float field_88;
     // Distance to water/submerged? After -30.99 it goes to -32000.00
     float dist_to_water_maybe;
-    //u8 gap_90[4];
+    // u8 gap_90[4];
     void** cmab_file;
     rnd::Flags<Flag94> flags_94;
     s16 field_96;
     float field_98;
     float distance_to_link;
     float height_diff_to_link;
-    DamageTable *damage_table;
+    DamageTable* damage_table;
     // Changing x and z causes link to slide across plane in direction.
     z3dVec3f target_pos_maybe;
     u32 field_B4;
@@ -200,7 +198,7 @@ namespace game::act {
     // u16 field_C0;
     // u16 angle;
     z3dVec3s angle;
-    //u16 field_C4;
+    // u16 field_C4;
     u8 gap_C6[2];
     float field_C8;
     u32 field_CC;
@@ -219,17 +217,17 @@ namespace game::act {
     u8 gap_120[5];
     u8 field_125;
     u8 gap_126[2];
-    Actor *child_actor;
-    Actor *parent_actor;
+    Actor* child_actor;
+    Actor* parent_actor;
     /// Previous actor of the same type in the linked list.
-    Actor *prev;
+    Actor* prev;
     /// Next actor of the same type in the linked list.
-    Actor *next;
-    MainFunc *init_fn;
-    MainFunc *deinit_fn;
-    MainFunc *calc_fn;
-    MainFunc *draw_fn;
-    ActorOverlayInfo *overlay_info;
+    Actor* next;
+    MainFunc* init_fn;
+    MainFunc* deinit_fn;
+    MainFunc* calc_fn;
+    MainFunc* draw_fn;
+    ActorOverlayInfo* overlay_info;
     float field_14C;
     float field_150;
     float field_154;
@@ -242,7 +240,7 @@ namespace game::act {
     float field_170;
     float field_174;
     int field_178;
-    void *field_17C;
+    void* field_17C;
     char field_180[80];
     int field_1D0;
     u8 field_1D4;

@@ -1,0 +1,20 @@
+---
+BasedOnStyle: LLVM
+IndentWidth: 2
+---
+Language: Cpp
+DerivePointerAlignment: false
+PointerAlignment: Left
+AlignArrayOfStructures: Left
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: AllIfsAndElse
+ColumnLimit: 120
+SortIncludes:    true
+NamespaceIndentation: All
+IncludeCategories:
+  - Regex:    '^\<'
+    Priority: -3
+  - Regex:    '\/'
+    Priority: -2
+  - Regex:    '^\"'
+    Priority: -1

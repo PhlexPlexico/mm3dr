@@ -1,12 +1,12 @@
 extern "C" {
 #include <3ds/types.h>
 }
+#include <string.h>
 #include "game/common_data.h"
 #include "rnd/item_effect.h"
 #include "rnd/razor_sword.h"
 #include "rnd/savefile.h"
 #include "rnd/settings.h"
-#include <string.h>
 #ifdef ENABLE_DEBUG
 #include "common/debug.h"
 #endif
@@ -14,9 +14,9 @@ extern "C" {
 
 namespace rnd {
   extern "C" void SaveFile_Init() {
-    game::SaveData &saveData = game::GetCommonData().save;
+    game::SaveData& saveData = game::GetCommonData().save;
 #ifdef ENABLE_DEBUG
-    //rnd::util::Print("%s: Made it to save debug values.", __func__);
+    // rnd::util::Print("%s: Made it to save debug values.", __func__);
     saveData.equipment.sword_shield.sword = game::SwordType::GildedSword;
     saveData.player.razor_sword_hp = 0x64;
     saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver50;
@@ -61,8 +61,8 @@ namespace rnd {
     saveData.inventory.stone_tower_dungeon_items.map = 1;
     saveData.inventory.stone_tower_dungeon_items.compass = 1;
     saveData.inventory.stone_tower_dungeon_items.boss_key = 1;
-    saveData.player.magic_acquired = 1; //Game does not check if value = 0, magic items still work
-    saveData.player.magic_size_type = 2; //not init until saved?
+    saveData.player.magic_acquired = 1;  // Game does not check if value = 0, magic items still work
+    saveData.player.magic_size_type = 2; // not init until saved?
     saveData.player.magic = 96;
     saveData.player.magic_num_upgrades = 1;
     saveData.equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
@@ -93,45 +93,44 @@ namespace rnd {
     saveData.inventory.collect_register.song_of_time = 1;
 
 #endif
-    //TODO: Decomp event flags. Most likely in the large anonymous structs in the SaveData.
+    // TODO: Decomp event flags. Most likely in the large anonymous structs in the SaveData.
     u8 isNewFile = saveData.has_completed_intro;
     if (isNewFile == 0) {
       saveData.has_tatl = true;
 
-      //Skips cutscenes with no item checks attached
-      //Also does not skip location access cutscenes like woodfall temple rise
+      // Skips cutscenes with no item checks attached
+      // Also does not skip location access cutscenes like woodfall temple rise
       SaveFile_SkipMinorCutscenes();
 
-      //OOT equivalent of starting with certain warp songs
+      // OOT equivalent of starting with certain warp songs
       SaveFile_SetStartingOwlStatues();
 
       /*Currently starting with ocarina and song of time is default in MM rando.
         These two items allows for skipping the first three day cycle.
-        Currently there is no known way to get termina field to load 
+        Currently there is no known way to get termina field to load
         in properly without ocarina in inventory.                                */
-      saveData.inventory.collect_register.song_of_time = 1; //Part of starting quest items options 
+      saveData.inventory.collect_register.song_of_time = 1; // Part of starting quest items options
       gSettingsContext.startingOcarina = 1;
       SaveFile_SetStartingInventory();
 
-      //These events replay after song of time
+      // These events replay after song of time
       saveData.ct_guard_allows_through_if_0x30 = 0x30;
-      //Business skrub has a new short animation after reset
+      // Business skrub has a new short animation after reset
       saveData.ct_deku_flown_in_0x80_if_visited_once = 0x80;
       saveData.ct_deku_in_flower_0x04_if_present = 0x04;
 
       saveData.player_form = game::act::Player::Form::Human;
     }
-    
   }
 
   void SaveFile_SkipMinorCutscenes() {
-    game::SaveData &saveData = game::GetCommonData().save;
+    game::SaveData& saveData = game::GetCommonData().save;
     saveData.has_completed_intro = 0x2B;
     saveData.skip_tatl_talking_0x04 = 0x04;
-    //addresses listed in comments is where it is in the savefile
-    
-    //0x1250
-    //saveData.cut_scene_flag_bundle1.unknown0 = 0;
+    // addresses listed in comments is where it is in the savefile
+
+    // 0x1250
+    // saveData.cut_scene_flag_bundle1.unknown0 = 0;
     saveData.cut_scene_flag_bundle1.termina_field = 1;
     saveData.cut_scene_flag_bundle1.graveyard = 1;
     saveData.cut_scene_flag_bundle1.romani_ranch = 1;
@@ -140,7 +139,7 @@ namespace rnd {
     saveData.cut_scene_flag_bundle1.goron_city = 1;
     saveData.cut_scene_flag_bundle1.snowhead = 1;
 
-    //0x1251
+    // 0x1251
     saveData.cut_scene_flag_bundle1.southern_swamp = 1;
     saveData.cut_scene_flag_bundle1.woodfall = 1;
     saveData.cut_scene_flag_bundle1.deku_palace = 1;
@@ -150,8 +149,8 @@ namespace rnd {
     saveData.cut_scene_flag_bundle1.waterfall_rapids = 1;
     saveData.cut_scene_flag_bundle1.ikana_canyon = 1;
 
-    //0x1252
-    //saveData.cut_scene_flag_bundle1.unknown16 = 0;
+    // 0x1252
+    // saveData.cut_scene_flag_bundle1.unknown16 = 0;
     saveData.cut_scene_flag_bundle1.stone_tower = 1;
     saveData.cut_scene_flag_bundle1.stone_tower_inverted = 1;
     saveData.cut_scene_flag_bundle1.east_clock_town = 1;
@@ -160,85 +159,75 @@ namespace rnd {
     saveData.cut_scene_flag_bundle1.woodfall_temple = 1;
     saveData.cut_scene_flag_bundle1.snowhead_temple = 1;
 
-    //0x1253
-    //saveData.cut_scene_flag_bundle1.unknown24 = 0;
-    saveData.cut_scene_flag_bundle1.stone_tower_temple = 1; 
-    saveData.cut_scene_flag_bundle1.stone_tower_temple_inverted = 1;  
-    //saveData.cut_scene_flag_bundle1.unknown27 = 0;
-    //saveData.cut_scene_flag_bundle1.unknown28 = 0;
-    //saveData.cut_scene_flag_bundle1.unknown29 = 0;
-    //saveData.cut_scene_flag_bundle1.unknown30 = 0;
-    //saveData.cut_scene_flag_bundle1.unknown31 = 0;
-    
-    //GreatbayTemple not in bundle above, does not seem to have a camera pan scene
+    // 0x1253
+    // saveData.cut_scene_flag_bundle1.unknown24 = 0;
+    saveData.cut_scene_flag_bundle1.stone_tower_temple = 1;
+    saveData.cut_scene_flag_bundle1.stone_tower_temple_inverted = 1;
+    // saveData.cut_scene_flag_bundle1.unknown27 = 0;
+    // saveData.cut_scene_flag_bundle1.unknown28 = 0;
+    // saveData.cut_scene_flag_bundle1.unknown29 = 0;
+    // saveData.cut_scene_flag_bundle1.unknown30 = 0;
+    // saveData.cut_scene_flag_bundle1.unknown31 = 0;
 
-    //0x12D3
+    // GreatbayTemple not in bundle above, does not seem to have a camera pan scene
+
+    // 0x12D3
     saveData.cut_scene_flag_bundle2.owl_statue_cut_scene = 1;
-    //saveData.cut_scene_flag_bundle2.unknown1 = 0;
-    //saveData.cut_scene_flag_bundle2.unknown2 = 0;
-    //saveData.cut_scene_flag_bundle2.unknown3 = 0;
+    // saveData.cut_scene_flag_bundle2.unknown1 = 0;
+    // saveData.cut_scene_flag_bundle2.unknown2 = 0;
+    // saveData.cut_scene_flag_bundle2.unknown3 = 0;
     saveData.cut_scene_flag_bundle2.deku_palace_throne_room_cutscene = 1;
-    //saveData.cut_scene_flag_bundle2.unknown5 = 0;
-    //saveData.cut_scene_flag_bundle2.unknown6 = 0;
-    //saveData.cut_scene_flag_bundle2.unknown7 = 0;
+    // saveData.cut_scene_flag_bundle2.unknown5 = 0;
+    // saveData.cut_scene_flag_bundle2.unknown6 = 0;
+    // saveData.cut_scene_flag_bundle2.unknown7 = 0;
 
-    //Meeting the Happy Mask Salesman: 
-    //0x0EB4 = 0x01
+    // Meeting the Happy Mask Salesman:
+    // 0x0EB4 = 0x01
     saveData.meeting_happy_mask_salesman_0x01 = 0x01;
 
-    //SkullKid backstory cutscene:
-    //0x07F4 = 0x10 
+    // SkullKid backstory cutscene:
+    // 0x07F4 = 0x10
     saveData.skullkid_backstory_cutscene_0x10 = 0x10;
 
-    //Road to Woodfall: 
-    //0x12D9 = 0x08
+    // Road to Woodfall:
+    // 0x12D9 = 0x08
     saveData.road_to_woodfall_camera_pan_0x08 = 0x08;
-    
-    //Pirate's fortress exterior:
-    //0x09B5 = 0x04
+
+    // Pirate's fortress exterior:
+    // 0x09B5 = 0x04
     saveData.pirates_fortress_exterior_camera_pan_0x04 = 0x04;
 
-    //Ikana Castle from canyon: 
-    //0x05F4 = 0x08
-    //saveData.gap249[931] = 0x08; //<- this gets rid of the Sunblock
-    //0x05FB = 0x80
+    // Ikana Castle from canyon:
+    // 0x05F4 = 0x08
+    // saveData.gap249[931] = 0x08; //<- this gets rid of the Sunblock
+    // 0x05FB = 0x80
     saveData.ikana_castle_camera_pan_0x08 = 0x80;
-  } 
-  void SaveFile_SetStartingOwlStatues() {
-      game::SaveData &saveData = game::GetCommonData().save;
-      //Walkable statues, could have an option to bundle this subgroup
-      if(gSettingsContext.startingOwlStatues.clock_town)
-        saveData.player.owl_statue_flags.clock_town = 1;
-      if(gSettingsContext.startingOwlStatues.milk_road)
-        saveData.player.owl_statue_flags.milk_road = 1;
-      if(gSettingsContext.startingOwlStatues.southern_swamp)
-        saveData.player.owl_statue_flags.southern_swamp = 1;
-      //These give early location access
-      if(gSettingsContext.startingOwlStatues.great_bay)
-        saveData.player.owl_statue_flags.southern_swamp = 1;
-      if(gSettingsContext.startingOwlStatues.zora_cape)
-        saveData.player.owl_statue_flags.southern_swamp = 1;
-      if(gSettingsContext.startingOwlStatues.snowhead)
-        saveData.player.owl_statue_flags.southern_swamp = 1;
-      if(gSettingsContext.startingOwlStatues.mountain_village)
-        saveData.player.owl_statue_flags.southern_swamp = 1;
-      if(gSettingsContext.startingOwlStatues.woodfall)
-        saveData.player.owl_statue_flags.southern_swamp = 1;
-      if(gSettingsContext.startingOwlStatues.ikana_canyon)
-        saveData.player.owl_statue_flags.southern_swamp = 1;
-      if(gSettingsContext.startingOwlStatues.stone_tower)
-        saveData.player.owl_statue_flags.southern_swamp = 1;
   }
-  //Resolve the item ID for the starting bottle
+  void SaveFile_SetStartingOwlStatues() {
+    game::SaveData& saveData = game::GetCommonData().save;
+    // Walkable statues, could have an option to bundle this subgroup
+    if (gSettingsContext.startingOwlStatues.clock_town) saveData.player.owl_statue_flags.clock_town = 1;
+    if (gSettingsContext.startingOwlStatues.milk_road) saveData.player.owl_statue_flags.milk_road = 1;
+    if (gSettingsContext.startingOwlStatues.southern_swamp) saveData.player.owl_statue_flags.southern_swamp = 1;
+    // These give early location access
+    if (gSettingsContext.startingOwlStatues.great_bay) saveData.player.owl_statue_flags.southern_swamp = 1;
+    if (gSettingsContext.startingOwlStatues.zora_cape) saveData.player.owl_statue_flags.southern_swamp = 1;
+    if (gSettingsContext.startingOwlStatues.snowhead) saveData.player.owl_statue_flags.southern_swamp = 1;
+    if (gSettingsContext.startingOwlStatues.mountain_village) saveData.player.owl_statue_flags.southern_swamp = 1;
+    if (gSettingsContext.startingOwlStatues.woodfall) saveData.player.owl_statue_flags.southern_swamp = 1;
+    if (gSettingsContext.startingOwlStatues.ikana_canyon) saveData.player.owl_statue_flags.southern_swamp = 1;
+    if (gSettingsContext.startingOwlStatues.stone_tower) saveData.player.owl_statue_flags.southern_swamp = 1;
+  }
+  // Resolve the item ID for the starting bottle
   static void SaveFile_GiveStartingBottle(StartingBottleSetting startingBottle, u8 bottleSlot) {
-    game::SaveData &saveData = game::GetCommonData().save;
+    game::SaveData& saveData = game::GetCommonData().save;
     if (startingBottle > StartingBottleSetting::STARTINGBOTTLE_NONE) {
       saveData.inventory.bottles[bottleSlot] = (game::ItemId)startingBottle;
     }
   }
 
   u8 SaveFile_GetRemainsCount(void) {
-    game::InventoryData &inventoryData = game::GetCommonData().save.inventory;
+    game::InventoryData& inventoryData = game::GetCommonData().save.inventory;
     u8 count = 0;
 
     count += inventoryData.collect_register.odolwas_remains ? 1 : 0;
@@ -250,13 +239,12 @@ namespace rnd {
   }
 
   void SaveFile_SetStartingInventory(void) {
-    game::InventoryData &inventoryData = game::GetCommonData().save.inventory;
-    game::PlayerData &playerData = game::GetCommonData().save.player;
-    game::EquipmentData &equipmentData = game::GetCommonData().save.equipment;
-    game::SaveData &saveData = game::GetCommonData().save;
-    //give maps and compasses
-    if (gSettingsContext.mapsAndCompasses ==
-        (u8)MapsAndCompassesSetting::MAPSANDCOMPASSES_START_WITH) {
+    game::InventoryData& inventoryData = game::GetCommonData().save.inventory;
+    game::PlayerData& playerData = game::GetCommonData().save.player;
+    game::EquipmentData& equipmentData = game::GetCommonData().save.equipment;
+    game::SaveData& saveData = game::GetCommonData().save;
+    // give maps and compasses
+    if (gSettingsContext.mapsAndCompasses == (u8)MapsAndCompassesSetting::MAPSANDCOMPASSES_START_WITH) {
       inventoryData.woodfall_dungeon_items.map = 1;
       inventoryData.woodfall_dungeon_items.compass = 1;
       inventoryData.snowhead_dungeon_items.map = 1;
@@ -266,17 +254,17 @@ namespace rnd {
       inventoryData.stone_tower_dungeon_items.map = 1;
       inventoryData.stone_tower_dungeon_items.compass = 1;
     }
-    
-    //give small keys
+
+    // give small keys
     if (gSettingsContext.keysanity == (u8)KeysanitySetting::KEYSANITY_START_WITH) {
       inventoryData.woodfall_temple_keys = 1;
       inventoryData.snowhead_temple_keys = 3;
       inventoryData.great_bay_temple_keys = 3;
       inventoryData.stone_tower_temple_keys = 4;
-      //give starting spirit keys for vanilla key locations
+      // give starting spirit keys for vanilla key locations
     }
-    
-    //give boss keys
+
+    // give boss keys
     if (gSettingsContext.bossKeysanity == (u8)BossKeysanitySetting::BOSSKEYSANITY_START_WITH) {
       inventoryData.woodfall_dungeon_items.boss_key = 1;
       inventoryData.snowhead_dungeon_items.boss_key = 1;
@@ -284,7 +272,7 @@ namespace rnd {
       inventoryData.stone_tower_dungeon_items.boss_key = 1;
     }
 
-    //starting Nuts and Sticks
+    // starting Nuts and Sticks
     if (gSettingsContext.startingConsumables) {
       inventoryData.items[9] = game::ItemId::DekuNuts;
       inventoryData.items[10] = game::ItemId::DekuStick;
@@ -292,7 +280,7 @@ namespace rnd {
       inventoryData.inventory_count_register.stick_upgrades = 0;
     }
 
-    //main inventory
+    // main inventory
     if (gSettingsContext.startingStickCapacity > 0) {
       inventoryData.items[10] = game::ItemId::DekuStick;
       inventoryData.inventory_count_register.stick_upgrades = 0;
@@ -370,13 +358,13 @@ namespace rnd {
     if (gSettingsContext.startingMagicMeter == 1) {
       equipmentData.data[3].item_btns[0] = game::ItemId::DekuNuts;
       playerData.magic_size_type = 0;
-      //playerData.magic_max_2 = 0;
+      // playerData.magic_max_2 = 0;
       playerData.magic_num_upgrades = 0;
       playerData.magic_acquired = 1;
       playerData.magic = 0x30;
     } else if (gSettingsContext.startingMagicMeter == 2) {
       playerData.magic_size_type = 0;
-      //playerData.magic_max_2 = 1;
+      // playerData.magic_max_2 = 1;
       playerData.magic_num_upgrades = 1;
       playerData.magic_acquired = 1;
       playerData.magic = 0x60;
@@ -398,7 +386,7 @@ namespace rnd {
     gSaveContext.equipment |= gSettingsContext.startingEquipment;
     gSaveContext.upgrades |= gSettingsContext.startingUpgrades;
 */
-    //max rupees
+    // max rupees
     if (gSettingsContext.startingMaxRupees) {
       u8 wallet = inventoryData.inventory_count_register.wallet_upgrade;
       if (wallet == 0) {
@@ -414,12 +402,12 @@ namespace rnd {
 
     // TODO: Starting stray fairies - need to update flags for which ones are acquired or not.
     if (gSettingsContext.startingSpinSettting == (u8)StartingSpinSetting::STARTINGSPIN_GREAT) {
-        saveData.has_great_spin_0x02 = 2;
+      saveData.has_great_spin_0x02 = 2;
     }
   }
 
   void SaveFile_ResetItemSlotsIfMatchesID(u8 itemSlot) {
-    game::SaveData &saveData = game::GetCommonData().save;
+    game::SaveData& saveData = game::GetCommonData().save;
     // Remove the slot from child/adult grids
     for (u32 i = 0; i < 0x18; ++i) {
       if (saveData.inventory.items[i] == (game::ItemId)itemSlot) {
@@ -428,4 +416,4 @@ namespace rnd {
     }
   }
 
-}
+} // namespace rnd

@@ -4,7 +4,7 @@ namespace rnd {
   SettingsContext gSettingsContext = {0};
   u8 Damage32 = 0;
 
-  s32 Settings_ApplyDamageMultiplier(game::GlobalContext *globalCtx, s32 changeHealth) {
+  s32 Settings_ApplyDamageMultiplier(game::GlobalContext* globalCtx, s32 changeHealth) {
     game::SaveData& saveData = game::GetCommonData().save;
     // Fairy healing also gets sent to this function and should be ignored
     if (changeHealth >= 0) {
@@ -45,7 +45,8 @@ namespace rnd {
       }
     }
 
-    // Double defense seems to round up after halving so values of -1 should instead alternate between -2 and 0 (-1 would also work, but -2 was easier)
+    // Double defense seems to round up after halving so values of -1 should instead alternate between -2 and 0 (-1
+    // would also work, but -2 was easier)
     if (saveData.player.double_defense == 1 && modifiedChangeHealth == -1) {
       modifiedChangeHealth = -(Damage32 & 2);
       Damage32 ^= 2;
@@ -53,11 +54,12 @@ namespace rnd {
 
     return modifiedChangeHealth;
   }
-  //With the No Health Refill option on, full health refills from health upgrades and Bombchu Bowling are turned off, and fairies restore 3 hearts
-  //Otherwise, they grant a full heal, and the default effect applies (full heal from bottle, 8 hearts on contact)
+  // With the No Health Refill option on, full health refills from health upgrades and Bombchu Bowling are turned off,
+  // and fairies restore 3 hearts Otherwise, they grant a full heal, and the default effect applies (full heal from
+  // bottle, 8 hearts on contact)
   u32 Settings_SetFullHealthRestore(u8 setAmount) {
-    if ((gSettingsContext.heartDropRefill == (u8)HeartDropRefillSetting::HEARTDROPREFILL_NOREFILL) \
-    || (gSettingsContext.heartDropRefill == (u8)HeartDropRefillSetting::HEARTDROPREFILL_NODROPREFILL)) {
+    if ((gSettingsContext.heartDropRefill == (u8)HeartDropRefillSetting::HEARTDROPREFILL_NOREFILL) ||
+        (gSettingsContext.heartDropRefill == (u8)HeartDropRefillSetting::HEARTDROPREFILL_NODROPREFILL)) {
       return setAmount;
     } else {
       return 0x140;
@@ -77,32 +79,32 @@ namespace rnd {
   }
 
   // ARM patch settings.
-  extern "C"  {
-    u8 SettingsEnabledFastSwim(void) {
-      //util::Print("%s: Our value is currently %u\n", gSettingsContext.enableFastZoraSwim);
-      return gSettingsContext.enableFastZoraSwim;
-    }
-    
-    u8 SettingsEnableOcarinaDive(void) {
-      return gSettingsContext.enableOcarinaDiving;
-    }
-
-    u8 SettingsEnableFastElegy(void) {
-      return gSettingsContext.enableFastElegyStatues;
-    }
+  extern "C" {
+  u8 SettingsEnabledFastSwim(void) {
+    // util::Print("%s: Our value is currently %u\n", gSettingsContext.enableFastZoraSwim);
+    return gSettingsContext.enableFastZoraSwim;
   }
-  // TODO: Change the addr 
- /* typedef void (*Health_ChangeBy_proc)(GlobalContext *arg1, u32 arg2);
-#define Health_ChangeBy_addr 0x352dbc
-#define Health_ChangeBy ((Health_ChangeBy_proc)Health_ChangeBy_addr)
-  void FairyPickupHealAmount(void) {
-    if (gSettingsContext.heartDropRefill == HeartDropRefillSetting::HEARTDROPREFILL_NOREFILL \
-    || gSettingsContext.heartDropRefill == HeartDropRefillSetting::HEARTDROPREFILL_NODROPREFILL) {
-      Health_ChangeBy(gGlobalContext, 0x30);
-    } else {
-      Health_ChangeBy(gGlobalContext, 0x80);
-    }
-  }*/
+
+  u8 SettingsEnableOcarinaDive(void) {
+    return gSettingsContext.enableOcarinaDiving;
+  }
+
+  u8 SettingsEnableFastElegy(void) {
+    return gSettingsContext.enableFastElegyStatues;
+  }
+  }
+  // TODO: Change the addr
+  /* typedef void (*Health_ChangeBy_proc)(GlobalContext *arg1, u32 arg2);
+ #define Health_ChangeBy_addr 0x352dbc
+ #define Health_ChangeBy ((Health_ChangeBy_proc)Health_ChangeBy_addr)
+   void FairyPickupHealAmount(void) {
+     if (gSettingsContext.heartDropRefill == HeartDropRefillSetting::HEARTDROPREFILL_NOREFILL \
+     || gSettingsContext.heartDropRefill == HeartDropRefillSetting::HEARTDROPREFILL_NODROPREFILL) {
+       Health_ChangeBy(gGlobalContext, 0x30);
+     } else {
+       Health_ChangeBy(gGlobalContext, 0x80);
+     }
+   }*/
 
   // From section 5 of https://www.cs.ubc.ca/~rbridson/docs/schechter-sca08-turbulence.pdf
   u32 Hash(u32 state) {
@@ -141,7 +143,6 @@ namespace rnd {
     value |= And(seed, 11, 16) << 6;
     return value;
   }
-
 
   const char hashIconNames[62][25] = {
       "Ocarina",
@@ -207,4 +208,4 @@ namespace rnd {
       "Adult Wallet",
       "Bomber's Notebook",
   };
-}
+} // namespace rnd
