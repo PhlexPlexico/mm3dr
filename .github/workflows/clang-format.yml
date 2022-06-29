@@ -17,12 +17,16 @@ jobs:
 
     - uses: DoozyX/clang-format-lint-action@v0.13
       with:
-        files: .*\.\(cpp\|h\|cc\|cxx\)
+        source: "./code"
+        extensions: 'h,cpp'
         clangFormatVersion: 14
         style: file
         inplace: True
 
-    - uses: stefanzweifel/git-auto-commit-action@v4
+    - uses: EndBug/add-and-commit@v4
       with:
-        commit_user_name: clang-format-bot
-        commit_message: 'Automated commit of clang-format CI changes.'
+        author_name: Clang Robot
+        author_email: robot@phlexplexi.co
+        message: 'Committing clang-format changes'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
