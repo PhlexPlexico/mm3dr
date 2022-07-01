@@ -109,8 +109,7 @@
  */
 #pragma pack(1)
 template <std::size_t position, std::size_t bits, typename T>
-struct BitField
-{
+struct BitField {
 private:
   // This constructor might be considered ambiguous:
   // Would it initialize the storage or just the bitfield?
@@ -135,16 +134,23 @@ public:
   BitField& operator=(const BitField&) = delete;
 #endif
 
-  [[gnu::always_inline]] BitField& operator=(T val)
-  {
+  [[gnu::always_inline]] BitField& operator=(T val) {
     storage = (storage & ~GetMask()) | ((static_cast<StorageType>(val) << position) & GetMask());
     return *this;
   }
 
-  constexpr T Value() const { return Value(std::is_signed<T>()); }
-  constexpr operator T() const { return Value(); }
-  constexpr std::size_t StartBit() const { return position; }
-  constexpr std::size_t NumBits() const { return bits; }
+  constexpr T Value() const {
+    return Value(std::is_signed<T>());
+  }
+  constexpr operator T() const {
+    return Value();
+  }
+  constexpr std::size_t StartBit() const {
+    return position;
+  }
+  constexpr std::size_t NumBits() const {
+    return bits;
+  }
 
 private:
   // StorageType is T for non-enum types and the underlying type of T if
@@ -157,19 +163,16 @@ private:
   // Unsigned version of StorageType
   using StorageTypeU = std::make_unsigned_t<StorageType>;
 
-  constexpr T Value(std::true_type) const
-  {
+  constexpr T Value(std::true_type) const {
     using shift_amount = std::integral_constant<size_t, 8 * sizeof(T) - bits>;
     return static_cast<T>((storage << (shift_amount() - position)) >> shift_amount());
   }
 
-  constexpr T Value(std::false_type) const
-  {
+  constexpr T Value(std::false_type) const {
     return static_cast<T>((storage & GetMask()) >> position);
   }
 
-  static constexpr StorageType GetMask()
-  {
+  static constexpr StorageType GetMask() {
     return (std::numeric_limits<StorageTypeU>::max() >> (8 * sizeof(T) - bits)) << position;
   }
 

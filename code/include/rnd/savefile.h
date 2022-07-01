@@ -20,22 +20,22 @@ namespace rnd {
   void SaveFile_LoadExtSaveData(u32 saveNumber);
   void SaveFile_SaveExtSaveData(u32 saveNumber);*/
 
-// Increment the version number whenever the ExtSaveData structure is changed
-/*
-#define EXTSAVEDATA_VERSION 1
+  // Increment the version number whenever the ExtSaveData structure is changed
+  /*
+  #define EXTSAVEDATA_VERSION 1
 
-  typedef struct {
-    u32 version; // Needs to always be the first field of the structure
-    u32 playtimeSeconds;
-  } ExtSaveData;
+    typedef struct {
+      u32 version; // Needs to always be the first field of the structure
+      u32 playtimeSeconds;
+    } ExtSaveData;
 
-#ifdef DECLARE_EXTSAVEDATA
-#define EXTERN
-#else
-#define EXTERN extern
-#endif
+  #ifdef DECLARE_EXTSAVEDATA
+  #define EXTERN
+  #else
+  #define EXTERN extern
+  #endif
 
-  EXTERN ExtSaveData gExtSaveData;*/
-}
+    EXTERN ExtSaveData gExtSaveData;*/
+}  // namespace rnd
 
-#endif //_SAVEFILE_H_
+#endif  //_SAVEFILE_H_

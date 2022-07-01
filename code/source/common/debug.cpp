@@ -7,7 +7,7 @@ extern "C" {
 
 namespace rnd::util {
 
-  void Print(const char *format, ...) {
+  void Print(const char* format, ...) {
     char buffer[0x200];
     va_list arg;
     va_start(arg, format);
@@ -17,4 +17,4 @@ namespace rnd::util {
       svcOutputDebugString(buffer, sizeof(buffer));
   }
 
-}
+}  // namespace rnd::util

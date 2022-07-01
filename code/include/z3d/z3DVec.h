@@ -14,36 +14,35 @@ typedef uint32_t u32;
 #define ARR_SIZE(a) (sizeof(a) / sizeof(a[0]))
 
 typedef struct {
-    f32 x, y;
+  f32 x, y;
 } z3dVec2f;
 
 typedef struct {
-    f32 x, y, z;
+  f32 x, y, z;
 } z3dVec3f;
 
 typedef struct {
-    f32 x, y, z, w;
+  f32 x, y, z, w;
 } z3dVec4f;
 
 typedef struct {
-    s16 x, y, z;
+  s16 x, y, z;
 } z3dVec3s;
 
 typedef struct {
-    s32 x, y, z;
+  s32 x, y, z;
 } z3dVec3i;
 
 typedef struct {
-    f32 data[2][3];
+  f32 data[2][3];
 } z3d_nn_math_MTX23;
 
 typedef struct {
-    f32 data[3][4];
+  f32 data[3][4];
 } z3d_nn_math_MTX34;
 
 typedef struct {
-    f32 data[4][4];
+  f32 data[4][4];
 } z3d_nn_math_MTX44;
-
 
 #endif

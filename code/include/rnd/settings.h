@@ -16,7 +16,7 @@ namespace rnd {
     SKIP,
   };
 
-  enum class LogicSetting :u8 {
+  enum class LogicSetting : u8 {
     LOGIC_GLITCHLESS,
     LOGIC_NONE,
     LOGIC_VANILLA,
@@ -216,16 +216,16 @@ namespace rnd {
     STARTINGTRADEITEM_PENDANT_OF_MEMORIES,
   };
   enum class ShuffleChestsSetting : u8 {
-      SHUFFLECHESTS_VANILLA,
-      SHUFFLECHESTS_RANDOM,
+    SHUFFLECHESTS_VANILLA,
+    SHUFFLECHESTS_RANDOM,
   };
   enum class StrayFairySanitySetting : u8 {
-      STRAYFAIRYSANITY_VANILLA,
-      STRAYFAIRYSANITY_ANYWHERE,
+    STRAYFAIRYSANITY_VANILLA,
+    STRAYFAIRYSANITY_ANYWHERE,
   };
   enum class ShuffleKokiriSwordSetting : u8 {
-      SHUFFLEKOKIRISWORD_VANILLA,
-      SHUFFLEKOKIRISWROD_ANYWHERE,
+    SHUFFLEKOKIRISWORD_VANILLA,
+    SHUFFLEKOKIRISWROD_ANYWHERE,
   };
   typedef struct {
     u8 hashIndexes[5];
@@ -309,7 +309,7 @@ namespace rnd {
     u8 startingBottle5;
     u8 startingBottle6;
     u8 startingBottle7;
-    
+
     u8 startingKokiriSword;
     u8 startingRazorSword;
     u8 startingGildedSword;
@@ -333,8 +333,8 @@ namespace rnd {
   extern "C" SettingsContext gSettingsContext;
   extern const char hashIconNames[62][25];
 
-  s32 Settings_ApplyDamageMultiplier(game::GlobalContext *, s32);
+  s32 Settings_ApplyDamageMultiplier(game::GlobalContext*, s32);
   u32 Hash(u32);
   u8 Bias(u32);
-} // namespace rnd
+}  // namespace rnd
 #endif

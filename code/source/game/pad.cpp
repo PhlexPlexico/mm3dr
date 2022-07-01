@@ -4,8 +4,8 @@
 
 namespace game::pad {
 
-ControllerMgr& GetControllerMgr() {
-  return *rnd::util::GetPointer<ControllerMgr>(0x729000);
-}
+  ControllerMgr& GetControllerMgr() {
+    return *rnd::util::GetPointer<ControllerMgr>(0x729000);
+  }
 
 }  // namespace game::pad

@@ -4,9 +4,9 @@
 
 namespace game {
 
-CommonData& GetCommonData() {
-  // Right before the static context in .bss.
-  return *rnd::util::GetPointer<CommonData>(0x7751D8);
-}
+  CommonData& GetCommonData() {
+    // Right before the static context in .bss.
+    return *rnd::util::GetPointer<CommonData>(0x7751D8);
+  }
 
 }  // namespace game
