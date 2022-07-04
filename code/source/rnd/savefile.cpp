@@ -121,7 +121,7 @@ namespace rnd {
       // These events replay after song of time aka temp flags
       saveData.ct_guard_allows_through_if_0x20 = 0x20;
       saveData.tatl_dialogue_snowhead_entry_0x08 = 0x08;
-      saveData.pirate_leader_dialogue_0x02 = 0x20;
+      saveData.pirate_leader_dialogue_0x20 = 0x20;
       saveData.temp_event_flag_bundle1.ct_deku_in_flower_if_present = 1;
 
       saveData.player_form = game::act::Player::Form::Human;
