@@ -256,6 +256,7 @@ namespace rnd {
 
     u8 skipEponaRace;
     u8 skipMinigamePhases;
+    u8 skipBombersMinigame;
 
     u8 damageMultiplier;
     u8 gossipStoneHints;
