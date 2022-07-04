@@ -5,12 +5,11 @@
 
 #include "newcodeinfo.h"
 
-typedef signed int      s32;
-typedef unsigned int    u32;
+typedef signed int s32;
+typedef unsigned int u32;
 
 typedef s32 Result;
 typedef u32 Handle;
-
 
 Result svcOpenProcess(Handle* process, u32 processId);
 Result svcGetProcessId(u32* out, Handle handle);
@@ -21,36 +20,35 @@ void loader_main(void) __attribute__((section(".loader")));
 Handle getCurrentProcessHandle(void) __attribute__((section(".loader")));
 
 void loader_main(void) {
-    Result res;
+  Result res;
 
-    u32 address = NEWCODE_OFFSET;
-    u32 neededMemory = (NEWCODE_SIZE + 0xFFF) & ~0xFFF; // rounding up
+  u32 address = NEWCODE_OFFSET;
+  u32 neededMemory = (NEWCODE_SIZE + 0xFFF) & ~0xFFF;  // rounding up
 
-    res = svcControlProcessMemory(getCurrentProcessHandle(), address, address, neededMemory, 6,
-                                  7);
+  res = svcControlProcessMemory(getCurrentProcessHandle(), address, address, neededMemory, 6, 7);
 
-    if (res < 0)
-        svcBreak(1);
+  if (res < 0)
+    svcBreak(1);
 
-    // Hacky solution to be able to edit gDrawItemTable, which is normally in RO data
-    // res = svcControlProcessMemory(getCurrentProcessHandle(), 0x4D8000, 0x4D8000, 0x1000, MEMOP_PROT,
-    //                               MEMPERM_READ | MEMPERM_WRITE);
+  // Hacky solution to be able to edit gDrawItemTable, which is normally in RO data
+  // res = svcControlProcessMemory(getCurrentProcessHandle(), 0x4D8000, 0x4D8000, 0x1000,
+  // MEMOP_PROT,
+  //                               MEMPERM_READ | MEMPERM_WRITE);
 
-    // if (res < 0)
-    //     svcBreak(USERBREAK_ASSERT);
-    
+  // if (res < 0)
+  //     svcBreak(USERBREAK_ASSERT);
 }
 
 Handle getCurrentProcessHandle(void) {
-    Handle handle = 0;
-    u32 currentPid = 0;
-    Result res;
+  Handle handle = 0;
+  u32 currentPid = 0;
+  Result res;
 
-    svcGetProcessId(&currentPid, 0xffff8001);
-    res = svcOpenProcess(&handle, currentPid);
+  svcGetProcessId(&currentPid, 0xffff8001);
+  res = svcOpenProcess(&handle, currentPid);
 
-    if (res != 0)
-        return 0;
+  if (res != 0)
+    return 0;
 
-    return handle;
+  return handle;
 }
