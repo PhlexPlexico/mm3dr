@@ -102,7 +102,7 @@ namespace rnd {
       // Skips cutscenes with no item checks attached
       // Also does not skip location access cutscenes like woodfall temple rise
       SaveFile_SkipMinorCutscenes();
-      //Game has shorter animations for some events that were viewed at least once
+      // Game has shorter animations for some events that were viewed at least once
       SaveFile_SetFastAnimationFlags();
 
       // OOT equivalent of starting with certain warp songs
@@ -134,7 +134,7 @@ namespace rnd {
     saveData.has_completed_intro = 0x2B;
     saveData.skip_tatl_talking_0x04 = 0x04;
 
-    //camera panning cutscenes
+    // camera panning cutscenes
     saveData.camera_panning_event_flag_bundle.termina_field = 1;
     saveData.camera_panning_event_flag_bundle.graveyard = 1;
     saveData.camera_panning_event_flag_bundle.romani_ranch = 1;
@@ -165,7 +165,7 @@ namespace rnd {
     saveData.pirates_fortress_exterior_camera_pan_0x04 = 0x04;
     saveData.ikana_castle_camera_pan_0x08 = 0x80;
 
-    //Tatl constant tatling skip
+    // Tatl constant tatling skip
     saveData.tatl_dialogue_flags2.go_south = 1;
     saveData.tatl_dialogue_flags1.go_north = 1;
     saveData.tatl_dialogue_flags1.go_west = 1;
@@ -177,13 +177,13 @@ namespace rnd {
     saveData.talt_dialogue_great_bay_temple.waterwheel_room_tatl_dialogue = 1;
     saveData.talt_dialogue_great_bay_temple.whirlpool_room_tatl_dialogue = 1;
 
-    //Misc cutscenes
+    // Misc cutscenes
     saveData.meeting_happy_mask_salesman_0x01 = 0x01;
     saveData.skullkid_backstory_cutscene_0x10 = 0x10;
     saveData.cut_scene_flag_bundle.owl_statue_cut_scene = 1;
     saveData.event_flag_bundle.skip_swimming_to_great_bay_temple_cutscene = 1;
 
-    //Needs to be greater than zero to skip first time song of time cutscene
+    // Needs to be greater than zero to skip first time song of time cutscene
     saveData.player.song_of_time_counter = 1;
   }
 
@@ -214,28 +214,29 @@ namespace rnd {
   }
   void SaveFile_SetFastAnimationFlags() {
     game::SaveData& saveData = game::GetCommonData().save;
-    //Masks
+    // Masks
     saveData.set_fast_mask_animations.has_worn_deku_mask_once = 1;
     saveData.set_fast_mask_animations.has_worn_goron_mask_once = 1;
     saveData.set_fast_mask_animations.has_worn_zora_mask_once = 1;
     saveData.set_fast_mask_animations.has_worn_deity_mask_once = 1;
-    //Dungeons
+    // Dungeons
     saveData.set_fast_animation_flags.woodfall_temple_opened_at_least_once = 1;
     saveData.set_fast_animation_flags.snowhead_temple_opened_at_least_once = 1;
     saveData.set_fast_animation_flags.greatbay_temple_opened_at_least_once = 1;
-    //Misc
+    // Misc
     saveData.set_fast_animation_flags.deku_flown_in_at_least_once = 1;
   }
   void SaveFile_SetComfortOptions() {
     game::SaveData& saveData = game::GetCommonData().save;
-    if(gSettingsContext.skipBombersMinigame) {
-    //Not sure if bombers code is used elsewhere in the game's code
+    if (gSettingsContext.skipBombersMinigame) {
+      // Not sure if bombers code is used elsewhere in the game's code
       saveData.bombercode_first_digit = 0x01;
       saveData.bombercode_second_digit = 0x01;
       saveData.bombercode_third_digit = 0x01;
       saveData.bombercode_fourth_digit = 0x01;
       saveData.bombercode_fifth_digit = 0x01;
-      saveData.temp_event_flag_bundle1.bomber_open_hideout = 1; //Currently gets reset by Song of time
+      saveData.temp_event_flag_bundle1.bomber_open_hideout =
+          1;  // Currently gets reset by Song of time
     }
   }
   // Resolve the item ID for the starting bottle

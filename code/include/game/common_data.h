@@ -41,7 +41,7 @@ namespace game {
   struct PlayerData {
     char field_11C[4];
     u8 gap_124[2];
-    u16 song_of_time_counter; //Plays song of time cutscene when == 0
+    u16 song_of_time_counter;  // Plays song of time cutscene when == 0
     char16_t playerName[8];
     u16 anonymous_h;
 
@@ -324,7 +324,7 @@ namespace game {
       BitField<5, 1, u32> mountain_village;
       BitField<6, 1, u32> goron_city;
       BitField<7, 1, u32> snowhead;
-      
+
       BitField<8, 1, u32> southern_swamp;
       BitField<9, 1, u32> woodfall;
       BitField<10, 1, u32> deku_palace;
@@ -333,7 +333,7 @@ namespace game {
       BitField<13, 1, u32> zora_domain;
       BitField<14, 1, u32> waterfall_rapids;
       BitField<15, 1, u32> ikana_canyon;
-      
+
       BitField<16, 1, u32> unknown2;
       BitField<17, 1, u32> stone_tower;
       BitField<18, 1, u32> stone_tower_inverted;
@@ -342,7 +342,7 @@ namespace game {
       BitField<21, 1, u32> north_clock_town;
       BitField<22, 1, u32> woodfall_temple;
       BitField<23, 1, u32> snowhead_temple_entry_room;
-      
+
       BitField<24, 1, u32> unknown3;
       BitField<25, 1, u32> stone_tower_temple;
       BitField<26, 1, u32> stone_tower_temple_inverted;
@@ -386,7 +386,7 @@ namespace game {
     HaveWornMasksU8 set_fast_mask_animations;
     union AdditonalTatlDialogueFlagsU8 {
       u8 raw;
-      
+
       BitField<0, 1, u8> have_not_finished_mountain;
       BitField<1, 1, u8> have_not_finished_ocean;
       BitField<2, 1, u8> go_south;
@@ -409,7 +409,7 @@ namespace game {
     char anonymous_107;
     union MoreEventFlagsU8 {
       u8 raw;
-      
+
       BitField<0, 5, u8> unknown1;
       BitField<5, 1, u8> open_great_bay_temple;
       BitField<6, 1, u8> skip_swimming_to_great_bay_temple_cutscene;
@@ -431,7 +431,7 @@ namespace game {
     u8 gap1292[7];
     union TempEventFlagsU8 {
       u8 raw;
-      
+
       BitField<0, 2, u8> unknown1;
       BitField<2, 1, u8> ct_deku_in_flower_if_present;
       BitField<2, 4, u8> unknown2;
@@ -454,7 +454,7 @@ namespace game {
     // talt dialogue on where to go next after beating a dungeon
     union TatlDialogueFlagsU8 {
       u8 raw;
-      
+
       BitField<0, 4, u8> unknown;
       BitField<4, 1, u8> go_north;
       BitField<5, 1, u8> go_west;
@@ -483,7 +483,7 @@ namespace game {
     char anonymous_151;
     union CutSceneFlagsU8 {
       u8 raw;
-      
+
       BitField<0, 1, u8> owl_statue_cut_scene;
       BitField<1, 3, u8> unknown1;
       BitField<4, 2, u8> deku_palace_throne_room_camera_pan;
@@ -498,7 +498,7 @@ namespace game {
     u8 road_to_woodfall_camera_pan_0x08;
     union SeenEventFlagsU8 {
       u8 raw;
-      
+
       BitField<0, 3, u8> unknown1;
       BitField<3, 1, u8> played_song_of_soaring_at_least_once;
       BitField<4, 1, u8> woodfall_temple_opened_at_least_once;
