@@ -135,31 +135,31 @@ namespace rnd {
     saveData.skip_tatl_talking_0x04 = 0x04;
 
     //camera panning cutscenes
-    saveData.cut_scene_flag_bundle1.termina_field = 1;
-    saveData.cut_scene_flag_bundle1.graveyard = 1;
-    saveData.cut_scene_flag_bundle1.romani_ranch = 1;
-    saveData.cut_scene_flag_bundle1.gorman_track = 1;
-    saveData.cut_scene_flag_bundle1.mountain_village = 1;
-    saveData.cut_scene_flag_bundle1.goron_city = 1;
-    saveData.cut_scene_flag_bundle1.snowhead = 1;
-    saveData.cut_scene_flag_bundle1.southern_swamp = 1;
-    saveData.cut_scene_flag_bundle1.woodfall = 1;
-    saveData.cut_scene_flag_bundle1.deku_palace = 1;
-    saveData.cut_scene_flag_bundle1.great_bay_coast = 1;
-    saveData.cut_scene_flag_bundle1.pirates_fortress_interior = 1;
-    saveData.cut_scene_flag_bundle1.zora_domain = 1;
-    saveData.cut_scene_flag_bundle1.waterfall_rapids = 1;
-    saveData.cut_scene_flag_bundle1.ikana_canyon = 1;
-    saveData.cut_scene_flag_bundle1.stone_tower = 1;
-    saveData.cut_scene_flag_bundle1.stone_tower_inverted = 1;
-    saveData.cut_scene_flag_bundle1.east_clock_town = 1;
-    saveData.cut_scene_flag_bundle1.west_clock_town = 1;
-    saveData.cut_scene_flag_bundle1.north_clock_town = 1;
-    saveData.cut_scene_flag_bundle1.woodfall_temple = 1;
-    saveData.cut_scene_flag_bundle1.snowhead_temple_entry_room = 1;
-    saveData.cut_scene_flag_bundle1.stone_tower_temple = 1;
-    saveData.cut_scene_flag_bundle1.stone_tower_temple_inverted = 1;
-    saveData.cut_scene_flag_bundle2.deku_palace_throne_room_camera_pan = 1;
+    saveData.camera_panning_event_flag_bundle.termina_field = 1;
+    saveData.camera_panning_event_flag_bundle.graveyard = 1;
+    saveData.camera_panning_event_flag_bundle.romani_ranch = 1;
+    saveData.camera_panning_event_flag_bundle.gorman_track = 1;
+    saveData.camera_panning_event_flag_bundle.mountain_village = 1;
+    saveData.camera_panning_event_flag_bundle.goron_city = 1;
+    saveData.camera_panning_event_flag_bundle.snowhead = 1;
+    saveData.camera_panning_event_flag_bundle.southern_swamp = 1;
+    saveData.camera_panning_event_flag_bundle.woodfall = 1;
+    saveData.camera_panning_event_flag_bundle.deku_palace = 1;
+    saveData.camera_panning_event_flag_bundle.great_bay_coast = 1;
+    saveData.camera_panning_event_flag_bundle.pirates_fortress_interior = 1;
+    saveData.camera_panning_event_flag_bundle.zora_domain = 1;
+    saveData.camera_panning_event_flag_bundle.waterfall_rapids = 1;
+    saveData.camera_panning_event_flag_bundle.ikana_canyon = 1;
+    saveData.camera_panning_event_flag_bundle.stone_tower = 1;
+    saveData.camera_panning_event_flag_bundle.stone_tower_inverted = 1;
+    saveData.camera_panning_event_flag_bundle.east_clock_town = 1;
+    saveData.camera_panning_event_flag_bundle.west_clock_town = 1;
+    saveData.camera_panning_event_flag_bundle.north_clock_town = 1;
+    saveData.camera_panning_event_flag_bundle.woodfall_temple = 1;
+    saveData.camera_panning_event_flag_bundle.snowhead_temple_entry_room = 1;
+    saveData.camera_panning_event_flag_bundle.stone_tower_temple = 1;
+    saveData.camera_panning_event_flag_bundle.stone_tower_temple_inverted = 1;
+    saveData.cut_scene_flag_bundle.deku_palace_throne_room_camera_pan = 1;
     saveData.road_to_woodfall_camera_pan_0x08 = 0x08;
     saveData.snowhead_temple_main_room_camera_pan_0x01 = 0x01;
     saveData.pirates_fortress_exterior_camera_pan_0x04 = 0x04;
@@ -180,7 +180,7 @@ namespace rnd {
     //Misc cutscenes
     saveData.meeting_happy_mask_salesman_0x01 = 0x01;
     saveData.skullkid_backstory_cutscene_0x10 = 0x10;
-    saveData.cut_scene_flag_bundle2.owl_statue_cut_scene = 1;
+    saveData.cut_scene_flag_bundle.owl_statue_cut_scene = 1;
     saveData.event_flag_bundle.skip_swimming_to_great_bay_temple_cutscene = 1;
 
     //Needs to be greater than zero to skip first time song of time cutscene
