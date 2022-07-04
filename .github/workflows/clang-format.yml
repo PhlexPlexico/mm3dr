@@ -1,15 +1,13 @@
-name: Clang Format Code
+name: Clang Auto Format Code On Main Repo
 
-# TODO: Remove main branch at some point
 on:
-  pull_request:
   push:
     branches:
       - master
       - dev
 
 jobs:
-  build:
+  auto-formatter-on-main:
     runs-on: ubuntu-latest
 
     steps:
