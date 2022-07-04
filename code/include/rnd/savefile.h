@@ -7,6 +7,8 @@
 namespace rnd {
   void SaveFile_SkipMinorCutscenes();
   void SaveFile_SetStartingOwlStatues();
+  void SaveFile_SetFastAnimationFlags();
+  void SaveFile_SetComfortOptions();
   u8 SaveFile_GetMedallionCount(void);
   u8 SaveFile_GetStoneCount(void);
   u8 SaveFile_GetDungeonCount(void);

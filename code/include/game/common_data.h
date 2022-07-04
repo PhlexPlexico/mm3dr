@@ -40,8 +40,8 @@ namespace game {
 
   struct PlayerData {
     char field_11C[4];
-    u8 gap_120[2];
-    u16 save_count_maybe;
+    u8 gap_124[2]; //corrected
+    u16 song_of_time_counter; //Plays song of time cutscene when == 0
     char16_t playerName[8];
     u16 anonymous_h;
 
@@ -201,7 +201,7 @@ namespace game {
   static_assert(offsetof(InventoryData, inventory_count_register) == 0x78);
 
   struct SaveData {
-    // Todo: rename gaps to match savefile location
+    // Todo: rename gaps to match savefile address location
     MaskId mask;
     u8 has_completed_intro;
     char unused;
@@ -242,20 +242,42 @@ namespace game {
     EquipmentData equipment;
     InventoryData inventory;
     char field_24C;
-    u8 gap249[938];
-    u8 ikana_castle_camera_pan_0x08;
-    u8 gap5FC[295];  // address name has been corrected to match savefile adddress
+    u8 gap241[868];
+    u8 tatl_dialogue_inside_woodfall_temple_0x80; // 0x05B5
+    u8 gap5B6[62]; //corrected
+    u8 removes_sunblock_at_ikana_castle_entrance_0x08; //0x05FA
+    u8 gap5F5[6]; //corrected
+    u8 ikana_castle_camera_pan_0x08;  // 0x05FB
+    u8 gap5FC[123]; //corrected
+    u8 snowhead_temple_main_room_camera_pan_0x01;
+    u8 gap678[67]; //corrected
+    u8 pirate_leader_dialogue_0x02; // 0x06BB
+    u8 gap6BC[103]; //corrected
     int anonymous_44;
     u8 gap728[204];
-    u8 skullkid_backstory_cutscene_0x10;
-    u8 gap7F5[178];  // also been corrected
+    u8 skullkid_backstory_cutscene_0x10; //0x07F4
+    u8 gap7F5[178];  // corrected
     char anonymous_45;
     u8 gap8A9[269];
-    u8 pirates_fortress_exterior_camera_pan_0x04;
-    u8 gap9B6[752];  // corrected
+    u8 pirates_fortress_exterior_camera_pan_0x04; //0x09B5
+    u8 gap9B6[350];  // corrected
+    u8 woodfall_platform_tatl_dialogue_0x02; //0x0B14
+    u8 gapB15[95]; // corrected
+    union TatlDialogueGreatBayTempleU8 {
+      u8 raw;
+      // 0x0B74
+      BitField<0, 5, u8> unknown1;
+      BitField<5, 1, u8> waterwheel_room_tatl_dialogue;
+      BitField<6, 1, u8> whirlpool_room_tatl_dialogue;
+      BitField<7, 1, u8> unknown;
+    };
+    TatlDialogueGreatBayTempleU8 talt_dialogue_great_bay_temple;
+    u8 gapB75[304]; // corrected
     int anonymous_46;
-    u8 gapCAC[520];
-    u8 meeting_happy_mask_salesman_0x01;
+    u8 gapCAC[297];
+    u8 tatl_dialogue_snowhead_entry_0x08; //0x0DD5
+    u8 gapDD6[222]; //corrected
+    u8 meeting_happy_mask_salesman_0x01; //0x0EB4
     u8 gapEB5[762];  // corrected
     int anonymous_47;
     int anonymous_48;
@@ -290,17 +312,12 @@ namespace game {
     int anonymous_66;
     int anonymous_67;
     int anonymous_68;
-    u8 gap1244[4];
-    /*
-    u8 event_reg_maybe;
-    char anonymous_69;
-    char anonymous_70;
-    u8 gap1253;
-    */
+    u8 gap124C[4]; //corrected
     union CutSceneFlagsU32 {
+      //Camera panning cutscenes
       u32 raw;
-
-      BitField<0, 1, u32> unknown0;
+      //0x1250
+      BitField<0, 1, u32> unknown1;
       BitField<1, 1, u32> termina_field;
       BitField<2, 1, u32> graveyard;
       BitField<3, 1, u32> romani_ranch;
@@ -308,42 +325,38 @@ namespace game {
       BitField<5, 1, u32> mountain_village;
       BitField<6, 1, u32> goron_city;
       BitField<7, 1, u32> snowhead;
-
+      //0x1251
       BitField<8, 1, u32> southern_swamp;
       BitField<9, 1, u32> woodfall;
       BitField<10, 1, u32> deku_palace;
       BitField<11, 1, u32> great_bay_coast;
-      BitField<12, 1, u32> pirates_fortress;
+      BitField<12, 1, u32> pirates_fortress_interior;
       BitField<13, 1, u32> zora_domain;
       BitField<14, 1, u32> waterfall_rapids;
       BitField<15, 1, u32> ikana_canyon;
-
-      BitField<16, 1, u32> unknown16;
+      //0x1252
+      BitField<16, 1, u32> unknown2;
       BitField<17, 1, u32> stone_tower;
       BitField<18, 1, u32> stone_tower_inverted;
       BitField<19, 1, u32> east_clock_town;
       BitField<20, 1, u32> west_clock_town;
       BitField<21, 1, u32> north_clock_town;
       BitField<22, 1, u32> woodfall_temple;
-      BitField<23, 1, u32> snowhead_temple;
-
-      BitField<24, 1, u32> unknown24;
+      BitField<23, 1, u32> snowhead_temple_entry_room;
+      //0x1253
+      BitField<24, 1, u32> unknown3;
       BitField<25, 1, u32> stone_tower_temple;
       BitField<26, 1, u32> stone_tower_temple_inverted;
-      BitField<27, 1, u32> unknown27;
-      BitField<28, 1, u32> unknown28;
-      BitField<29, 1, u32> unknown29;
-      BitField<30, 1, u32> unknown30;
-      BitField<31, 1, u32> unknown31;
+      BitField<27, 5, u32> unknown4;
     };
     CutSceneFlagsU32 cut_scene_flag_bundle1;
     u8 gap1254[3];
-    char anonymous_71;
+    char tatl_apology_dialogue_post_Odolwa_0x80; //0x1257
     char anonymous_72;
     char anonymous_73;
     char anonymous_74;
     char anonymous_75;
-    u8 ct_guard_allows_through_if_0x30;
+    u8 ct_guard_allows_through_if_0x20;
     char anonymous_77;
     u8 flag_8_for_no_magic_use;
     char anonymous_78;
@@ -351,7 +364,7 @@ namespace game {
     u8 ct_deku_removed_if_c0;
     char anonymous_81;
     char anonymous_82;
-    char anonymous_83;
+    char open_woodfall_temple_if_0x01; //0x1264
     char anonymous_84;
     char anonymous_85;
     u8 has_great_spin_0x02;
@@ -361,8 +374,27 @@ namespace game {
     char anonymous_90;
     char anonymous_91;
     char anonymous_92;
-    char anonymous_93;
-    char anonymous_94;
+    //char anonymous_93;
+    union HaveWornMasksU8 {
+      u8 raw;
+      // 0x126E
+      BitField<0, 1, u8> open_snowhead_temple;
+      BitField<1, 3, u8> unknown;
+      BitField<4, 1, u8> has_worn_deku_mask_once;
+      BitField<5, 1, u8> has_worn_goron_mask_once;
+      BitField<6, 1, u8> has_worn_zora_mask_once;
+      BitField<7, 1, u8> has_worn_deity_mask_once;
+    };
+    HaveWornMasksU8 set_fast_mask_animations;
+    union AdditonalTatlDialogueFlagsU8 {
+      u8 raw;
+      // 0x126F
+      BitField<0, 1, u8> have_not_finished_mountain;
+      BitField<1, 1, u8> have_not_finished_ocean;
+      BitField<2, 1, u8> go_south;
+      BitField<3, 5, u8> unknown;
+    };
+    AdditonalTatlDialogueFlagsU8 tatl_dialogue_flags2;
     char anonymous_95;
     char anonymous_96;
     char anonymous_97;
@@ -377,7 +409,15 @@ namespace game {
     char anonymous_105;
     char anonymous_106;
     char anonymous_107;
-    char anonymous_108;
+    union MoreEventFlagsU8 {
+      u8 raw;
+      //0x1285
+      BitField<0, 5, u8> unknown1;
+      BitField<5, 1, u8> open_great_bay_temple;
+      BitField<6, 1, u8> skip_swimming_to_great_bay_temple_cutscene;
+      BitField<7, 1, u8> unknown2;
+    };
+    MoreEventFlagsU8 event_flag_bundle;
     char anonymous_109;
     char anonymous_110;
     char anonymous_111;
@@ -391,7 +431,15 @@ namespace game {
     char anonymous_119;
     char anonymous_120;
     u8 gap1292[7];
-    u8 ct_deku_in_flower_0x04_if_present;
+    union TempEventFlagsU8 {
+      u8 raw;
+      //0x1299
+      BitField<0, 2, u8> unknown1;
+      BitField<2, 1, u8> ct_deku_in_flower_if_present;
+      BitField<2, 4, u8> unknown2;
+      BitField<7, 1, u8> bomber_open_hideout;
+    };
+    TempEventFlagsU8 temp_event_flag_bundle1;
     char anonymous_122;
     u8 anju_0x10_if_obtained_small_key;
     char anonymous_124;
@@ -405,7 +453,18 @@ namespace game {
     char anonymous_132;
     char anonymous_133;
     char anonymous_134;
-    char anonymous_135;
+    // char anonymous_135; 
+    // talt dialogue on where to go next after beating a dungeon
+    union TatlDialogueFlagsU8 {
+      u8 raw;
+      //0x12A7
+      BitField<0, 4, u8> unknown;
+      BitField<4, 1, u8> go_north;
+      BitField<5, 1, u8> go_west;
+      BitField<6, 1, u8> go_east;
+      BitField<7, 1, u8> go_to_skullkid;
+    };
+    TatlDialogueFlagsU8 tatl_dialogue_flags1;
     char anonymous_136;
     char anonymous_137;
     char anonymous_138;
@@ -427,68 +486,42 @@ namespace game {
     char anonymous_151;
     union CutSceneFlagsU8 {
       u8 raw;
-
+      //0x12D3
       BitField<0, 1, u8> owl_statue_cut_scene;
-      BitField<1, 1, u8> unknown1;
-      BitField<2, 1, u8> unknown2;
-      BitField<3, 1, u8> unknown3;
-      BitField<4, 2, u8> deku_palace_throne_room_cutscene;
-      BitField<5, 1, u8> unknown5;
-      BitField<6, 1, u8> unknown6;
-      BitField<7, 1, u8> unknown7;
+      BitField<1, 3, u8> unknown1;
+      BitField<4, 2, u8> deku_palace_throne_room_camera_pan;
+      BitField<5, 3, u8> unknown2;
     };
-    CutSceneFlagsU8 cut_scene_flag_bundle2;  // char anonymous_152_saved_once_0x10_sot_once_0x40;
+    CutSceneFlagsU8 cut_scene_flag_bundle2;
     char anonymous_153;
     char anonymous_154;
     char anonymous_155;
     char anonymous_156;
     char anonymous_157;
-    u8 road_to_woodfall_camera_pan_0x08;
-    u8 ct_deku_flown_in_0x80_if_visited_once;  // Possible event flags? Set to 80.
+    u8 road_to_woodfall_camera_pan_0x08; //0x12D9
+    union SeenEventFlagsU8 {
+      u8 raw;
+      //0x12DA
+      BitField<0, 3, u8> unknown1;
+      BitField<3, 1, u8> played_song_of_soaring_at_least_once;
+      BitField<4, 1, u8> woodfall_temple_opened_at_least_once;
+      BitField<5, 1, u8> snowhead_temple_opened_at_least_once;
+      BitField<6, 1, u8> greatbay_temple_opened_at_least_once;
+      BitField<7, 1, u8> deku_flown_in_at_least_once;
+    };
+    SeenEventFlagsU8 set_fast_animation_flags;
     char anonymous_160;
     u8 gap12DC[20];
     // Possibly flags for locations visted or game progression counter
     // Does not affect cutscenes
     union UnknownFlags_U32 {
       u32 raw;
-
+      //0x12F0 - 0x12F3
       BitField<0, 1, u32> clock_town;
       BitField<1, 1, u32> termina_field;
-      BitField<2, 1, u32> unknown2;
-      BitField<3, 1, u32> unknown3;
-      BitField<4, 2, u32> unknown4;
-      BitField<5, 1, u32> unknown5;
-      BitField<6, 1, u32> unknown6;
-      BitField<7, 1, u32> unknown7;
-
-      BitField<8, 1, u32> unknown8;
-      BitField<9, 1, u32> unknown9;
-      BitField<10, 1, u32> unknown10;
-      BitField<11, 1, u32> unknown11;
-      BitField<12, 1, u32> unknown12;
-      BitField<13, 1, u32> unknown13;
-      BitField<14, 1, u32> unknown14;
-      BitField<15, 1, u32> unknown15;
-
-      BitField<16, 1, u32> unknown16;
-      BitField<17, 1, u32> unknown17;
-      BitField<18, 1, u32> unknown18;
-      BitField<19, 1, u32> unknown19;
-      BitField<20, 1, u32> unknown20;
-      BitField<21, 1, u32> unknown21;
-      BitField<22, 1, u32> unknown22;
-      BitField<23, 1, u32> unknown23;
-
-      BitField<24, 1, u32> unknown24;
-      BitField<25, 1, u32> unknown25;
-      BitField<26, 1, u32> unknown26;
-      BitField<27, 1, u32> unknown27;
-      BitField<28, 1, u32> unknown28;
-      BitField<29, 1, u32> unknown29;
-      BitField<30, 1, u32> unknown30;
-      BitField<31, 1, u32> unknown31;
+      BitField<2, 30, u32> unknown;
     };
-    UnknownFlags_U32 unknown_flag_bundle;  // int anonymous_161;
+    UnknownFlags_U32 unknown_flag_bundle;
     int anonymous_162;
     u8 gap12F8;
     char anonymous_163;
@@ -510,11 +543,11 @@ namespace game {
     char anonymous_178;
     char anonymous_179;
     u8 gap138A[5];
-    char anonymous_180;
-    char anonymous_181;
-    char anonymous_182;
-    char anonymous_183;
-    char anonymous_184;
+    char bombercode_first_digit; //0x138F
+    char bombercode_second_digit;
+    char bombercode_third_digit;
+    char bombercode_fourth_digit;
+    char bombercode_fifth_digit; //0x1393
     char anonymous_185;
     char anonymous_186[3];
     u16 anonymous_187;

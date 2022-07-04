@@ -70,7 +70,7 @@ namespace rnd {
     saveData.inventory.item_counts[11] = 40;  // Bombs
     saveData.inventory.item_counts[12] = 40;  // Bombchus
     saveData.inventory.item_counts[14] = 30;  // Nuts
-    saveData.inventory.item_counts[13] = 20;  // Sticks
+    saveData.inventory.item_counts[13] = 10;  // Sticks
     saveData.has_great_spin_0x02 = 2;         // Set great spin.
 
     saveData.player.owl_statue_flags.great_bay = 1;
@@ -92,6 +92,7 @@ namespace rnd {
     saveData.inventory.collect_register.song_of_soaring = 1;
     saveData.inventory.collect_register.song_of_time = 1;
 
+    gSettingsContext.skipBombersMinigame = 1;
 #endif
     // TODO: Decomp event flags. Most likely in the large anonymous structs in the SaveData.
     u8 isNewFile = saveData.has_completed_intro;
@@ -101,9 +102,12 @@ namespace rnd {
       // Skips cutscenes with no item checks attached
       // Also does not skip location access cutscenes like woodfall temple rise
       SaveFile_SkipMinorCutscenes();
+      //Game has shorter animations for some events that were viewed at least once
+      SaveFile_SetFastAnimationFlags();
 
       // OOT equivalent of starting with certain warp songs
       SaveFile_SetStartingOwlStatues();
+      SaveFile_SetComfortOptions();
 
       /*Currently starting with ocarina and song of time is default in MM rando.
         These two items allows for skipping the first three day cycle.
@@ -111,15 +115,17 @@ namespace rnd {
         in properly without ocarina in inventory.                                */
       saveData.inventory.collect_register.song_of_time = 1;  // Part of starting quest items options
       gSettingsContext.startingOcarina = 1;
+
       SaveFile_SetStartingInventory();
 
-      // These events replay after song of time
-      saveData.ct_guard_allows_through_if_0x30 = 0x30;
-      // Business skrub has a new short animation after reset
-      saveData.ct_deku_flown_in_0x80_if_visited_once = 0x80;
-      saveData.ct_deku_in_flower_0x04_if_present = 0x04;
+      // These events replay after song of time aka temp flags
+      saveData.ct_guard_allows_through_if_0x20 = 0x20;
+      saveData.tatl_dialogue_snowhead_entry_0x08 = 0x08;
+      saveData.pirate_leader_dialogue_0x02 = 0x20;
+      saveData.temp_event_flag_bundle1.ct_deku_in_flower_if_present = 1;
 
       saveData.player_form = game::act::Player::Form::Human;
+      game::GiveItem(game::ItemId::BombersNotebook);
     }
   }
 
@@ -127,10 +133,8 @@ namespace rnd {
     game::SaveData& saveData = game::GetCommonData().save;
     saveData.has_completed_intro = 0x2B;
     saveData.skip_tatl_talking_0x04 = 0x04;
-    // addresses listed in comments is where it is in the savefile
 
-    // 0x1250
-    // saveData.cut_scene_flag_bundle1.unknown0 = 0;
+    //camera panning cutscenes
     saveData.cut_scene_flag_bundle1.termina_field = 1;
     saveData.cut_scene_flag_bundle1.graveyard = 1;
     saveData.cut_scene_flag_bundle1.romani_ranch = 1;
@@ -138,71 +142,51 @@ namespace rnd {
     saveData.cut_scene_flag_bundle1.mountain_village = 1;
     saveData.cut_scene_flag_bundle1.goron_city = 1;
     saveData.cut_scene_flag_bundle1.snowhead = 1;
-
-    // 0x1251
     saveData.cut_scene_flag_bundle1.southern_swamp = 1;
     saveData.cut_scene_flag_bundle1.woodfall = 1;
     saveData.cut_scene_flag_bundle1.deku_palace = 1;
     saveData.cut_scene_flag_bundle1.great_bay_coast = 1;
-    saveData.cut_scene_flag_bundle1.pirates_fortress = 1;
+    saveData.cut_scene_flag_bundle1.pirates_fortress_interior = 1;
     saveData.cut_scene_flag_bundle1.zora_domain = 1;
     saveData.cut_scene_flag_bundle1.waterfall_rapids = 1;
     saveData.cut_scene_flag_bundle1.ikana_canyon = 1;
-
-    // 0x1252
-    // saveData.cut_scene_flag_bundle1.unknown16 = 0;
     saveData.cut_scene_flag_bundle1.stone_tower = 1;
     saveData.cut_scene_flag_bundle1.stone_tower_inverted = 1;
     saveData.cut_scene_flag_bundle1.east_clock_town = 1;
     saveData.cut_scene_flag_bundle1.west_clock_town = 1;
     saveData.cut_scene_flag_bundle1.north_clock_town = 1;
     saveData.cut_scene_flag_bundle1.woodfall_temple = 1;
-    saveData.cut_scene_flag_bundle1.snowhead_temple = 1;
-
-    // 0x1253
-    // saveData.cut_scene_flag_bundle1.unknown24 = 0;
+    saveData.cut_scene_flag_bundle1.snowhead_temple_entry_room = 1;
     saveData.cut_scene_flag_bundle1.stone_tower_temple = 1;
     saveData.cut_scene_flag_bundle1.stone_tower_temple_inverted = 1;
-    // saveData.cut_scene_flag_bundle1.unknown27 = 0;
-    // saveData.cut_scene_flag_bundle1.unknown28 = 0;
-    // saveData.cut_scene_flag_bundle1.unknown29 = 0;
-    // saveData.cut_scene_flag_bundle1.unknown30 = 0;
-    // saveData.cut_scene_flag_bundle1.unknown31 = 0;
-
-    // GreatbayTemple not in bundle above, does not seem to have a camera pan scene
-
-    // 0x12D3
-    saveData.cut_scene_flag_bundle2.owl_statue_cut_scene = 1;
-    // saveData.cut_scene_flag_bundle2.unknown1 = 0;
-    // saveData.cut_scene_flag_bundle2.unknown2 = 0;
-    // saveData.cut_scene_flag_bundle2.unknown3 = 0;
-    saveData.cut_scene_flag_bundle2.deku_palace_throne_room_cutscene = 1;
-    // saveData.cut_scene_flag_bundle2.unknown5 = 0;
-    // saveData.cut_scene_flag_bundle2.unknown6 = 0;
-    // saveData.cut_scene_flag_bundle2.unknown7 = 0;
-
-    // Meeting the Happy Mask Salesman:
-    // 0x0EB4 = 0x01
-    saveData.meeting_happy_mask_salesman_0x01 = 0x01;
-
-    // SkullKid backstory cutscene:
-    // 0x07F4 = 0x10
-    saveData.skullkid_backstory_cutscene_0x10 = 0x10;
-
-    // Road to Woodfall:
-    // 0x12D9 = 0x08
+    saveData.cut_scene_flag_bundle2.deku_palace_throne_room_camera_pan = 1;
     saveData.road_to_woodfall_camera_pan_0x08 = 0x08;
-
-    // Pirate's fortress exterior:
-    // 0x09B5 = 0x04
+    saveData.snowhead_temple_main_room_camera_pan_0x01 = 0x01;
     saveData.pirates_fortress_exterior_camera_pan_0x04 = 0x04;
-
-    // Ikana Castle from canyon:
-    // 0x05F4 = 0x08
-    // saveData.gap249[931] = 0x08; //<- this gets rid of the Sunblock
-    // 0x05FB = 0x80
     saveData.ikana_castle_camera_pan_0x08 = 0x80;
+
+    //Tatl constant tatling skip
+    saveData.tatl_dialogue_flags2.go_south = 1;
+    saveData.tatl_dialogue_flags1.go_north = 1;
+    saveData.tatl_dialogue_flags1.go_west = 1;
+    saveData.tatl_dialogue_flags1.go_east = 1;
+    saveData.tatl_dialogue_flags1.go_to_skullkid = 1;
+    saveData.woodfall_platform_tatl_dialogue_0x02 = 0x02;
+    saveData.tatl_dialogue_inside_woodfall_temple_0x80 = 0x80;
+    saveData.tatl_apology_dialogue_post_Odolwa_0x80 = 0x80;
+    saveData.talt_dialogue_great_bay_temple.waterwheel_room_tatl_dialogue = 1;
+    saveData.talt_dialogue_great_bay_temple.whirlpool_room_tatl_dialogue = 1;
+
+    //Misc cutscenes
+    saveData.meeting_happy_mask_salesman_0x01 = 0x01;
+    saveData.skullkid_backstory_cutscene_0x10 = 0x10;
+    saveData.cut_scene_flag_bundle2.owl_statue_cut_scene = 1;
+    saveData.event_flag_bundle.skip_swimming_to_great_bay_temple_cutscene = 1;
+
+    //Needs to be greater than zero to skip first time song of time cutscene
+    saveData.player.song_of_time_counter = 1;
   }
+
   void SaveFile_SetStartingOwlStatues() {
     game::SaveData& saveData = game::GetCommonData().save;
     // Walkable statues, could have an option to bundle this subgroup
@@ -214,19 +198,45 @@ namespace rnd {
       saveData.player.owl_statue_flags.southern_swamp = 1;
     // These give early location access
     if (gSettingsContext.startingOwlStatues.great_bay)
-      saveData.player.owl_statue_flags.southern_swamp = 1;
+      saveData.player.owl_statue_flags.great_bay = 1;
     if (gSettingsContext.startingOwlStatues.zora_cape)
-      saveData.player.owl_statue_flags.southern_swamp = 1;
+      saveData.player.owl_statue_flags.zora_cape = 1;
     if (gSettingsContext.startingOwlStatues.snowhead)
-      saveData.player.owl_statue_flags.southern_swamp = 1;
+      saveData.player.owl_statue_flags.snowhead = 1;
     if (gSettingsContext.startingOwlStatues.mountain_village)
-      saveData.player.owl_statue_flags.southern_swamp = 1;
+      saveData.player.owl_statue_flags.mountain_village = 1;
     if (gSettingsContext.startingOwlStatues.woodfall)
-      saveData.player.owl_statue_flags.southern_swamp = 1;
+      saveData.player.owl_statue_flags.woodfall = 1;
     if (gSettingsContext.startingOwlStatues.ikana_canyon)
-      saveData.player.owl_statue_flags.southern_swamp = 1;
+      saveData.player.owl_statue_flags.ikana_canyon = 1;
     if (gSettingsContext.startingOwlStatues.stone_tower)
-      saveData.player.owl_statue_flags.southern_swamp = 1;
+      saveData.player.owl_statue_flags.stone_tower = 1;
+  }
+  void SaveFile_SetFastAnimationFlags() {
+    game::SaveData& saveData = game::GetCommonData().save;
+    //Masks
+    saveData.set_fast_mask_animations.has_worn_deku_mask_once = 1;
+    saveData.set_fast_mask_animations.has_worn_goron_mask_once = 1;
+    saveData.set_fast_mask_animations.has_worn_zora_mask_once = 1;
+    saveData.set_fast_mask_animations.has_worn_deity_mask_once = 1;
+    //Dungeons
+    saveData.set_fast_animation_flags.woodfall_temple_opened_at_least_once = 1;
+    saveData.set_fast_animation_flags.snowhead_temple_opened_at_least_once = 1;
+    saveData.set_fast_animation_flags.greatbay_temple_opened_at_least_once = 1;
+    //Misc
+    saveData.set_fast_animation_flags.deku_flown_in_at_least_once = 1;
+  }
+  void SaveFile_SetComfortOptions() {
+    game::SaveData& saveData = game::GetCommonData().save;
+    if(gSettingsContext.skipBombersMinigame) {
+    //Not sure if bombers code is used elsewhere in the game's code
+      saveData.bombercode_first_digit = 0x01;
+      saveData.bombercode_second_digit = 0x01;
+      saveData.bombercode_third_digit = 0x01;
+      saveData.bombercode_fourth_digit = 0x01;
+      saveData.bombercode_fifth_digit = 0x01;
+      saveData.temp_event_flag_bundle1.bomber_open_hideout = 1; //Currently gets reset by Song of time
+    }
   }
   // Resolve the item ID for the starting bottle
   static void SaveFile_GiveStartingBottle(StartingBottleSetting startingBottle, u8 bottleSlot) {
