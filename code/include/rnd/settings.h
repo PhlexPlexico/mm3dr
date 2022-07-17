@@ -258,6 +258,11 @@ namespace rnd {
     u8 skipMinigamePhases;
     u8 skipBombersMinigame;
 
+    u8 freeScarecrow;
+
+    u8 preApprovedBeans;
+    u8 preApprovedPowerKeg;
+
     u8 damageMultiplier;
     u8 gossipStoneHints;
     u8 chestAnimations;

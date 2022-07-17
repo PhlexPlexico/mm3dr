@@ -24,6 +24,7 @@ namespace rnd {
     saveData.inventory.inventory_count_register.wallet_upgrade = 2;
     saveData.inventory.inventory_count_register.stick_upgrades = 2;
     saveData.inventory.inventory_count_register.nut_upgrade = 2;
+    saveData.player.rupee_count = 500;
     saveData.inventory.items[0] = game::ItemId::Ocarina;
     saveData.inventory.items[1] = game::ItemId::Arrow;
     saveData.inventory.items[2] = game::ItemId::FireArrow;
@@ -31,19 +32,21 @@ namespace rnd {
     saveData.inventory.items[4] = game::ItemId::LightArrow;
     saveData.inventory.items[6] = game::ItemId::Bomb;
     saveData.inventory.items[7] = game::ItemId::Bombchu;
+    saveData.inventory.items[8] = game::ItemId::DekuStick;
     saveData.inventory.items[9] = game::ItemId::DekuNuts;
-    saveData.inventory.items[10] = game::ItemId::DekuStick;
+    saveData.inventory.items[10] = game::ItemId::MagicBean;
+    saveData.inventory.items[12] = game::ItemId::PowderKeg;
     saveData.inventory.items[13] = game::ItemId::PictographBox;
+    saveData.inventory.items[14] = game::ItemId::LensOfTruth;
     saveData.inventory.items[15] = game::ItemId::Hookshot;
-    saveData.inventory.items[16] = game::ItemId::PowderKeg;
 
-    saveData.inventory.masks[0] = game::ItemId::DekuMask;
-    saveData.inventory.masks[1] = game::ItemId::GoronMask;
-    saveData.inventory.masks[2] = game::ItemId::ZoraMask;
-    saveData.inventory.masks[3] = game::ItemId::FierceDeityMask;
-    saveData.inventory.masks[4] = game::ItemId::GibdoMask;
-    saveData.inventory.masks[5] = game::ItemId::BunnyHood;
-    saveData.inventory.masks[6] = game::ItemId::GaroMask;
+    saveData.inventory.masks[5] = game::ItemId::DekuMask;
+    saveData.inventory.masks[11] = game::ItemId::GoronMask;
+    saveData.inventory.masks[17] = game::ItemId::ZoraMask;
+    saveData.inventory.masks[23] = game::ItemId::FierceDeityMask;
+    // saveData.inventory.masks[4] = game::ItemId::GibdoMask;
+    saveData.inventory.masks[8] = game::ItemId::BunnyHood;
+    // saveData.inventory.masks[6] = game::ItemId::GaroMask;
 
     saveData.inventory.woodfall_temple_keys = 8;
     saveData.inventory.snowhead_temple_keys = 8;
@@ -62,15 +65,16 @@ namespace rnd {
     saveData.inventory.stone_tower_dungeon_items.compass = 1;
     saveData.inventory.stone_tower_dungeon_items.boss_key = 1;
     saveData.player.magic_acquired = 1;  // Game does not check if value = 0, magic items still work
-    saveData.player.magic_size_type = 2;  // not init until saved?
+    saveData.player.magic_size_type = 2;
     saveData.player.magic = 96;
     saveData.player.magic_num_upgrades = 1;
+    saveData.flag_8_for_no_magic_use = 0x08;  // enable for inf magic
     saveData.equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
     saveData.inventory.item_counts[6] = 50;   // Arrows
     saveData.inventory.item_counts[11] = 40;  // Bombs
     saveData.inventory.item_counts[12] = 40;  // Bombchus
     saveData.inventory.item_counts[14] = 30;  // Nuts
-    saveData.inventory.item_counts[13] = 10;  // Sticks
+    saveData.inventory.item_counts[13] = 20;  // Sticks
     saveData.has_great_spin_0x02 = 2;         // Set great spin.
 
     saveData.player.owl_statue_flags.great_bay = 1;
@@ -91,8 +95,15 @@ namespace rnd {
     saveData.inventory.collect_register.eponas_song = 1;
     saveData.inventory.collect_register.song_of_soaring = 1;
     saveData.inventory.collect_register.song_of_time = 1;
+    // saveData.inventory.collect_register.oath_to_order = 1;
+    // saveData.inventory.collect_register.song_of_healing = 1;
 
     gSettingsContext.skipBombersMinigame = 1;
+    gSettingsContext.freeScarecrow = 1;
+    saveData.activate_dungeon_skip_portal_0xF0_for_all = 0xF0;
+
+    SaveFile_FillOverWorldMapData();
+
 #endif
     // TODO: Decomp event flags. Most likely in the large anonymous structs in the SaveData.
     u8 isNewFile = saveData.has_completed_intro;
@@ -118,11 +129,12 @@ namespace rnd {
 
       SaveFile_SetStartingInventory();
 
-      // These events replay after song of time aka temp flags
+      // These events replay after song of time
       saveData.ct_guard_allows_through_if_0x20 = 0x20;
       saveData.tatl_dialogue_snowhead_entry_0x08 = 0x08;
       saveData.pirate_leader_dialogue_0x20 = 0x20;
       saveData.temp_event_flag_bundle1.ct_deku_in_flower_if_present = 1;
+      saveData.skip_tingle_intro_dialogue_0x01 = 0x01;
 
       saveData.player_form = game::act::Player::Form::Human;
       game::GiveItem(game::ItemId::BombersNotebook);
@@ -166,6 +178,7 @@ namespace rnd {
     saveData.ikana_castle_camera_pan_0x08 = 0x80;
 
     // Tatl constant tatling skip
+    saveData.cut_scene_flag_bundle.tatl_moon_tear_dialogue = 1;
     saveData.tatl_dialogue_flags2.go_south = 1;
     saveData.tatl_dialogue_flags1.go_north = 1;
     saveData.tatl_dialogue_flags1.go_west = 1;
@@ -177,16 +190,33 @@ namespace rnd {
     saveData.talt_dialogue_great_bay_temple.waterwheel_room_tatl_dialogue = 1;
     saveData.talt_dialogue_great_bay_temple.whirlpool_room_tatl_dialogue = 1;
 
+    // tutorials
+    saveData.cut_scene_flag_bundle.map_tutorial_by_tingle = 1;
+
     // Misc cutscenes
     saveData.meeting_happy_mask_salesman_0x01 = 0x01;
     saveData.skullkid_backstory_cutscene_0x10 = 0x10;
     saveData.cut_scene_flag_bundle.owl_statue_cut_scene = 1;
+    saveData.dungeon_skip_portal_cutscene_0x3C_to_skip_all = 0x3C;
     saveData.event_flag_bundle.skip_swimming_to_great_bay_temple_cutscene = 1;
 
     // Needs to be greater than zero to skip first time song of time cutscene
     saveData.player.song_of_time_counter = 1;
   }
-
+  void SaveFile_SetFastAnimationFlags() {
+    game::SaveData& saveData = game::GetCommonData().save;
+    // Masks
+    saveData.set_fast_mask_animations.has_worn_deku_mask_once = 1;
+    saveData.set_fast_mask_animations.has_worn_goron_mask_once = 1;
+    saveData.set_fast_mask_animations.has_worn_zora_mask_once = 1;
+    saveData.set_fast_mask_animations.has_worn_deity_mask_once = 1;
+    // Dungeons
+    saveData.set_fast_animation_flags.woodfall_temple_opened_at_least_once = 1;
+    saveData.set_fast_animation_flags.snowhead_temple_opened_at_least_once = 1;
+    saveData.set_fast_animation_flags.greatbay_temple_opened_at_least_once = 1;
+    // Misc
+    saveData.set_fast_animation_flags.deku_flown_in_at_least_once = 1;
+  }
   void SaveFile_SetStartingOwlStatues() {
     game::SaveData& saveData = game::GetCommonData().save;
     // Walkable statues, could have an option to bundle this subgroup
@@ -212,32 +242,56 @@ namespace rnd {
     if (gSettingsContext.startingOwlStatues.stone_tower)
       saveData.player.owl_statue_flags.stone_tower = 1;
   }
-  void SaveFile_SetFastAnimationFlags() {
-    game::SaveData& saveData = game::GetCommonData().save;
-    // Masks
-    saveData.set_fast_mask_animations.has_worn_deku_mask_once = 1;
-    saveData.set_fast_mask_animations.has_worn_goron_mask_once = 1;
-    saveData.set_fast_mask_animations.has_worn_zora_mask_once = 1;
-    saveData.set_fast_mask_animations.has_worn_deity_mask_once = 1;
-    // Dungeons
-    saveData.set_fast_animation_flags.woodfall_temple_opened_at_least_once = 1;
-    saveData.set_fast_animation_flags.snowhead_temple_opened_at_least_once = 1;
-    saveData.set_fast_animation_flags.greatbay_temple_opened_at_least_once = 1;
-    // Misc
-    saveData.set_fast_animation_flags.deku_flown_in_at_least_once = 1;
-  }
   void SaveFile_SetComfortOptions() {
     game::SaveData& saveData = game::GetCommonData().save;
     if (gSettingsContext.skipBombersMinigame) {
       // Not sure if bombers code is used elsewhere in the game's code
-      saveData.bombercode_first_digit = 0x01;
-      saveData.bombercode_second_digit = 0x01;
-      saveData.bombercode_third_digit = 0x01;
-      saveData.bombercode_fourth_digit = 0x01;
-      saveData.bombercode_fifth_digit = 0x01;
+      saveData.bomberscode[0] = 0x01;
+      saveData.bomberscode[1] = 0x01;
+      saveData.bomberscode[2] = 0x01;
+      saveData.bomberscode[3] = 0x01;
+      saveData.bomberscode[4] = 0x01;
       saveData.temp_event_flag_bundle1.bomber_open_hideout =
           1;  // Currently gets reset by Song of time
     }
+    // Game uses an inventory check to determine whether you can
+    // buy beans or powder kegs
+    if (gSettingsContext.preApprovedBeans) {
+      saveData.inventory.items[10] = game::ItemId::MagicBean;
+    }
+    if (gSettingsContext.preApprovedPowerKeg) {
+      saveData.inventory.items[12] = game::ItemId::PowderKeg;
+    }
+
+    if (gSettingsContext.freeScarecrow) {
+      // Currently sets song to the ingame default: LLLLLLLL
+      saveData.inventory.collect_register.scarecrows_song_icon = 1;
+      // both flags below get reset to 0 by song of time
+      saveData.removes_scarecrow_from_shop_0x08 = 0x08;
+      saveData.activate_scarecrow_song_0x01 = 0x01;
+    }
+  }
+  void SaveFile_FillOverWorldMapData() {
+    game::SaveData& saveData = game::GetCommonData().save;
+    saveData.overworld_map_get_flags_0x3F_for_all = 0x3F;
+    // setting individual maps is possible if necessary, the game just ||'s the map data in.
+    // Currently sets data for all maps
+    saveData.overworld_map_data_0x11F0[0] = 0x01;
+    saveData.overworld_map_data_0x11F0[1] = 0x34;
+    saveData.overworld_map_data_0x11F0[2] = 0xBF;
+    saveData.overworld_map_data_0x11F0[3] = 0x72;
+    saveData.overworld_map_data_0x11F0[4] = 0xBD;
+    saveData.overworld_map_data_0x11F0[5] = 0xFB;
+    saveData.overworld_map_data_0x11F0[6] = 0xBD;
+    saveData.overworld_map_data_0x11F0[7] = 0x7B;
+    saveData.overworld_map_data_0x11F0[8] = 0x6F;
+    saveData.overworld_map_data_0x11F0[9] = 0xFD;
+    saveData.overworld_map_data_0x11F0[10] = 0xFF;
+    saveData.overworld_map_data_0x11F0[11] = 0x7F;
+    saveData.overworld_map_data_0x11F0[12] = 0x0B;
+    saveData.overworld_map_data_0x11F0[13] = 0xFD;
+    saveData.overworld_map_data_0x11F0[14] = 0x07;
+    // saveData.overworld_map_data_0x11F0[15] = 0x00;
   }
   // Resolve the item ID for the starting bottle
   static void SaveFile_GiveStartingBottle(StartingBottleSetting startingBottle, u8 bottleSlot) {
@@ -266,7 +320,7 @@ namespace rnd {
     game::SaveData& saveData = game::GetCommonData().save;
     // give maps and compasses
     if (gSettingsContext.mapsAndCompasses ==
-        (u8)MapsAndCompassesSetting::MAPSANDCOMPASSES_START_WITH) {
+        (u8)MapsAndCompassesSetting::MAPSANDCOMPASSES_ANY_DUNGEON) {
       inventoryData.woodfall_dungeon_items.map = 1;
       inventoryData.woodfall_dungeon_items.compass = 1;
       inventoryData.snowhead_dungeon_items.map = 1;
@@ -275,6 +329,10 @@ namespace rnd {
       inventoryData.great_bay_dungeon_items.compass = 1;
       inventoryData.stone_tower_dungeon_items.map = 1;
       inventoryData.stone_tower_dungeon_items.compass = 1;
+    }
+    if (gSettingsContext.mapsAndCompasses ==
+        (u8)MapsAndCompassesSetting::MAPSANDCOMPASSES_OVERWORLD) {
+      SaveFile_FillOverWorldMapData();
     }
 
     // give small keys

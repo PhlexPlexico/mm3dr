@@ -164,7 +164,7 @@ namespace game {
       BitField<14, 1, u32> eponas_song;
       BitField<15, 1, u32> song_of_soaring;
       BitField<16, 1, u32> song_of_storms;
-      BitField<17, 1, u32> suns_song;
+      BitField<17, 1, u32> scarecrows_song_icon;
       BitField<18, 1, u32> bombers_notebook;
       BitField<19, 5, u32> pad_2;
       BitField<24, 1, u32> lullaby_intro;
@@ -231,7 +231,7 @@ namespace game {
     char anonymous_12;
     char anonymous_13;
     u8 boss_started_flags;
-    char anonymous_15;
+    char more_boss_start_flags;
     char anonymous_16;
     char gap33[205];
     char anonymous_a[24];  // Possible permanent scene flags? Could be put in the gap to match 0x1C
@@ -292,7 +292,9 @@ namespace game {
     int anonymous_56;
     int anonymous_57;
     int anonymous_58;
-    u8 gap11EC[36];
+    u8 gap11EC[4];
+    u8 overworld_map_data_0x11F0[16];
+    u8 gap1200[16];
     union SkulltulaRegister {
       u32 raw;
 
@@ -302,15 +304,19 @@ namespace game {
     SkulltulaRegister skulltulas_collected;
     int anonymous_60;
     u8 gap1218[4];
-    int anonymous_61;  // XXX: Possible scene flags.
-    int anonymous_62;  // XXX: Possible scene flags.
+    int defeated_bosses_stack;  // or seen giants flag stack
+    u8 last_defeated_boss;  // or last viewed giant cutscene, values 4 and greater makes woodfall
+                            // giant repeat for all temples.
+    u8 gap1221[3];
     int anonymous_63;
     u8 gap1228[8];
-    int anonymous_64;
+    u16 bank_rupee_count;
+    u16 anonymous_64;
     u8 gap1234[8];
     int anonymous_65;
     int anonymous_66;
-    int anonymous_67;
+    u16 player_guessed_lottery_numbers;
+    u16 anonymous_67;
     int anonymous_68;
     u8 gap124C[4];
     union CameraPanningEventFlags {
@@ -353,7 +359,7 @@ namespace game {
     char tatl_apology_dialogue_post_Odolwa_0x80;
     char anonymous_72;
     char anonymous_73;
-    char anonymous_74;
+    char skip_tingle_intro_dialogue_0x01;
     char anonymous_75;
     u8 ct_guard_allows_through_if_0x20;
     char anonymous_77;
@@ -396,7 +402,7 @@ namespace game {
     char anonymous_95;
     char anonymous_96;
     char anonymous_97;
-    char anonymous_98;
+    char overworld_map_get_flags_0x3F_for_all;
     char anonymous_99;
     char anonymous_100_0x10_if_rock_sirloin_spawned;
     char anonymous_101;
@@ -421,7 +427,7 @@ namespace game {
     char anonymous_111;
     char anonymous_112;
     char anonymous_113;
-    char skip_tatl_talking_0x04;
+    char skip_tatl_talking_0x04;  // also has bank reward flags
     char anonymous_115;
     char swamp_deku_removed_if_0x10;  // Don Gero Flag Maybe
     char anonymous_117;
@@ -443,7 +449,7 @@ namespace game {
     char anonymous_124;
     char anonymous_125;
     char anonymous_126;
-    char anonymous_127;
+    char removes_scarecrow_from_shop_0x08;
     char anonymous_128;  // Possibly more Cutscene flags
     char anonymous_129;
     char anonymous_130;
@@ -462,10 +468,10 @@ namespace game {
       BitField<7, 1, u8> go_to_skullkid;
     };
     TatlDialogueFlags tatl_dialogue_flags1;
-    char anonymous_136;
+    char mikau_pushed_to_shore_0x10;
     char anonymous_137;
     char anonymous_138;
-    char anonymous_139;
+    char mikau_dialogue_flags_0x03;
     char anonymous_140;
     char anonymous_141;
     u8 gap12AE[6];
@@ -480,18 +486,20 @@ namespace game {
     char anonymous_148[6];
     char anonymous_149;
     char anonymous_150;
-    char anonymous_151;
+    char activate_dungeon_skip_portal_0xF0_for_all;
     union CutSceneFlags {
       u8 raw;
 
       BitField<0, 1, u8> owl_statue_cut_scene;
-      BitField<1, 3, u8> unknown1;
+      BitField<1, 2, u8> unknown1;
+      BitField<3, 1, u8> map_tutorial_by_tingle;
       BitField<4, 2, u8> deku_palace_throne_room_camera_pan;
-      BitField<5, 3, u8> unknown2;
+      BitField<5, 1, u8> tatl_moon_tear_dialogue;
+      BitField<6, 2, u8> unknown2;
     };
     CutSceneFlags cut_scene_flag_bundle;
     char anonymous_153;
-    char anonymous_154;
+    char dungeon_skip_portal_cutscene_0x3C_to_skip_all;
     char anonymous_155;
     char anonymous_156;
     char anonymous_157;
@@ -514,30 +522,18 @@ namespace game {
     int unknown_flags_0x12F0;
     int anonymous_162;
     u8 gap12F8;
-    char anonymous_163;
-    u8 gap12FA[128];
+    char activate_scarecrow_song_0x01;
+    u8 scarecrow_song_data_12FA[128];  // default song is LLLLLLLL
     char anonymous_164;
     char anonymous_165;
     char anonymous_166;
     char anonymous_167;
     char anonymous_168;
     char anonymous_169;
-    char anonymous_170;
-    char anonymous_171;
-    char anonymous_172;
-    char anonymous_173;
-    char anonymous_174;
-    char anonymous_175;
-    char anonymous_176;
-    char anonymous_177;
-    char anonymous_178;
+    u8 winning_lottery_numbers[9];  // day 1 is 0-2, day 2 is 3-5 ect.
     char anonymous_179;
     u8 gap138A[5];
-    char bombercode_first_digit;
-    char bombercode_second_digit;
-    char bombercode_third_digit;
-    char bombercode_fourth_digit;
-    char bombercode_fifth_digit;
+    u8 bomberscode[5];
     char anonymous_185;
     char anonymous_186[3];
     u16 anonymous_187;
@@ -555,37 +551,14 @@ namespace game {
     u16 anonymous_198;
     u8 gap_14E8[136];
     u32 field_1570;
-    u8 gap_1574[1020];
+    u8 gap_1574[1020];  // likely to have bomber's notebook data
     u32 field_1970;
     u8 gap_1974[176];
     char anonymous_199;
     char anonymous_200;
     u16 anonymous_201;
-    u8 gap1A30[20];  // Items?
-    char anonymous_202;
-    char anonymous_203;
-    char anonymous_204;
-    char anonymous_205;
-    char anonymous_206;
-    char anonymous_207;
-    char anonymous_208;
-    char anonymous_209;
-    char anonymous_210;
-    char anonymous_211;
-    char anonymous_212;
-    char anonymous_213;
-    char anonymous_214;
-    char anonymous_215;
-    char anonymous_216;
-    char anonymous_217;
-    char anonymous_218;
-    char anonymous_219;
-    char anonymous_220;
-    char anonymous_221;
-    char anonymous_222;
-    char anonymous_223;
-    char anonymous_224;
-    char anonymous_225;
+    u8 order_of_equip_items_in_inventory[20];
+    u8 order_of_masks_in_inventory[24];
     u8 gap1A5C[8];
     u16 anonymous_226;
     char anonymous_227[2];
