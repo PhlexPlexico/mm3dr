@@ -258,12 +258,12 @@ namespace rnd {
     // buy beans or powder kegs
     if (gSettingsContext.skipBeansTest) {
       // currently disables the free bean check
-      // Instead big goron sells one powder keg for 20 rupees
+      // Instead bean daddy sells one bean for 10 rupees
       saveData.inventory.items[10] = game::ItemId::MagicBean;
     }
     if (gSettingsContext.skipPowerKegTest) {
       // currently disables the PowerKegTest item check
-      // Instead bean daddy sells one bean for 10 rupees
+      // Instead big goron sells one powder keg for 20 rupees
       saveData.inventory.items[12] = game::ItemId::PowderKeg;
     }
 
