@@ -359,7 +359,7 @@ namespace game {
     char tatl_apology_dialogue_post_Odolwa_0x80;
     char anonymous_72;
     char anonymous_73;
-    char skip_tingle_intro_dialogue_0x01;
+    u8 skip_tingle_intro_dialogue_0x01;
     char anonymous_75;
     u8 ct_guard_allows_through_if_0x20;
     char anonymous_77;
@@ -369,7 +369,7 @@ namespace game {
     u8 ct_deku_removed_if_c0;
     char anonymous_81;
     char anonymous_82;
-    char open_woodfall_temple_if_0x01;
+    u8 open_woodfall_temple_if_0x01;
     char anonymous_84;
     char anonymous_85;
     u8 has_great_spin_0x02;
@@ -402,9 +402,9 @@ namespace game {
     char anonymous_95;
     char anonymous_96;
     char anonymous_97;
-    char overworld_map_get_flags_0x3F_for_all;
+    u8 overworld_map_get_flags_0x3F_for_all;
     char anonymous_99;
-    char anonymous_100_0x10_if_rock_sirloin_spawned;
+    u8 anonymous_100_0x10_if_rock_sirloin_spawned;
     char anonymous_101;
     char anonymous_102;
     char anonymous_103;
@@ -427,9 +427,9 @@ namespace game {
     char anonymous_111;
     char anonymous_112;
     char anonymous_113;
-    char skip_tatl_talking_0x04;  // also has bank reward flags
+    u8 skip_tatl_talking_0x04;  // also has bank reward flags
     char anonymous_115;
-    char swamp_deku_removed_if_0x10;  // Don Gero Flag Maybe
+    u8 swamp_deku_removed_if_0x10;  // Don Gero Flag Maybe
     char anonymous_117;
     char anonymous_118;
     char anonymous_119;
@@ -449,7 +449,7 @@ namespace game {
     char anonymous_124;
     char anonymous_125;
     char anonymous_126;
-    char removes_scarecrow_from_shop_0x08;
+    u8 removes_scarecrow_from_shop_0x08;
     char anonymous_128;  // Possibly more Cutscene flags
     char anonymous_129;
     char anonymous_130;
@@ -468,10 +468,10 @@ namespace game {
       BitField<7, 1, u8> go_to_skullkid;
     };
     TatlDialogueFlags tatl_dialogue_flags1;
-    char mikau_pushed_to_shore_0x10;
+    u8 mikau_pushed_to_shore_0x10;
     char anonymous_137;
     char anonymous_138;
-    char mikau_dialogue_flags_0x03;
+    u8 mikau_dialogue_flags_0x03;
     char anonymous_140;
     char anonymous_141;
     u8 gap12AE[6];
@@ -486,7 +486,7 @@ namespace game {
     char anonymous_148[6];
     char anonymous_149;
     char anonymous_150;
-    char activate_dungeon_skip_portal_0xF0_for_all;
+    u8 activate_dungeon_skip_portal_0xF0_for_all;
     union CutSceneFlags {
       u8 raw;
 
@@ -522,7 +522,7 @@ namespace game {
     int unknown_flags_0x12F0;
     int anonymous_162;
     u8 gap12F8;
-    char activate_scarecrow_song_0x01;
+    u8 activate_scarecrow_song_0x01;
     u8 scarecrow_song_data[128];  // default song is LLLLLLLL
     char anonymous_164;
     char anonymous_165;
@@ -547,7 +547,7 @@ namespace game {
     char num_ftickets_rank10;
     char anonymous_193;
     char anonymous_194;
-    char used_instruments;
+    u8 used_instruments;
     char anonymous_196;
     char anonymous_197;
     u16 anonymous_198;
