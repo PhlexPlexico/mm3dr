@@ -257,14 +257,14 @@ namespace rnd {
     // Game uses an inventory check to determine whether you can
     // buy beans or powder kegs
     if (gSettingsContext.skipBeansTest) {
-      // currently disables the free bean check
+      // currently this will disable the free bean check
       // Instead bean daddy sells one bean for 10 rupees
-      saveData.inventory.items[10] = game::ItemId::MagicBean;
+      // saveData.inventory.items[10] = game::ItemId::MagicBean;
     }
     if (gSettingsContext.skipPowerKegTest) {
-      // currently disables the PowerKegTest item check
+      // currently this will disable the PowerKegTest item check
       // Instead big goron sells one powder keg for 20 rupees
-      saveData.inventory.items[12] = game::ItemId::PowderKeg;
+      // saveData.inventory.items[12] = game::ItemId::PowderKeg;
     }
 
     if (gSettingsContext.freeScarecrow) {
