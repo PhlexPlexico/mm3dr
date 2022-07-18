@@ -231,7 +231,7 @@ namespace game {
     char anonymous_12;
     char anonymous_13;
     u8 boss_started_flags;
-    char more_boss_start_flags;
+    u8 more_boss_start_flags;
     char anonymous_16;
     char gap33[205];
     char anonymous_a[24];  // Possible permanent scene flags? Could be put in the gap to match 0x1C
@@ -293,8 +293,8 @@ namespace game {
     int anonymous_57;
     int anonymous_58;
     u8 gap11EC[4];
-    u8 overworld_map_data_0x11F0[16];
-    u8 gap1200[16];
+    u8 overworld_map_data[15];
+    u8 gap11FF[17];
     union SkulltulaRegister {
       u32 raw;
 
@@ -304,9 +304,9 @@ namespace game {
     SkulltulaRegister skulltulas_collected;
     int anonymous_60;
     u8 gap1218[4];
-    int defeated_bosses_stack;  // or seen giants flag stack
-    u8 last_defeated_boss;  // or last viewed giant cutscene, values 4 and greater makes woodfall
-                            // giant repeat for all temples.
+    u8 defeated_bosses[4];      // like a history log of deafeated bosses or seen giants
+    u8 previous_defeated_boss;  // or last viewed giant cutscene, values 4 and greater makes
+                                // woodfall giant repeat for all temples.
     u8 gap1221[3];
     int anonymous_63;
     u8 gap1228[8];
@@ -499,7 +499,7 @@ namespace game {
     };
     CutSceneFlags cut_scene_flag_bundle;
     char anonymous_153;
-    char dungeon_skip_portal_cutscene_0x3C_to_skip_all;
+    u8 dungeon_skip_portal_cutscene_0x3C_to_skip_all;
     char anonymous_155;
     char anonymous_156;
     char anonymous_157;
@@ -523,14 +523,16 @@ namespace game {
     int anonymous_162;
     u8 gap12F8;
     char activate_scarecrow_song_0x01;
-    u8 scarecrow_song_data_12FA[128];  // default song is LLLLLLLL
+    u8 scarecrow_song_data[128];  // default song is LLLLLLLL
     char anonymous_164;
     char anonymous_165;
     char anonymous_166;
     char anonymous_167;
     char anonymous_168;
     char anonymous_169;
-    u8 winning_lottery_numbers[9];  // day 1 is 0-2, day 2 is 3-5 ect.
+    u8 winning_lottery_numbers_day_1[3];
+    u8 winning_lottery_numbers_day_2[3];
+    u8 winning_lottery_numbers_day_3[3];
     char anonymous_179;
     u8 gap138A[5];
     u8 bomberscode[5];
@@ -551,7 +553,7 @@ namespace game {
     u16 anonymous_198;
     u8 gap_14E8[136];
     u32 field_1570;
-    u8 gap_1574[1020];  // likely to have bomber's notebook data
+    u8 gap_1574[1020];
     u32 field_1970;
     u8 gap_1974[176];
     char anonymous_199;

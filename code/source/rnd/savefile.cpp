@@ -44,9 +44,9 @@ namespace rnd {
     saveData.inventory.masks[11] = game::ItemId::GoronMask;
     saveData.inventory.masks[17] = game::ItemId::ZoraMask;
     saveData.inventory.masks[23] = game::ItemId::FierceDeityMask;
-    // saveData.inventory.masks[4] = game::ItemId::GibdoMask;
+    saveData.inventory.masks[19] = game::ItemId::GibdoMask;
     saveData.inventory.masks[8] = game::ItemId::BunnyHood;
-    // saveData.inventory.masks[6] = game::ItemId::GaroMask;
+    saveData.inventory.masks[20] = game::ItemId::GaroMask;
 
     saveData.inventory.woodfall_temple_keys = 8;
     saveData.inventory.snowhead_temple_keys = 8;
@@ -68,7 +68,7 @@ namespace rnd {
     saveData.player.magic_size_type = 2;
     saveData.player.magic = 96;
     saveData.player.magic_num_upgrades = 1;
-    saveData.flag_8_for_no_magic_use = 0x08;  // enable for inf magic
+    // saveData.flag_8_for_no_magic_use = 0x08;  // enable for inf magic
     saveData.equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
     saveData.inventory.item_counts[6] = 50;   // Arrows
     saveData.inventory.item_counts[11] = 40;  // Bombs
@@ -256,10 +256,14 @@ namespace rnd {
     }
     // Game uses an inventory check to determine whether you can
     // buy beans or powder kegs
-    if (gSettingsContext.preApprovedBeans) {
+    if (gSettingsContext.skipBeansTest) {
+      // currently disables the free bean check
+      // Instead big goron sells one powder keg for 20 rupees
       saveData.inventory.items[10] = game::ItemId::MagicBean;
     }
-    if (gSettingsContext.preApprovedPowerKeg) {
+    if (gSettingsContext.skipPowerKegTest) {
+      // currently disables the PowerKegTest item check
+      // Instead bean daddy sells one bean for 10 rupees
       saveData.inventory.items[12] = game::ItemId::PowderKeg;
     }
 
@@ -276,22 +280,21 @@ namespace rnd {
     saveData.overworld_map_get_flags_0x3F_for_all = 0x3F;
     // setting individual maps is possible if necessary, the game just ||'s the map data in.
     // Currently sets data for all maps
-    saveData.overworld_map_data_0x11F0[0] = 0x01;
-    saveData.overworld_map_data_0x11F0[1] = 0x34;
-    saveData.overworld_map_data_0x11F0[2] = 0xBF;
-    saveData.overworld_map_data_0x11F0[3] = 0x72;
-    saveData.overworld_map_data_0x11F0[4] = 0xBD;
-    saveData.overworld_map_data_0x11F0[5] = 0xFB;
-    saveData.overworld_map_data_0x11F0[6] = 0xBD;
-    saveData.overworld_map_data_0x11F0[7] = 0x7B;
-    saveData.overworld_map_data_0x11F0[8] = 0x6F;
-    saveData.overworld_map_data_0x11F0[9] = 0xFD;
-    saveData.overworld_map_data_0x11F0[10] = 0xFF;
-    saveData.overworld_map_data_0x11F0[11] = 0x7F;
-    saveData.overworld_map_data_0x11F0[12] = 0x0B;
-    saveData.overworld_map_data_0x11F0[13] = 0xFD;
-    saveData.overworld_map_data_0x11F0[14] = 0x07;
-    // saveData.overworld_map_data_0x11F0[15] = 0x00;
+    saveData.overworld_map_data[0] = 0x01;
+    saveData.overworld_map_data[1] = 0x34;
+    saveData.overworld_map_data[2] = 0xBF;
+    saveData.overworld_map_data[3] = 0x72;
+    saveData.overworld_map_data[4] = 0xBD;
+    saveData.overworld_map_data[5] = 0xFB;
+    saveData.overworld_map_data[6] = 0xBD;
+    saveData.overworld_map_data[7] = 0x7B;
+    saveData.overworld_map_data[8] = 0x6F;
+    saveData.overworld_map_data[9] = 0xFD;
+    saveData.overworld_map_data[10] = 0xFF;
+    saveData.overworld_map_data[11] = 0x7F;
+    saveData.overworld_map_data[12] = 0x0B;
+    saveData.overworld_map_data[13] = 0xFD;
+    saveData.overworld_map_data[14] = 0x07;
   }
   // Resolve the item ID for the starting bottle
   static void SaveFile_GiveStartingBottle(StartingBottleSetting startingBottle, u8 bottleSlot) {

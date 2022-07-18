@@ -260,8 +260,8 @@ namespace rnd {
 
     u8 freeScarecrow;
 
-    u8 preApprovedBeans;
-    u8 preApprovedPowerKeg;
+    u8 skipBeansTest;
+    u8 skipPowerKegTest;
 
     u8 damageMultiplier;
     u8 gossipStoneHints;
