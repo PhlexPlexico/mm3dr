@@ -6,6 +6,7 @@
 #include "game/sound.h"
 #include "game/states/state.h"
 #include "game/ui.h"
+#include "rnd/extdata.h"
 #include "rnd/icetrap.h"
 #include "rnd/item_override.h"
 #include "rnd/link.h"
@@ -26,6 +27,7 @@ namespace rnd {
 
     rHeap_Init();
     ItemOverride_Init();
+    extDataInit();
     // TODO: Maybe make this an option?
     link::FixSpeedIssues();
     game::sound::PlayEffect(game::sound::EffectId::NA_SE_SY_CLEAR1);
