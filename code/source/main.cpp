@@ -35,10 +35,10 @@ namespace rnd {
   }
   extern "C" {
 
-  /*char* fake_heap_start;
-    char* fake_heap_end;
-    extern void (*__init_array_start[])(void) __attribute__((weak));
-    extern void (*__init_array_end[])(void) __attribute__((weak));*/
+  char* fake_heap_start;
+  char* fake_heap_end;
+  extern void (*__init_array_start[])(void) __attribute__((weak));
+  extern void (*__init_array_end[])(void) __attribute__((weak));
   void calc(game::State* state) {
     Context& context = GetContext();
     context.gctx = nullptr;
@@ -118,15 +118,14 @@ namespace rnd {
       return;
     }
   }
-  /*void _start(void)
-    {
-      // Just in case something needs to be dynamically allocated...
-      static char s_fake_heap[0x80000];
-      fake_heap_start = &s_fake_heap[0];
-      fake_heap_end = &s_fake_heap[sizeof(s_fake_heap)];
-      for (size_t i = 0; i < size_t(__init_array_end - __init_array_start); i++)
-        __init_array_start[i]();
-    }*/
+  void _start(void) {
+    // Just in case something needs to be dynamically allocated...
+    static char s_fake_heap[0x80000];
+    fake_heap_start = &s_fake_heap[0];
+    fake_heap_end = &s_fake_heap[sizeof(s_fake_heap)];
+    for (size_t i = 0; i < size_t(__init_array_end - __init_array_start); i++)
+      __init_array_start[i]();
+  }
   }
 
 }  // namespace rnd
