@@ -2,12 +2,11 @@
 #include "rnd/settings.h"
 
 extern "C" {
-  #include <3ds/result.h>
-  #include <3ds/services/fs.h>
-  #include <3ds/srv.h>
-  #include <3ds/svc.h>
+#include <3ds/result.h>
+#include <3ds/services/fs.h>
+#include <3ds/srv.h>
+#include <3ds/svc.h>
 }
-
 
 namespace rnd {
   static u8 icn[14016];
@@ -36,8 +35,9 @@ namespace rnd {
     FS_Path iconPath = {PATH_BINARY, sizeof(iconLowPath), &iconLowPath};
 
     // Open icon
-    if (R_FAILED(res = FSUSER_OpenFileDirectly(&icnHandle, ARCHIVE_ROMFS, fsMakePath(PATH_EMPTY, ""),
-                                              iconPath, FS_OPEN_READ, 0))) {
+    if (R_FAILED(res =
+                     FSUSER_OpenFileDirectly(&icnHandle, ARCHIVE_ROMFS, fsMakePath(PATH_EMPTY, ""),
+                                             iconPath, FS_OPEN_READ, 0))) {
       return res;
     }
     // Get file size (should be 14016)
@@ -124,7 +124,8 @@ namespace rnd {
     return bytes_read;
   }
 
-  u32 extDataReadFileDirectly(FS_Archive fsa, char* filename, void* buf_out, u64 offset, u32 count) {
+  u32 extDataReadFileDirectly(FS_Archive fsa, char* filename, void* buf_out, u64 offset,
+                              u32 count) {
     Result res;
     Handle handle;
     u32 bytes_read;
@@ -194,5 +195,4 @@ namespace rnd {
 
     return bytes_written;
   }
-}
-
+}  // namespace rnd

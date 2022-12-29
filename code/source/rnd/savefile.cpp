@@ -458,15 +458,13 @@ namespace rnd {
       ItemEffect_GiveDefense(&cdata, 0, 0);
     }
 
-    #ifdef ENABLE_DEBUG
-    playerData.health_max = 16<<4;
-    playerData.health_current = 16<<4;
-    #else
+#ifdef ENABLE_DEBUG
+    playerData.health_max = 16 << 4;
+    playerData.health_current = 16 << 4;
+#else
     playerData.health_max = gSettingsContext.startingHealth << 4;
     playerData.health_current = gSettingsContext.startingHealth << 4;
-    #endif
-
-    
+#endif
 
     /*TODO - All these need to be broken up since we're not dealing with bitfields.
     // Quest items belong in the iventory array so we'll have to adjust which items we start with.

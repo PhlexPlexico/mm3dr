@@ -1,13 +1,12 @@
 #ifndef _RND_EXTDATA_H_
 #define _RND_EXTDATA_H_
 extern "C" {
-  #include <3ds/services/fs.h>
-  #include <3ds/result.h>
+#include <3ds/result.h>
+#include <3ds/services/fs.h>
 }
 
-
 namespace rnd {
-  #define EXTDATA_MAXFILESIZE (1 << 20)
+#define EXTDATA_MAXFILESIZE (1 << 20)
 
   /**
    * @brief Initializes the fs and srvpm services.
@@ -82,34 +81,33 @@ namespace rnd {
    */
   u32 extDataWriteFileDirectly(FS_Archive fsa, char* filename, void* buf, u64 offset, u32 count);
 
-  /**
-   * @brief Unmounts the extData archive.
-   * @param fsa FS_Archive : The archive obtained from extDataMount.
-   */
-  #define extDataUnmount(fsa) FSUSER_CloseArchive(fsa)
+/**
+ * @brief Unmounts the extData archive.
+ * @param fsa FS_Archive : The archive obtained from extDataMount.
+ */
+#define extDataUnmount(fsa) FSUSER_CloseArchive(fsa)
 
-  /**
-   * @brief Deletes a file from extData.
-   * @param fsa FS_Archive : The archive obtained from extDataMount.
-   * @param filename char* : The path to the file to delete in the extData.
-   */
-  #define extDataDeleteFile(fsa, filename) FSUSER_DeleteFile(fsa, fsMakePath(PATH_ASCII, filename))
+/**
+ * @brief Deletes a file from extData.
+ * @param fsa FS_Archive : The archive obtained from extDataMount.
+ * @param filename char* : The path to the file to delete in the extData.
+ */
+#define extDataDeleteFile(fsa, filename) FSUSER_DeleteFile(fsa, fsMakePath(PATH_ASCII, filename))
 
-  /**
-   * @brief Opens a file from extData.
-   * @param out Handle* : Pointer to output the file handle to.
-   * @param fsa FS_Archive : The archive obtained from extDataMount.
-   * @param filename char* : The path to the file to open in the extData.
-   */
-  #define extDataOpen(out, fsa, filename)                                                            \
-    FSUSER_OpenFile(out, fsa, fsMakePath(PATH_ASCII, filename), FS_OPEN_WRITE | FS_OPEN_READ, 0)
+/**
+ * @brief Opens a file from extData.
+ * @param out Handle* : Pointer to output the file handle to.
+ * @param fsa FS_Archive : The archive obtained from extDataMount.
+ * @param filename char* : The path to the file to open in the extData.
+ */
+#define extDataOpen(out, fsa, filename)                                                            \
+  FSUSER_OpenFile(out, fsa, fsMakePath(PATH_ASCII, filename), FS_OPEN_WRITE | FS_OPEN_READ, 0)
 
-  /**
-   * @brief Closes a file opened from extdata.
-   * @param handle Handle : File handle obtained from extDataOpen
-   */
-  #define extDataClose(handle) FSFILE_Close(handle)
-}
-
+/**
+ * @brief Closes a file opened from extdata.
+ * @param handle Handle : File handle obtained from extDataOpen
+ */
+#define extDataClose(handle) FSFILE_Close(handle)
+}  // namespace rnd
 
 #endif  // _RND_EXTDATA_H_
