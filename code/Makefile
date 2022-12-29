@@ -47,19 +47,30 @@ GFXBUILD	:=	$(BUILD)
 MM3D	 	:= MM3D
 MM3DJ 		:= MM3DJ
 Z3D			:= MM3D
+VERFLAGS := -D MM3D=$(MM3D) -D MM3DJ=$(MM3DJ) -D Z3D=$(Z3D)
+
+ifeq ($(MM3D), $(Z3D))
+  LINK_SCRIPT 	:= mm.ld
+  ASFLAGS += -D _USA_=1 -D _JP_=0
+else
+ifeq ($(MM3DJ), $(Z3D))
+  LINK_SCRIPT 	:= mm_j.ld
+  ASFLAGS += -D _USA_=0 -D _JP_=1
+endif
+endif
 ARCH	:=	-march=armv6k -mtune=mpcore -mfloat-abi=hard -mtp=soft -mfpu=vfpv2
 
-CFLAGS	:=	-g -Wall -O2 -mword-relocations \
+CFLAGS	:=	-g -Wall -O2 -mword-relocations -D DEBUG \
 			-ffunction-sections \
 			$(ARCH)
 
-CFLAGS	+=	$(INCLUDE) -D__3DS__
+CFLAGS	+=	$(INCLUDE) -D__3DS__ -fpic
 
 CXXFLAGS	:= $(CFLAGS) -fno-rtti -fno-exceptions -std=gnu++17 -Wno-invalid-offsetof \
-							-Wno-array-bounds
+							-Wno-array-bounds 
 
-ASFLAGS	:=	-g $(ARCH)
-LDFLAGS	=	-specs=3dsx.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map) -nostartfiles
+ASFLAGS	:=	-g $(ARCH) $(VERFLAGS)
+LDFLAGS	=	 -g $(ARCH) -Wl,-Map,$(notdir $*.map) -T $(TOPDIR)/$(LINK_SCRIPT) $(VERFLAGS)
 
 LIBS	:= -lctru -lm
 
