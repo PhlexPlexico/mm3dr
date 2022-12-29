@@ -119,12 +119,16 @@ namespace rnd {
   }
   void _start(void) {
     // Just in case something needs to be dynamically allocated...
+    rnd::util::Print("In _start\n");
     static char s_fake_heap[0x80000];
     
     fake_heap_start = &s_fake_heap[0];
     fake_heap_end = &s_fake_heap[sizeof(s_fake_heap)];
-    for (size_t i = 0; i < size_t(__init_array_end - __init_array_start); i++)
+    for (size_t i = 0; i < size_t(__init_array_end - __init_array_start); i++) {
+      rnd::util::Print("Current array is %i\n", i);
       __init_array_start[i]();
+    }
+      
   }
   }
 

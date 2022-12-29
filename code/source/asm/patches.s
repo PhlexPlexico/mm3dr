@@ -13,8 +13,7 @@ patch_SpawnFastElegyStatues:
 .section .patch_startHeap
 .global patch_startHeap
 patch_startHeap:
-    STMFD SP!, {R4-R8,LR}
-    b hook_Start
+    bl hook_Start
 
 .section .patch_FixSurroundSound
 .global patch_FixSurroundSound

@@ -64,15 +64,22 @@ CFLAGS	:=	-g -Wall -O2 -mword-relocations -D DEBUG \
 			-ffunction-sections \
 			$(ARCH)
 
-CFLAGS	+=	$(INCLUDE) -D__3DS__ -fpic
+CFLAGS	+=	$(INCLUDE) -D__3DS__ $(VERFLAGS)
 
 CXXFLAGS	:= $(CFLAGS) -fno-rtti -fno-exceptions -std=gnu++17 -Wno-invalid-offsetof \
 							-Wno-array-bounds 
 
-ASFLAGS	:=	-g $(ARCH) $(VERFLAGS)
-LDFLAGS	=	 -g $(ARCH) -Wl,-Map,$(notdir $*.map) -T $(TOPDIR)/$(LINK_SCRIPT) $(VERFLAGS)
+ASFLAGS	:=	-g $(ARCH)
+LDFLAGS	=	 -g $(ARCH) -Wl,-Map,$(notdir $*.map) -T $(TOPDIR)/$(LINK_SCRIPT)
 
 LIBS	:= -lctru -lm
+
+# Debug-specific flags
+debug ?= 0
+ifneq ($(debug), 0)
+	CFLAGS += -g -DENABLE_DEBUG
+	CXXFLAGS += -g -DENABLE_DEBUG
+endif
 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
@@ -188,6 +195,7 @@ $(BUILD):
 		python patch.py $(OUTPUT).elf; \
 		echo "created basecode.ips" ; \
 	fi
+	@cp basecode.ips /mnt/c/Users/Evan/AppData/Roaming/Citra/load/mods/0004000000125500/code.ips
 
 ifneq ($(GFXBUILD),$(BUILD))
 $(GFXBUILD):

@@ -6,7 +6,7 @@ hook_Start:
     push {r0-r12, lr}
     bl _start
     pop {r0-r12, lr}
-    b 0x0103ECC
+    b 0x0103EC8
 
 .global hook_MainLoop
 hook_MainLoop:
