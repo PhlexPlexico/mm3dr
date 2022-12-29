@@ -8,9 +8,9 @@ SECTIONS{
 		*(.patch_loader)
 	}
 
-	/* .patch_startHeap 0x0103ec8 : {
+	.patch_startHeap 0x010001C : {
 		*(.patch_startHeap)
-	} */
+	}
 
 	.patch_MainLoop 0x10676C : {
 		*(.patch_MainLoop)
@@ -141,7 +141,6 @@ SECTIONS{
         *(.data)
         *(.bss)
         *(COMMON)
-		rCustomMessages = . ;
         __text_end  = . ;
     }
 }

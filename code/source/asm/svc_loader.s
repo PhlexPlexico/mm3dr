@@ -14,7 +14,7 @@
 	.cfi_endproc
 .endm
 
-SVC_BEGIN svcOpenProcess
+SVC_BEGIN svcOpenProcess_mine
 	push {r0}
 	svc 0x33
 	pop {r2}
@@ -22,7 +22,7 @@ SVC_BEGIN svcOpenProcess
 	bx  lr
 SVC_END
 
-SVC_BEGIN svcGetProcessId
+SVC_BEGIN svcGetProcessId_mine
 	str r0, [sp, #-0x4]!
 	svc 0x35
 	ldr r3, [sp], #4
@@ -30,12 +30,7 @@ SVC_BEGIN svcGetProcessId
 	bx  lr
 SVC_END
 
-SVC_BEGIN svcBreak
-	svc 0x3C
-	bx  lr
-SVC_END
-
-SVC_BEGIN svcControlProcessMemory
+SVC_BEGIN svcControlProcessMemory_mine
 	push {r4-r5}
 	ldr r4, [sp, #0x8]
 	ldr r5, [sp, #0xC]
@@ -43,3 +38,9 @@ SVC_BEGIN svcControlProcessMemory
 	pop {r4-r5}
 	bx  lr
 SVC_END
+
+SVC_BEGIN svcBreak_mine
+	svc 0x3C
+	bx  lr
+SVC_END
+

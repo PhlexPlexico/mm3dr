@@ -6,6 +6,7 @@
 #include "game/sound.h"
 #include "game/states/state.h"
 #include "game/ui.h"
+#include "rnd/extdata.h"
 #include "rnd/icetrap.h"
 #include "rnd/item_override.h"
 #include "rnd/link.h"
@@ -15,7 +16,6 @@
 #ifdef ENABLE_DEBUG
 #include "common/debug.h"
 extern "C" {
-
 #include <3ds/svc.h>
 }
 #endif
@@ -26,17 +26,18 @@ namespace rnd {
 
     rHeap_Init();
     ItemOverride_Init();
+    extDataInit();
     // TODO: Maybe make this an option?
     link::FixSpeedIssues();
     game::sound::PlayEffect(game::sound::EffectId::NA_SE_SY_CLEAR1);
     context.has_initialised = true;
   }
   extern "C" {
-
-  /*char* fake_heap_start;
-    char* fake_heap_end;
-    extern void (*__init_array_start[])(void) __attribute__((weak));
-    extern void (*__init_array_end[])(void) __attribute__((weak));*/
+  void* __service_ptr = nullptr;
+  char* fake_heap_start;
+  char* fake_heap_end;
+  extern void (*__init_array_start[])(void) __attribute__((weak));
+  extern void (*__init_array_end[])(void) __attribute__((weak));
   void calc(game::State* state) {
     Context& context = GetContext();
     context.gctx = nullptr;
@@ -116,15 +117,18 @@ namespace rnd {
       return;
     }
   }
-  /*void _start(void)
-    {
-      // Just in case something needs to be dynamically allocated...
-      static char s_fake_heap[0x80000];
-      fake_heap_start = &s_fake_heap[0];
-      fake_heap_end = &s_fake_heap[sizeof(s_fake_heap)];
-      for (size_t i = 0; i < size_t(__init_array_end - __init_array_start); i++)
-        __init_array_start[i]();
-    }*/
+  void _start(void) {
+    // Just in case something needs to be dynamically allocated...
+    rnd::util::Print("In _start\n");
+    static char s_fake_heap[0x80000];
+
+    fake_heap_start = &s_fake_heap[0];
+    fake_heap_end = &s_fake_heap[sizeof(s_fake_heap)];
+    for (size_t i = 0; i < size_t(__init_array_end - __init_array_start); i++) {
+      rnd::util::Print("Current array is %i\n", i);
+      __init_array_start[i]();
+    }
+  }
   }
 
 }  // namespace rnd

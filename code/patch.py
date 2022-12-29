@@ -35,7 +35,7 @@ with open(elf, 'rb') as e:
         e.seek(offset, 0)
         while size > 65535:
             patch = e.read(65535)
-            print('{:0X}'.format(vaddr))
+            print('{:0X}'.format(vaddr), '{:0X}'.format(vaddr + size), name)
             ips += off(vaddr)
             ips += sz(65535)
             ips += patch

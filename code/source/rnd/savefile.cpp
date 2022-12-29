@@ -16,7 +16,7 @@ namespace rnd {
   extern "C" void SaveFile_Init() {
     game::SaveData& saveData = game::GetCommonData().save;
 #ifdef ENABLE_DEBUG
-    // rnd::util::Print("%s: Made it to save debug values.", __func__);
+    rnd::util::Print("%s: Made it to save debug values.", __func__);
     saveData.equipment.sword_shield.sword = game::SwordType::GildedSword;
     saveData.player.razor_sword_hp = 0x64;
     saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver50;
@@ -458,8 +458,13 @@ namespace rnd {
       ItemEffect_GiveDefense(&cdata, 0, 0);
     }
 
+#ifdef ENABLE_DEBUG
+    playerData.health_max = 16 << 4;
+    playerData.health_current = 16 << 4;
+#else
     playerData.health_max = gSettingsContext.startingHealth << 4;
     playerData.health_current = gSettingsContext.startingHealth << 4;
+#endif
 
     /*TODO - All these need to be broken up since we're not dealing with bitfields.
     // Quest items belong in the iventory array so we'll have to adjust which items we start with.
