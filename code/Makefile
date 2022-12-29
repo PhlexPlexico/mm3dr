@@ -177,7 +177,6 @@ $(BUILD):
 		python patch.py $(OUTPUT).elf; \
 		echo "created basecode.ips" ; \
 	fi
-	@cp basecode.ips /mnt/c/Users/Evan/AppData/Roaming/Citra/load/mods/0004000000125500/code.ips
 
 ifneq ($(GFXBUILD),$(BUILD))
 $(GFXBUILD):
@@ -190,9 +189,10 @@ $(DEPSDIR):
 endif
 
 #---------------------------------------------------------------------------------
+
 clean:
 	@echo clean ...
-	@rm -fr $(BUILD) $(TARGET).3dsx $(OUTPUT).smdh $(TARGET).elf $(GFXBUILD)
+	@rm -fr $(BUILD)  $(TARGET).elf basecode.ips $(TARGET).smdh
 
 #---------------------------------------------------------------------------------
 $(GFXBUILD)/%.t3x	$(BUILD)/%.h	:	%.t3s
@@ -206,11 +206,12 @@ else
 #---------------------------------------------------------------------------------
 # main targets
 #---------------------------------------------------------------------------------
-$(OUTPUT).3dsx	:	$(OUTPUT).elf $(_3DSXDEPS)
-
-$(OFILES_SOURCES) : $(HFILES)
-
 $(OUTPUT).elf	:	$(OFILES)
+#$(OUTPUT).3dsx	:	$(OUTPUT).elf $(_3DSXDEPS)
+
+#$(OFILES_SOURCES) : $(HFILES)
+
+
 
 #---------------------------------------------------------------------------------
 # you need a rule like this for each extension you use as binary data

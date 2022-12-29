@@ -16,7 +16,6 @@
 #ifdef ENABLE_DEBUG
 #include "common/debug.h"
 extern "C" {
-
 #include <3ds/svc.h>
 }
 #endif

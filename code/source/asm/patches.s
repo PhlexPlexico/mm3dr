@@ -10,11 +10,11 @@ patch_DecoupleZlZr:
 patch_SpawnFastElegyStatues: 
     b hook_SpawnFastElegyStatues
 
-@ .section .patch_startHeap
-@ .global patch_startHeap
-@ patch_startHeap:
-@     STMFD SP!, {R4-R8,LR}
-@     b hook_Start
+.section .patch_startHeap
+.global patch_startHeap
+patch_startHeap:
+    STMFD SP!, {R4-R8,LR}
+    b hook_Start
 
 .section .patch_FixSurroundSound
 .global patch_FixSurroundSound
