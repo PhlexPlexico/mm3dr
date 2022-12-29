@@ -11,10 +11,10 @@
 // typedef s32 Result;
 // typedef u32 Handle;
 
-Result svcOpenProcess(Handle* process, u32 processId);
-Result svcGetProcessId(u32* out, Handle handle);
-void svcBreak(UserBreakType breakReason);
-Result svcControlProcessMemory(Handle process, u32 addr0, u32 addr1, u32 size, u32 type, u32 perm);
+// Result svcOpenProcess(Handle* process, u32 processId);
+// Result svcGetProcessId(u32* out, Handle handle);
+// void svcBreak(UserBreakType breakReason);
+// Result svcControlProcessMemory(Handle process, u32 addr0, u32 addr1, u32 size, u32 type, u32 perm);
 
 void loader_main(void) __attribute__((section(".loader")));
 Handle getCurrentProcessHandle(void) __attribute__((section(".loader")));
@@ -44,11 +44,11 @@ Handle getCurrentProcessHandle(void) {
   u32 currentPid = 0;
   Result res;
 
-  svcGetProcessId(&currentPid, 0xffff8001);
+  svcGetProcessId(&currentPid, 0xffff8001); 
   res = svcOpenProcess(&handle, currentPid);
 
   if (res != 0)
-    return 0;
+    svcExitProcess();
 
   return handle;
 }
