@@ -1,3 +1,12 @@
+/**
+ * @file extdata.h
+ * @author UraYukimitsu (https://github.com/UraYukimitsu/)
+ * @brief 
+ * @date 2021-09-14
+ * 
+ * Brought in from the OoT3D Randomizer libraries. Edited to adjust for MM3D.
+ */
+
 #ifndef _RND_EXTDATA_H_
 #define _RND_EXTDATA_H_
 extern "C" {

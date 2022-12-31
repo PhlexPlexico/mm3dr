@@ -1,3 +1,11 @@
+/**
+ * @file extdata.cpp
+ * @author UraYukimitsu (https://github.com/UraYukimitsu/)
+ * @brief 
+ * @date 2021-09-14
+ * 
+ * Brought in from the OoT3D Randomizer libraries. Edited to adjust for MM3D.
+ */
 #include "rnd/extdata.h"
 #include "rnd/settings.h"
 
@@ -38,8 +46,10 @@ namespace rnd {
     if (R_FAILED(res =
                      FSUSER_OpenFileDirectly(&icnHandle, ARCHIVE_ROMFS, fsMakePath(PATH_EMPTY, ""),
                                              iconPath, FS_OPEN_READ, 0))) {
+      rnd::util::Print("%s: Opened icon FAILED.\n", __func__);
       return res;
     }
+    
     // Get file size (should be 14016)
     if (R_FAILED(res = FSFILE_GetSize(icnHandle, &icnSize))) {
       FSFILE_Close(icnHandle);
@@ -90,6 +100,7 @@ namespace rnd {
     if (R_SUCCEEDED(res = FSUSER_OpenArchive(out, ARCHIVE_EXTDATA, extDataPath))) {
       return res;
     }
+    rnd::util::Print("%s: Failed to mount in extData. Will try creating.\n", __func__);
     // If it failed, try to create the extdata
     if (R_FAILED(res = extDataCreate())) {
       return res;

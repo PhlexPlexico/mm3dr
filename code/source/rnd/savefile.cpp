@@ -2,7 +2,6 @@ extern "C" {
 #include <3ds/types.h>
 }
 #include <string.h>
-#include "game/common_data.h"
 #include "rnd/item_effect.h"
 #include "rnd/razor_sword.h"
 #include "rnd/savefile.h"
@@ -10,11 +9,13 @@ extern "C" {
 #ifdef ENABLE_DEBUG
 #include "common/debug.h"
 #endif
-//#define DECLARE_EXTSAVEDATA
-
+#define DECLARE_EXTSAVEDATA
 namespace rnd {
+  ExtSaveData gExtSaveData;
+
   extern "C" void SaveFile_Init() {
     game::SaveData& saveData = game::GetCommonData().save;
+    
 #ifdef ENABLE_DEBUG
     saveData.equipment.sword_shield.sword = game::SwordType::GildedSword;
     saveData.player.razor_sword_hp = 0x64;
@@ -138,6 +139,7 @@ namespace rnd {
       game::GiveItem(game::ItemId::BombersNotebook);
     }
   }
+  
 
   void SaveFile_SkipMinorCutscenes() {
     game::SaveData& saveData = game::GetCommonData().save;
@@ -201,6 +203,7 @@ namespace rnd {
     // Needs to be greater than zero to skip first time song of time cutscene
     saveData.player.song_of_time_counter = 1;
   }
+
   void SaveFile_SetFastAnimationFlags() {
     game::SaveData& saveData = game::GetCommonData().save;
     // Masks
@@ -215,6 +218,7 @@ namespace rnd {
     // Misc
     saveData.set_fast_animation_flags.deku_flown_in_at_least_once = 1;
   }
+
   void SaveFile_SetStartingOwlStatues() {
     game::SaveData& saveData = game::GetCommonData().save;
     // Walkable statues, could have an option to bundle this subgroup
@@ -240,6 +244,7 @@ namespace rnd {
     if (gSettingsContext.startingOwlStatues.stone_tower)
       saveData.player.owl_statue_flags.stone_tower = 1;
   }
+
   void SaveFile_SetComfortOptions() {
     game::SaveData& saveData = game::GetCommonData().save;
     if (gSettingsContext.skipBombersMinigame) {
@@ -252,6 +257,7 @@ namespace rnd {
       saveData.temp_event_flag_bundle1.bomber_open_hideout =
           1;  // Currently gets reset by Song of time
     }
+
     // Game uses an inventory check to determine whether you can
     // buy beans or powder kegs
     if (gSettingsContext.skipBeansTest) {
@@ -259,6 +265,7 @@ namespace rnd {
       // Instead bean daddy sells one bean for 10 rupees
       // saveData.inventory.items[10] = game::ItemId::MagicBean;
     }
+
     if (gSettingsContext.skipPowerKegTest) {
       // currently this will disable the PowerKegTest item check
       // Instead big goron sells one powder keg for 20 rupees
@@ -273,6 +280,7 @@ namespace rnd {
       saveData.activate_scarecrow_song_0x01 = 0x01;
     }
   }
+
   void SaveFile_FillOverWorldMapData() {
     game::SaveData& saveData = game::GetCommonData().save;
     saveData.overworld_map_get_flags_0x3F_for_all = 0x3F;
@@ -294,6 +302,7 @@ namespace rnd {
     saveData.overworld_map_data[13] = 0xFD;
     saveData.overworld_map_data[14] = 0x07;
   }
+
   // Resolve the item ID for the starting bottle
   static void SaveFile_GiveStartingBottle(StartingBottleSetting startingBottle, u8 bottleSlot) {
     game::SaveData& saveData = game::GetCommonData().save;
@@ -451,6 +460,7 @@ namespace rnd {
       playerData.magic = 0x60;
       equipmentData.data[3].item_btns[0] = game::ItemId::DekuNuts;
     }
+
     if (gSettingsContext.startingDoubleDefense) {
       game::CommonData& cdata = game::GetCommonData();
       ItemEffect_GiveDefense(&cdata, 0, 0);
@@ -515,4 +525,81 @@ namespace rnd {
     return true;
   }
 
+
+  void SaveFile_InitExtSaveData(u32 saveNumber) {
+    gExtSaveData.version = EXTSAVEDATA_VERSION; // Do not change this line
+    // TODO: BitField for event flags instead?
+    // memset(&gExtSaveData.extInf, 0, sizeof(gExtSaveData.extInf));
+    memset(&gExtSaveData.aromaGivenItem, 0, sizeof(gExtSaveData.aromaGivenItem));
+    gExtSaveData.playtimeSeconds = 0;
+    // TODO: Settings options belong in ext.
+    // memset(&gExtSaveData.scenesDiscovered, 0, sizeof(gExtSaveData.scenesDiscovered));
+    // memset(&gExtSaveData.entrancesDiscovered, 0, sizeof(gExtSaveData.entrancesDiscovered));
+    // // Ingame Options
+    // gExtSaveData.option_EnableBGM          = gSettingsContext.playMusic;
+    // gExtSaveData.option_EnableSFX          = gSettingsContext.playSFX;
+    // gExtSaveData.option_SilenceNavi        = gSettingsContext.silenceNavi;
+    // gExtSaveData.option_IgnoreMaskReaction = gSettingsContext.ignoreMaskReaction;
+    // gExtSaveData.option_SkipSongReplays    = gSettingsContext.skipSongReplays;
+  }
+
+  void SaveFile_LoadExtSaveData(u32 saveNumber) {
+    char path[] = "/0.bin";
+    u32 version;
+    u64 fileSize;
+
+    Result res;
+    FS_Archive fsa;
+    Handle fileHandle;
+    if (R_FAILED(res = extDataMount(&fsa))) {
+      rnd::util::Print("%s: Failed to mount ext data.\n", __func__);
+      SaveFile_InitExtSaveData(saveNumber);
+      return;
+    }
+
+    path[1] = saveNumber + '0';
+
+    // Load default values if the file does not exist
+    if (R_FAILED(res = extDataOpen(&fileHandle, fsa, path))) {
+        extDataUnmount(fsa);
+        SaveFile_InitExtSaveData(saveNumber);
+        return;
+    }
+
+    // Delete the file and load default values if the size does not match or the version is different
+    FSFILE_GetSize(fileHandle, &fileSize);
+    extDataReadFile(fileHandle, &version, 0, sizeof(version));
+    rnd::util::Print("%s: Filesize is %u", __func__, fileSize);
+    if (fileSize != sizeof(gExtSaveData) || version != EXTSAVEDATA_VERSION) {
+        extDataClose(fileHandle);
+        extDataDeleteFile(fsa, path);
+        extDataUnmount(fsa);
+        SaveFile_InitExtSaveData(saveNumber);
+        return;
+    }
+
+    extDataReadFile(fileHandle, &gExtSaveData, 0, sizeof(gExtSaveData));
+
+    extDataClose(fileHandle);
+    extDataUnmount(fsa);
+  }
+
+  void SaveFile_SaveExtSaveData(u32 saveNumber) {
+    char path[] = "/0.bin";
+
+    Result res;
+    FS_Archive fsa;
+
+    if (R_FAILED(res = extDataMount(&fsa))) {
+        return;
+    }
+
+    path[1] = saveNumber + '0';
+
+    extDataWriteFileDirectly(fsa, path, &gExtSaveData, 0, sizeof(gExtSaveData));
+
+    extDataUnmount(fsa);
+  }
+  
+  
 }  // namespace rnd
