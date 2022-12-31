@@ -81,7 +81,10 @@ ifneq ($(debug), 0)
 	CXXFLAGS += -g -DENABLE_DEBUG
 endif
 
-export COPYTO=${citraPath}
+ifeq ($(copyto),)
+	export COPYTO=${citraPath}
+endif
+
 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing

@@ -72,6 +72,11 @@ For faster compilation using multiple threads, you can use `make -j4` (in this e
 For quick debugging, you can create an environment variable named `citraPath` that links directly to your mods folder. For example, using WSL2 you could create a variable in your `.bashrc` as such:  
 `export citraPrint="/mnt/c/Users/User/AppData/Roaming/Citra/load/mods/0004000000125500/code.ips"`  
 
+Alternatively, you can use `copyto="path/to/code.ips"` as a command line argument for Make. An example is as follows:
+
+```sh
+make -j debug=1 copyto="/mnt/c/Users/User/AppData/Roaming/Citra/load/mods/0004000000125500/code.ips"
+```
 
 ## Reporting Bugs
 
