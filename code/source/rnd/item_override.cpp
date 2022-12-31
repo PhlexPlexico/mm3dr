@@ -31,14 +31,14 @@ namespace rnd {
   void ItemOverride_Init(void) {
 #ifdef ENABLE_DEBUG
     // Manual overide example code
-    // rItemOverrides[0].key.scene = 0x6F;
-    // rItemOverrides[0].key.type = ItemOverride_Type::OVR_COLLECTABLE;
-    // rItemOverrides[0].value.getItemId = 0x26;
-    // rItemOverrides[0].value.looksLikeItemId = 0x26;
-    // rItemOverrides[1].key.scene = 0x6C;
-    // rItemOverrides[1].key.type = ItemOverride_Type::OVR_CHEST;
-    // rItemOverrides[1].value.getItemId = 0x37;
-    // rItemOverrides[1].value.looksLikeItemId = 0x37;
+    rItemOverrides[0].key.scene = 0x6F;
+    rItemOverrides[0].key.type = ItemOverride_Type::OVR_COLLECTABLE;
+    rItemOverrides[0].value.getItemId = 0x26;
+    rItemOverrides[0].value.looksLikeItemId = 0x26;
+    rItemOverrides[1].key.scene = 0x6C;
+    rItemOverrides[1].key.type = ItemOverride_Type::OVR_CHEST;
+    rItemOverrides[1].value.getItemId = 0x37;
+    rItemOverrides[1].value.looksLikeItemId = 0x37;
 #endif
     while (rItemOverrides[rItemOverrides_Count].key.all != 0) {
       rItemOverrides_Count++;
@@ -119,9 +119,6 @@ namespace rnd {
   ItemOverride ItemOverride_LookupByKey(ItemOverride_Key key) {
     s32 start = 0;
     s32 end = rItemOverrides_Count - 1;
-    /*#ifdef ENABLE_DEBUG
-    return rItemOverrides[1];
-    #endif*/
     while (start <= end) {
       s32 midIdx = (start + end) / 2;
       ItemOverride midOvr = rItemOverrides[midIdx];

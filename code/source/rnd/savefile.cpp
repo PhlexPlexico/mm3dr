@@ -16,7 +16,6 @@ namespace rnd {
   extern "C" void SaveFile_Init() {
     game::SaveData& saveData = game::GetCommonData().save;
 #ifdef ENABLE_DEBUG
-    rnd::util::Print("%s: Made it to save debug values.", __func__);
     saveData.equipment.sword_shield.sword = game::SwordType::GildedSword;
     saveData.player.razor_sword_hp = 0x64;
     saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver50;
@@ -68,7 +67,6 @@ namespace rnd {
     saveData.player.magic_size_type = 2;
     saveData.player.magic = 96;
     saveData.player.magic_num_upgrades = 1;
-    // saveData.flag_8_for_no_magic_use = 0x08;  // enable for inf magic
     saveData.equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
     saveData.inventory.item_counts[6] = 50;   // Arrows
     saveData.inventory.item_counts[11] = 40;  // Bombs
@@ -462,8 +460,14 @@ namespace rnd {
     playerData.health_max = 16 << 4;
     playerData.health_current = 16 << 4;
 #else
-    playerData.health_max = gSettingsContext.startingHealth << 4;
-    playerData.health_current = gSettingsContext.startingHealth << 4;
+    if (SaveFile_IsValidSettingsHealth()) {
+      playerData.health_max = gSettingsContext.startingHealth << 4;
+      playerData.health_current = gSettingsContext.startingHealth << 4;
+    } else {
+      playerData.health_max = 3 << 4;
+      playerData.health_current = 3 << 4;
+    }
+    
 #endif
 
     /*TODO - All these need to be broken up since we're not dealing with bitfields.
@@ -502,6 +506,13 @@ namespace rnd {
         saveData.inventory.items[i] = game::ItemId::None;
       }
     }
+  }
+
+  bool SaveFile_IsValidSettingsHealth() {
+    if (gSettingsContext.startingHealth == NULL || gSettingsContext.startingHealth <= 0) {
+      return false;
+    }
+    return true;
   }
 
 }  // namespace rnd
