@@ -83,6 +83,8 @@ endif
 
 ifeq ($(copyto),)
 	export COPYTO=${citraPath}
+else
+	export COPYTO=$(copyto)
 endif
 
 
@@ -201,7 +203,8 @@ $(BUILD):
 		echo "created basecode.ips" ; \
 	fi
 ifneq ($(strip $(COPYTO)),)
-		@cp basecode.ips $(COPYTO)
+	@echo "Copying basecode.ips to ${COPYTO}."
+	@cp basecode.ips $(COPYTO)
 endif
 ifneq ($(GFXBUILD),$(BUILD))
 $(GFXBUILD):
