@@ -509,7 +509,7 @@ namespace rnd {
   }
 
   bool SaveFile_IsValidSettingsHealth() {
-    if (gSettingsContext.startingHealth == NULL || gSettingsContext.startingHealth <= 0) {
+    if (gSettingsContext.startingHealth <= 0) {
       return false;
     }
     return true;

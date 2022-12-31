@@ -19,6 +19,7 @@ namespace rnd {
   u32 SaveFile_TradeItemIsOwned(u8 itemId);
   void SaveFile_SetOwnedTradeItemEquipped(void);
   void SaveFile_ResetItemSlotsIfMatchesID(u8 itemSlot);
+  bool SaveFile_IsValidSettingsHealth(void);
   /*void SaveFile_InitExtSaveData(u32 fileBaseIndex);
   void SaveFile_LoadExtSaveData(u32 saveNumber);
   void SaveFile_SaveExtSaveData(u32 saveNumber);*/

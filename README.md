@@ -69,6 +69,10 @@ In the root folder, use ```make``` to build ```MM3DR.3dsx```. Use ```make debug=
 When making changes to any code in the `code` directory, you must use `make clean` before recompiling if you want your changes to be picked up.
 For faster compilation using multiple threads, you can use `make -j4` (in this example, the `4` is the number of threads being used).
 
+For quick debugging, you can create an environment variable named `citraPath` that links directly to your mods folder. For example, using WSL2 you could create a variable in your `.bashrc` as such:  
+`export citraPrint="/mnt/c/Users/User/AppData/Roaming/Citra/load/mods/0004000000125500/code.ips"`  
+
+
 ## Reporting Bugs
 
 Let us know if you believe you have discovered a bug by posting in our Discord server, or by opening an issue. In the ~~[Discord]()~~, we have a list of currently known issues and fixes which are pending release, which we try to keep fairly up to date.

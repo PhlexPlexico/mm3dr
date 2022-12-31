@@ -81,6 +81,8 @@ ifneq ($(debug), 0)
 	CXXFLAGS += -g -DENABLE_DEBUG
 endif
 
+export COPYTO=${citraPath}
+
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
 # include and lib
@@ -195,8 +197,9 @@ $(BUILD):
 		python patch.py $(OUTPUT).elf; \
 		echo "created basecode.ips" ; \
 	fi
-	@cp basecode.ips /mnt/c/Users/Evan/AppData/Roaming/Citra/load/mods/0004000000125500/code.ips
-
+ifneq ($(strip $(COPYTO)),)
+		@cp basecode.ips $(COPYTO)
+endif
 ifneq ($(GFXBUILD),$(BUILD))
 $(GFXBUILD):
 	@mkdir -p $@
