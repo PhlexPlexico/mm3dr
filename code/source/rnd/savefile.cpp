@@ -467,7 +467,7 @@ namespace rnd {
       playerData.health_max = 3 << 4;
       playerData.health_current = 3 << 4;
     }
-    
+
 #endif
 
     /*TODO - All these need to be broken up since we're not dealing with bitfields.
