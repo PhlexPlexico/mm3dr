@@ -28,7 +28,7 @@ namespace rnd {
     rHeap_Init();
     ItemOverride_Init();
     extDataInit();
-    SaveFile_LoadExtSaveData(1);
+    //SaveFile_LoadExtSaveData(1);
     // TODO: Maybe make this an option?
     link::FixSpeedIssues();
     game::sound::PlayEffect(game::sound::EffectId::NA_SE_SY_CLEAR1);

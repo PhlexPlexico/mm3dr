@@ -39,10 +39,15 @@ namespace rnd {
     rItemOverrides[1].key.type = ItemOverride_Type::OVR_CHEST;
     rItemOverrides[1].value.getItemId = 0x37;
     rItemOverrides[1].value.looksLikeItemId = 0x37;
+    rItemOverrides[2].key.scene = 0x12;
+    rItemOverrides[2].key.type = ItemOverride_Type::OVR_COLLECTABLE;
+    rItemOverrides[2].value.getItemId = 0x37;
+    rItemOverrides[2].value.looksLikeItemId = 0x37;
 #endif
     while (rItemOverrides[rItemOverrides_Count].key.all != 0) {
       rItemOverrides_Count++;
     }
+    rnd::util::Print("%s: Override count is %u\n", __func__, rItemOverrides_Count);
 
     // Create an actor satisfying the minimum requirements to give the player an item
     rDummyActor = (game::act::Actor*)rHeap_Alloc(sizeof(game::act::Actor));
@@ -84,8 +89,7 @@ namespace rnd {
       retKey.type = ItemOverride_Type::OVR_SKULL;
       retKey.flag = actor->params & 0xFF;
       return retKey;
-      // TODO: Find grotto salesman ID.
-    } else if (scene == 0x07 && actor->id == (game::act::Id)0x11A) {  // Grotto Salesman
+    } else if (scene == 0x14C0 && actor->id == (game::act::Id)0x0075) {  // Grotto Salesman
       retKey.scene = cdata.sub13s[8].data;
       retKey.type = ItemOverride_Type::OVR_GROTTO_SCRUB;
       retKey.flag = getItemId;
@@ -103,16 +107,15 @@ namespace rnd {
     if (key.all == 0) {
       return (ItemOverride){0};
     }
-    /*#ifdef ENABLE_DEBUG
-    rnd::util::Print("%s: Our key values:\nScene %u\nType: %u\nFlag: %u\nAll: %u\nPad_: %u\n",
+    #ifdef ENABLE_DEBUG
+    rnd::util::Print("%s: Our key values:\nScene %u\nType: %u\nFlag: %u\nAll: %u\nPad_: %u\n", \
     __func__, key.scene, key.type, key.flag, key.all, key.pad_);
-    rnd::util::Print("%s: Our param values:\nActor Type %#04x\nGet Item ID: %#04x\nActor ID:
-    %#04x\n", \
+    rnd::util::Print("%s: Our param values:\nActor Type %#04x\nGet Item ID: %#04x\nActor ID: %#04x\n", \
       __func__, \
       actor->actor_type, \
-      getItemId,
+      getItemId, \
       actor->id);
-    #endif*/
+    #endif
     return ItemOverride_LookupByKey(key);
   }
 
@@ -402,12 +405,6 @@ namespace rnd {
     if (override.key.all == 0) {
       // No override, use base game's item code
       ItemOverride_Clear();
-#ifdef ENABLE_DEBUG
-/*rnd::util::Print("\n%s: Our player get_item_id is %i and our " \
- "incoming is %i and item direction is %i player angle y is %i\nfield_96 is %i\n", \
- __func__, player->get_item_id, incomingGetItemId, player->get_item_direction,
- player->angle.y,fromActor->field_96);*/
-#endif
       player->get_item_id = incomingGetItemId;
       return;
     }
