@@ -135,3 +135,9 @@ patch_FasterBlockMovementBack:
 .global loader_patch
 loader_patch:
     b hook_into_loader
+
+.section .patch_BankerFix
+.global BankerPatch
+BankerPatch:
+    ldmia sp!,{r4-r8, lr}
+    bx lr

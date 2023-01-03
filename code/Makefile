@@ -220,7 +220,7 @@ endif
 
 clean:
 	@echo clean ...
-	@rm -fr $(BUILD)  $(TARGET).elf basecode.ips $(TARGET).smdh
+	@rm -fr $(BUILD)  $(TARGET).elf basecode.ips $(TARGET).smdh code.elf
 
 #---------------------------------------------------------------------------------
 $(GFXBUILD)/%.t3x	$(BUILD)/%.h	:	%.t3s

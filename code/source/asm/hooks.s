@@ -115,7 +115,6 @@ hook_OverrideItemID:
     cmp r1,#0x0
     beq noOverrideItemID
     push {r0-r12, lr}
-    cpy r0,r2
     bl ItemOverride_GetItemTextAndItemID
     pop {r0-r12, lr}
     b 0x231110

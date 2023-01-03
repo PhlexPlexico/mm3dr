@@ -26,7 +26,7 @@ namespace rnd {
   u32 rActiveItemObjectId = 0;
   u32 rActiveItemFastChest = 0;
 
-  static u8 rSatisfiedPendingFrames = 0;
+  static u8 rSatisfiedPendingFrames = 10;
 
   void ItemOverride_Init(void) {
 #ifdef ENABLE_DEBUG
@@ -47,7 +47,6 @@ namespace rnd {
     while (rItemOverrides[rItemOverrides_Count].key.all != 0) {
       rItemOverrides_Count++;
     }
-    rnd::util::Print("%s: Override count is %u\n", __func__, rItemOverrides_Count);
 
     // Create an actor satisfying the minimum requirements to give the player an item
     rDummyActor = (game::act::Actor*)rHeap_Alloc(sizeof(game::act::Actor));
@@ -108,13 +107,11 @@ namespace rnd {
       return (ItemOverride){0};
     }
     #ifdef ENABLE_DEBUG
-    rnd::util::Print("%s: Our key values:\nScene %u\nType: %u\nFlag: %u\nAll: %u\nPad_: %u\n", \
-    __func__, key.scene, key.type, key.flag, key.all, key.pad_);
-    rnd::util::Print("%s: Our param values:\nActor Type %#04x\nGet Item ID: %#04x\nActor ID: %#04x\n", \
-      __func__, \
-      actor->actor_type, \
-      getItemId, \
-      actor->id);
+    // rnd::util::Print("%s: Our param values:\nActor Type %#04x\nGet Item ID: %#04x\nActor ID: %#04x\n", \
+    //   __func__, \
+    //   actor->actor_type, \
+    //   getItemId, \
+    //   actor->id);
     #endif
     return ItemOverride_LookupByKey(key);
   }
@@ -122,6 +119,9 @@ namespace rnd {
   ItemOverride ItemOverride_LookupByKey(ItemOverride_Key key) {
     s32 start = 0;
     s32 end = rItemOverrides_Count - 1;
+    #ifdef ENABLE_DEBUG
+    return rItemOverrides[0];
+    #endif
     while (start <= end) {
       s32 midIdx = (start + end) / 2;
       ItemOverride midOvr = rItemOverrides[midIdx];
@@ -249,7 +249,7 @@ namespace rnd {
     default:
       rSatisfiedPendingFrames = 0;
     }
-    if (rSatisfiedPendingFrames >= 2) {
+    if (rSatisfiedPendingFrames >= 10) {
       rSatisfiedPendingFrames = 0;
       return 1;
     }
@@ -380,6 +380,7 @@ namespace rnd {
   void ItemOverride_GetItemTextAndItemID(game::act::Player* actor) {
     if (rActiveItemRow != NULL) {
       game::GlobalContext* gctx = rnd::GetContext().gctx;
+      //int retVal;
       u16 textId = rActiveItemRow->textId;
       u8 itemId = rActiveItemRow->itemId;
       ItemTable_CallEffect(rActiveItemRow);
@@ -388,6 +389,7 @@ namespace rnd {
       if (itemId != (u8)game::ItemId::X82) {
         rnd::util::GetPointer<int(game::GlobalContext*, game::ItemId)>(0x233BEC)(
             gctx, (game::ItemId)itemId);
+        //rnd::util::Print("%s: Our returnvalue from handler is %i", __func__, retVal);
       }
       ItemOverride_AfterItemReceived();
     }
@@ -395,6 +397,7 @@ namespace rnd {
 
   void ItemOverride_GetItem(game::GlobalContext* gctx, game::act::Actor* fromActor,
                             game::act::Player* player, s16 incomingGetItemId) {
+
     ItemOverride override = {0};
     s32 incomingNegative = incomingGetItemId < 0;
 
@@ -418,6 +421,7 @@ namespace rnd {
       rActiveItemRow->effectArg2 = override.key.all & 0xFFFF;
     }
     player->get_item_id = incomingNegative ? -baseItemId : baseItemId;
+    player->field_11E4D = 1;
     return;
   }
   }

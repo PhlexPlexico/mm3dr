@@ -125,6 +125,10 @@ SECTIONS{
 		*(.patch_HandleOcarinaHooks)
 	}
 
+	.patch_BankerFix 0x458f44 : {
+		*(.patch_BankerFix)
+	}
+
 	. = 0x61CD8C;
 	/* Addr already 4 byte aligned! */
 	/* . = ALIGN(4); */

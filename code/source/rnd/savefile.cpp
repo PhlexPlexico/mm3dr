@@ -21,7 +21,7 @@ namespace rnd {
     saveData.player.razor_sword_hp = 0x64;
     saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver50;
     saveData.inventory.inventory_count_register.bomb_bag_upgrade = game::BombBag::BombBag40;
-    saveData.inventory.inventory_count_register.wallet_upgrade = 2;
+    //saveData.inventory.inventory_count_register.wallet_upgrade = 2;
     saveData.inventory.inventory_count_register.stick_upgrades = 2;
     saveData.inventory.inventory_count_register.nut_upgrade = 2;
     saveData.player.rupee_count = 500;
