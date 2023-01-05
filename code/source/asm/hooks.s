@@ -98,13 +98,15 @@ noOverrideGraphicIdThird:
 
 .global hook_OverrideTextID
 hook_OverrideTextID:
+    push {r3}
     ldr r3,.rActiveItemRow_addr
     ldr r3,[r3]
     cmp r3,#0x0
+    pop {r3}
     beq noOverrideTextID
     b 0x231104
 noOverrideTextID:
-    cpy r2, r5
+    @cpy r2, r5
     cpy r0, r7
     b 0x231100
 

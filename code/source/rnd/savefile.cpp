@@ -102,7 +102,7 @@ namespace rnd {
     saveData.activate_dungeon_skip_portal_0xF0_for_all = 0xF0;
 
     SaveFile_FillOverWorldMapData();
-
+    
 #endif
     // TODO: Decomp event flags. Most likely in the large anonymous structs in the SaveData.
     u8 isNewFile = saveData.has_completed_intro;

@@ -136,6 +136,7 @@ namespace game::act {
     enum class Flag : u32 {
       Targetable = 0x1,
       TalkInitiated = 0x100,
+      UnkFef = 0xfffffef,
     };
 
     enum class Flag94 : u16 {

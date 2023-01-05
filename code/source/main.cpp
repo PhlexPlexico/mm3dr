@@ -58,6 +58,7 @@ namespace rnd {
       game::act::Player* link = context.gctx->GetPlayerActor();
       // Before calling let's be absolutely sure we have the player available.
       if (link) {
+        rnd::util::Print("%s: The field_83CD value is %u\n", __func__, context.gctx->field_83CE);
         return;
       }
     }

@@ -389,7 +389,10 @@ namespace rnd {
       if (itemId != (u8)game::ItemId::X82) {
         rnd::util::GetPointer<int(game::GlobalContext*, game::ItemId)>(0x233BEC)(
             gctx, (game::ItemId)itemId);
-        //rnd::util::Print("%s: Our returnvalue from handler is %i", __func__, retVal);
+        // rnd::util::Print("%s: Talk Actor ID is %#06x\n", __func__, actor->grabbable_actor->id);
+        /*rnd::util::GetPointer<void(game::GlobalContext*, int, int)>(0x2204ec)(
+            gctx, 100, -1);*/
+        
       }
       ItemOverride_AfterItemReceived();
     }
@@ -400,7 +403,6 @@ namespace rnd {
 
     ItemOverride override = {0};
     s32 incomingNegative = incomingGetItemId < 0;
-
     if (fromActor != NULL && incomingGetItemId != 0) {
       s16 getItemId = incomingNegative ? -incomingGetItemId : incomingGetItemId;
       override = ItemOverride_Lookup(fromActor, (u16)gctx->scene, getItemId);
@@ -420,8 +422,10 @@ namespace rnd {
       rActiveItemRow->effectArg1 = override.key.all >> 16;
       rActiveItemRow->effectArg2 = override.key.all & 0xFFFF;
     }
+    
     player->get_item_id = incomingNegative ? -baseItemId : baseItemId;
-    player->field_11E4D = 1;
+    gctx->field_83CE = 3000;
+
     return;
   }
   }
