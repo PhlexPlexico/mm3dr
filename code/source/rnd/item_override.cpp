@@ -1,3 +1,4 @@
+#include "game/message.h"
 #include "rnd/item_override.h"
 #include "rnd/icetrap.h"
 #include "rnd/item_table.h"
@@ -25,6 +26,7 @@ namespace rnd {
   u32 rActiveItemTextId = 0;
   u32 rActiveItemObjectId = 0;
   u32 rActiveItemFastChest = 0;
+  u16 rStoredBomberNoteTextId = 0;
 
   static u8 rSatisfiedPendingFrames = 10;
 
@@ -37,8 +39,8 @@ namespace rnd {
     rItemOverrides[0].value.looksLikeItemId = 0x26;
     rItemOverrides[1].key.scene = 0x6C;
     rItemOverrides[1].key.type = ItemOverride_Type::OVR_CHEST;
-    rItemOverrides[1].value.getItemId = 0x37;
-    rItemOverrides[1].value.looksLikeItemId = 0x37;
+    rItemOverrides[1].value.getItemId = 0x0012;
+    rItemOverrides[1].value.looksLikeItemId = 0x0012;
     rItemOverrides[2].key.scene = 0x12;
     rItemOverrides[2].key.type = ItemOverride_Type::OVR_COLLECTABLE;
     rItemOverrides[2].value.getItemId = 0x37;
@@ -120,7 +122,7 @@ namespace rnd {
     s32 start = 0;
     s32 end = rItemOverrides_Count - 1;
     #ifdef ENABLE_DEBUG
-    return rItemOverrides[0];
+    return rItemOverrides[1];
     #endif
     while (start <= end) {
       s32 midIdx = (start + end) / 2;
@@ -424,9 +426,12 @@ namespace rnd {
     }
     
     player->get_item_id = incomingNegative ? -baseItemId : baseItemId;
-    gctx->field_83CE = 3000;
-
+    rStoredBomberNoteTextId = rActiveItemRow->textId;
     return;
+  }
+
+  void ItemOverride_RemoveTextId() {
+    rStoredBomberNoteTextId = 0;
   }
   }
 }  // namespace rnd

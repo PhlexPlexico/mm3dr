@@ -44,7 +44,7 @@ namespace game::ui {
     char field_3E8[4];
     int field_3EC;
     u32 field_3F0;
-    int msgid_2;
+    int msgid_2; // Used to check bombers notebook.
     int field_3F8;
     int msgid;
     double field_400;

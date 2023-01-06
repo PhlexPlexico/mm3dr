@@ -89,6 +89,11 @@ patch_ChangeDrawItemIndexSecond:
 OverrideTextID_patch:
     b hook_OverrideTextID
 
+.section .patch_OverrideBomberTextID
+.global OverrideBomberTextID_patch
+OverrideBomberTextID_patch:
+    b hook_OverrideBomberTextID
+
 .section .patch_OverrideItemID
 .global OverrideItemID_patch
 OverrideItemID_patch:

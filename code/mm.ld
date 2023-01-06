@@ -89,6 +89,10 @@ SECTIONS{
 		*(.patch_OverrideTextID)
 	}
 
+		.patch_OverrideBomberTextID 0x1d2764 : {
+		*(.patch_OverrideBomberTextID)
+	}
+
 	.patch_OverrideItemID 0x231108 : {
 		*(.patch_OverrideItemID)
 	}

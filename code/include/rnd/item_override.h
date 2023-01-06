@@ -439,6 +439,7 @@ namespace rnd {
   extern "C" void ItemOverride_GetItemTextAndItemID(game::act::Player*);
   extern "C" u32 rActiveItemGraphicId;
   extern "C" ItemOverride rItemOverrides[640];
+  extern "C" u16 rStoredBomberNoteTextId;
 }  // namespace rnd
 
 #endif

@@ -45,6 +45,10 @@ hook_CheckOcarinaDive:
 .rActiveItemGraphicId:
     .word rActiveItemGraphicId
 
+.global rStoredTextId
+.rStoredTextId:
+    .word rStoredTextId
+
 @ .global hook_SaveFile_Init
 @ hook_SaveFile_Init:
 @     push {r0-r12, lr}
@@ -109,6 +113,20 @@ noOverrideTextID:
     @cpy r2, r5
     cpy r0, r7
     b 0x231100
+
+.global hook_OverrideBomberTextID
+hook_OverrideBomberTextID:
+    push {r1}
+    ldr r1,.rStoredTextId
+    ldr r1,[r1]
+    cmp r1,#0x0
+    pop {r1}
+    beq noOverrideBomberTextID
+    bl ItemOverride_RemoveTextId
+    b 0x1D2768
+noOverrideBomberTextID:
+    cmp r0,r0
+    b 0x1D2768
 
 .global hook_OverrideItemID 
 hook_OverrideItemID:
