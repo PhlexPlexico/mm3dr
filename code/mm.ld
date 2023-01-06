@@ -101,7 +101,11 @@ SECTIONS{
 		*(.patch_OverrideFairyGiveItemOne)
 	}
 
-	/* .patch_OverrideGreatFairyText 0x3bec84 : {
+	/* .patch_OverrideGreatFairyText 0x3b783c : {
+		*(.patch_OverrideGreatFairyText)
+	}
+
+	.patch_OverrideGreatFairyTextTwo 0x3b77c8 : {
 		*(.patch_OverrideGreatFairyText)
 	} */
 

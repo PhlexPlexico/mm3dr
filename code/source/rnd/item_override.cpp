@@ -270,6 +270,7 @@ namespace rnd {
         ItemOverride_Activate(override);
         player->grabbable_actor = rDummyActor;
         player->get_item_id = rActiveItemRow->baseItemId;
+        ItemOverride_PopPendingOverride();
       } else {
         rDummyActor->parent_actor = NULL;
         ItemOverride_PopPendingOverride();

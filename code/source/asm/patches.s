@@ -108,8 +108,6 @@ OverrideFairyItemID_patch:
 .global OverrideGreatFairyText_patch
 OverrideGreatFairyText_patch:
     nop
-    nop
-    nop
     @ ldmia sp!,{r4-r6, lr}
     @ bx lr
 
