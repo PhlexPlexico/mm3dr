@@ -31,7 +31,12 @@ namespace rnd {
     SaveFile_LoadExtSaveData(1);
     // TODO: Maybe make this an option?
     link::FixSpeedIssues();
+    #ifdef ENABLE_DEBUG
+    util::Print("MM3DR Initialized (" __DATE__ " " __TIME__ ")\n");
+    game::sound::PlayEffect(game::sound::EffectId::NA_SE_SY_CHAT_ALLERT);
+    #else
     game::sound::PlayEffect(game::sound::EffectId::NA_SE_SY_CLEAR1);
+    #endif
     context.has_initialised = true;
   }
   extern "C" {
@@ -58,7 +63,8 @@ namespace rnd {
       game::act::Player* link = context.gctx->GetPlayerActor();
       // Before calling let's be absolutely sure we have the player available.
       if (link) {
-        rnd::util::Print("%s: The field_83CD value is %u\n", __func__, context.gctx->field_83CE);
+        game::SaveData& saveCtx = game::GetCommonData().save;
+        rnd::util::Print("%s: Magic is now %i", __func__, saveCtx.player.magic_acquired);
         return;
       }
     }
