@@ -39,8 +39,8 @@ namespace rnd {
     rItemOverrides[0].value.looksLikeItemId = 0x26;
     rItemOverrides[1].key.scene = 0x6C;
     rItemOverrides[1].key.type = ItemOverride_Type::OVR_CHEST;
-    rItemOverrides[1].value.getItemId = 0x0012;
-    rItemOverrides[1].value.looksLikeItemId = 0x0012;
+    rItemOverrides[1].value.getItemId = 0x49;
+    rItemOverrides[1].value.looksLikeItemId = 0x49;
     rItemOverrides[2].key.scene = 0x12;
     rItemOverrides[2].key.type = ItemOverride_Type::OVR_COLLECTABLE;
     rItemOverrides[2].value.getItemId = 0x37;
@@ -109,11 +109,11 @@ namespace rnd {
       return (ItemOverride){0};
     }
     #ifdef ENABLE_DEBUG
-    // rnd::util::Print("%s: Our param values:\nActor Type %#04x\nGet Item ID: %#04x\nActor ID: %#04x\n", \
-    //   __func__, \
-    //   actor->actor_type, \
-    //   getItemId, \
-    //   actor->id);
+    /*rnd::util::Print("%s: Our param values:\nActor Type %#04x\nGet Item ID: %#04x\nActor ID: %#04x\n", \
+      __func__, \
+      actor->actor_type, \
+      getItemId, \
+      actor->id);*/
     #endif
     return ItemOverride_LookupByKey(key);
   }
@@ -402,7 +402,7 @@ namespace rnd {
 
   void ItemOverride_GetItem(game::GlobalContext* gctx, game::act::Actor* fromActor,
                             game::act::Player* player, s16 incomingGetItemId) {
-
+    if (rActiveItemRow != NULL) return;
     ItemOverride override = {0};
     s32 incomingNegative = incomingGetItemId < 0;
     if (fromActor != NULL && incomingGetItemId != 0) {
