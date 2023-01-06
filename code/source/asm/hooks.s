@@ -143,6 +143,20 @@ noOverrideItemID:
     cpy r0,r7
     b 0x23110C
 
+.global hook_OverrideFairyItemID
+hook_OverrideFairyItemID:
+    push {r0-r12, lr}
+    cpy r0,r5
+    cpy r1,r4
+    mov r2,#0x40
+    bl ItemOverride_GetFairyRewardItem
+    bl ItemOverride_GetItemTextAndItemID
+    pop {r0-r12, lr}
+    b 0x3BECC0
+noOverrideFairyItemID:
+    mov r1,#0x40
+    b 0x3BECBC
+
 .global hook_IncomingGetItemID
 hook_IncomingGetItemID:
     push {r0-r12, lr}

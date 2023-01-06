@@ -89,13 +89,21 @@ SECTIONS{
 		*(.patch_OverrideTextID)
 	}
 
-		.patch_OverrideBomberTextID 0x1d2764 : {
+	.patch_OverrideBomberTextID 0x1D2764 : {
 		*(.patch_OverrideBomberTextID)
 	}
 
 	.patch_OverrideItemID 0x231108 : {
 		*(.patch_OverrideItemID)
 	}
+
+	.patch_OverrideFairyGiveItemOne 0x3BECB4 : {
+		*(.patch_OverrideFairyGiveItemOne)
+	}
+
+	/* .patch_OverrideGreatFairyText 0x3bec84 : {
+		*(.patch_OverrideGreatFairyText)
+	} */
 
 	.patch_TwinmoldConsistentDamage 0x28E544 : {
 		*(.patch_TwinmoldConsistentDamage)

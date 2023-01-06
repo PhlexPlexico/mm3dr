@@ -266,6 +266,7 @@ namespace rnd {
         return;
       }
       if (rDummyActor->parent_actor == NULL) {
+        rnd::util::Print("%s: Trying to pop the pending item.\n", __func__);
         ItemOverride_Activate(override);
         player->grabbable_actor = rDummyActor;
         player->get_item_id = rActiveItemRow->baseItemId;
@@ -427,6 +428,34 @@ namespace rnd {
     
     player->get_item_id = incomingNegative ? -baseItemId : baseItemId;
     rStoredBomberNoteTextId = rActiveItemRow->textId;
+    return;
+  }
+
+  void ItemOverride_GetFairyRewardItem(game::GlobalContext* gctx, game::act::Actor* fromActor,
+                                       s16 incomingGetItemId) {
+    rnd::util::Print("%s\n", __func__);
+    if (rActiveItemRow != NULL) return;
+    ItemOverride override = {0};
+    s32 incomingNegative = incomingGetItemId < 0;
+    if (fromActor != NULL && incomingGetItemId != 0) {
+      s16 getItemId = incomingNegative ? -incomingGetItemId : incomingGetItemId;
+      override = ItemOverride_Lookup(fromActor, (u16)gctx->scene, getItemId);
+    }
+    if (override.key.all == 0) {
+      // No override, use base game's item code
+      ItemOverride_Clear();
+      return;
+    }
+
+    ItemOverride_PushPendingOverride(override);
+    rnd::util::Print("%s: Trying to pop the pending item.\n", __func__);
+    // s8 baseItemId = rActiveItemRow->textId;
+    if (override.value.getItemId == 0x12) {
+      rActiveItemRow->effectArg1 = override.key.all >> 16;
+      rActiveItemRow->effectArg2 = override.key.all & 0xFFFF;
+    }
+    
+    //rStoredBomberNoteTextId = rActiveItemRow->textId;
     return;
   }
 

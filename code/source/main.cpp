@@ -64,7 +64,10 @@ namespace rnd {
       // Before calling let's be absolutely sure we have the player available.
       if (link) {
         game::SaveData& saveCtx = game::GetCommonData().save;
-        rnd::util::Print("%s: Magic is now %i", __func__, saveCtx.player.magic_acquired);
+        for (int i = 0; i < 24; i++) {
+          rnd::util::Print("%s: Mask %i is %u\n", __func__, i, saveCtx.inventory.masks[i]);
+        }
+        
         return;
       }
     }

@@ -99,6 +99,20 @@ OverrideBomberTextID_patch:
 OverrideItemID_patch:
     b hook_OverrideItemID
 
+.section .patch_OverrideFairyGiveItemOne
+.global OverrideFairyItemID_patch
+OverrideFairyItemID_patch:
+    b hook_OverrideFairyItemID
+
+.section .patch_OverrideGreatFairyText
+.global OverrideGreatFairyText_patch
+OverrideGreatFairyText_patch:
+    nop
+    nop
+    nop
+    @ ldmia sp!,{r4-r6, lr}
+    @ bx lr
+
 .section .patch_ReadGamePad
 .global patch_ReadGamePad
 patch_ReadGamePad:
@@ -140,9 +154,3 @@ patch_FasterBlockMovementBack:
 .global loader_patch
 loader_patch:
     b hook_into_loader
-
-.section .patch_BankerFix
-.global BankerPatch
-BankerPatch:
-    ldmia sp!,{r4-r8, lr}
-    bx lr
