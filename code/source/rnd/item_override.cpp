@@ -438,7 +438,7 @@ namespace rnd {
     ItemOverride override = {0};
     s32 incomingNegative = incomingItemId < 0;
     if (fromActor != NULL && incomingItemId != 0) {
-      s16 getItemId;
+      s16 getItemId = 0;
       // Since we deal directly with the get item ID and not the index,
       // we need to map this back to the index to work with lookups.
       if (incomingItemId == 0x40) 
