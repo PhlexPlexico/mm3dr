@@ -1,4 +1,3 @@
-#include "game/message.h"
 #include "rnd/item_override.h"
 #include "rnd/icetrap.h"
 #include "rnd/item_table.h"
@@ -108,22 +107,20 @@ namespace rnd {
     if (key.all == 0) {
       return (ItemOverride){0};
     }
-    #ifdef ENABLE_DEBUG
-    rnd::util::Print("%s: Our param values:\nActor Type %#04x\nGet Item ID: %#04x\nActor ID: %#04x\n", \
-      __func__, \
-      actor->actor_type, \
-      getItemId, \
-      actor->id);
-    #endif
+#ifdef ENABLE_DEBUG
+    rnd::util::Print(
+        "%s: Our param values:\nActor Type %#04x\nGet Item ID: %#04x\nActor ID: %#04x\n", __func__,
+        actor->actor_type, getItemId, actor->id);
+#endif
     return ItemOverride_LookupByKey(key);
   }
 
   ItemOverride ItemOverride_LookupByKey(ItemOverride_Key key) {
     s32 start = 0;
     s32 end = rItemOverrides_Count - 1;
-    #ifdef ENABLE_DEBUG
+#ifdef ENABLE_DEBUG
     return rItemOverrides[1];
-    #endif
+#endif
     while (start <= end) {
       s32 midIdx = (start + end) / 2;
       ItemOverride midOvr = rItemOverrides[midIdx];
@@ -384,7 +381,7 @@ namespace rnd {
   void ItemOverride_GetItemTextAndItemID(game::act::Player* actor) {
     if (rActiveItemRow != NULL) {
       game::GlobalContext* gctx = rnd::GetContext().gctx;
-      //int retVal;
+      // int retVal;
       u16 textId = rActiveItemRow->textId;
       u8 itemId = rActiveItemRow->itemId;
       ItemTable_CallEffect(rActiveItemRow);
@@ -396,7 +393,6 @@ namespace rnd {
         // rnd::util::Print("%s: Talk Actor ID is %#06x\n", __func__, actor->grabbable_actor->id);
         /*rnd::util::GetPointer<void(game::GlobalContext*, int, int)>(0x2204ec)(
             gctx, 100, -1);*/
-        
       }
       ItemOverride_AfterItemReceived();
     }
@@ -404,7 +400,8 @@ namespace rnd {
 
   void ItemOverride_GetItem(game::GlobalContext* gctx, game::act::Actor* fromActor,
                             game::act::Player* player, s16 incomingGetItemId) {
-    if (rActiveItemRow != NULL) return;
+    if (rActiveItemRow != NULL)
+      return;
     ItemOverride override = {0};
     s32 incomingNegative = incomingGetItemId < 0;
     if (fromActor != NULL && incomingGetItemId != 0) {
@@ -426,7 +423,7 @@ namespace rnd {
       rActiveItemRow->effectArg1 = override.key.all >> 16;
       rActiveItemRow->effectArg2 = override.key.all & 0xFFFF;
     }
-    
+
     player->get_item_id = incomingNegative ? -baseItemId : baseItemId;
     rStoredBomberNoteTextId = rActiveItemRow->textId;
     return;
@@ -434,14 +431,15 @@ namespace rnd {
 
   void ItemOverride_GetFairyRewardItem(game::GlobalContext* gctx, game::act::Actor* fromActor,
                                        s16 incomingItemId) {
-    if (rActiveItemRow != NULL) return;
+    if (rActiveItemRow != NULL)
+      return;
     ItemOverride override = {0};
     s32 incomingNegative = incomingItemId < 0;
     if (fromActor != NULL && incomingItemId != 0) {
       s16 getItemId = 0;
       // Since we deal directly with the get item ID and not the index,
       // we need to map this back to the index to work with lookups.
-      if (incomingItemId == 0x40) 
+      if (incomingItemId == 0x40)
         getItemId = incomingNegative ? -0x86 : 0x86;
       else if (incomingItemId == 0x10)
         getItemId = incomingNegative ? -0x9B : 0x9B;
@@ -460,8 +458,8 @@ namespace rnd {
       rActiveItemRow->effectArg1 = override.key.all >> 16;
       rActiveItemRow->effectArg2 = override.key.all & 0xFFFF;
     }
-    
-    //rStoredBomberNoteTextId = rActiveItemRow->textId;
+
+    // rStoredBomberNoteTextId = rActiveItemRow->textId;
     return;
   }
 

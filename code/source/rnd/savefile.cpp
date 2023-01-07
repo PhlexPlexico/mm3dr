@@ -15,13 +15,13 @@ namespace rnd {
 
   extern "C" void SaveFile_Init() {
     game::SaveData& saveData = game::GetCommonData().save;
-    
+
 #ifdef ENABLE_DEBUG
     saveData.equipment.sword_shield.sword = game::SwordType::GildedSword;
     saveData.player.razor_sword_hp = 0x64;
     saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver50;
     saveData.inventory.inventory_count_register.bomb_bag_upgrade = game::BombBag::BombBag40;
-    //saveData.inventory.inventory_count_register.wallet_upgrade = 2;
+    // saveData.inventory.inventory_count_register.wallet_upgrade = 2;
     saveData.inventory.inventory_count_register.stick_upgrades = 2;
     saveData.inventory.inventory_count_register.nut_upgrade = 2;
     saveData.player.rupee_count = 500;
@@ -64,9 +64,8 @@ namespace rnd {
     saveData.inventory.stone_tower_dungeon_items.map = 1;
     saveData.inventory.stone_tower_dungeon_items.compass = 1;
     saveData.inventory.stone_tower_dungeon_items.boss_key = 1;
-    // saveData.player.magic_acquired = 1;  // Game does not check if value = 0, magic items still work
-    // saveData.player.magic_size_type = 0;
-    // saveData.player.magic = 10;
+    // saveData.player.magic_acquired = 1;  // Game does not check if value = 0, magic items still
+    // work saveData.player.magic_size_type = 0; saveData.player.magic = 10;
     // saveData.player.magic_num_upgrades = 0;
     saveData.equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
     saveData.inventory.item_counts[6] = 50;   // Arrows
@@ -102,7 +101,7 @@ namespace rnd {
     saveData.activate_dungeon_skip_portal_0xF0_for_all = 0xF0;
 
     SaveFile_FillOverWorldMapData();
-    
+
 #endif
     // TODO: Decomp event flags. Most likely in the large anonymous structs in the SaveData.
     u8 isNewFile = saveData.has_completed_intro;
@@ -139,7 +138,6 @@ namespace rnd {
       game::GiveItem(game::ItemId::BombersNotebook);
     }
   }
-  
 
   void SaveFile_SkipMinorCutscenes() {
     game::SaveData& saveData = game::GetCommonData().save;
@@ -525,9 +523,8 @@ namespace rnd {
     return true;
   }
 
-
   void SaveFile_InitExtSaveData(u32 saveNumber) {
-    gExtSaveData.version = EXTSAVEDATA_VERSION; // Do not change this line
+    gExtSaveData.version = EXTSAVEDATA_VERSION;  // Do not change this line
     // TODO: BitField for event flags instead?
     // memset(&gExtSaveData.extInf, 0, sizeof(gExtSaveData.extInf));
     memset(&gExtSaveData.aromaGivenItem, 0, sizeof(gExtSaveData.aromaGivenItem));
@@ -561,21 +558,22 @@ namespace rnd {
 
     // Load default values if the file does not exist
     if (R_FAILED(res = extDataOpen(&fileHandle, fsa, path))) {
-        extDataUnmount(fsa);
-        SaveFile_InitExtSaveData(saveNumber);
-        return;
+      extDataUnmount(fsa);
+      SaveFile_InitExtSaveData(saveNumber);
+      return;
     }
 
-    // Delete the file and load default values if the size does not match or the version is different
+    // Delete the file and load default values if the size does not match or the version is
+    // different
     FSFILE_GetSize(fileHandle, &fileSize);
     extDataReadFile(fileHandle, &version, 0, sizeof(version));
     rnd::util::Print("%s: Filesize is %u", __func__, fileSize);
     if (fileSize != sizeof(gExtSaveData) || version != EXTSAVEDATA_VERSION) {
-        extDataClose(fileHandle);
-        extDataDeleteFile(fsa, path);
-        extDataUnmount(fsa);
-        SaveFile_InitExtSaveData(saveNumber);
-        return;
+      extDataClose(fileHandle);
+      extDataDeleteFile(fsa, path);
+      extDataUnmount(fsa);
+      SaveFile_InitExtSaveData(saveNumber);
+      return;
     }
 
     extDataReadFile(fileHandle, &gExtSaveData, 0, sizeof(gExtSaveData));
@@ -591,7 +589,7 @@ namespace rnd {
     FS_Archive fsa;
 
     if (R_FAILED(res = extDataMount(&fsa))) {
-        return;
+      return;
     }
 
     path[1] = saveNumber + '0';
@@ -600,6 +598,5 @@ namespace rnd {
 
     extDataUnmount(fsa);
   }
-  
-  
+
 }  // namespace rnd

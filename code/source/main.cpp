@@ -7,11 +7,11 @@
 #include "game/states/state.h"
 #include "game/ui.h"
 #include "rnd/extdata.h"
-#include "rnd/savefile.h"
 #include "rnd/icetrap.h"
 #include "rnd/item_override.h"
 #include "rnd/link.h"
 #include "rnd/rheap.h"
+#include "rnd/savefile.h"
 #include "z3d/z3DVec.h"
 
 #ifdef ENABLE_DEBUG
@@ -31,12 +31,12 @@ namespace rnd {
     SaveFile_LoadExtSaveData(1);
     // TODO: Maybe make this an option?
     link::FixSpeedIssues();
-    #ifdef ENABLE_DEBUG
+#ifdef ENABLE_DEBUG
     util::Print("MM3DR Initialized (" __DATE__ " " __TIME__ ")\n");
     game::sound::PlayEffect(game::sound::EffectId::NA_SE_SY_CHAT_ALLERT);
-    #else
+#else
     game::sound::PlayEffect(game::sound::EffectId::NA_SE_SY_CLEAR1);
-    #endif
+#endif
     context.has_initialised = true;
   }
   extern "C" {
@@ -67,12 +67,12 @@ namespace rnd {
         for (int i = 0; i < 24; i++) {
           rnd::util::Print("%s: Mask %i is %u\n", __func__, i, saveCtx.inventory.masks[i]);
         }
-        
+
         return;
       }
     }
 #endif
-    
+
     return;
   }
   void readPadInput() {

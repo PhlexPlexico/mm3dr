@@ -1,9 +1,9 @@
 /**
  * @file extdata.h
  * @author UraYukimitsu (https://github.com/UraYukimitsu/)
- * @brief 
+ * @brief
  * @date 2021-09-14
- * 
+ *
  * Brought in from the OoT3D Randomizer libraries. Edited to adjust for MM3D.
  */
 

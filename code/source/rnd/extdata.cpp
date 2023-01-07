@@ -1,9 +1,9 @@
 /**
  * @file extdata.cpp
  * @author UraYukimitsu (https://github.com/UraYukimitsu/)
- * @brief 
+ * @brief
  * @date 2021-09-14
- * 
+ *
  * Brought in from the OoT3D Randomizer libraries. Edited to adjust for MM3D.
  */
 #include "rnd/extdata.h"
@@ -49,7 +49,7 @@ namespace rnd {
       rnd::util::Print("%s: Opened icon FAILED.\n", __func__);
       return res;
     }
-    
+
     // Get file size (should be 14016)
     if (R_FAILED(res = FSFILE_GetSize(icnHandle, &icnSize))) {
       FSFILE_Close(icnHandle);
