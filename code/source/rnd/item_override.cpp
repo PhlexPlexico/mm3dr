@@ -109,11 +109,11 @@ namespace rnd {
       return (ItemOverride){0};
     }
     #ifdef ENABLE_DEBUG
-    /*rnd::util::Print("%s: Our param values:\nActor Type %#04x\nGet Item ID: %#04x\nActor ID: %#04x\n", \
+    rnd::util::Print("%s: Our param values:\nActor Type %#04x\nGet Item ID: %#04x\nActor ID: %#04x\n", \
       __func__, \
       actor->actor_type, \
       getItemId, \
-      actor->id);*/
+      actor->id);
     #endif
     return ItemOverride_LookupByKey(key);
   }
@@ -433,13 +433,18 @@ namespace rnd {
   }
 
   void ItemOverride_GetFairyRewardItem(game::GlobalContext* gctx, game::act::Actor* fromActor,
-                                       s16 incomingGetItemId) {
-    rnd::util::Print("%s\n", __func__);
+                                       s16 incomingItemId) {
     if (rActiveItemRow != NULL) return;
     ItemOverride override = {0};
-    s32 incomingNegative = incomingGetItemId < 0;
-    if (fromActor != NULL && incomingGetItemId != 0) {
-      s16 getItemId = incomingNegative ? -incomingGetItemId : incomingGetItemId;
+    s32 incomingNegative = incomingItemId < 0;
+    if (fromActor != NULL && incomingItemId != 0) {
+      s16 getItemId;
+      // Since we deal directly with the get item ID and not the index,
+      // we need to map this back to the index to work with lookups.
+      if (incomingItemId == 0x40) 
+        getItemId = incomingNegative ? -0x86 : 0x86;
+      else if (incomingItemId == 0x10)
+        getItemId = incomingNegative ? -0x9B : 0x9B;
       override = ItemOverride_Lookup(fromActor, (u16)gctx->scene, getItemId);
     }
     if (override.key.all == 0) {

@@ -360,7 +360,7 @@ namespace game {
     char anonymous_72;
     char anonymous_73;
     u8 skip_tingle_intro_dialogue_0x01;
-    char anonymous_75;
+    char anonymous_75; // Possible 0x80 if collected fairy from clock town.
     u8 ct_guard_allows_through_if_0x20;
     char anonymous_77;
     u8 flag_8_for_no_magic_use;
