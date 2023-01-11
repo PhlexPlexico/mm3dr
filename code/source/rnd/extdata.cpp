@@ -24,7 +24,11 @@ namespace rnd {
     if (R_FAILED(res = srvInit())) {
       return res;
     }
-    return fsInit();
+    if (R_FAILED(res = fsInit())) {
+      return res;
+    }
+    fsUseSession(*fsGetSessionHandle());
+    return res;
   }
 
   Result extDataCreate() {
