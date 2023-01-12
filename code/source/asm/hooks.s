@@ -63,7 +63,8 @@ hook_SaveFile_Init:
     push {r0-r12, lr}
     bl SaveFile_Init
     pop {r0-r12, lr}
-    cpy r4,r0
+    nop
+    @cpy r4,r0
     bx lr
     
 

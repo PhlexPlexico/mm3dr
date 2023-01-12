@@ -1,3 +1,4 @@
+#include "rnd/extdata.h"
 #include "rnd/item_override.h"
 #include "rnd/icetrap.h"
 #include "rnd/item_table.h"
@@ -406,6 +407,13 @@ namespace rnd {
     s32 incomingNegative = incomingGetItemId < 0;
     if (fromActor != NULL && incomingGetItemId != 0) {
       s16 getItemId = incomingNegative ? -incomingGetItemId : incomingGetItemId;
+      // TODO: Granny Override here - check actor scene, and check gExtData.
+      if (fromActor->id == game::act::Id::NpcEnNb) {
+        if (gExtSaveData.grannyGaveReward > 0) {
+          getItemId = incomingNegative ? -0xBA : 0xBA;
+        }
+        gExtSaveData.grannyGaveReward++;
+      }
       override = ItemOverride_Lookup(fromActor, (u16)gctx->scene, getItemId);
     }
     if (override.key.all == 0) {

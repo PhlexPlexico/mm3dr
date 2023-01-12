@@ -32,7 +32,7 @@ namespace rnd {
     u32 icnSize2;
 
     Result res;
-    Handle icnHandle = extInitFileHandle();;
+    Handle icnHandle = extInitFileHandle();
     // Get the path to the icon from exefs
     struct {
       u32 type;

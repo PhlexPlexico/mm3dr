@@ -48,8 +48,7 @@ SECTIONS{
 		*(.patch_SecondZoraSwimCheck)
 	}
 
-	/*TODO: Find a better place for this function call. This is called almost every frame during file selection but it works?*/
-	.patch_SaveFile_init 0x5BB44C : {
+	.patch_SaveFile_init 0x05ffc70 : {
 		*(.patch_SaveFile_init)
 	}
 

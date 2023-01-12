@@ -35,6 +35,8 @@ namespace game::act {
     BossTwinmold = 0xcc,
     // [9] Gyorg
     BossGyorg = 0xcd,
+    // Granny
+    NpcEnNb = 0xd2,
     // [4] Kafei
     NpcKafei = 0x00F4,
     // Ice platform created using ice arrows.

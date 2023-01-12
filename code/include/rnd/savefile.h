@@ -35,6 +35,7 @@ namespace rnd {
     u32 version;  // Needs to always be the first field of the structure
     u32 playtimeSeconds;
     s8 aromaGivenItem;
+    s8 grannyGaveReward;
   } ExtSaveData;
 
   extern "C" ExtSaveData gExtSaveData;

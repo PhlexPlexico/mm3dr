@@ -15,8 +15,10 @@ namespace rnd {
 
   extern "C" void SaveFile_Init() {
     game::SaveData& saveData = game::GetCommonData().save;
+    game::CommonData& comData = game::GetCommonData();
 
 #ifdef ENABLE_DEBUG
+    rnd::util::Print("%s: Initing save file.", __func__);
     saveData.equipment.sword_shield.sword = game::SwordType::GildedSword;
     saveData.player.razor_sword_hp = 0x64;
     saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver50;
@@ -106,6 +108,7 @@ namespace rnd {
     // TODO: Decomp event flags. Most likely in the large anonymous structs in the SaveData.
     u8 isNewFile = saveData.has_completed_intro;
     if (isNewFile == 0) {
+      SaveFile_InitExtSaveData(comData.save_idx);
       saveData.has_tatl = true;
 
       // Skips cutscenes with no item checks attached
@@ -528,6 +531,7 @@ namespace rnd {
     // TODO: BitField for event flags instead?
     // memset(&gExtSaveData.extInf, 0, sizeof(gExtSaveData.extInf));
     memset(&gExtSaveData.aromaGivenItem, 0, sizeof(gExtSaveData.aromaGivenItem));
+    memset(&gExtSaveData.grannyGaveReward, 0, sizeof(gExtSaveData.grannyGaveReward));
     gExtSaveData.playtimeSeconds = 0;
     // TODO: Settings options belong in ext.
     // memset(&gExtSaveData.scenesDiscovered, 0, sizeof(gExtSaveData.scenesDiscovered));
@@ -547,10 +551,11 @@ namespace rnd {
 
     Result res;
     FS_Archive fsa;
-    Handle fileHandle;
+    Handle fileHandle = extInitFileHandle(); ;
     if (R_FAILED(res = extDataMount(&fsa))) {
       rnd::util::Print("%s: Failed to mount ext data.\n", __func__);
       SaveFile_InitExtSaveData(saveNumber);
+      extEndFSSession();
       return;
     }
 
@@ -560,6 +565,7 @@ namespace rnd {
     if (R_FAILED(res = extDataOpen(&fileHandle, fsa, path))) {
       extDataUnmount(fsa);
       SaveFile_InitExtSaveData(saveNumber);
+      extEndFSSession();
       return;
     }
 
@@ -572,6 +578,7 @@ namespace rnd {
       extDataClose(fileHandle);
       extDataDeleteFile(fsa, path);
       extDataUnmount(fsa);
+      extEndFSSession();
       SaveFile_InitExtSaveData(saveNumber);
       return;
     }
@@ -580,6 +587,7 @@ namespace rnd {
 
     extDataClose(fileHandle);
     extDataUnmount(fsa);
+    extEndFSSession();
   }
 
   void SaveFile_SaveExtSaveData(u32 saveNumber) {
@@ -597,6 +605,7 @@ namespace rnd {
     extDataWriteFileDirectly(fsa, path, &gExtSaveData, 0, sizeof(gExtSaveData));
 
     extDataUnmount(fsa);
+    extEndFSSession();
   }
 
 }  // namespace rnd
