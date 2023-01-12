@@ -27,8 +27,7 @@ namespace rnd {
 
     rHeap_Init();
     ItemOverride_Init();
-    extDataInit();
-    SaveFile_LoadExtSaveData(1);
+    //SaveFile_LoadExtSaveData(1);
     // TODO: Maybe make this an option?
     link::FixSpeedIssues();
 #ifdef ENABLE_DEBUG
@@ -49,8 +48,10 @@ namespace rnd {
     Context& context = GetContext();
     context.gctx = nullptr;
 
-    if (!context.has_initialised && state->type == game::StateType::FirstGame)
+    if (!context.has_initialised && state->type == game::StateType::FirstGame) {
       Init(context);
+    }
+      
     if (state->type != game::StateType::Play)
       return;
     context.gctx = static_cast<game::GlobalContext*>(state);
@@ -63,11 +64,6 @@ namespace rnd {
       game::act::Player* link = context.gctx->GetPlayerActor();
       // Before calling let's be absolutely sure we have the player available.
       if (link) {
-        game::SaveData& saveCtx = game::GetCommonData().save;
-        for (int i = 0; i < 24; i++) {
-          rnd::util::Print("%s: Mask %i is %u\n", __func__, i, saveCtx.inventory.masks[i]);
-        }
-
         return;
       }
     }
