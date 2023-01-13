@@ -49,6 +49,8 @@ namespace game::act {
     NpcOldLady = 0x01C5,
     // [4] Rosa Sisters
     NpcRosaSisters = 0x020A,
+    // En_Bjt (Toilet Hand)
+    NpcEnBjt = 0x020C,
     // [4] Bombers
     NpcBombers = 0x020F,
     // [6] Sheikah Hint Stone (MM3D)

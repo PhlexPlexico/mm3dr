@@ -49,6 +49,7 @@ namespace rnd {
     saveData.inventory.masks[19] = game::ItemId::GibdoMask;
     saveData.inventory.masks[8] = game::ItemId::BunnyHood;
     saveData.inventory.masks[20] = game::ItemId::GaroMask;
+    saveData.inventory.masks[(u32)game::ItemId::AllNightMask] = game::ItemId::AllNightMask;
 
     saveData.inventory.woodfall_temple_keys = 8;
     saveData.inventory.snowhead_temple_keys = 8;

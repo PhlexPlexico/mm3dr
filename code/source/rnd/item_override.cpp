@@ -413,6 +413,8 @@ namespace rnd {
           getItemId = incomingNegative ? -0xBA : 0xBA;
         }
         gExtSaveData.grannyGaveReward++;
+      } else if (fromActor->id == game::act::Id::NpcEnBjt) {
+        getItemId = incomingNegative ? -0x01 : 0x01;
       }
       override = ItemOverride_Lookup(fromActor, (u16)gctx->scene, getItemId);
     }
