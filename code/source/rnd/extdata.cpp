@@ -86,7 +86,7 @@ namespace rnd {
       u32 media;
       u32 saveIDLo;
       u32 saveIDHi;
-    } extDataLowPath = {MEDIATYPE_SD, 0x33500, 0};
+    } extDataLowPath = {MEDIATYPE_SD, 0x125500, 0};
     /*
     if (gSettingsContext.region == REGION_NA) {
       extDataLowPath.saveIDLo = 0x33500;
