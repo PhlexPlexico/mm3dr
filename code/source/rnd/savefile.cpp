@@ -139,7 +139,7 @@ namespace rnd {
       saveData.skip_tingle_intro_dialogue_0x01 = 0x01;
 
       saveData.player_form = game::act::Player::Form::Human;
-      game::GiveItem(game::ItemId::BombersNotebook);
+      saveData.inventory.collect_register.bombers_notebook = 1;
     }
   }
 
