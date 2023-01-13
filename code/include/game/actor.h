@@ -35,12 +35,12 @@ namespace game::act {
     BossTwinmold = 0xcc,
     // [9] Gyorg
     BossGyorg = 0xcd,
-    // Granny
-    NpcEnNb = 0xd2,
     // [4] Kafei
     NpcKafei = 0x00F4,
     // Ice platform created using ice arrows.
     BgIcePlatform = 0x013E,
+    // Granny
+    NpcEnNb = 0x01D2,
     // Goht
     BossGoht = 0x016E,
     // [7] Owl statue

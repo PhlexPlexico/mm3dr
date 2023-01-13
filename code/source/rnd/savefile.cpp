@@ -41,6 +41,7 @@ namespace rnd {
     saveData.inventory.items[13] = game::ItemId::PictographBox;
     saveData.inventory.items[14] = game::ItemId::LensOfTruth;
     saveData.inventory.items[15] = game::ItemId::Hookshot;
+    saveData.inventory.items[20] = game::ItemId::LandTitleDeed;
 
     saveData.inventory.masks[5] = game::ItemId::DekuMask;
     saveData.inventory.masks[11] = game::ItemId::GoronMask;
@@ -49,7 +50,7 @@ namespace rnd {
     saveData.inventory.masks[19] = game::ItemId::GibdoMask;
     saveData.inventory.masks[8] = game::ItemId::BunnyHood;
     saveData.inventory.masks[20] = game::ItemId::GaroMask;
-    saveData.inventory.masks[(u32)game::ItemId::AllNightMask] = game::ItemId::AllNightMask;
+    saveData.inventory.masks[6] = game::ItemId::AllNightMask;
 
     saveData.inventory.woodfall_temple_keys = 8;
     saveData.inventory.snowhead_temple_keys = 8;

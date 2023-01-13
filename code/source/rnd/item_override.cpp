@@ -406,13 +406,16 @@ namespace rnd {
     ItemOverride override = {0};
     s32 incomingNegative = incomingGetItemId < 0;
     if (fromActor != NULL && incomingGetItemId != 0) {
+      rnd::util::Print("%s: Our actor ID is %#06x\n", __func__, fromActor->id);
       s16 getItemId = incomingNegative ? -incomingGetItemId : incomingGetItemId;
       // TODO: Granny Override here - check actor scene, and check gExtData.
       if (fromActor->id == game::act::Id::NpcEnNb) {
+        rnd::util::Print("%s: Granny give reward is currently %u, incrementing.\n", __func__, gExtSaveData.grannyGaveReward);
         if (gExtSaveData.grannyGaveReward > 0) {
           getItemId = incomingNegative ? -0xBA : 0xBA;
         }
         gExtSaveData.grannyGaveReward++;
+        rnd::util::Print("%s: Granny give reward is currently %u, should be incremented.\n", __func__, gExtSaveData.grannyGaveReward);
       } else if (fromActor->id == game::act::Id::NpcEnBjt) {
         getItemId = incomingNegative ? -0x01 : 0x01;
       }
