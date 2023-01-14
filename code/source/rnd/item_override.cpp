@@ -418,7 +418,7 @@ namespace rnd {
         rnd::util::Print("%s: Granny give reward is currently %u, should be incremented.\n", __func__, gExtSaveData.grannyGaveReward);
       } else if (fromActor->id == game::act::Id::NpcEnBjt) {
         getItemId = incomingNegative ? -0x01 : 0x01;
-      } else if (fromActor->id == (game::act::Id)0x0158) {
+      } else if (fromActor->id == game::act::Id::NpcSwampPhotographer) {
         getItemId = incomingNegative ? -0xBA : 0xBA;
       }
       override = ItemOverride_Lookup(fromActor, (u16)gctx->scene, getItemId);

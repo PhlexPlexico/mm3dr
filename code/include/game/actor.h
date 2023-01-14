@@ -39,6 +39,8 @@ namespace game::act {
     NpcKafei = 0x00F4,
     // Ice platform created using ice arrows.
     BgIcePlatform = 0x013E,
+    // Npc For Boat Photography
+    NpcSwampPhotographer = 0x0158,
     // Granny
     NpcEnNb = 0x01D2,
     // Goht

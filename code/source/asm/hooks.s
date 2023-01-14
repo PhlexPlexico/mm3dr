@@ -63,9 +63,10 @@ hook_SaveFile_Init:
     push {r0-r12, lr}
     bl SaveFile_Init
     pop {r0-r12, lr}
-    nop
+    cmp r1,#0x0
+    @nop
     @cpy r4,r0
-    bx lr
+    b 0x5bbabc
     
 
 @ State handler calls 0x5D for masks, check this value and ignore states where that is equal, since this function

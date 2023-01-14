@@ -128,6 +128,9 @@ namespace rnd {
   }
 
   Result extDataOpenOrCreateFile(Handle* out, FS_Archive fsa, char* filename, u64 filesize) {
+#if defined ENABLE_DEBUG || DEBUG_PRINT
+    rnd::util::Print("%s: Open or creating file...\n", __func__);
+#endif
     FSUSER_CreateFile(fsa, fsMakePath(PATH_ASCII, filename), 0, filesize);
     return extDataOpen(out, fsa, filename);
   }

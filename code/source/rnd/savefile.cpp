@@ -18,7 +18,8 @@ namespace rnd {
     game::CommonData& comData = game::GetCommonData();
 
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-    rnd::util::Print("%s: Initing save file.", __func__);
+    rnd::util::Print("%s: Initing save file. Our save index is %u\nAre we a new file? %#04x", \
+    __func__, comData.save_idx, saveData.has_completed_intro);
 #endif
 #ifdef ENABLE_DEBUG
     saveData.equipment.sword_shield.sword = game::SwordType::GildedSword;
@@ -452,13 +453,13 @@ namespace rnd {
 
     if (gSettingsContext.startingMagicMeter == 1) {
       equipmentData.data[3].item_btns[0] = game::ItemId::DekuNuts;
-      playerData.magic_size_type = 0;
+      playerData.magic_size_type = 1;
       // playerData.magic_max_2 = 0;
       playerData.magic_num_upgrades = 0;
       playerData.magic_acquired = 1;
       playerData.magic = 0x30;
     } else if (gSettingsContext.startingMagicMeter == 2) {
-      playerData.magic_size_type = 0;
+      playerData.magic_size_type = 2;
       // playerData.magic_max_2 = 1;
       playerData.magic_num_upgrades = 1;
       playerData.magic_acquired = 1;
@@ -531,12 +532,16 @@ namespace rnd {
   }
 
   void SaveFile_InitExtSaveData(u32 saveNumber) {
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+    rnd::util::Print("%s: INITING ExtData.\n", __func__);    
+#endif
     gExtSaveData.version = EXTSAVEDATA_VERSION;  // Do not change this line
     // TODO: BitField for event flags instead?
     // memset(&gExtSaveData.extInf, 0, sizeof(gExtSaveData.extInf));
     memset(&gExtSaveData.aromaGivenItem, 0, sizeof(gExtSaveData.aromaGivenItem));
     memset(&gExtSaveData.grannyGaveReward, 0, sizeof(gExtSaveData.grannyGaveReward));
     gExtSaveData.playtimeSeconds = 0;
+    SaveFile_SaveExtSaveData();
     // TODO: Settings options belong in ext.
     // memset(&gExtSaveData.scenesDiscovered, 0, sizeof(gExtSaveData.scenesDiscovered));
     // memset(&gExtSaveData.entrancesDiscovered, 0, sizeof(gExtSaveData.entrancesDiscovered));
