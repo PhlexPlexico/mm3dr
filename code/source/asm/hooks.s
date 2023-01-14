@@ -191,6 +191,14 @@ hook_HandleOcarina:
     cmp r0, #0x16 @ original instruction
     b 0x604d90
 
+.global hook_OwlExtDataSave
+hook_OwlExtDataSave:
+    push {r0-r12, lr}
+    bl SaveFile_SaveExtSaveData
+    pop {r0-r12, lr}
+    cpy r6,r0
+    b 0x317008
+
 .section .loader
 .global hook_into_loader
 hook_into_loader:

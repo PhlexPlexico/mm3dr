@@ -120,6 +120,10 @@ SECTIONS{
 		*(.patch_FasterBlockMovementBack)
 	}
 
+	.patch_SaveExtDataOnOwl 0x317004 : {
+		*(.patch_SaveExtDataOnOwl)
+	}
+
 	.patch_IncomingGetItemID 0x4B1394 : {
 		*(.patch_IncomingGetItemID)
 	}

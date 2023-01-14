@@ -27,7 +27,7 @@ namespace rnd {
   // extern "C" {
   void SaveFile_InitExtSaveData(u32 fileBaseIndex);
   void SaveFile_LoadExtSaveData(u32 saveNumber);
-  void SaveFile_SaveExtSaveData(u32 saveNumber);
+  extern "C" void SaveFile_SaveExtSaveData();
 
   //}
 

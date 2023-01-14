@@ -591,8 +591,9 @@ namespace rnd {
     extDataUnmount(fsa);
     extEndFSSession();
   }
-
-  void SaveFile_SaveExtSaveData(u32 saveNumber) {
+  extern "C" void SaveFile_SaveExtSaveData() {
+    rnd::util::Print("%s: Saving on owl.\n", __func__);
+    game::CommonData& comData = game::GetCommonData();
     char path[] = "/0.bin";
 
     Result res;
@@ -602,7 +603,7 @@ namespace rnd {
       return;
     }
 
-    path[1] = saveNumber + '0';
+    path[1] = comData.save_idx + '0';
 
     extDataWriteFileDirectly(fsa, path, &gExtSaveData, 0, sizeof(gExtSaveData));
 

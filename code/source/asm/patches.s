@@ -149,6 +149,11 @@ patch_FasterBlockMovement:
 patch_FasterBlockMovementBack:
     .float 60.0
 
+.section .patch_SaveExtDataOnOwl
+.global patch_SaveExtDataOnOwl
+patch_SaveExtDataOnOwl:
+    b hook_OwlExtDataSave
+
 .section .patch_loader
 .global loader_patch
 loader_patch:

@@ -100,7 +100,6 @@ namespace rnd {
     if (R_SUCCEEDED(res = FSUSER_OpenArchive(out, ARCHIVE_EXTDATA, extDataPath))) {
       return res;
     }
-    rnd::util::Print("%s: Failed to mount in extData. Will try creating.\n", __func__);
     // If it failed, try to create the extdata
     if (R_FAILED(res = extDataCreate())) {
       return res;
