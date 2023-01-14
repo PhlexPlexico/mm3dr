@@ -5,7 +5,7 @@
 #include "rnd/rheap.h"
 #include "rnd/savefile.h"
 
-#ifdef ENABLE_DEBUG
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
 #include "common/debug.h"
 extern "C" {
 #include <3ds/svc.h>
@@ -108,9 +108,9 @@ namespace rnd {
     if (key.all == 0) {
       return (ItemOverride){0};
     }
-#ifdef ENABLE_DEBUG
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
     rnd::util::Print(
-        "%s: Our param values:\nActor Type %#04x\nGet Item ID: %#04x\nActor ID: %#04x\n", __func__,
+        "%s: Our param values:\nActor Type %#04x\nGet Item ID: %#04x\nActor ID: %#06x\n", __func__,
         actor->actor_type, getItemId, actor->id);
 #endif
     return ItemOverride_LookupByKey(key);
@@ -418,6 +418,8 @@ namespace rnd {
         rnd::util::Print("%s: Granny give reward is currently %u, should be incremented.\n", __func__, gExtSaveData.grannyGaveReward);
       } else if (fromActor->id == game::act::Id::NpcEnBjt) {
         getItemId = incomingNegative ? -0x01 : 0x01;
+      } else if (fromActor->id == (game::act::Id)0x0158) {
+        getItemId = incomingNegative ? -0xBA : 0xBA;
       }
       override = ItemOverride_Lookup(fromActor, (u16)gctx->scene, getItemId);
     }

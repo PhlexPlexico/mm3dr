@@ -14,7 +14,7 @@
 #include "rnd/savefile.h"
 #include "z3d/z3DVec.h"
 
-#ifdef ENABLE_DEBUG
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
 #include "common/debug.h"
 extern "C" {
 #include <3ds/svc.h>
@@ -30,7 +30,7 @@ namespace rnd {
     //SaveFile_LoadExtSaveData(1);
     // TODO: Maybe make this an option?
     link::FixSpeedIssues();
-#ifdef ENABLE_DEBUG
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
     util::Print("MM3DR Initialized (" __DATE__ " " __TIME__ ")\n");
     game::sound::PlayEffect(game::sound::EffectId::NA_SE_SY_CHAT_ALLERT);
 #else

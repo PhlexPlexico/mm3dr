@@ -6,7 +6,7 @@ extern "C" {
 #include "rnd/razor_sword.h"
 #include "rnd/savefile.h"
 #include "rnd/settings.h"
-#ifdef ENABLE_DEBUG
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
 #include "common/debug.h"
 #endif
 #define DECLARE_EXTSAVEDATA
@@ -17,8 +17,10 @@ namespace rnd {
     game::SaveData& saveData = game::GetCommonData().save;
     game::CommonData& comData = game::GetCommonData();
 
-#ifdef ENABLE_DEBUG
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
     rnd::util::Print("%s: Initing save file.", __func__);
+#endif
+#ifdef ENABLE_DEBUG
     saveData.equipment.sword_shield.sword = game::SwordType::GildedSword;
     saveData.player.razor_sword_hp = 0x64;
     saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver50;

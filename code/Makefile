@@ -81,6 +81,12 @@ ifneq ($(debug), 0)
 	CXXFLAGS += -g -DENABLE_DEBUG
 endif
 
+debug_print ?= 0
+ifneq ($(debug_print), 0)
+	CFLAGS += -g -DDEBUG_PRINT
+	CXXFLAGS += -g -DDEBUG_PRINT
+endif
+
 ifeq ($(copyto),)
 	export COPYTO=${citraPath}
 else

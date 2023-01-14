@@ -2,7 +2,7 @@
 
 #include "common/utils.h"
 
-#ifdef ENABLE_DEBUG
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
 #include "common/debug.h"
 extern "C" {
 #include <3ds/svc.h>

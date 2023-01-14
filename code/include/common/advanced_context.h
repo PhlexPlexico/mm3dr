@@ -1,7 +1,7 @@
 #ifndef _COMMON_ADVANCED_CONTEXT_H
 #define _COMMON_ADVANCED_CONTEXT_H
 #include "z3d/z3DVec.h"
-#ifdef ENABLE_DEBUG
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
 extern "C" {
 #include <3ds/svc.h>
 }

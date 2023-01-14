@@ -2,7 +2,7 @@
 #include "rnd/item_override.h"
 #include "rnd/razor_sword.h"
 
-#ifdef ENABLE_DEBUG
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
 #include "common/debug.h"
 #endif
 namespace rnd {

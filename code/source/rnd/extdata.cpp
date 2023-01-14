@@ -44,17 +44,20 @@ namespace rnd {
     if (R_FAILED(res =
                      FSUSER_OpenFileDirectly(&icnHandle, ARCHIVE_ROMFS, fsMakePath(PATH_EMPTY, ""),
                                              iconPath, FS_OPEN_READ, 0))) {
-      rnd::util::Print("%s: Opened icon FAILED.\n", __func__);
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+        rnd::util::Print("%s: Opened icon FAILED.\n", __func__);
+#endif
         return res;
     }
     //rnd::util::Print("%s: Opened icon SUCCEEDED.\n", __func__);
     // Get file size (should be 14016)
     if (R_FAILED(res = FSFILE_GetSize(icnHandle, &icnSize))) {
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
       rnd::util::Print("%s: Bad size its %u.\n", __func__, icnSize);
+#endif
       FSFILE_Close(icnHandle);
       return res;
     }
-    rnd::util::Print("%s: SUCCESS ITS %u.\n", __func__, icnSize);
     // Read the icon into the icn buffer
     if (R_FAILED(res = FSFILE_Read(icnHandle, &icnSize2, 0, icn, icnSize))) {
       FSFILE_Close(icnHandle);
@@ -98,8 +101,14 @@ namespace rnd {
 
     // Try mounting the extdata archive
     if (R_SUCCEEDED(res = FSUSER_OpenArchive(out, ARCHIVE_EXTDATA, extDataPath))) {
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+      rnd::util::Print("%s: ext data mount was successful.\n", __func__);
+#endif
       return res;
     }
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+    rnd::util::Print("%s: ext data mount was NOT successful. Either created or not opened. Creating new instance.\n", __func__);
+#endif
     // If it failed, try to create the extdata
     if (R_FAILED(res = extDataCreate())) {
       return res;
@@ -176,12 +185,14 @@ namespace rnd {
       // Resize file automatically if it's too small
       FSFILE_GetSize(handle, &file_size);
       if (file_size < count) {
-        extDataClose(handle);
-        extEndFSSession();
         if (R_FAILED(res = FSUSER_DeleteFile(fsa, fsMakePath(PATH_ASCII, filename)))) {
+          extDataClose(handle);
+          extEndFSSession();
           return -2;
         }
         if (R_FAILED(res = extDataCreateFile(&handle, fsa, filename, count))) {
+          extDataClose(handle);
+          extEndFSSession();
           return -3;
         }
       }
