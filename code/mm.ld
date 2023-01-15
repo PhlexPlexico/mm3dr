@@ -24,6 +24,10 @@ SECTIONS{
 		*(.patch_DecoupleStartSelect)
 	}
 
+	.patch_AttemptKeepChestsClosed 0x1c9300 : {
+		*(.patch_AttemptKeepChestsClosed)
+	}
+
 	.patch_DoNotRemoveKeys 0x1c9b94 : {
 		*(.patch_DoNotRemoveKeys)
 	}

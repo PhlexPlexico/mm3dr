@@ -44,6 +44,17 @@ patch_MainLoop:
 patch_DecoupleStartSelect:
     nop
 
+@ Skip past all chest content resetting.
+@ Since this is rando, we don't want users
+@ getting chests again, and instead of
+@ keeping track via extdata we can just 
+@ branch over everything in relation to 
+@ resetting all the chests in the game.
+.section .patch_AttemptKeepChestsClosed
+.global patch_AttemptKeepChestsClosed
+patch_AttemptKeepChestsClosed:
+    b 0x01c936c
+
 @ Skips past a loop that resets all
 @ values in the each dungeon for 
 @ keys/fairies/boss key/etc
