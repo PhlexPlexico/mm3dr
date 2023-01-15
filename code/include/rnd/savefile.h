@@ -36,6 +36,7 @@ namespace rnd {
     u32 playtimeSeconds;
     s8 aromaGivenItem;
     s8 grannyGaveReward;
+    s8 stoneMaskReward;
   } ExtSaveData;
 
   extern "C" ExtSaveData gExtSaveData;

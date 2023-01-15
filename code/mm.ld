@@ -124,6 +124,10 @@ SECTIONS{
 		*(.patch_SaveExtDataOnOwl)
 	}
 
+	.patch_AromaItemCheck 0x35091C : {
+		*(.patch_AromaItemCheck)
+	}
+
 	.patch_IncomingGetItemID 0x4B1394 : {
 		*(.patch_IncomingGetItemID)
 	}
@@ -144,9 +148,6 @@ SECTIONS{
 		*(.patch_HandleOcarinaHooks)
 	}
 
-	/* .patch_BankerFix 0x458f44 : {
-		*(.patch_BankerFix)
-	} */
 
 
 	. = 0x61CD8C;

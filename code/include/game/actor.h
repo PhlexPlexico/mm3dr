@@ -41,14 +41,18 @@ namespace game::act {
     BgIcePlatform = 0x013E,
     // Npc For Boat Photography
     NpcSwampPhotographer = 0x0158,
-    // Granny
-    NpcEnNb = 0x01D2,
     // Goht
     BossGoht = 0x016E,
     // [7] Owl statue
     ObjOwlStatue = 0x01B2,
     // [4] Old Lady from Bomb Shop
     NpcOldLady = 0x01C5,
+    // Granny
+    NpcEnNb = 0x01D2,
+    // Npc Invisible Guard
+    NpcInvisibleGuard = 0x1D9,
+    // Npc Madame Aroma
+    NpcAroma = 0x1F1,
     // [4] Rosa Sisters
     NpcRosaSisters = 0x020A,
     // En_Bjt (Toilet Hand)

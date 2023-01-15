@@ -154,6 +154,11 @@ patch_FasterBlockMovementBack:
 patch_SaveExtDataOnOwl:
     b hook_OwlExtDataSave
 
+.section .patch_AromaItemCheck
+.global patch_AromaItemCheck
+patch_AromaItemCheck:
+    b hook_AromaItemCheck
+
 .section .patch_loader
 .global loader_patch
 loader_patch:

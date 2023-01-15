@@ -200,6 +200,14 @@ hook_OwlExtDataSave:
     cpy r6,r0
     b 0x317008
 
+.global hook_AromaItemCheck
+hook_AromaItemCheck:
+    push {r0-r12, lr}
+    bl ItemOverride_CheckAromaGivenItem
+    cmp r0,#0x1
+    pop {r0-r12, lr}
+    b 0x350920
+
 .section .loader
 .global hook_into_loader
 hook_into_loader:

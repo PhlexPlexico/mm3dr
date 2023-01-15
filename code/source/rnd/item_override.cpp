@@ -377,109 +377,132 @@ namespace rnd {
       }*/
   }
 
-  extern "C" {
-
-  void ItemOverride_GetItemTextAndItemID(game::act::Player* actor) {
-    if (rActiveItemRow != NULL) {
-      game::GlobalContext* gctx = rnd::GetContext().gctx;
-      // int retVal;
-      u16 textId = rActiveItemRow->textId;
-      u8 itemId = rActiveItemRow->itemId;
-      ItemTable_CallEffect(rActiveItemRow);
-      gctx->ShowMessage(textId, actor);
-      // Get_Item_Handler. Don't give ice traps, since it may cause UB.
-      if (itemId != (u8)game::ItemId::X82) {
-        rnd::util::GetPointer<int(game::GlobalContext*, game::ItemId)>(0x233BEC)(
-            gctx, (game::ItemId)itemId);
-        // rnd::util::Print("%s: Talk Actor ID is %#06x\n", __func__, actor->grabbable_actor->id);
-        /*rnd::util::GetPointer<void(game::GlobalContext*, int, int)>(0x2204ec)(
-            gctx, 100, -1);*/
-      }
-      ItemOverride_AfterItemReceived();
-    }
-  }
-
-  void ItemOverride_GetItem(game::GlobalContext* gctx, game::act::Actor* fromActor,
-                            game::act::Player* player, s16 incomingGetItemId) {
-    if (rActiveItemRow != NULL)
-      return;
-    ItemOverride override = {0};
-    s32 incomingNegative = incomingGetItemId < 0;
-    if (fromActor != NULL && incomingGetItemId != 0) {
-      rnd::util::Print("%s: Our actor ID is %#06x\n", __func__, fromActor->id);
-      s16 getItemId = incomingNegative ? -incomingGetItemId : incomingGetItemId;
-      // TODO: Granny Override here - check actor scene, and check gExtData.
-      if (fromActor->id == game::act::Id::NpcEnNb) {
-        rnd::util::Print("%s: Granny give reward is currently %u, incrementing.\n", __func__, gExtSaveData.grannyGaveReward);
-        if (gExtSaveData.grannyGaveReward > 0) {
-          getItemId = incomingNegative ? -0xBA : 0xBA;
-        }
-        gExtSaveData.grannyGaveReward++;
-        rnd::util::Print("%s: Granny give reward is currently %u, should be incremented.\n", __func__, gExtSaveData.grannyGaveReward);
-      } else if (fromActor->id == game::act::Id::NpcEnBjt) {
-        getItemId = incomingNegative ? -0x01 : 0x01;
-      } else if (fromActor->id == game::act::Id::NpcSwampPhotographer) {
+  s16 ItemOverride_CheckNpc(game::act::Id actorId, s16 originalGetItemId, s32 incomingNegative) {
+    s16 getItemId = incomingNegative ? -originalGetItemId : originalGetItemId;
+    // TODO: Granny Override here - check actor scene, and check gExtData.
+    if (actorId == game::act::Id::NpcEnNb) {
+      #if defined ENABLE_DEBUG || defined DEBUG_PRINT
+      rnd::util::Print("%s: Granny give reward is currently %u, incrementing.\n", __func__, gExtSaveData.grannyGaveReward);
+      #endif
+      if (gExtSaveData.grannyGaveReward > 0) {
         getItemId = incomingNegative ? -0xBA : 0xBA;
       }
-      override = ItemOverride_Lookup(fromActor, (u16)gctx->scene, getItemId);
+      gExtSaveData.grannyGaveReward++;
+      rnd::util::Print("%s: Granny give reward is currently %u, should be incremented.\n", __func__, gExtSaveData.grannyGaveReward);
+    } else if (actorId == game::act::Id::NpcEnBjt) {
+      getItemId = incomingNegative ? -0x01 : 0x01;
+    } else if (actorId == game::act::Id::NpcSwampPhotographer) {
+      getItemId = incomingNegative ? -0xBA : 0xBA;
+    } else if (actorId == game::act::Id::NpcInvisibleGuard) {
+      #if defined ENABLE_DEBUG || defined DEBUG_PRINT
+      rnd::util::Print("%s: Invisilbe Stone Man give reward is currently %u, incrementing.\n", __func__, gExtSaveData.stoneMaskReward);
+      #endif
+      if (gExtSaveData.stoneMaskReward > 0) {
+        getItemId = incomingNegative ? -0xBA : 0xBA;
+      }
+      gExtSaveData.stoneMaskReward++;
+    } else if (actorId == game::act::Id::NpcAroma) {
+      gExtSaveData.aromaGivenItem++;
     }
-    if (override.key.all == 0) {
-      // No override, use base game's item code
-      ItemOverride_Clear();
-      player->get_item_id = incomingGetItemId;
+    return getItemId;
+  }
+
+  extern "C" {
+    bool ItemOverride_CheckAromaGivenItem() {
+      #if defined ENABLE_DEBUG || DEBUG_PRINT
+      rnd::util::Print("%s: Checking if we received item from Aroma because it's %u.\n", __func__, gExtSaveData.aromaGivenItem);
+      #endif
+      if (gExtSaveData.aromaGivenItem > 0) return true;
+      return false;
+    }
+    void ItemOverride_GetItemTextAndItemID(game::act::Player* actor) {
+      if (rActiveItemRow != NULL) {
+        game::GlobalContext* gctx = rnd::GetContext().gctx;
+        // int retVal;
+        u16 textId = rActiveItemRow->textId;
+        u8 itemId = rActiveItemRow->itemId;
+        ItemTable_CallEffect(rActiveItemRow);
+        gctx->ShowMessage(textId, actor);
+        // Get_Item_Handler. Don't give ice traps, since it may cause UB.
+        if (itemId != (u8)game::ItemId::X82) {
+          rnd::util::GetPointer<int(game::GlobalContext*, game::ItemId)>(0x233BEC)(
+              gctx, (game::ItemId)itemId);
+          // rnd::util::Print("%s: Talk Actor ID is %#06x\n", __func__, actor->grabbable_actor->id);
+          /*rnd::util::GetPointer<void(game::GlobalContext*, int, int)>(0x2204ec)(
+              gctx, 100, -1);*/
+        }
+        ItemOverride_AfterItemReceived();
+      }
+    }
+
+    void ItemOverride_GetItem(game::GlobalContext* gctx, game::act::Actor* fromActor,
+                              game::act::Player* player, s16 incomingGetItemId) {
+      if (rActiveItemRow != NULL)
+        return;
+      ItemOverride override = {0};
+      s32 incomingNegative = incomingGetItemId < 0;
+      if (fromActor != NULL && incomingGetItemId != 0) {
+        rnd::util::Print("%s: Our actor ID is %#06x\n", __func__, fromActor->id);
+        s16 getItemId = ItemOverride_CheckNpc(fromActor->id, incomingGetItemId, incomingNegative);
+        override = ItemOverride_Lookup(fromActor, (u16)gctx->scene, getItemId);
+      }
+      if (override.key.all == 0) {
+        // No override, use base game's item code
+        ItemOverride_Clear();
+        player->get_item_id = incomingGetItemId;
+        return;
+      }
+
+      ItemOverride_Activate(override);
+      s16 baseItemId = rActiveItemRow->baseItemId;
+
+      // s8 baseItemId = rActiveItemRow->textId;
+      if (override.value.getItemId == 0x12) {
+        rActiveItemRow->effectArg1 = override.key.all >> 16;
+        rActiveItemRow->effectArg2 = override.key.all & 0xFFFF;
+      }
+
+      player->get_item_id = incomingNegative ? -baseItemId : baseItemId;
+      rStoredBomberNoteTextId = rActiveItemRow->textId;
       return;
     }
 
-    ItemOverride_Activate(override);
-    s16 baseItemId = rActiveItemRow->baseItemId;
+    void ItemOverride_GetFairyRewardItem(game::GlobalContext* gctx, game::act::Actor* fromActor,
+                                        s16 incomingItemId) {
+      if (rActiveItemRow != NULL)
+        return;
+      ItemOverride override = {0};
+      s32 incomingNegative = incomingItemId < 0;
+      if (fromActor != NULL && incomingItemId != 0) {
+        s16 getItemId = 0;
+        // Since we deal directly with the get item ID and not the index,
+        // we need to map this back to the index to work with lookups.
+        if (incomingItemId == 0x40)
+          getItemId = incomingNegative ? -0x86 : 0x86;
+        else if (incomingItemId == 0x10)
+          getItemId = incomingNegative ? -0x9B : 0x9B;
+        override = ItemOverride_Lookup(fromActor, (u16)gctx->scene, getItemId);
+      }
+      if (override.key.all == 0) {
+        // No override, use base game's item code
+        ItemOverride_Clear();
+        return;
+      }
 
-    // s8 baseItemId = rActiveItemRow->textId;
-    if (override.value.getItemId == 0x12) {
-      rActiveItemRow->effectArg1 = override.key.all >> 16;
-      rActiveItemRow->effectArg2 = override.key.all & 0xFFFF;
-    }
+      ItemOverride_PushPendingOverride(override);
+      rnd::util::Print("%s: Trying to pop the pending item.\n", __func__);
+      // s8 baseItemId = rActiveItemRow->textId;
+      if (override.value.getItemId == 0x12) {
+        rActiveItemRow->effectArg1 = override.key.all >> 16;
+        rActiveItemRow->effectArg2 = override.key.all & 0xFFFF;
+      }
 
-    player->get_item_id = incomingNegative ? -baseItemId : baseItemId;
-    rStoredBomberNoteTextId = rActiveItemRow->textId;
-    return;
-  }
-
-  void ItemOverride_GetFairyRewardItem(game::GlobalContext* gctx, game::act::Actor* fromActor,
-                                       s16 incomingItemId) {
-    if (rActiveItemRow != NULL)
-      return;
-    ItemOverride override = {0};
-    s32 incomingNegative = incomingItemId < 0;
-    if (fromActor != NULL && incomingItemId != 0) {
-      s16 getItemId = 0;
-      // Since we deal directly with the get item ID and not the index,
-      // we need to map this back to the index to work with lookups.
-      if (incomingItemId == 0x40)
-        getItemId = incomingNegative ? -0x86 : 0x86;
-      else if (incomingItemId == 0x10)
-        getItemId = incomingNegative ? -0x9B : 0x9B;
-      override = ItemOverride_Lookup(fromActor, (u16)gctx->scene, getItemId);
-    }
-    if (override.key.all == 0) {
-      // No override, use base game's item code
-      ItemOverride_Clear();
+      // rStoredBomberNoteTextId = rActiveItemRow->textId;
       return;
     }
 
-    ItemOverride_PushPendingOverride(override);
-    rnd::util::Print("%s: Trying to pop the pending item.\n", __func__);
-    // s8 baseItemId = rActiveItemRow->textId;
-    if (override.value.getItemId == 0x12) {
-      rActiveItemRow->effectArg1 = override.key.all >> 16;
-      rActiveItemRow->effectArg2 = override.key.all & 0xFFFF;
+    void ItemOverride_RemoveTextId() {
+      rStoredBomberNoteTextId = 0;
     }
-
-    // rStoredBomberNoteTextId = rActiveItemRow->textId;
-    return;
-  }
-
-  void ItemOverride_RemoveTextId() {
-    rStoredBomberNoteTextId = 0;
-  }
   }
 }  // namespace rnd
