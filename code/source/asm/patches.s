@@ -44,6 +44,22 @@ patch_MainLoop:
 patch_DecoupleStartSelect:
     nop
 
+@ Skips past a loop that resets all
+@ values in the each dungeon for 
+@ keys/fairies/boss key/etc
+@ to zero. Small QoL if boss
+@ keys are already given, same with keys
+.section .patch_DoNotRemoveKeys
+.global patch_DoNotRemoveKeys
+patch_DoNotRemoveKeys:
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+
 .section .patch_SaveFile_init
 .global patch_SaveFile_init
 patch_SaveFile_init:

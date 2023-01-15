@@ -24,6 +24,10 @@ SECTIONS{
 		*(.patch_DecoupleStartSelect)
 	}
 
+	.patch_DoNotRemoveKeys 0x1c9b94 : {
+		*(.patch_DoNotRemoveKeys)
+	}
+
 	.patch_SpawnFastElegyStatues 0x1E9FB8 : {
 		*(.patch_SpawnFastElegyStatues)
 	}
@@ -64,6 +68,10 @@ SECTIONS{
 		*(.patch_GetCustomText)
 	}
 
+	.patch_OverrideBomberTextID 0x1D2764 : {
+		*(.patch_OverrideBomberTextID)
+	}
+
 	.patch_ISGCrouchStabOne 0x1D32E0 : {
 		*(.patch_ISGCrouchStabOne)
 	}
@@ -86,10 +94,6 @@ SECTIONS{
 
 	.patch_OverrideTextID 0x2310FC : {
 		*(.patch_OverrideTextID)
-	}
-
-	.patch_OverrideBomberTextID 0x1D2764 : {
-		*(.patch_OverrideBomberTextID)
 	}
 
 	.patch_OverrideItemID 0x231108 : {
