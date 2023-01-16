@@ -541,7 +541,6 @@ namespace rnd {
     memset(&gExtSaveData.aromaGivenItem, 0, sizeof(gExtSaveData.aromaGivenItem));
     memset(&gExtSaveData.grannyGaveReward, 0, sizeof(gExtSaveData.grannyGaveReward));
     gExtSaveData.playtimeSeconds = 0;
-    SaveFile_SaveExtSaveData();
     // TODO: Settings options belong in ext.
     // memset(&gExtSaveData.scenesDiscovered, 0, sizeof(gExtSaveData.scenesDiscovered));
     // memset(&gExtSaveData.entrancesDiscovered, 0, sizeof(gExtSaveData.entrancesDiscovered));
@@ -560,7 +559,7 @@ namespace rnd {
 
     Result res;
     FS_Archive fsa;
-    Handle fileHandle = extInitFileHandle(); ;
+    Handle fileHandle = extInitFileHandle();
     if (R_FAILED(res = extDataMount(&fsa))) {
       rnd::util::Print("%s: Failed to mount ext data.\n", __func__);
       SaveFile_InitExtSaveData(saveNumber);
@@ -584,9 +583,9 @@ namespace rnd {
     extDataReadFile(fileHandle, &version, 0, sizeof(version));
     rnd::util::Print("%s: Filesize is %u", __func__, fileSize);
     if (fileSize != sizeof(gExtSaveData) || version != EXTSAVEDATA_VERSION) {
-      extDataClose(fileHandle);
       extDataDeleteFile(fsa, path);
       extDataUnmount(fsa);
+      extDataClose(fileHandle);
       extEndFSSession();
       SaveFile_InitExtSaveData(saveNumber);
       return;
@@ -594,8 +593,8 @@ namespace rnd {
 
     extDataReadFile(fileHandle, &gExtSaveData, 0, sizeof(gExtSaveData));
 
-    extDataClose(fileHandle);
     extDataUnmount(fsa);
+    extDataClose(fileHandle);
     extEndFSSession();
   }
   extern "C" void SaveFile_SaveExtSaveData() {
@@ -615,7 +614,6 @@ namespace rnd {
     extDataWriteFileDirectly(fsa, path, &gExtSaveData, 0, sizeof(gExtSaveData));
 
     extDataUnmount(fsa);
-    extEndFSSession();
   }
 
 }  // namespace rnd

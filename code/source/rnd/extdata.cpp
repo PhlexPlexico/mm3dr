@@ -90,7 +90,6 @@ namespace rnd {
       u32 saveIDLo;
       u32 saveIDHi;
     } extDataLowPath = {MEDIATYPE_SD, 0x125500, 0};
-    extInitFileHandle();
     /*
     if (gSettingsContext.region == REGION_NA) {
       extDataLowPath.saveIDLo = 0x33500;
@@ -105,7 +104,6 @@ namespace rnd {
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
       rnd::util::Print("%s: ext data mount was successful.\n", __func__);
 #endif
-      extEndFSSession();
       return res;
     }
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
@@ -113,10 +111,8 @@ namespace rnd {
 #endif
     // If it failed, try to create the extdata
     if (R_FAILED(res = extDataCreate())) {
-      extEndFSSession();
       return res;
     }
-    extEndFSSession();
     // Mount the created extdata
     return FSUSER_OpenArchive(out, ARCHIVE_EXTDATA, extDataPath);
   }
@@ -187,6 +183,7 @@ namespace rnd {
 
     if (offset == 0) {
       if (R_FAILED(res = extDataOpenOrCreateFile(&handle, fsa, filename, count))) {
+        extEndFSSession();
         return -1;
       }
       // Resize file automatically if it's too small
@@ -205,6 +202,8 @@ namespace rnd {
       }
     } else {
       if (R_FAILED(res = extDataOpen(&handle, fsa, filename))) {
+        extDataClose(handle);
+        extEndFSSession();
         return -1;
       }
       FSFILE_GetSize(handle, &file_size);
