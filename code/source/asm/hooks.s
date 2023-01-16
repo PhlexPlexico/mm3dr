@@ -61,12 +61,13 @@ hook_CheckOcarinaDive:
 .global hook_SaveFile_Init
 hook_SaveFile_Init:
     push {r0-r12, lr}
+    cpy r0,r4
     bl SaveFile_Init
     pop {r0-r12, lr}
-    cmp r1,#0x0
+    mov r3,#0x0
     @nop
     @cpy r4,r0
-    b 0x5bbabc
+    b 0x5b8b28  
     
 
 @ State handler calls 0x5D for masks, check this value and ignore states where that is equal, since this function

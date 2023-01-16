@@ -55,8 +55,8 @@ SECTIONS{
 	.patch_SecondZoraSwimCheck 0x2210DC : {
 		*(.patch_SecondZoraSwimCheck)
 	}
-	 /*0x05ffc70*/ /*0x177ddc*/
-	.patch_SaveFile_init 0x5bbab8 : {
+	 /*0x05ffc70*/ /*0x177ddc*/ /*0x5bbab8 */ /*  */
+	.patch_SaveFile_init 0x5b8b24 : {
 		*(.patch_SaveFile_init)
 	}
 
