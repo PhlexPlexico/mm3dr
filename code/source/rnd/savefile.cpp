@@ -604,8 +604,9 @@ namespace rnd {
 
     Result res;
     FS_Archive fsa;
-
+    extInitFileHandle();
     if (R_FAILED(res = extDataMount(&fsa))) {
+      extEndFSSession();
       return;
     }
 
@@ -614,6 +615,7 @@ namespace rnd {
     extDataWriteFileDirectly(fsa, path, &gExtSaveData, 0, sizeof(gExtSaveData));
 
     extDataUnmount(fsa);
+    extEndFSSession();
   }
 
 }  // namespace rnd
