@@ -132,6 +132,7 @@ namespace rnd {
 #if defined ENABLE_DEBUG || DEBUG_PRINT
     rnd::util::Print("%s: Open or creating file...\n", __func__);
 #endif
+    fsUseSession(*out);
     FSUSER_CreateFile(fsa, fsMakePath(PATH_ASCII, filename), 0, filesize);
     return extDataOpen(out, fsa, filename);
   }
@@ -154,13 +155,14 @@ namespace rnd {
     u32 bytes_read;
 
     if (R_FAILED(res = extDataOpen(&handle, fsa, filename))) {
+      // extEndFSSession();
       return res;
     }
     if (R_FAILED(res = FSFILE_Read(handle, &bytes_read, offset, buf_out, count))) {
       bytes_read = res;
     }
     extDataClose(handle);
-    extEndFSSession();
+    // extEndFSSession();
     return bytes_read;
   }
 
@@ -184,7 +186,8 @@ namespace rnd {
 
     if (offset == 0) {
       if (R_FAILED(res = extDataOpenOrCreateFile(&handle, fsa, filename, count))) {
-        extEndFSSession();
+        extDataClose(handle);
+        // extEndFSSession();
         return -1;
       }
       // Resize file automatically if it's too small
@@ -192,25 +195,25 @@ namespace rnd {
       if (file_size < count) {
         if (R_FAILED(res = FSUSER_DeleteFile(fsa, fsMakePath(PATH_ASCII, filename)))) {
           extDataClose(handle);
-          extEndFSSession();
+          // extEndFSSession();
           return -2;
         }
         if (R_FAILED(res = extDataCreateFile(&handle, fsa, filename, count))) {
           extDataClose(handle);
-          extEndFSSession();
+          // extEndFSSession();
           return -3;
         }
       }
     } else {
       if (R_FAILED(res = extDataOpen(&handle, fsa, filename))) {
         extDataClose(handle);
-        extEndFSSession();
+        // extEndFSSession();
         return -1;
       }
       FSFILE_GetSize(handle, &file_size);
       if (file_size < offset + count) {
         extDataClose(handle);
-        extEndFSSession();
+        // extEndFSSession();
         return -2;
       }
     }
@@ -222,7 +225,7 @@ namespace rnd {
     }
 
     extDataClose(handle);
-    extEndFSSession();
+    //// extEndFSSession();
     return bytes_written;
   }
 }  // namespace rnd

@@ -563,7 +563,7 @@ namespace rnd {
     if (R_FAILED(res = extDataMount(&fsa))) {
       rnd::util::Print("%s: Failed to mount ext data.\n", __func__);
       SaveFile_InitExtSaveData(saveNumber);
-      extEndFSSession();
+      // extEndFSSession();
       return;
     }
 
@@ -573,7 +573,7 @@ namespace rnd {
     if (R_FAILED(res = extDataOpen(&fileHandle, fsa, path))) {
       extDataUnmount(fsa);
       SaveFile_InitExtSaveData(saveNumber);
-      extEndFSSession();
+      // extEndFSSession();
       return;
     }
 
@@ -586,7 +586,7 @@ namespace rnd {
       extDataDeleteFile(fsa, path);
       extDataUnmount(fsa);
       extDataClose(fileHandle);
-      extEndFSSession();
+      // extEndFSSession();
       SaveFile_InitExtSaveData(saveNumber);
       return;
     }
@@ -595,7 +595,7 @@ namespace rnd {
 
     extDataUnmount(fsa);
     extDataClose(fileHandle);
-    extEndFSSession();
+    // extEndFSSession();
   }
   extern "C" void SaveFile_SaveExtSaveData() {
     rnd::util::Print("%s: Saving on owl.\n", __func__);
@@ -606,16 +606,16 @@ namespace rnd {
     FS_Archive fsa;
     extInitFileHandle();
     if (R_FAILED(res = extDataMount(&fsa))) {
-      extEndFSSession();
+      // extEndFSSession();
       return;
     }
 
     path[1] = comData.save_idx + '0';
 
     extDataWriteFileDirectly(fsa, path, &gExtSaveData, 0, sizeof(gExtSaveData));
-
+    util::Print("%s: Unmounting now...\n", __func__);
     extDataUnmount(fsa);
-    extEndFSSession();
+    // extEndFSSession();
   }
 
 }  // namespace rnd
