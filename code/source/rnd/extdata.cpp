@@ -69,6 +69,7 @@ namespace rnd {
     }
 
     extInfo.mediaType = MEDIATYPE_SD;
+    extInfo.saveId = 0x125500;
     // TODO: Region specifics not needed?
     /*
     if (gSettingsContext.region == REGION_NA) {
