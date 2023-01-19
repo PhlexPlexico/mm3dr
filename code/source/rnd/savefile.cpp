@@ -536,10 +536,13 @@ namespace rnd {
     rnd::util::Print("%s: INITING ExtData.\n", __func__);    
 #endif
     gExtSaveData.version = EXTSAVEDATA_VERSION;  // Do not change this line
+    gExtSaveData.isNewFile = 1;
+    util::Print("%s: Size of isNewFile and version is %u and %u", __func__, sizeof(gExtSaveData.isNewFile), sizeof(gExtSaveData.version));
     // TODO: BitField for event flags instead?
     // memset(&gExtSaveData.extInf, 0, sizeof(gExtSaveData.extInf));
     memset(&gExtSaveData.aromaGivenItem, 0, sizeof(gExtSaveData.aromaGivenItem));
     memset(&gExtSaveData.grannyGaveReward, 0, sizeof(gExtSaveData.grannyGaveReward));
+    
     gExtSaveData.playtimeSeconds = 0;
     // TODO: Settings options belong in ext.
     // memset(&gExtSaveData.scenesDiscovered, 0, sizeof(gExtSaveData.scenesDiscovered));
@@ -556,6 +559,7 @@ namespace rnd {
     char path[] = "/0.bin";
     u32 version;
     u64 fileSize;
+    u32 newSave;
     u16 saveNumber = game::GetCommonData().save_idx;
     Result res;
     FS_Archive fsa;
@@ -581,13 +585,16 @@ namespace rnd {
     // different
     FSFILE_GetSize(fileHandle, &fileSize);
     extDataReadFile(fileHandle, &version, 0, sizeof(version));
-    rnd::util::Print("%s: Filesize is %u", __func__, fileSize);
-    if (fileSize != sizeof(gExtSaveData) || version != EXTSAVEDATA_VERSION) {
-      extDataDeleteFile(fsa, path);
-      extDataUnmount(fsa);
+    extDataReadFile(fileHandle, &newSave, 8, sizeof(newSave));
+    rnd::util::Print("%s: Is New file? %u\n", __func__, newSave);
+    if (fileSize != sizeof(gExtSaveData) || version != EXTSAVEDATA_VERSION || gExtSaveData.isNewFile == 1) {
+      
       extDataClose(fileHandle);
+      extDataDeleteFile(fsa, path);
       SaveFile_InitExtSaveData(saveNumber);
-      SaveFile_SaveExtSaveData();
+      gExtSaveData.isNewFile = 0;
+      extDataWriteFileDirectly(fsa, path, &gExtSaveData, 0, sizeof(gExtSaveData));
+      extDataUnmount(fsa);
       return;
     }
 

@@ -34,6 +34,7 @@ namespace rnd {
   typedef struct {
     u32 version;  // Needs to always be the first field of the structure
     u32 playtimeSeconds;
+    u32 isNewFile;
     s8 aromaGivenItem;
     s8 grannyGaveReward;
     s8 stoneMaskReward;

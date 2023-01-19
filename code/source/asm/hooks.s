@@ -49,15 +49,6 @@ hook_CheckOcarinaDive:
 .rStoredBomberNoteTextId:
     .word rStoredBomberNoteTextId
 
-@ .global hook_SaveFile_Init
-@ hook_SaveFile_Init:
-@     push {r0-r12, lr}
-@     mov r0, r5
-@     bl SaveFile_Init
-@     pop {r0-r12, lr}
-@     strh r1, [r4, #0x10]
-@     bx lr
-
 .global hook_SaveFile_Load
 hook_SaveFile_Load:
     push {r0-r12, lr}
@@ -73,8 +64,6 @@ hook_SaveFile_Init:
     bl SaveFile_Init
     pop {r0-r12, lr}
     mov r3,#0x0
-    @nop
-    @cpy r4,r0
     b 0x5b8b28  
     
 
