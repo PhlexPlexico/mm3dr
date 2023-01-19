@@ -27,8 +27,8 @@ namespace rnd {
 
     rHeap_Init();
     ItemOverride_Init();
-    //SaveFile_LoadExtSaveData(1);
-    // TODO: Maybe make this an option?
+    // SaveFile_LoadExtSaveData(1);
+    //  TODO: Maybe make this an option?
     link::FixSpeedIssues();
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
     util::Print("MM3DR Initialized (" __DATE__ " " __TIME__ ")\n");
@@ -51,7 +51,7 @@ namespace rnd {
     if (!context.has_initialised && state->type == game::StateType::FirstGame) {
       Init(context);
     }
-      
+
     if (state->type != game::StateType::Play)
       return;
     context.gctx = static_cast<game::GlobalContext*>(state);

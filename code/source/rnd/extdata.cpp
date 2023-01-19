@@ -38,19 +38,19 @@ namespace rnd {
       u32 type;
       char filename[8];
     } iconLowPath = {2, "icon"};
-    
-    FS_Path iconPath = {PATH_BINARY, sizeof(iconLowPath), &iconLowPath};    
+
+    FS_Path iconPath = {PATH_BINARY, sizeof(iconLowPath), &iconLowPath};
     // Open icon
     if (R_FAILED(res =
                      FSUSER_OpenFileDirectly(&icnHandle, ARCHIVE_ROMFS, fsMakePath(PATH_EMPTY, ""),
                                              iconPath, FS_OPEN_READ, 0))) {
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-        rnd::util::Print("%s: Opened icon FAILED.\n", __func__);
+      rnd::util::Print("%s: Opened icon FAILED.\n", __func__);
 #endif
-        return res;
+      return res;
     }
-    //rnd::util::Print("%s: Opened icon SUCCEEDED.\n", __func__);
-    // Get file size (should be 14016)
+    // rnd::util::Print("%s: Opened icon SUCCEEDED.\n", __func__);
+    //  Get file size (should be 14016)
     if (R_FAILED(res = FSFILE_GetSize(icnHandle, &icnSize))) {
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
       rnd::util::Print("%s: Bad size its %u.\n", __func__, icnSize);
@@ -108,7 +108,9 @@ namespace rnd {
       return res;
     }
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-    rnd::util::Print("%s: ext data mount was NOT successful. Either created or not opened. Creating new instance.\n", __func__);
+    rnd::util::Print("%s: ext data mount was NOT successful. Either created or not opened. "
+                     "Creating new instance.\n",
+                     __func__);
 #endif
     // If it failed, try to create the extdata
     if (R_FAILED(res = extDataCreate())) {

@@ -17,7 +17,6 @@ extern "C" {
 namespace rnd {
   extern "C" {
 
-  
 #define EXTDATA_MAXFILESIZE (1 << 20)
 
   /**

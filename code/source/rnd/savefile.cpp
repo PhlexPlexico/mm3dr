@@ -20,8 +20,8 @@ namespace rnd {
     u8 isNewFile = saveData.has_completed_intro;
     if (isNewFile == 0) {
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-      rnd::util::Print("%s: Initing save file. Our save index is %u\nAre we a new file? %#04x\n", \
-      __func__, comData.save_idx, saveData.has_completed_intro);
+      rnd::util::Print("%s: Initing save file. Our save index is %u\nAre we a new file? %#04x\n",
+                       __func__, comData.save_idx, saveData.has_completed_intro);
 #endif
 #ifdef ENABLE_DEBUG
       saveData.equipment.sword_shield.sword = game::SwordType::GildedSword;
@@ -143,7 +143,6 @@ namespace rnd {
 
       saveData.player_form = game::act::Player::Form::Human;
       saveData.inventory.collect_register.bombers_notebook = 1;
-
     }
   }
 
@@ -533,16 +532,17 @@ namespace rnd {
 
   void SaveFile_InitExtSaveData(u32 saveNumber) {
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-    rnd::util::Print("%s: INITING ExtData.\n", __func__);    
+    rnd::util::Print("%s: INITING ExtData.\n", __func__);
 #endif
     gExtSaveData.version = EXTSAVEDATA_VERSION;  // Do not change this line
     gExtSaveData.isNewFile = 1;
-    util::Print("%s: Size of isNewFile and version is %u and %u", __func__, sizeof(gExtSaveData.isNewFile), sizeof(gExtSaveData.version));
+    util::Print("%s: Size of isNewFile and version is %u and %u", __func__,
+                sizeof(gExtSaveData.isNewFile), sizeof(gExtSaveData.version));
     // TODO: BitField for event flags instead?
     // memset(&gExtSaveData.extInf, 0, sizeof(gExtSaveData.extInf));
     memset(&gExtSaveData.aromaGivenItem, 0, sizeof(gExtSaveData.aromaGivenItem));
     memset(&gExtSaveData.grannyGaveReward, 0, sizeof(gExtSaveData.grannyGaveReward));
-    
+
     gExtSaveData.playtimeSeconds = 0;
     // TODO: Settings options belong in ext.
     // memset(&gExtSaveData.scenesDiscovered, 0, sizeof(gExtSaveData.scenesDiscovered));
@@ -587,8 +587,8 @@ namespace rnd {
     extDataReadFile(fileHandle, &version, 0, sizeof(version));
     extDataReadFile(fileHandle, &newSave, 8, sizeof(newSave));
     rnd::util::Print("%s: Is New file? %u\n", __func__, newSave);
-    if (fileSize != sizeof(gExtSaveData) || version != EXTSAVEDATA_VERSION || gExtSaveData.isNewFile == 1) {
-      
+    if (fileSize != sizeof(gExtSaveData) || version != EXTSAVEDATA_VERSION ||
+        gExtSaveData.isNewFile == 1) {
       extDataClose(fileHandle);
       extDataDeleteFile(fsa, path);
       SaveFile_InitExtSaveData(saveNumber);
