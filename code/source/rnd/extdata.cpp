@@ -1,3 +1,11 @@
+/**
+ * @file extdata.cpp
+ * @author UraYukimitsu (https://github.com/UraYukimitsu/)
+ * @brief
+ * @date 2021-09-14
+ *
+ * Brought in from the OoT3D Randomizer libraries. Edited to adjust for MM3D.
+ */
 #include "rnd/extdata.h"
 #include "rnd/settings.h"
 
@@ -11,12 +19,11 @@ extern "C" {
 namespace rnd {
   static u8 icn[14016];
 
-  Result extDataInit() {
-    Result res;
-    if (R_FAILED(res = srvInit())) {
-      return res;
-    }
-    return fsInit();
+  Handle extInitFileHandle() {
+    // Grab the MM3D file handler and set it to our session.
+    Handle fsHandle = util::GetPointer<Handle(void)>(0x012DA00)();
+    fsUseSession(fsHandle);
+    return fsHandle;
   }
 
   Result extDataCreate() {
@@ -25,23 +32,29 @@ namespace rnd {
     u32 icnSize2;
 
     Result res;
-    Handle icnHandle;
-
+    Handle icnHandle = extInitFileHandle();
     // Get the path to the icon from exefs
     struct {
       u32 type;
       char filename[8];
     } iconLowPath = {2, "icon"};
-    FS_Path iconPath = {PATH_BINARY, sizeof(iconLowPath), &iconLowPath};
-
+    
+    FS_Path iconPath = {PATH_BINARY, sizeof(iconLowPath), &iconLowPath};    
     // Open icon
     if (R_FAILED(res =
                      FSUSER_OpenFileDirectly(&icnHandle, ARCHIVE_ROMFS, fsMakePath(PATH_EMPTY, ""),
                                              iconPath, FS_OPEN_READ, 0))) {
-      return res;
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+        rnd::util::Print("%s: Opened icon FAILED.\n", __func__);
+#endif
+        return res;
     }
+    //rnd::util::Print("%s: Opened icon SUCCEEDED.\n", __func__);
     // Get file size (should be 14016)
     if (R_FAILED(res = FSFILE_GetSize(icnHandle, &icnSize))) {
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+      rnd::util::Print("%s: Bad size its %u.\n", __func__, icnSize);
+#endif
       FSFILE_Close(icnHandle);
       return res;
     }
@@ -56,6 +69,7 @@ namespace rnd {
     }
 
     extInfo.mediaType = MEDIATYPE_SD;
+    extInfo.saveId = 0x125500;
     // TODO: Region specifics not needed?
     /*
     if (gSettingsContext.region == REGION_NA) {
@@ -76,7 +90,7 @@ namespace rnd {
       u32 media;
       u32 saveIDLo;
       u32 saveIDHi;
-    } extDataLowPath = {MEDIATYPE_SD, 0x33500, 0};
+    } extDataLowPath = {MEDIATYPE_SD, 0x125500, 0};
     /*
     if (gSettingsContext.region == REGION_NA) {
       extDataLowPath.saveIDLo = 0x33500;
@@ -88,8 +102,14 @@ namespace rnd {
 
     // Try mounting the extdata archive
     if (R_SUCCEEDED(res = FSUSER_OpenArchive(out, ARCHIVE_EXTDATA, extDataPath))) {
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+      rnd::util::Print("%s: ext data mount was successful.\n", __func__);
+#endif
       return res;
     }
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+    rnd::util::Print("%s: ext data mount was NOT successful. Either created or not opened. Creating new instance.\n", __func__);
+#endif
     // If it failed, try to create the extdata
     if (R_FAILED(res = extDataCreate())) {
       return res;
@@ -109,6 +129,10 @@ namespace rnd {
   }
 
   Result extDataOpenOrCreateFile(Handle* out, FS_Archive fsa, char* filename, u64 filesize) {
+#if defined ENABLE_DEBUG || DEBUG_PRINT
+    rnd::util::Print("%s: Open or creating file...\n", __func__);
+#endif
+    fsUseSession(*out);
     FSUSER_CreateFile(fsa, fsMakePath(PATH_ASCII, filename), 0, filesize);
     return extDataOpen(out, fsa, filename);
   }
@@ -127,17 +151,18 @@ namespace rnd {
   u32 extDataReadFileDirectly(FS_Archive fsa, char* filename, void* buf_out, u64 offset,
                               u32 count) {
     Result res;
-    Handle handle;
+    Handle handle = extInitFileHandle();
     u32 bytes_read;
 
     if (R_FAILED(res = extDataOpen(&handle, fsa, filename))) {
+      // extEndFSSession();
       return res;
     }
     if (R_FAILED(res = FSFILE_Read(handle, &bytes_read, offset, buf_out, count))) {
       bytes_read = res;
     }
     extDataClose(handle);
-
+    // extEndFSSession();
     return bytes_read;
   }
 
@@ -155,32 +180,40 @@ namespace rnd {
 
   u32 extDataWriteFileDirectly(FS_Archive fsa, char* filename, void* buf, u64 offset, u32 count) {
     Result res;
-    Handle handle;
+    Handle handle = extInitFileHandle();
     u32 bytes_written;
     u64 file_size;
 
     if (offset == 0) {
       if (R_FAILED(res = extDataOpenOrCreateFile(&handle, fsa, filename, count))) {
+        extDataClose(handle);
+        // extEndFSSession();
         return -1;
       }
       // Resize file automatically if it's too small
       FSFILE_GetSize(handle, &file_size);
       if (file_size < count) {
-        extDataClose(handle);
         if (R_FAILED(res = FSUSER_DeleteFile(fsa, fsMakePath(PATH_ASCII, filename)))) {
+          extDataClose(handle);
+          // extEndFSSession();
           return -2;
         }
         if (R_FAILED(res = extDataCreateFile(&handle, fsa, filename, count))) {
+          extDataClose(handle);
+          // extEndFSSession();
           return -3;
         }
       }
     } else {
       if (R_FAILED(res = extDataOpen(&handle, fsa, filename))) {
+        extDataClose(handle);
+        // extEndFSSession();
         return -1;
       }
       FSFILE_GetSize(handle, &file_size);
       if (file_size < offset + count) {
         extDataClose(handle);
+        // extEndFSSession();
         return -2;
       }
     }
@@ -192,7 +225,7 @@ namespace rnd {
     }
 
     extDataClose(handle);
-
+    //// extEndFSSession();
     return bytes_written;
   }
 }  // namespace rnd

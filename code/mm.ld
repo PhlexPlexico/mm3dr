@@ -24,6 +24,14 @@ SECTIONS{
 		*(.patch_DecoupleStartSelect)
 	}
 
+	.patch_AttemptKeepChestsClosed 0x1c9300 : {
+		*(.patch_AttemptKeepChestsClosed)
+	}
+
+	.patch_DoNotRemoveKeys 0x1c9b94 : {
+		*(.patch_DoNotRemoveKeys)
+	}
+
 	.patch_SpawnFastElegyStatues 0x1E9FB8 : {
 		*(.patch_SpawnFastElegyStatues)
 	}
@@ -48,8 +56,11 @@ SECTIONS{
 		*(.patch_SecondZoraSwimCheck)
 	}
 
-	/*TODO: Find a better place for this function call. This is called almost every frame during file selection but it works?*/
-	.patch_SaveFile_init 0x5BB44C : {
+ .patch_LoadExtData 0x48C760 : {
+		*(.patch_LoadExtData)
+	}
+	 /*0x05ffc70*/ /*0x177ddc*/ /*0x5bbab8 */ /* 0x5b8b24 */
+	.patch_SaveFile_init 0x5b8b24 : {
 		*(.patch_SaveFile_init)
 	}
 
@@ -63,6 +74,10 @@ SECTIONS{
 
 	.patch_GetCustomText 0x1BDE78 : {
 		*(.patch_GetCustomText)
+	}
+
+	.patch_OverrideBomberTextID 0x1D2764 : {
+		*(.patch_OverrideBomberTextID)
 	}
 
 	.patch_ISGCrouchStabOne 0x1D32E0 : {
@@ -93,6 +108,18 @@ SECTIONS{
 		*(.patch_OverrideItemID)
 	}
 
+	.patch_OverrideFairyGiveItemOne 0x3BECB4 : {
+		*(.patch_OverrideFairyGiveItemOne)
+	}
+
+	/* .patch_OverrideGreatFairyText 0x3b783c : {
+		*(.patch_OverrideGreatFairyText)
+	}*/
+
+	.patch_OverrideGreatFairyTextTwo 0x3bec84 : {
+		*(.patch_OverrideGreatFairyText)
+	} 
+
 	.patch_TwinmoldConsistentDamage 0x28E544 : {
 		*(.patch_TwinmoldConsistentDamage)
 	}
@@ -103,6 +130,14 @@ SECTIONS{
 
 	.patch_FasterBlockMovementBack 0x2D0C0C : {
 		*(.patch_FasterBlockMovementBack)
+	}
+
+	.patch_SaveExtDataOnOwl 0x317004 : {
+		*(.patch_SaveExtDataOnOwl)
+	}
+
+	.patch_AromaItemCheck 0x35091C : {
+		*(.patch_AromaItemCheck)
 	}
 
 	.patch_IncomingGetItemID 0x4B1394 : {
@@ -124,6 +159,8 @@ SECTIONS{
 	.patch_HandleOcarinaHooks 0x604D8C : {
 		*(.patch_HandleOcarinaHooks)
 	}
+
+
 
 	. = 0x61CD8C;
 	/* Addr already 4 byte aligned! */

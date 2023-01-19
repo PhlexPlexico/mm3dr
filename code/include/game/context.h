@@ -251,7 +251,7 @@ namespace game {
     u8 gap_3DFE[16898];
     u32 field_8000;
     u8 gap_8004[28];
-    u32 notebook_stuff;
+    void* notebook_stuff;
     u8 gap_8024[536];
     void* ocarinaData;
     u16 field_8220;
@@ -283,12 +283,14 @@ namespace game {
     act::Actor* messageActor;
     u16 field_8380;
     u16 field_8382;
-    u8 gap_8364[74];
-    u16 field_83AE;
-    u8 gap_83B0[12];
-    u32 field_83DC;  // Checks during song
+    u8 gap_8384[74];  // ocaeffSpawned in here.
+    u16 field_83CE;   // frame counter for notebook?
+    u8 field_83CD;
+    u8 gap_83D0[10];
+    u32 field_83DE;  // Checks during song
     u16 field_83E0;
-    u16 field_83E2;  // Possible stored message ID?
+    u16 field_83E2;  // Stored message ID for after notebook collection. Mainly used for fishing
+                     // pass/PoH/rupee text.
     u8 gap_83E0[68];
     HudState hud_state;
     u8 gap_86A8[4];
@@ -452,6 +454,8 @@ namespace game {
   static_assert(offsetof(GlobalContext, hide_hud) == 0x825E);
   static_assert(offsetof(GlobalContext, field_836E) == 0x836E);
   static_assert(offsetof(GlobalContext, field_C4C8) == 0xC4C8);
+  static_assert(offsetof(GlobalContext, field_83CE) == 0x83CE);
+  static_assert(offsetof(GlobalContext, gap_8384) == 0x8384);
   static_assert(sizeof(GlobalContext) == 0x11030);
 
 }  // namespace game

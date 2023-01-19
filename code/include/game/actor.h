@@ -39,14 +39,24 @@ namespace game::act {
     NpcKafei = 0x00F4,
     // Ice platform created using ice arrows.
     BgIcePlatform = 0x013E,
+    // Npc For Boat Photography
+    NpcSwampPhotographer = 0x0158,
     // Goht
     BossGoht = 0x016E,
     // [7] Owl statue
     ObjOwlStatue = 0x01B2,
     // [4] Old Lady from Bomb Shop
     NpcOldLady = 0x01C5,
+    // Granny
+    NpcEnNb = 0x01D2,
+    // Npc Invisible Guard
+    NpcInvisibleGuard = 0x1D9,
+    // Npc Madame Aroma
+    NpcAroma = 0x1F1,
     // [4] Rosa Sisters
     NpcRosaSisters = 0x020A,
+    // En_Bjt (Toilet Hand)
+    NpcEnBjt = 0x020C,
     // [4] Bombers
     NpcBombers = 0x020F,
     // [6] Sheikah Hint Stone (MM3D)
@@ -136,6 +146,7 @@ namespace game::act {
     enum class Flag : u32 {
       Targetable = 0x1,
       TalkInitiated = 0x100,
+      UnkFef = 0xfffffef,
     };
 
     enum class Flag94 : u16 {

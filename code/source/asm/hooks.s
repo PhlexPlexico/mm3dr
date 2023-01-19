@@ -45,22 +45,26 @@ hook_CheckOcarinaDive:
 .rActiveItemGraphicId:
     .word rActiveItemGraphicId
 
-@ .global hook_SaveFile_Init
-@ hook_SaveFile_Init:
-@     push {r0-r12, lr}
-@     mov r0, r5
-@     bl SaveFile_Init
-@     pop {r0-r12, lr}
-@     strh r1, [r4, #0x10]
-@     bx lr
+.global rStoredBomberNoteTextId
+.rStoredBomberNoteTextId:
+    .word rStoredBomberNoteTextId
+
+.global hook_SaveFile_Load
+hook_SaveFile_Load:
+    push {r0-r12, lr}
+    bl SaveFile_LoadExtSaveData
+    pop {r0-r12, lr}
+    str r5,[r1,#0x61C]
+    b 0x48C764
 
 .global hook_SaveFile_Init
 hook_SaveFile_Init:
     push {r0-r12, lr}
+    cpy r0,r4
     bl SaveFile_Init
     pop {r0-r12, lr}
-    cpy r4,r0
-    bx lr
+    mov r3,#0x0
+    b 0x5b8b28  
     
 
 @ State handler calls 0x5D for masks, check this value and ignore states where that is equal, since this function
@@ -98,15 +102,31 @@ noOverrideGraphicIdThird:
 
 .global hook_OverrideTextID
 hook_OverrideTextID:
+    push {r3}
     ldr r3,.rActiveItemRow_addr
     ldr r3,[r3]
     cmp r3,#0x0
+    pop {r3}
     beq noOverrideTextID
     b 0x231104
 noOverrideTextID:
-    cpy r2, r5
+    @cpy r2, r5
     cpy r0, r7
     b 0x231100
+
+.global hook_OverrideBomberTextID
+hook_OverrideBomberTextID:
+    push {r1}
+    ldr r1,.rStoredBomberNoteTextId
+    ldr r1,[r1]
+    cmp r1,#0x0
+    pop {r1}
+    beq noOverrideBomberTextID
+    bl ItemOverride_RemoveTextId
+    b 0x1D2768
+noOverrideBomberTextID:
+    cmp r0,r0
+    b 0x1D2768
 
 .global hook_OverrideItemID 
 hook_OverrideItemID:
@@ -115,7 +135,6 @@ hook_OverrideItemID:
     cmp r1,#0x0
     beq noOverrideItemID
     push {r0-r12, lr}
-    cpy r0,r2
     bl ItemOverride_GetItemTextAndItemID
     pop {r0-r12, lr}
     b 0x231110
@@ -123,6 +142,20 @@ noOverrideItemID:
     LDRB R1, [R4,#0x0]
     cpy r0,r7
     b 0x23110C
+
+.global hook_OverrideFairyItemID
+hook_OverrideFairyItemID:
+    push {r0-r12, lr}
+    cpy r0,r5
+    cpy r1,r4
+    mov r2,#0x40
+    bl ItemOverride_GetFairyRewardItem
+    bl ItemOverride_GetItemTextAndItemID
+    pop {r0-r12, lr}
+    b 0x3BECC0
+noOverrideFairyItemID:
+    mov r1,#0x40
+    b 0x3BECBC
 
 .global hook_IncomingGetItemID
 hook_IncomingGetItemID:
@@ -156,6 +189,22 @@ hook_HandleOcarina:
     bne 0x606424
     cmp r0, #0x16 @ original instruction
     b 0x604d90
+
+.global hook_OwlExtDataSave
+hook_OwlExtDataSave:
+    push {r0-r12, lr}
+    bl SaveFile_SaveExtSaveData
+    pop {r0-r12, lr}
+    cpy r6,r0
+    b 0x317008
+
+.global hook_AromaItemCheck
+hook_AromaItemCheck:
+    push {r0-r12, lr}
+    bl ItemOverride_CheckAromaGivenItem
+    cmp r0,#0x1
+    pop {r0-r12, lr}
+    b 0x350920
 
 .section .loader
 .global hook_into_loader

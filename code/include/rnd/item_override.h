@@ -436,9 +436,11 @@ namespace rnd {
   void ItemOverride_Update();
   extern "C" void ItemOverride_GetItem(game::GlobalContext*, game::act::Actor*, game::act::Player*,
                                        s16);
+  extern "C" void ItemOverride_GetFairyRewardItem(game::GlobalContext*, game::act::Actor*, s16);
   extern "C" void ItemOverride_GetItemTextAndItemID(game::act::Player*);
   extern "C" u32 rActiveItemGraphicId;
   extern "C" ItemOverride rItemOverrides[640];
+  extern "C" u16 rStoredBomberNoteTextId;
 }  // namespace rnd
 
 #endif

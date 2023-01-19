@@ -7,7 +7,7 @@ namespace rnd::link {
 
     if (!input.buttons.IsSet(game::pad::Button::A))
       return false;
-#ifdef ENABLE_DEBUG
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
     rnd::util::Print("%s: Our current fast swim is %u and we are in fast swim.\n", __func__,
                      GetContext().use_fast_swim);
 #endif

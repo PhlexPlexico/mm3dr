@@ -44,6 +44,38 @@ patch_MainLoop:
 patch_DecoupleStartSelect:
     nop
 
+@ Skip past all chest content resetting.
+@ Since this is rando, we don't want users
+@ getting chests again, and instead of
+@ keeping track via extdata we can just 
+@ branch over everything in relation to 
+@ resetting all the chests in the game.
+.section .patch_AttemptKeepChestsClosed
+.global patch_AttemptKeepChestsClosed
+patch_AttemptKeepChestsClosed:
+    b 0x01c936c
+
+@ Skips past a loop that resets all
+@ values in the each dungeon for 
+@ keys/fairies/boss key/etc
+@ to zero. Small QoL if boss
+@ keys are already given, same with keys
+.section .patch_DoNotRemoveKeys
+.global patch_DoNotRemoveKeys
+patch_DoNotRemoveKeys:
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+
+.section .patch_LoadExtData
+.global patch_LoadExtData
+patch_LoadExtData:
+    bl hook_SaveFile_Load
+
 .section .patch_SaveFile_init
 .global patch_SaveFile_init
 patch_SaveFile_init:
@@ -89,10 +121,28 @@ patch_ChangeDrawItemIndexSecond:
 OverrideTextID_patch:
     b hook_OverrideTextID
 
+.section .patch_OverrideBomberTextID
+.global OverrideBomberTextID_patch
+OverrideBomberTextID_patch:
+    b hook_OverrideBomberTextID
+
 .section .patch_OverrideItemID
 .global OverrideItemID_patch
 OverrideItemID_patch:
     b hook_OverrideItemID
+
+.section .patch_OverrideFairyGiveItemOne
+.global OverrideFairyItemID_patch
+OverrideFairyItemID_patch:
+    b hook_OverrideFairyItemID
+
+.section .patch_OverrideGreatFairyText
+.global OverrideGreatFairyText_patch
+OverrideGreatFairyText_patch:
+    nop
+    @ldmia sp!,{r4-r6, pc}
+    @ ldmia sp!,{r4-r6, lr}
+    @ bx lr
 
 .section .patch_ReadGamePad
 .global patch_ReadGamePad
@@ -130,6 +180,16 @@ patch_FasterBlockMovement:
 .global patch_FasterBlockMovementBack
 patch_FasterBlockMovementBack:
     .float 60.0
+
+.section .patch_SaveExtDataOnOwl
+.global patch_SaveExtDataOnOwl
+patch_SaveExtDataOnOwl:
+    b hook_OwlExtDataSave
+
+.section .patch_AromaItemCheck
+.global patch_AromaItemCheck
+patch_AromaItemCheck:
+    b hook_AromaItemCheck
 
 .section .patch_loader
 .global loader_patch

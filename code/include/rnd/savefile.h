@@ -2,7 +2,11 @@
 #define _RND_SAVEFILE_H_
 
 #include "game/common_data.h"
+#include "rnd/extdata.h"
 #include "z3d/z3DVec.h"
+
+// Increment the version number whenever the ExtSaveData structure is changed
+#define EXTSAVEDATA_VERSION 01
 
 namespace rnd {
   void SaveFile_SkipMinorCutscenes();
@@ -20,26 +24,23 @@ namespace rnd {
   void SaveFile_SetOwnedTradeItemEquipped(void);
   void SaveFile_ResetItemSlotsIfMatchesID(u8 itemSlot);
   bool SaveFile_IsValidSettingsHealth(void);
-  /*void SaveFile_InitExtSaveData(u32 fileBaseIndex);
+  // extern "C" {
+  void SaveFile_InitExtSaveData(u32 fileBaseIndex);
   void SaveFile_LoadExtSaveData(u32 saveNumber);
-  void SaveFile_SaveExtSaveData(u32 saveNumber);*/
+  extern "C" void SaveFile_SaveExtSaveData();
 
-  // Increment the version number whenever the ExtSaveData structure is changed
-  /*
-  #define EXTSAVEDATA_VERSION 1
+  //}
 
-    typedef struct {
-      u32 version; // Needs to always be the first field of the structure
-      u32 playtimeSeconds;
-    } ExtSaveData;
+  typedef struct {
+    u32 version;  // Needs to always be the first field of the structure
+    u32 playtimeSeconds;
+    u32 isNewFile;
+    s8 aromaGivenItem;
+    s8 grannyGaveReward;
+    s8 stoneMaskReward;
+  } ExtSaveData;
 
-  #ifdef DECLARE_EXTSAVEDATA
-  #define EXTERN
-  #else
-  #define EXTERN extern
-  #endif
-
-    EXTERN ExtSaveData gExtSaveData;*/
+  extern "C" ExtSaveData gExtSaveData;
 }  // namespace rnd
 
-#endif  //_SAVEFILE_H_
+#endif  //_RND_SAVEFILE_H_

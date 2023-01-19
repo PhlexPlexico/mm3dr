@@ -81,6 +81,12 @@ ifneq ($(debug), 0)
 	CXXFLAGS += -g -DENABLE_DEBUG
 endif
 
+debug_print ?= 0
+ifneq ($(debug_print), 0)
+	CFLAGS += -g -DDEBUG_PRINT
+	CXXFLAGS += -g -DDEBUG_PRINT
+endif
+
 ifeq ($(copyto),)
 	export COPYTO=${citraPath}
 else
@@ -220,7 +226,7 @@ endif
 
 clean:
 	@echo clean ...
-	@rm -fr $(BUILD)  $(TARGET).elf basecode.ips $(TARGET).smdh
+	@rm -fr $(BUILD)  $(TARGET).elf basecode.ips $(TARGET).smdh code.elf
 
 #---------------------------------------------------------------------------------
 $(GFXBUILD)/%.t3x	$(BUILD)/%.h	:	%.t3s

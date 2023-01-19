@@ -11,9 +11,10 @@
 #include "rnd/item_override.h"
 #include "rnd/link.h"
 #include "rnd/rheap.h"
+#include "rnd/savefile.h"
 #include "z3d/z3DVec.h"
 
-#ifdef ENABLE_DEBUG
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
 #include "common/debug.h"
 extern "C" {
 #include <3ds/svc.h>
@@ -26,10 +27,15 @@ namespace rnd {
 
     rHeap_Init();
     ItemOverride_Init();
-    extDataInit();
+    //SaveFile_LoadExtSaveData(1);
     // TODO: Maybe make this an option?
     link::FixSpeedIssues();
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+    util::Print("MM3DR Initialized (" __DATE__ " " __TIME__ ")\n");
+    game::sound::PlayEffect(game::sound::EffectId::NA_SE_SY_CHAT_ALLERT);
+#else
     game::sound::PlayEffect(game::sound::EffectId::NA_SE_SY_CLEAR1);
+#endif
     context.has_initialised = true;
   }
   extern "C" {
@@ -42,44 +48,27 @@ namespace rnd {
     Context& context = GetContext();
     context.gctx = nullptr;
 
-    if (!context.has_initialised && state->type == game::StateType::FirstGame)
+    if (!context.has_initialised && state->type == game::StateType::FirstGame) {
       Init(context);
+    }
+      
     if (state->type != game::StateType::Play)
       return;
     context.gctx = static_cast<game::GlobalContext*>(state);
 
-// Before calling let's be absolutely sure we have the player available.
+    if (context.gctx->GetPlayerActor())
+      ItemOverride_Update();
+
 #ifdef ENABLE_DEBUG
     if (context.gctx->pad_state.input.buttons.IsSet(game::pad::Button::ZL)) {
       game::act::Player* link = context.gctx->GetPlayerActor();
+      // Before calling let's be absolutely sure we have the player available.
       if (link) {
-        // game::PlayMessagePassSound();
-        // GlobalContext::SpawnActor(act::Id id, u16 rx, u16 ry, u16 rz, u16 param, z3dVec3f pos);
-        // context.gctx->SpawnActor((game::act::Id)0x1F, 0, 0, 0, 0, link->pos.pos);
-        game::act::Actor* actor =
-            context.gctx->SpawnActor((game::act::Id)0x1cf, 0, link->angle.y, 0, 0, link->pos.pos);
-        // link->projectile_actor = actor;
-        // context.gctx->ShowMessage(0xf4, link);
-        // rnd::util::Print("Our actor id is %#05x\n", actor->id);
-
-        // game::GiveItemWithEffect(0xB9);
-        //  svcOutputDebugString("This is our talk actor ", 23);
-        // rnd::util::GetPointer<void(game::act::Actor*,
-        // game::GlobalContext*)>(0x3b9c2c)((game::act::Actor*)actor, context.gctx);
-        // rnd::util::GetPointer<void(game::act::Actor*,
-        // game::GlobalContext*)>(0x4bf7b8)((game::act::Actor*)actor, context.gctx);
-        // rnd::util::GetPointer<void(game::act::Actor*,
-        // game::GlobalContext*)>(0x4bfab4)((game::act::Actor*)actor, context.gctx);
-        // rnd::util::GetPointer<void(game::act::Actor*, game::GlobalContext*, int,
-        // int)>(0x2df3e4)(actor, context.gctx, 0, 1); rnd::util::GetPointer<void(game::act::Actor*,
-        // game::GlobalContext*)>(0x35fcd4)(actor, context.gctx);
-        //  svcOutputDebugString((const char*)link->talk_actor->id, sizeof(char));
-        //  svcOutputDebugString("\n", 2);
+        return;
       }
     }
 #endif
-    if (context.gctx->GetPlayerActor())
-      ItemOverride_Update();
+
     return;
   }
   void readPadInput() {
@@ -119,13 +108,11 @@ namespace rnd {
   }
   void _start(void) {
     // Just in case something needs to be dynamically allocated...
-    rnd::util::Print("In _start\n");
     static char s_fake_heap[0x80000];
 
     fake_heap_start = &s_fake_heap[0];
     fake_heap_end = &s_fake_heap[sizeof(s_fake_heap)];
     for (size_t i = 0; i < size_t(__init_array_end - __init_array_start); i++) {
-      rnd::util::Print("Current array is %i\n", i);
       __init_array_start[i]();
     }
   }

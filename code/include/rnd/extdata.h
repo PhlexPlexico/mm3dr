@@ -1,3 +1,12 @@
+/**
+ * @file extdata.h
+ * @author UraYukimitsu (https://github.com/UraYukimitsu/)
+ * @brief
+ * @date 2021-09-14
+ *
+ * Brought in from the OoT3D Randomizer libraries. Edited to adjust for MM3D.
+ */
+
 #ifndef _RND_EXTDATA_H_
 #define _RND_EXTDATA_H_
 extern "C" {
@@ -6,12 +15,20 @@ extern "C" {
 }
 
 namespace rnd {
+  extern "C" {
+
+  
 #define EXTDATA_MAXFILESIZE (1 << 20)
 
   /**
-   * @brief Initializes the fs and srvpm services.
+   * @brief Grabs the games' Handle from the safe function call in-game.
    */
-  Result extDataInit();
+  Handle extInitFileHandle();
+
+  /**
+   * @brief Closes the file handler that was grabbed from in-game to avoid hitting any limits.
+   */
+  void extCloseFileHandle();
 
   /**
    * @brief Mounts the extData archive. Creates it first if it does not exist yet.
@@ -108,6 +125,9 @@ namespace rnd {
  * @param handle Handle : File handle obtained from extDataOpen
  */
 #define extDataClose(handle) FSFILE_Close(handle)
+
+#define extEndFSSession() fsEndUseSession()
+  }
 }  // namespace rnd
 
 #endif  // _RND_EXTDATA_H_
