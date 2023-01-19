@@ -58,6 +58,14 @@ hook_CheckOcarinaDive:
 @     strh r1, [r4, #0x10]
 @     bx lr
 
+.global hook_SaveFile_Load
+hook_SaveFile_Load:
+    push {r0-r12, lr}
+    bl SaveFile_LoadExtSaveData
+    pop {r0-r12, lr}
+    str r5,[r1,#0x61C]
+    b 0x48C764
+
 .global hook_SaveFile_Init
 hook_SaveFile_Init:
     push {r0-r12, lr}

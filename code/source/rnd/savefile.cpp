@@ -552,18 +552,18 @@ namespace rnd {
     // gExtSaveData.option_SkipSongReplays    = gSettingsContext.skipSongReplays;
   }
 
-  void SaveFile_LoadExtSaveData(u32 saveNumber) {
+  extern "C" void SaveFile_LoadExtSaveData() {
     char path[] = "/0.bin";
     u32 version;
     u64 fileSize;
-
+    u16 saveNumber = game::GetCommonData().save_idx;
     Result res;
     FS_Archive fsa;
     Handle fileHandle = extInitFileHandle();
     if (R_FAILED(res = extDataMount(&fsa))) {
       rnd::util::Print("%s: Failed to mount ext data.\n", __func__);
       SaveFile_InitExtSaveData(saveNumber);
-      // extEndFSSession();
+      SaveFile_SaveExtSaveData();
       return;
     }
 
@@ -573,7 +573,7 @@ namespace rnd {
     if (R_FAILED(res = extDataOpen(&fileHandle, fsa, path))) {
       extDataUnmount(fsa);
       SaveFile_InitExtSaveData(saveNumber);
-      // extEndFSSession();
+      SaveFile_SaveExtSaveData();
       return;
     }
 
@@ -586,8 +586,8 @@ namespace rnd {
       extDataDeleteFile(fsa, path);
       extDataUnmount(fsa);
       extDataClose(fileHandle);
-      // extEndFSSession();
       SaveFile_InitExtSaveData(saveNumber);
+      SaveFile_SaveExtSaveData();
       return;
     }
 
@@ -595,10 +595,9 @@ namespace rnd {
 
     extDataUnmount(fsa);
     extDataClose(fileHandle);
-    // extEndFSSession();
   }
   extern "C" void SaveFile_SaveExtSaveData() {
-    rnd::util::Print("%s: Saving on owl.\n", __func__);
+    rnd::util::Print("%s: Saving extdata.\n", __func__);
     game::CommonData& comData = game::GetCommonData();
     char path[] = "/0.bin";
 
@@ -606,7 +605,6 @@ namespace rnd {
     FS_Archive fsa;
     extInitFileHandle();
     if (R_FAILED(res = extDataMount(&fsa))) {
-      // extEndFSSession();
       return;
     }
 
@@ -615,7 +613,6 @@ namespace rnd {
     extDataWriteFileDirectly(fsa, path, &gExtSaveData, 0, sizeof(gExtSaveData));
     util::Print("%s: Unmounting now...\n", __func__);
     extDataUnmount(fsa);
-    // extEndFSSession();
   }
 
 }  // namespace rnd
