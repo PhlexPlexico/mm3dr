@@ -730,7 +730,7 @@ namespace rnd {
 
   void SaveFile_InitExtSaveData(u32 saveNumber) {
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-    rnd::util::Print("%s: INITING ExtData.\n", __func__);
+    util::Print("%s: INITING ExtData.\n", __func__);
 #endif
     gExtSaveData.version = EXTSAVEDATA_VERSION;  // Do not change this line
     gExtSaveData.isNewFile = 1;
@@ -789,9 +789,10 @@ namespace rnd {
     extDataReadFile(fileHandle, &version, 0, sizeof(version));
     extDataReadFile(fileHandle, &newSave, 8, sizeof(newSave));
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-    rnd::util::Print("%s: Is New file? %u\n", __func__, newSave);
+    util::Print("%s: Is New file? %u\n", __func__, newSave);
 #endif
-    if (fileSize != sizeof(gExtSaveData) || version != EXTSAVEDATA_VERSION || gExtSaveData.isNewFile == 1) {
+    if (fileSize != sizeof(gExtSaveData) || version != EXTSAVEDATA_VERSION ||
+        gExtSaveData.isNewFile == 1) {
       extDataClose(fileHandle);
       extDataDeleteFile(fsa, path);
       SaveFile_InitExtSaveData(saveNumber);

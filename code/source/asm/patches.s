@@ -71,6 +71,11 @@ patch_DoNotRemoveKeys:
     nop
     nop
 
+.section .patch_DisableMilkTimer
+.global patch_DisableMilkTimer
+patch_DisableMilkTimer:
+    nop
+
 .section .patch_LoadExtData
 .global patch_LoadExtData
 patch_LoadExtData:

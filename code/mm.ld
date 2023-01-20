@@ -53,18 +53,17 @@ SECTIONS{
     *(.patch_FirstZoraSwimCheck)
   }
 
-  .patch_SecondZoraSwimCheck 0x2210DC : {
-    *(.patch_SecondZoraSwimCheck)
-  }
+	.patch_DisableMilkTimer 0x234BFC : {
+		*(.patch_DisableMilkTimer)
+	}
 
-  /*0x05ffc70*/ /*0x177ddc*/ /*0x5bbab8 */ /* 0x5b8b24 */
-  .patch_LoadExtData 0x48C760 : {
-    *(.patch_LoadExtData)
-  }
-
-  .patch_SaveFile_init 0x5b8b24 : {
-    *(.patch_SaveFile_init)
-  }
+ .patch_LoadExtData 0x48C760 : {
+		*(.patch_LoadExtData)
+	}
+	 /*0x05ffc70*/ /*0x177ddc*/ /*0x5bbab8 */ /* 0x5b8b24 */
+	.patch_SaveFile_init 0x5b8b24 : {
+		*(.patch_SaveFile_init)
+	}
 
   .patch_FixSurroundSound 0x1404E8 : {
     *(.patch_FixSurroundSound)
