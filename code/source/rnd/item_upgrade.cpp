@@ -44,6 +44,9 @@ namespace rnd {
   }
 
   GetItemID ItemUpgrade_Magic(game::SaveData* saveCtx, GetItemID GetItemId) {
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+    rnd::util::Print("%s: Our num upgrades is %i", __func__, saveCtx->player.magic_num_upgrades);
+#endif
     switch (saveCtx->player.magic_acquired) {
     case 0:
       return (GetItemID)0xB3;

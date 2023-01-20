@@ -72,6 +72,9 @@ namespace rnd {
       // }
       retKey.scene = scene;
       retKey.type = ItemOverride_Type::OVR_CHEST;
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+      util::Print("%s Our flag is actually %u and & 0x1F is %u\n", __func__, actor->params, actor->params & 0x1F);
+#endif
       retKey.flag = actor->params & 0x1F;
       return retKey;
     } else if (actor->actor_type == game::act::Type::Misc) {  // Heart pieces are misc apparently
@@ -264,7 +267,9 @@ namespace rnd {
         return;
       }
       if (rDummyActor->parent_actor == NULL) {
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
         rnd::util::Print("%s: Trying to pop the pending item.\n", __func__);
+#endif
         ItemOverride_Activate(override);
         player->grabbable_actor = rDummyActor;
         player->get_item_id = rActiveItemRow->baseItemId;
@@ -389,7 +394,9 @@ namespace rnd {
         getItemId = incomingNegative ? -0xBA : 0xBA;
       }
       gExtSaveData.grannyGaveReward++;
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
       rnd::util::Print("%s: Granny give reward is currently %u, should be incremented.\n", __func__,
+#endif
                        gExtSaveData.grannyGaveReward);
     } else if (actorId == game::act::Id::NpcEnBjt) {
       getItemId = incomingNegative ? -0x01 : 0x01;
@@ -432,9 +439,6 @@ namespace rnd {
       if (itemId != (u8)game::ItemId::X82) {
         rnd::util::GetPointer<int(game::GlobalContext*, game::ItemId)>(0x233BEC)(
             gctx, (game::ItemId)itemId);
-        // rnd::util::Print("%s: Talk Actor ID is %#06x\n", __func__, actor->grabbable_actor->id);
-        /*rnd::util::GetPointer<void(game::GlobalContext*, int, int)>(0x2204ec)(
-            gctx, 100, -1);*/
       }
       ItemOverride_AfterItemReceived();
     }
@@ -467,7 +471,9 @@ namespace rnd {
     }
 
     player->get_item_id = incomingNegative ? -baseItemId : baseItemId;
-    rStoredBomberNoteTextId = rActiveItemRow->textId;
+    if (fromActor->actor_type != game::act::Type::Chest) {
+      rStoredBomberNoteTextId = rActiveItemRow->textId;
+    }
     return;
   }
 
@@ -492,7 +498,9 @@ namespace rnd {
     }
 
     ItemOverride_PushPendingOverride(override);
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
     rnd::util::Print("%s: Trying to pop the pending item.\n", __func__);
+#endif
     // s8 baseItemId = rActiveItemRow->textId;
     if (override.value.getItemId == 0x12) {
       rActiveItemRow->effectArg1 = override.key.all >> 16;

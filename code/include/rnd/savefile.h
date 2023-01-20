@@ -6,7 +6,7 @@
 #include "z3d/z3DVec.h"
 
 // Increment the version number whenever the ExtSaveData structure is changed
-#define EXTSAVEDATA_VERSION 01
+#define EXTSAVEDATA_VERSION 02
 
 namespace rnd {
   void SaveFile_SkipMinorCutscenes();
@@ -38,6 +38,7 @@ namespace rnd {
     s8 aromaGivenItem;
     s8 grannyGaveReward;
     s8 stoneMaskReward;
+    u8 chestRewarded[116][187]; // Reward table that's stored by scene and item.
   } ExtSaveData;
 
   extern "C" ExtSaveData gExtSaveData;

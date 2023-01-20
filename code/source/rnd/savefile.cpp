@@ -536,8 +536,10 @@ namespace rnd {
 #endif
     gExtSaveData.version = EXTSAVEDATA_VERSION;  // Do not change this line
     gExtSaveData.isNewFile = 1;
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
     util::Print("%s: Size of isNewFile and version is %u and %u", __func__,
                 sizeof(gExtSaveData.isNewFile), sizeof(gExtSaveData.version));
+#endif
     // TODO: BitField for event flags instead?
     // memset(&gExtSaveData.extInf, 0, sizeof(gExtSaveData.extInf));
     memset(&gExtSaveData.aromaGivenItem, 0, sizeof(gExtSaveData.aromaGivenItem));
@@ -565,7 +567,9 @@ namespace rnd {
     FS_Archive fsa;
     Handle fileHandle = extInitFileHandle();
     if (R_FAILED(res = extDataMount(&fsa))) {
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
       rnd::util::Print("%s: Failed to mount ext data.\n", __func__);
+#endif
       SaveFile_InitExtSaveData(saveNumber);
       SaveFile_SaveExtSaveData();
       return;
@@ -586,7 +590,9 @@ namespace rnd {
     FSFILE_GetSize(fileHandle, &fileSize);
     extDataReadFile(fileHandle, &version, 0, sizeof(version));
     extDataReadFile(fileHandle, &newSave, 8, sizeof(newSave));
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
     rnd::util::Print("%s: Is New file? %u\n", __func__, newSave);
+#endif
     if (fileSize != sizeof(gExtSaveData) || version != EXTSAVEDATA_VERSION ||
         gExtSaveData.isNewFile == 1) {
       extDataClose(fileHandle);
@@ -604,7 +610,9 @@ namespace rnd {
     extDataClose(fileHandle);
   }
   extern "C" void SaveFile_SaveExtSaveData() {
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
     rnd::util::Print("%s: Saving extdata.\n", __func__);
+#endif
     game::CommonData& comData = game::GetCommonData();
     char path[] = "/0.bin";
 
@@ -618,7 +626,9 @@ namespace rnd {
     path[1] = comData.save_idx + '0';
 
     extDataWriteFileDirectly(fsa, path, &gExtSaveData, 0, sizeof(gExtSaveData));
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
     util::Print("%s: Unmounting now...\n", __func__);
+#endif
     extDataUnmount(fsa);
   }
 

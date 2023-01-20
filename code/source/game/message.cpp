@@ -124,7 +124,7 @@ namespace game {
       auto& text = msg->texts[i];
       text.reader = rnd::util::GetPointer<MessageReader*(Language)>(0x1C519C)(Language(i));
       if (res_header->languages.IsSet(Language(i))) {
-#ifdef ENABLE_DEBUG
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
 // rnd::util::Print("%s: Here's some info for text length: %u\n", __func__,
 // entry->texts[res_idx].length);
 #endif
