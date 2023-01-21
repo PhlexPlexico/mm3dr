@@ -108,11 +108,11 @@ namespace rnd {
     if (key.all == 0) {
       return (ItemOverride){0};
     }
-// #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-//     rnd::util::Print(
-//         "%s: Our param values:\nActor Type %#04x\nGet Item ID: %#04x\nActor ID: %#06x\n", __func__,
-//         actor->actor_type, getItemId, actor->id);
-// #endif
+    // #if defined ENABLE_DEBUG || defined DEBUG_PRINT
+    //     rnd::util::Print(
+    //         "%s: Our param values:\nActor Type %#04x\nGet Item ID: %#04x\nActor ID: %#06x\n",
+    //         __func__, actor->actor_type, getItemId, actor->id);
+    // #endif
     return ItemOverride_LookupByKey(key);
   }
 
