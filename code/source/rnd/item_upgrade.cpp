@@ -44,23 +44,20 @@ namespace rnd {
   }
 
   GetItemID ItemUpgrade_Magic(game::SaveData* saveCtx, GetItemID GetItemId) {
-    rnd::util::Print("%s: Our num upgrades is %i", __func__, saveCtx->player.magic_num_upgrades);
     switch (saveCtx->player.magic_acquired) {
     case 0:
-      saveCtx->player.magic_acquired = 1;
-      saveCtx->player.magic_size_type = 0;
-      saveCtx->player.magic = 48;
-      saveCtx->equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
-      saveCtx->player.magic_num_upgrades = 0;  // Single Magic
-      return GetItemID::GI_MAGIC_POT_SMALL;
+      return (GetItemID)0xB3;
     default:
-      saveCtx->player.magic_acquired = 1;
-      saveCtx->player.magic_size_type = 2;
-      saveCtx->player.magic = 96;
-      saveCtx->equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
-      saveCtx->player.magic_num_upgrades = 1;  // Double Magic
-      return GetItemID::GI_MAGIC_POT_LARGE;
+      return (GetItemID)0x2B;
     }
+  }
+
+  GetItemID ItemUpgrade_LargeMagic(game::SaveData* saveCtx, GetItemID GetItemId) {
+    return GetItemID::GI_MAGIC_POT_LARGE;
+  }
+
+  GetItemID ItemUpgrade_SmallMagic(game::SaveData* saveCtx, GetItemID GetItemId) {
+    return GetItemID::GI_MAGIC_POT_SMALL;
   }
 
   GetItemID ItemUpgrade_Sword(game::SaveData* saveCtx, GetItemID GetItemId) {

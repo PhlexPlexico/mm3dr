@@ -109,8 +109,27 @@ namespace rnd {
     // assign them.
     if (comData->save.equipment.data[3].item_btns[0] != game::ItemId::DekuNuts)
       comData->save.equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
-    comData->magic_accumulator = 0x60;  // Fill meter
-    return;
+    comData->save.player.magic = 0x60;  // Fill meter
+  }
+
+  void ItemEffect_GiveMagic(game::CommonData* comData, s16 arg1, s16 arg2) {
+    comData->save.player.magic_acquired = 1;
+    comData->save.player.magic_size_type = 0;
+    comData->save.player.magic = 0x30;
+    if (comData->save.equipment.data[3].item_btns[0] != game::ItemId::DekuNuts)
+      comData->save.equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
+    comData->save.player.magic_num_upgrades = 0;  // Single Magic
+  }
+
+  void ItemEffect_GiveProgressiveMagic(game::CommonData* comData, s16 arg1, s16 arg2) {
+#if defined ENABLE_DEBUG || DEBUG_PRINT
+    util::Print("%s: Current magic acquired == %u\n", __func__, comData->save.player.magic_acquired);
+#endif
+    if (comData->save.player.magic_acquired != 0) {
+      ItemEffect_GiveDoubleMagic(comData, arg1, arg2);
+    } else {
+      ItemEffect_GiveMagic(comData, arg1, arg2);
+    }
   }
 
   void ItemEffect_GiveOcarina(game::CommonData* comData, s16 arg1, s16 arg2) {
@@ -305,14 +324,6 @@ namespace rnd {
         comData->save.inventory.stone_tower_dungeon_items.map = 1;
       break;
     }
-  }
-
-  void ItemEffect_GiveMagic(game::CommonData* comData, s16 arg1, s16 arg2) {
-    comData->save.player.magic_acquired = 1;
-    comData->save.player.magic_size_type = 0;
-    comData->save.player.magic = 48;
-    comData->save.equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
-    comData->save.player.magic_num_upgrades = 0;  // Single Magic
   }
 
   void ItemEffect_GiveSkulltula(game::CommonData* comData, s16 whichHouse, s16 arg2) {
