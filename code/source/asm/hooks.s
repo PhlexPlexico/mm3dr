@@ -130,9 +130,11 @@ noOverrideBomberTextID:
 
 .global hook_OverrideItemID 
 hook_OverrideItemID:
+    push {r1}
     ldr r1,.rActiveItemRow_addr
     ldr r1,[r1]
     cmp r1,#0x0
+    pop {r1}
     beq noOverrideItemID
     push {r0-r12, lr}
     bl ItemOverride_GetItemTextAndItemID

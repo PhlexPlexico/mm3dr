@@ -109,13 +109,13 @@ namespace rnd {
           ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL,
                    (u8)game::ItemId::SmallMagicAccumulator, 0x00C8, 0x000A4, (s8)0xFF, (s8)0xFF,
                    (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_SMALL_MAGIC_JAR,
-                   (rnd::upgradeFunc)ItemUpgrade_Magic, ItemEffect_None, (s16)-1,
+                   (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1,
                    (s16)-1),  // Small Magic Jar
 
       [0x0F] = ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL,
                         (u8)game::ItemId::BigMagicAccumulator, 0x000CC, 0x000A4, (s8)0xFF, (s8)0xFF,
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_BIG_MAGIC_JAR,
-                        (rnd::upgradeFunc)ItemUpgrade_Magic, ItemEffect_None, (s16)-1,
+                        (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1,
                         (s16)-1),  // Big Magic Jar
 
       [0x10] = ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL,
@@ -451,7 +451,7 @@ namespace rnd {
 
       [0x49] = ITEM_ROW(0xFF, ChestType::WOODEN_SMALL, 0xFF, 0xFF, 0x000A4, (s8)0xFF, (s8)0xFF,
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_Magic,
-                        ItemEffect_None, (s16)-1, (s16)-1),  // Progressive Magic
+                        ItemEffect_GiveProgressiveMagic, (s16)-1, (s16)-1),  // Progressive Magic
 
       [0x4A] = ITEM_ROW(0xFF, ChestType::WOODEN_SMALL, 0xFF, 0xFF, 0x001FA, (s8)0xFF, (s8)0xFF,
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_Sword,
@@ -1055,7 +1055,7 @@ namespace rnd {
 
       [0xB3] =
           ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG,
-                   (u8)game::ItemId::SmallMagicAccumulator, 0x000CA, 0x000A4, (s8)0xFF, (s8)0xFF,
+                   (u8)game::ItemId::SmallMagicAccumulator, 0x000C8, 0x000A4, (s8)0xFF, (s8)0xFF,
                    (s8)0xFF, (s8)0xFF, (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_None,
                    ItemEffect_GiveMagic, (s16)-1, (s16)-1),  // Small Magic
 
