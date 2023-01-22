@@ -473,8 +473,6 @@ namespace rnd {
 
   void ItemOverride_GetFairyRewardItem(game::GlobalContext* gctx, game::act::Actor* fromActor,
                                        s16 incomingItemId) {
-    if (rActiveItemRow != NULL)
-      return;
     ItemOverride override = {0};
     s32 incomingNegative = incomingItemId < 0;
     if (fromActor != NULL && incomingItemId != 0) {
