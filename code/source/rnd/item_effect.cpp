@@ -122,10 +122,6 @@ namespace rnd {
   }
 
   void ItemEffect_GiveProgressiveMagic(game::CommonData* comData, s16 arg1, s16 arg2) {
-#if defined ENABLE_DEBUG || DEBUG_PRINT
-    util::Print("%s: Current magic acquired == %u\n", __func__,
-                comData->save.player.magic_acquired);
-#endif
     if (comData->save.player.magic_acquired != 0) {
       ItemEffect_GiveDoubleMagic(comData, arg1, arg2);
     } else {

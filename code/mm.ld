@@ -112,6 +112,10 @@ SECTIONS{
 		*(.patch_OverrideFairyGiveItemOne)
 	}
 
+	/* .patch_OverrideFairyItemAnonStruct 0x3BECD4 : {
+		*(.patch_OverrideFairyItemAnonStruct)
+	} */
+
 	/* .patch_OverrideGreatFairyText 0x3b783c : {
 		*(.patch_OverrideGreatFairyText)
 	}*/

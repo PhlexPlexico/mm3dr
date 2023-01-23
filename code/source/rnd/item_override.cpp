@@ -175,10 +175,10 @@ namespace rnd {
         rPendingOverrideQueue[i] = override;
         break;
       }
-      if (rPendingOverrideQueue[i].key.all == override.key.all) {
-        // Prevent duplicate entries
-        break;
-      }
+      // if (rPendingOverrideQueue[i].key.all == override.key.all) {
+      //   // Prevent duplicate entries
+      //   break;
+      // }
     }
   }
 
@@ -479,37 +479,39 @@ namespace rnd {
 
   void ItemOverride_GetFairyRewardItem(game::GlobalContext* gctx, game::act::Actor* fromActor,
                                        s16 incomingItemId) {
-    if (gExtSaveData.gaveFairyMaskReward == 1) {
-      return;
-    }
     ItemOverride override = {0};
     s32 incomingNegative = incomingItemId < 0;
     if (fromActor != NULL && incomingItemId != 0) {
       s16 getItemId = 0;
       // Since we deal directly with the get item ID and not the index,
       // we need to map this back to the index to work with lookups.
+      // Manual override if we're receiving an item such as an upgrade.
       if (incomingItemId == 0x40)
         getItemId = incomingNegative ? -0x86 : 0x86;
       else if (incomingItemId == 0x10)
         getItemId = incomingNegative ? -0x9B : 0x9B;
+      else
+        getItemId = incomingItemId;
       override = ItemOverride_Lookup(fromActor, (u16)gctx->scene, getItemId);
     }
     if (override.key.all == 0) {
-      // No override, use base game's item code
       ItemOverride_Clear();
       return;
     }
 
     ItemOverride_PushPendingOverride(override);
-#if defined ENABLE_DEBUG || defined DEBUG_PRINT
-    rnd::util::Print("%s: Trying to pop the pending item.\n", __func__);
-#endif
     // s8 baseItemId = rActiveItemRow->textId;
     if (override.value.getItemId == 0x12) {
       rActiveItemRow->effectArg1 = override.key.all >> 16;
       rActiveItemRow->effectArg2 = override.key.all & 0xFFFF;
     }
-    gExtSaveData.gaveFairyMaskReward = 1;
+    
+    if (game::GetCommonData().save.player.anonymous_18 == 0) {
+      game::GetCommonData().save.player.anonymous_18 = 1;
+      // Since we're in control here, use the GetItemId and not the item id.
+      ItemOverride_GetFairyRewardItem(gctx, fromActor, 0xB3);
+      ItemOverride_GetItemTextAndItemID(gctx->GetPlayerActor());
+    }
     // rStoredBomberNoteTextId = rActiveItemRow->textId;
     return;
   }
