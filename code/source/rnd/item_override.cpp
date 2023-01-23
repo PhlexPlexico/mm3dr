@@ -479,6 +479,9 @@ namespace rnd {
 
   void ItemOverride_GetFairyRewardItem(game::GlobalContext* gctx, game::act::Actor* fromActor,
                                        s16 incomingItemId) {
+    if (gExtSaveData.gaveFairyMaskReward == 1) {
+      return;
+    }
     ItemOverride override = {0};
     s32 incomingNegative = incomingItemId < 0;
     if (fromActor != NULL && incomingItemId != 0) {
@@ -506,7 +509,7 @@ namespace rnd {
       rActiveItemRow->effectArg1 = override.key.all >> 16;
       rActiveItemRow->effectArg2 = override.key.all & 0xFFFF;
     }
-
+    gExtSaveData.gaveFairyMaskReward = 1;
     // rStoredBomberNoteTextId = rActiveItemRow->textId;
     return;
   }

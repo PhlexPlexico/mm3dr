@@ -108,7 +108,7 @@ SECTIONS{
 		*(.patch_OverrideItemID)
 	}
 
-	.patch_OverrideFairyGiveItemOne 0x3BECB4 : {
+	.patch_OverrideFairyGiveItemOne 0x3BECB8 : {
 		*(.patch_OverrideFairyGiveItemOne)
 	}
 

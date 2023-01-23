@@ -38,6 +38,7 @@ namespace rnd {
     s8 aromaGivenItem;
     s8 grannyGaveReward;
     s8 stoneMaskReward;
+    s8 gaveFairyMaskReward;
     u8 chestRewarded[116][187]; // Reward table that's stored by scene and item.
   } ExtSaveData;
 
