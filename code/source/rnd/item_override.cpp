@@ -72,9 +72,9 @@ namespace rnd {
       // }
       retKey.scene = scene;
       retKey.type = ItemOverride_Type::OVR_CHEST;
-#if defined ENABLE_DEBUG || defined DEBUG_PRINT
-      util::Print("%s Our flag is actually %u and & 0x1F is %u\n", __func__, actor->params, actor->params & 0x1F);
-#endif
+// #if defined ENABLE_DEBUG || defined DEBUG_PRINT
+//       util::Print("%s Our flag is actually %#06x and & 0x1F is %#06x\n", __func__, actor->params, actor->params & 0x1F);
+// #endif
       retKey.flag = actor->params & 0x1F;
       return retKey;
     } else if (actor->actor_type == game::act::Type::Misc) {  // Heart pieces are misc apparently
@@ -175,10 +175,10 @@ namespace rnd {
         rPendingOverrideQueue[i] = override;
         break;
       }
-      // if (rPendingOverrideQueue[i].key.all == override.key.all) {
-      //   // Prevent duplicate entries
-      //   break;
-      // }
+      if (rPendingOverrideQueue[i].key.all == override.key.all) {
+        // Prevent duplicate entries
+        break;
+      }
     }
   }
 
@@ -429,6 +429,12 @@ namespace rnd {
   }
   void ItemOverride_GetItemTextAndItemID(game::act::Player* actor) {
     if (rActiveItemRow != NULL) {
+      if (rActiveItemOverride.key.type == ItemOverride_Type::OVR_CHEST) {
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+        rnd::util::Print("%s: Item Override is the chest right now.\n", __func__);
+#endif
+        gExtSaveData.chestRewarded[rActiveItemOverride.key.scene][rActiveItemOverride.key.flag] = 1;
+      }
       game::GlobalContext* gctx = rnd::GetContext().gctx;
       // int retVal;
       u16 textId = rActiveItemRow->textId;
@@ -449,9 +455,9 @@ namespace rnd {
     ItemOverride override = {0};
     s32 incomingNegative = incomingGetItemId < 0;
     if (fromActor != NULL && incomingGetItemId != 0) {
-#if defined ENABLE_DEBUG || DEBUG_PRINT
-      rnd::util::Print("%s: Our actor ID is %#06x\n", __func__, fromActor->id);
-#endif
+// #if defined ENABLE_DEBUG || DEBUG_PRINT
+//       rnd::util::Print("%s: Our actor ID is %#06x\n", __func__, fromActor->id);
+// #endif
       s16 getItemId = ItemOverride_CheckNpc(fromActor->id, incomingGetItemId, incomingNegative);
       override = ItemOverride_Lookup(fromActor, (u16)gctx->scene, getItemId);
     }
@@ -459,6 +465,11 @@ namespace rnd {
       // No override, use base game's item code
       ItemOverride_Clear();
       player->get_item_id = incomingGetItemId;
+      return;
+    } else if (gExtSaveData.chestRewarded[override.key.scene][override.key.flag] == 1) {
+      // Override was already given, use base game's item code
+      ItemOverride_Clear();
+      player->get_item_id = -(s16)GetItemID::GI_RUPEE_BLUE;
       return;
     }
     ItemOverride_Activate(override);
