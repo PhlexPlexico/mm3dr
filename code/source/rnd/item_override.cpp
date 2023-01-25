@@ -39,8 +39,8 @@ namespace rnd {
     rItemOverrides[0].value.looksLikeItemId = 0x26;
     rItemOverrides[1].key.scene = 0x6C;
     rItemOverrides[1].key.type = ItemOverride_Type::OVR_CHEST;
-    rItemOverrides[1].value.getItemId = 0x49;
-    rItemOverrides[1].value.looksLikeItemId = 0xB3;
+    rItemOverrides[1].value.getItemId = 0x9A;
+    rItemOverrides[1].value.looksLikeItemId = 0x2C;
     rItemOverrides[2].key.scene = 0x12;
     rItemOverrides[2].key.type = ItemOverride_Type::OVR_COLLECTABLE;
     rItemOverrides[2].value.getItemId = 0x37;
@@ -431,9 +431,15 @@ namespace rnd {
     if (rActiveItemRow != NULL) {
       if (rActiveItemOverride.key.type == ItemOverride_Type::OVR_CHEST) {
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-        rnd::util::Print("%s: Item Override is the chest right now.\n", __func__);
+        rnd::util::Print("%s: Item Override is the chest right now. Our activeItemRow itemId is %06x\n", __func__, rActiveItemRow->itemId);
 #endif
-        gExtSaveData.chestRewarded[rActiveItemOverride.key.scene][rActiveItemOverride.key.flag] = 1;
+        if (rActiveItemRow->itemId < 0x28 && rActiveItemRow->itemId > 0x30) {
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+            rnd::util::Print("%s:\n", __func__);
+#endif
+          gExtSaveData.chestRewarded[rActiveItemOverride.key.scene][rActiveItemOverride.key.flag] = 1;
+        }
+          
       }
       game::GlobalContext* gctx = rnd::GetContext().gctx;
       // int retVal;
