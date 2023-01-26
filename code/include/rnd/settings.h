@@ -194,6 +194,7 @@ namespace rnd {
   };
 
   enum class StartingSwordSetting : u8 {
+    STARTINGSWORD_NONE,
     STARTINGSWORD_KOKIRI,
     STARTINGSWORD_RAZOR,
     STARTINGSWORD_GILDED,
@@ -246,6 +247,7 @@ namespace rnd {
     u8 scrubsanity;
     u8 shopsanity;
     u8 shuffleKokiriSword;
+    u8 shuffleStartingShield;
     u8 shuffleMagicBeans;
     u8 shuffleMerchants;
     u8 shuffleChests;
@@ -319,9 +321,54 @@ namespace rnd {
     u8 startingKokiriSword;
     u8 startingRazorSword;
     u8 startingGildedSword;
+    u8 startingShield;
     u8 startingMagicMeter;
     u8 startingDoubleDefense;
     u8 startingHealth;
+    //Songs
+    u8 startingOathToOrder;
+    u8 startingEponasSong;
+    u8 startingSongOfStorms; 
+    u8 startingSonataOfAwakening;
+    u8 startingGoronsLullaby;
+    u8 startingNewWaveBossaNova;
+    u8 startingElegyOfEmptiness;
+    u8 startingSongOfSoaring;
+    u8 startingSongOfHealing;
+    u8 startingWallet;
+    //BossRemains
+    u8 startingOdolwaRemains;
+    u8 startingGohtRemains;
+    u8 startingGyorgRemains;
+    u8 startingTwinmoldRemains;
+    //Tokens
+    u8 startingSwampTokens;
+    u8 startingOceanTokens;
+    //Masks
+    u8 startingDekuMask;
+    u8 startingGoronMask;
+    u8 startingZoraMask;
+    u8 startingBunnyHood;
+    u8 startingKeatonMask;
+    u8 startingPostmanHat;
+    u8 startingAllNightMask;
+    u8 startingBlastMask;
+    u8 startingStoneMask;
+    u8 startingGreatFairyMask;
+    u8 startingBremenMask;
+    u8 startingDonGerosMask;
+    u8 startingMaskOfScents;
+    u8 startingRomanisMask;
+    u8 startingCircusLeadersMask;
+    u8 startingKafeiMask;
+    u8 startingCouplesMask;
+    u8 startingKamarosMask;
+    u8 startingGibdosMask;
+    u8 startingGaroMask;
+    u8 startingCaptainsHat;
+    u8 startingGiantsMask;
+    u8 startingFierceDietyMask;
+    u8 startingMaskOfTruth;
 
     // TODO: Break out into individual bitfield values.
     u32 startingQuestItems;

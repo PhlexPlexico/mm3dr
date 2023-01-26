@@ -13,105 +13,106 @@ extern "C" {
 namespace rnd {
   ExtSaveData gExtSaveData;
 
-  extern "C" void SaveFile_Init(game::GlobalContext* gctx, game::SaveFile* save) {
+  extern "C" void SaveFile_Init() {
     game::SaveData& saveData = game::GetCommonData().save;
     game::CommonData& comData = game::GetCommonData();
+
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+    rnd::util::Print("%s: Initing save file. Our save index is %u\nAre we a new file? %#04x", \
+    __func__, comData.save_idx, saveData.has_completed_intro);
+#endif
+#ifdef ENABLE_DEBUG
+    saveData.equipment.sword_shield.sword = game::SwordType::GildedSword;
+    saveData.player.razor_sword_hp = 0x64;
+    saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver50;
+    saveData.inventory.inventory_count_register.bomb_bag_upgrade = game::BombBag::BombBag40;
+    // saveData.inventory.inventory_count_register.wallet_upgrade = 2;
+    saveData.inventory.inventory_count_register.stick_upgrades = 2;
+    saveData.inventory.inventory_count_register.nut_upgrade = 2;
+    saveData.player.rupee_count = 500;
+    saveData.inventory.items[0] = game::ItemId::Ocarina;
+    saveData.inventory.items[1] = game::ItemId::Arrow;
+    saveData.inventory.items[2] = game::ItemId::FireArrow;
+    saveData.inventory.items[3] = game::ItemId::IceArrow;
+    saveData.inventory.items[4] = game::ItemId::LightArrow;
+    saveData.inventory.items[6] = game::ItemId::Bomb;
+    saveData.inventory.items[7] = game::ItemId::Bombchu;
+    saveData.inventory.items[8] = game::ItemId::DekuStick;
+    saveData.inventory.items[9] = game::ItemId::DekuNuts;
+    saveData.inventory.items[10] = game::ItemId::MagicBean;
+    saveData.inventory.items[12] = game::ItemId::PowderKeg;
+    saveData.inventory.items[13] = game::ItemId::PictographBox;
+    saveData.inventory.items[14] = game::ItemId::LensOfTruth;
+    saveData.inventory.items[15] = game::ItemId::Hookshot;
+    saveData.inventory.items[20] = game::ItemId::LandTitleDeed;
+
+    saveData.inventory.masks[5] = game::ItemId::DekuMask;
+    saveData.inventory.masks[11] = game::ItemId::GoronMask;
+    saveData.inventory.masks[17] = game::ItemId::ZoraMask;
+    saveData.inventory.masks[23] = game::ItemId::FierceDeityMask;
+    saveData.inventory.masks[19] = game::ItemId::GibdoMask;
+    saveData.inventory.masks[8] = game::ItemId::BunnyHood;
+    saveData.inventory.masks[20] = game::ItemId::GaroMask;
+    saveData.inventory.masks[6] = game::ItemId::AllNightMask;
+
+    saveData.inventory.woodfall_temple_keys = 8;
+    saveData.inventory.snowhead_temple_keys = 8;
+    saveData.inventory.great_bay_temple_keys = 8;
+    saveData.inventory.stone_tower_temple_keys = 8;
+    saveData.inventory.woodfall_dungeon_items.map = 1;
+    saveData.inventory.woodfall_dungeon_items.compass = 1;
+    saveData.inventory.woodfall_dungeon_items.boss_key = 1;
+    saveData.inventory.snowhead_dungeon_items.map = 1;
+    saveData.inventory.snowhead_dungeon_items.compass = 1;
+    saveData.inventory.snowhead_dungeon_items.boss_key = 1;
+    saveData.inventory.great_bay_dungeon_items.map = 1;
+    saveData.inventory.great_bay_dungeon_items.compass = 1;
+    saveData.inventory.great_bay_dungeon_items.boss_key = 1;
+    saveData.inventory.stone_tower_dungeon_items.map = 1;
+    saveData.inventory.stone_tower_dungeon_items.compass = 1;
+    saveData.inventory.stone_tower_dungeon_items.boss_key = 1;
+    // saveData.player.magic_acquired = 1;  // Game does not check if value = 0, magic items still
+    // work saveData.player.magic_size_type = 0; saveData.player.magic = 10;
+    // saveData.player.magic_num_upgrades = 0;
+    saveData.equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
+    saveData.inventory.item_counts[6] = 50;   // Arrows
+    saveData.inventory.item_counts[11] = 40;  // Bombs
+    saveData.inventory.item_counts[12] = 40;  // Bombchus
+    saveData.inventory.item_counts[14] = 30;  // Nuts
+    saveData.inventory.item_counts[13] = 20;  // Sticks
+    saveData.has_great_spin_0x02 = 2;         // Set great spin.
+
+    saveData.player.owl_statue_flags.great_bay = 1;
+    saveData.player.owl_statue_flags.zora_cape = 1;
+    saveData.player.owl_statue_flags.snowhead = 1;
+    saveData.player.owl_statue_flags.mountain_village = 1;
+    saveData.player.owl_statue_flags.clock_town = 1;
+    saveData.player.owl_statue_flags.milk_road = 1;
+    saveData.player.owl_statue_flags.woodfall = 1;
+    saveData.player.owl_statue_flags.southern_swamp = 1;
+    saveData.player.owl_statue_flags.ikana_canyon = 1;
+    saveData.player.owl_statue_flags.stone_tower = 1;
+
+    saveData.inventory.collect_register.sonata_of_awakening = 1;
+    saveData.inventory.collect_register.goron_lullaby = 1;
+    saveData.inventory.collect_register.new_wave_bossa_nova = 1;
+    saveData.inventory.collect_register.elegy_of_emptiness = 1;
+    saveData.inventory.collect_register.eponas_song = 1;
+    saveData.inventory.collect_register.song_of_soaring = 1;
+    saveData.inventory.collect_register.song_of_time = 1;
+    // saveData.inventory.collect_register.oath_to_order = 1;
+    // saveData.inventory.collect_register.song_of_healing = 1;
+
+    gSettingsContext.skipBombersMinigame = 1;
+    gSettingsContext.freeScarecrow = 1;
+    saveData.activate_dungeon_skip_portal_0xF0_for_all = 0xF0;
+
+    SaveFile_FillOverWorldMapData();
+
+#endif
     // TODO: Decomp event flags. Most likely in the large anonymous structs in the SaveData.
     u8 isNewFile = saveData.has_completed_intro;
     if (isNewFile == 0) {
-#if defined ENABLE_DEBUG || defined DEBUG_PRINT
-      rnd::util::Print("%s: Initing save file. Our save index is %u\nAre we a new file? %#04x\n", __func__,
-                       comData.save_idx, saveData.has_completed_intro);
-#endif
-#ifdef ENABLE_DEBUG
-      saveData.equipment.sword_shield.sword = game::SwordType::GildedSword;
-      saveData.player.razor_sword_hp = 0x64;
-      saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver50;
-      saveData.inventory.inventory_count_register.bomb_bag_upgrade = game::BombBag::BombBag40;
-      // saveData.inventory.inventory_count_register.wallet_upgrade = 2;
-      saveData.inventory.inventory_count_register.stick_upgrades = 2;
-      saveData.inventory.inventory_count_register.nut_upgrade = 2;
-      saveData.player.rupee_count = 500;
-      saveData.inventory.items[0] = game::ItemId::Ocarina;
-      saveData.inventory.items[1] = game::ItemId::Arrow;
-      saveData.inventory.items[2] = game::ItemId::FireArrow;
-      saveData.inventory.items[3] = game::ItemId::IceArrow;
-      saveData.inventory.items[4] = game::ItemId::LightArrow;
-      saveData.inventory.items[6] = game::ItemId::Bomb;
-      saveData.inventory.items[7] = game::ItemId::Bombchu;
-      saveData.inventory.items[8] = game::ItemId::DekuStick;
-      saveData.inventory.items[9] = game::ItemId::DekuNuts;
-      saveData.inventory.items[10] = game::ItemId::MagicBean;
-      saveData.inventory.items[12] = game::ItemId::PowderKeg;
-      saveData.inventory.items[13] = game::ItemId::PictographBox;
-      saveData.inventory.items[14] = game::ItemId::LensOfTruth;
-      saveData.inventory.items[15] = game::ItemId::Hookshot;
-      saveData.inventory.items[20] = game::ItemId::LandTitleDeed;
-
-      saveData.inventory.masks[5] = game::ItemId::DekuMask;
-      saveData.inventory.masks[11] = game::ItemId::GoronMask;
-      saveData.inventory.masks[17] = game::ItemId::ZoraMask;
-      saveData.inventory.masks[23] = game::ItemId::FierceDeityMask;
-      saveData.inventory.masks[19] = game::ItemId::GibdoMask;
-      saveData.inventory.masks[8] = game::ItemId::BunnyHood;
-      saveData.inventory.masks[20] = game::ItemId::GaroMask;
-      saveData.inventory.masks[6] = game::ItemId::AllNightMask;
-
-      saveData.inventory.woodfall_temple_keys = 8;
-      saveData.inventory.snowhead_temple_keys = 8;
-      saveData.inventory.great_bay_temple_keys = 8;
-      saveData.inventory.stone_tower_temple_keys = 8;
-      saveData.inventory.woodfall_dungeon_items.map = 1;
-      saveData.inventory.woodfall_dungeon_items.compass = 1;
-      saveData.inventory.woodfall_dungeon_items.boss_key = 1;
-      saveData.inventory.snowhead_dungeon_items.map = 1;
-      saveData.inventory.snowhead_dungeon_items.compass = 1;
-      saveData.inventory.snowhead_dungeon_items.boss_key = 1;
-      saveData.inventory.great_bay_dungeon_items.map = 1;
-      saveData.inventory.great_bay_dungeon_items.compass = 1;
-      saveData.inventory.great_bay_dungeon_items.boss_key = 1;
-      saveData.inventory.stone_tower_dungeon_items.map = 1;
-      saveData.inventory.stone_tower_dungeon_items.compass = 1;
-      saveData.inventory.stone_tower_dungeon_items.boss_key = 1;
-      // saveData.player.magic_acquired = 1;  // Game does not check if value = 0, magic items still
-      // work saveData.player.magic_size_type = 0; saveData.player.magic = 10;
-      // saveData.player.magic_num_upgrades = 0;
-      saveData.equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
-      saveData.inventory.item_counts[6] = 50;   // Arrows
-      saveData.inventory.item_counts[11] = 40;  // Bombs
-      saveData.inventory.item_counts[12] = 40;  // Bombchus
-      saveData.inventory.item_counts[14] = 30;  // Nuts
-      saveData.inventory.item_counts[13] = 20;  // Sticks
-      saveData.has_great_spin_0x02 = 2;         // Set great spin.
-
-      saveData.player.owl_statue_flags.great_bay = 1;
-      saveData.player.owl_statue_flags.zora_cape = 1;
-      saveData.player.owl_statue_flags.snowhead = 1;
-      saveData.player.owl_statue_flags.mountain_village = 1;
-      saveData.player.owl_statue_flags.clock_town = 1;
-      saveData.player.owl_statue_flags.milk_road = 1;
-      saveData.player.owl_statue_flags.woodfall = 1;
-      saveData.player.owl_statue_flags.southern_swamp = 1;
-      saveData.player.owl_statue_flags.ikana_canyon = 1;
-      saveData.player.owl_statue_flags.stone_tower = 1;
-
-      saveData.inventory.collect_register.sonata_of_awakening = 1;
-      saveData.inventory.collect_register.goron_lullaby = 1;
-      saveData.inventory.collect_register.new_wave_bossa_nova = 1;
-      saveData.inventory.collect_register.elegy_of_emptiness = 1;
-      saveData.inventory.collect_register.eponas_song = 1;
-      saveData.inventory.collect_register.song_of_soaring = 1;
-      saveData.inventory.collect_register.song_of_time = 1;
-      // saveData.inventory.collect_register.oath_to_order = 1;
-      // saveData.inventory.collect_register.song_of_healing = 1;
-
-      gSettingsContext.skipBombersMinigame = 1;
-      gSettingsContext.freeScarecrow = 1;
-      saveData.activate_dungeon_skip_portal_0xF0_for_all = 0xF0;
-
-      SaveFile_FillOverWorldMapData();
-
-#endif
       SaveFile_InitExtSaveData(comData.save_idx);
       saveData.has_tatl = true;
 
@@ -131,7 +132,10 @@ namespace rnd {
         in properly without ocarina in inventory.                                */
       saveData.inventory.collect_register.song_of_time = 1;  // Part of starting quest items options
       gSettingsContext.startingOcarina = 1;
-
+      gSettingsContext.startingDekuMask = 1; //start with Deku Mask, Song of Healing & Bomber's notebook always 
+      saveData.inventory.collect_register.song_of_healing = 1; //until happy mask salesman is overridden
+      gSettingsContext.startingKokiriSword = 1;
+      gSettingsContext.startingShield = 1;
       SaveFile_SetStartingInventory();
 
       // These events replay after song of time
@@ -259,7 +263,8 @@ namespace rnd {
       saveData.bomberscode[2] = 0x01;
       saveData.bomberscode[3] = 0x01;
       saveData.bomberscode[4] = 0x01;
-      saveData.temp_event_flag_bundle1.bomber_open_hideout = 1;  // Currently gets reset by Song of time
+      saveData.temp_event_flag_bundle1.bomber_open_hideout =
+          1;  // Currently gets reset by Song of time
     }
 
     // Game uses an inventory check to determine whether you can
@@ -333,7 +338,8 @@ namespace rnd {
     game::EquipmentData& equipmentData = game::GetCommonData().save.equipment;
     game::SaveData& saveData = game::GetCommonData().save;
     // give maps and compasses
-    if (gSettingsContext.mapsAndCompasses == (u8)MapsAndCompassesSetting::MAPSANDCOMPASSES_ANY_DUNGEON) {
+    if (gSettingsContext.mapsAndCompasses ==
+        (u8)MapsAndCompassesSetting::MAPSANDCOMPASSES_ANY_DUNGEON) {
       inventoryData.woodfall_dungeon_items.map = 1;
       inventoryData.woodfall_dungeon_items.compass = 1;
       inventoryData.snowhead_dungeon_items.map = 1;
@@ -343,7 +349,8 @@ namespace rnd {
       inventoryData.stone_tower_dungeon_items.map = 1;
       inventoryData.stone_tower_dungeon_items.compass = 1;
     }
-    if (gSettingsContext.mapsAndCompasses == (u8)MapsAndCompassesSetting::MAPSANDCOMPASSES_OVERWORLD) {
+    if (gSettingsContext.mapsAndCompasses ==
+        (u8)MapsAndCompassesSetting::MAPSANDCOMPASSES_OVERWORLD) {
       SaveFile_FillOverWorldMapData();
     }
 
@@ -366,65 +373,101 @@ namespace rnd {
 
     // starting Nuts and Sticks
     if (gSettingsContext.startingConsumables) {
-      inventoryData.items[9] = game::ItemId::DekuNuts;
-      inventoryData.items[10] = game::ItemId::DekuStick;
-      inventoryData.inventory_count_register.nut_upgrade = 0;
-      inventoryData.inventory_count_register.stick_upgrades = 0;
+      saveData.inventory.items[9] = game::ItemId::DekuNuts;
+      saveData.inventory.items[8] = game::ItemId::DekuStick;
+      saveData.inventory.inventory_count_register.nut_upgrade = 0;
+      saveData.inventory.inventory_count_register.stick_upgrades = 0;
     }
 
     // main inventory
     if (gSettingsContext.startingStickCapacity > 0) {
-      inventoryData.items[10] = game::ItemId::DekuStick;
-      inventoryData.inventory_count_register.stick_upgrades = 0;
-      inventoryData.item_counts[13] = (gSettingsContext.startingStickCapacity + 1) * 10;
+      saveData.inventory.items[8] = game::ItemId::DekuStick;
+      saveData.inventory.inventory_count_register.stick_upgrades = 0;
+      saveData.inventory.item_counts[13] = (gSettingsContext.startingStickCapacity) * 10;
     }
 
     if (gSettingsContext.startingNutCapacity > 0) {
-      inventoryData.items[9] = game::ItemId::DekuNuts;
-      inventoryData.inventory_count_register.nut_upgrade = 0;
-      inventoryData.item_counts[14] = (gSettingsContext.startingNutCapacity + 1) * 10;
+      saveData.inventory.items[9] = game::ItemId::DekuNuts;
+      saveData.inventory.inventory_count_register.nut_upgrade = 0;
+      saveData.inventory.item_counts[14] = (gSettingsContext.startingNutCapacity) * 10;
     }
 
     if (gSettingsContext.startingBombBag > 0) {
-      inventoryData.inventory_count_register.bomb_bag_upgrade = game::BombBag::BombBag20;
-      inventoryData.items[6] = game::ItemId::Bomb;
-      inventoryData.item_counts[11] = (gSettingsContext.startingBombBag + 1) * 10;
+      saveData.inventory.inventory_count_register.bomb_bag_upgrade = game::BombBag::BombBag20;
+      saveData.inventory.items[6] = game::ItemId::Bomb;
+      saveData.inventory.item_counts[11] = (gSettingsContext.startingBombBag) * 10;
+      
+    }
+    if (gSettingsContext.startingBombBag > 1) {
+      saveData.inventory.inventory_count_register.bomb_bag_upgrade = game::BombBag::BombBag30;
+      saveData.inventory.items[6] = game::ItemId::Bomb;
+      saveData.inventory.item_counts[11] = (gSettingsContext.startingBombBag) * 10;
+      
+    }
+    if (gSettingsContext.startingBombBag > 2) {
+      saveData.inventory.inventory_count_register.bomb_bag_upgrade = game::BombBag::BombBag40;
+      saveData.inventory.items[6] = game::ItemId::Bomb;
+      saveData.inventory.item_counts[11] = (gSettingsContext.startingBombBag) * 10;
+      
     }
 
     if (gSettingsContext.startingBombchus > 0) {
-      inventoryData.inventory_count_register.bomb_bag_upgrade = game::BombBag::BombBag20;
-      inventoryData.items[7] = game::ItemId::Bombchu;
-      inventoryData.item_counts[12] = 20;
+      //saveData.inventory.inventory_count_register.bomb_bag_upgrade = game::BombBag::BombBag20;
+      saveData.inventory.items[7] = game::ItemId::Bombchu;
+      saveData.inventory.item_counts[12] = 20;
     }
 
     if (gSettingsContext.startingHerosBow > 0) {
-      inventoryData.items[1] = game::ItemId::Arrow;
-      inventoryData.item_counts[6] = (gSettingsContext.startingHerosBow + 2) * 10;
+      saveData.inventory.items[1] = game::ItemId::Arrow;
+      saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver30;
+      saveData.inventory.item_counts[6] = (gSettingsContext.startingHerosBow) * 10;
+    } 
+    if (gSettingsContext.startingHerosBow > 1) {
+      saveData.inventory.items[1] = game::ItemId::Arrow;
+      saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver40;
+      saveData.inventory.item_counts[6] = (gSettingsContext.startingHerosBow) * 10;
+    } 
+    if (gSettingsContext.startingHerosBow > 2) {
+      saveData.inventory.items[1] = game::ItemId::Arrow;
+      saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver50;
+      saveData.inventory.item_counts[6] = (gSettingsContext.startingHerosBow) * 10;
     }
 
     if (gSettingsContext.startingFireArrows) {
-      inventoryData.items[2] = game::ItemId::FireArrow;
+      saveData.inventory.items[2] = game::ItemId::FireArrow;
     }
 
     if (gSettingsContext.startingIceArrows) {
-      inventoryData.items[3] = game::ItemId::IceArrow;
+      saveData.inventory.items[3] = game::ItemId::IceArrow;
     }
 
     if (gSettingsContext.startingLightArrows) {
-      inventoryData.items[4] = game::ItemId::LightArrow;
+      saveData.inventory.items[4] = game::ItemId::LightArrow;
     }
 
     if (gSettingsContext.startingLensOfTruth) {
-      inventoryData.items[14] = game::ItemId::LensOfTruth;
+      saveData.inventory.items[14] = game::ItemId::LensOfTruth;
     }
 
     if (gSettingsContext.startingMagicBean) {
-      inventoryData.items[10] = game::ItemId::MagicBean;
-      inventoryData.item_counts[15] = 10;
+      saveData.inventory.items[10] = game::ItemId::MagicBean;
+      saveData.inventory.item_counts[15] = 10;
     }
 
     if (gSettingsContext.startingHookshot > 0) {
-      inventoryData.items[15] = game::ItemId::Hookshot;
+      saveData.inventory.items[15] = game::ItemId::Hookshot;
+    }
+
+    if (gSettingsContext.startingPowderKeg > 0) {
+      saveData.inventory.items[12] = game::ItemId::PowderKeg;
+    }
+
+    if (gSettingsContext.startingPictographBox > 0) {
+      saveData.inventory.items[13] = game::ItemId::PictographBox;
+    }
+
+    if (gSettingsContext.startingGreatFairySword > 0) {
+      saveData.inventory.items[16] = game::ItemId::GreatFairySword;
     }
 
     SaveFile_GiveStartingBottle((rnd::StartingBottleSetting)gSettingsContext.startingBottle1, 0);
@@ -436,15 +479,202 @@ namespace rnd {
     SaveFile_GiveStartingBottle((rnd::StartingBottleSetting)gSettingsContext.startingBottle7, 6);
 
     if (gSettingsContext.startingOcarina > 0) {
-      inventoryData.items[0] = game::ItemId::Ocarina;
+      saveData.inventory.items[0] = game::ItemId::Ocarina;
     }
 
-    if (gSettingsContext.startingGildedSword == (u8)StartingSwordSetting::STARTINGSWORD_GILDED) {
+    if (gSettingsContext.startingKokiriSword == (u8)StartingSwordSetting::STARTINGSWORD_NONE) {
+      equipmentData.sword_shield.sword = game::SwordType::NoSword;
+      saveData.equipment.data->item_btn_b = game::ItemId::None;
+    }
+
+    if(gSettingsContext.startingKokiriSword == (u8)StartingSwordSetting::STARTINGSWORD_KOKIRI) {
+      equipmentData.sword_shield.sword = game::SwordType::KokiriSword;
+    }
+
+    if (gSettingsContext.startingKokiriSword == (u8)StartingSwordSetting::STARTINGSWORD_GILDED) {
       equipmentData.sword_shield.sword = game::SwordType::GildedSword;
     }
-    if (gSettingsContext.startingRazorSword == (u8)StartingSwordSetting::STARTINGSWORD_RAZOR) {
+    if (gSettingsContext.startingKokiriSword == (u8)StartingSwordSetting::STARTINGSWORD_RAZOR) {
       playerData.razor_sword_hp = RS_SetDurability();
       equipmentData.sword_shield.sword = game::SwordType::RazorSword;
+    }
+    
+    if (gSettingsContext.startingShield == 0){
+      equipmentData.sword_shield.shield = game::ShieldType::NoShield;
+    }
+
+    if (gSettingsContext.startingShield == 1){
+      equipmentData.sword_shield.shield = game::ShieldType::HeroShield;
+    }
+
+    if (gSettingsContext.startingShield == 2){
+      equipmentData.sword_shield.shield = game::ShieldType::MirrorShield;
+    }
+
+    if (gSettingsContext.shuffleStartingShield) {
+      equipmentData.sword_shield.shield = game::ShieldType::NoShield;
+    }
+
+    //Masks
+
+    if (gSettingsContext.startingPostmanHat > 0){
+      inventoryData.masks[0] = game::ItemId::PostmanHat;
+    }
+
+    if (gSettingsContext.startingAllNightMask >0){
+      inventoryData.masks[1] = game::ItemId::AllNightMask;
+    }
+
+    if (gSettingsContext.startingStoneMask > 0){
+      inventoryData.masks[3] = game::ItemId::StoneMask;
+    }
+    
+    if (gSettingsContext.startingBlastMask > 0){
+      inventoryData.masks[2] = game::ItemId::BlastMask;
+    }
+
+    if (gSettingsContext.startingGreatFairyMask > 0) {
+      inventoryData.masks[4] = game::ItemId::GreatFairyMask;
+    }
+
+    if (gSettingsContext.startingDekuMask > 0)
+    {
+      inventoryData.masks[5] = game::ItemId::DekuMask; 
+    }
+
+    if (gSettingsContext.startingKeatonMask > 0) {
+      inventoryData.masks[6] = game::ItemId::KeatonMask;
+    }
+
+    if (gSettingsContext.startingBremenMask > 0) {
+      inventoryData.masks[7] = game::ItemId::BremenMask;
+    }
+
+    if (gSettingsContext.startingBunnyHood > 0) { 
+      inventoryData.masks[8] = game::ItemId::BunnyHood;
+    }
+
+    if (gSettingsContext.startingDonGerosMask > 0) {
+      inventoryData.masks[9] = game::ItemId::DonGeroMask;
+    }
+
+    if (gSettingsContext.startingMaskOfScents > 0) {
+      inventoryData.masks[10] = game::ItemId::MaskOfScents;
+    }
+    
+    if (gSettingsContext.startingGoronMask > 0) {
+      inventoryData.masks[11] = game::ItemId::GoronMask;
+    }
+
+    if (gSettingsContext.startingRomanisMask > 0) {
+      inventoryData.masks[12] = game::ItemId::RomaniMask;
+    }
+
+    if (gSettingsContext.startingCircusLeadersMask > 0) {
+      inventoryData.masks[13] = game::ItemId::CircusLeaderMask;
+    }
+
+    if (gSettingsContext.startingKafeiMask > 0) {
+      inventoryData.masks[14] = game::ItemId::KafeiMask;
+    }
+
+    if (gSettingsContext.startingCouplesMask > 0) {
+      inventoryData.masks[15] = game::ItemId::CoupleMask;
+    }
+
+    if (gSettingsContext.startingMaskOfTruth > 0) {
+      inventoryData.masks[16] = game::ItemId::MaskOfTruth;
+    }
+
+    if (gSettingsContext.startingZoraMask > 0) {
+      inventoryData.masks[17] = game::ItemId::ZoraMask;
+    }
+
+    if (gSettingsContext.startingKamarosMask > 0) {
+      inventoryData.masks[18] = game::ItemId::KamaroMask;
+    }
+
+    if (gSettingsContext.startingGibdosMask > 0) {
+      inventoryData.masks[19] = game::ItemId::GibdoMask;
+    }
+
+    if (gSettingsContext.startingGaroMask > 0) {
+      inventoryData.masks[20] = game::ItemId::GaroMask;
+    }
+
+    if (gSettingsContext.startingCaptainsHat > 0) {
+      inventoryData.masks[21] = game::ItemId::CaptainHat;
+    }
+
+    if (gSettingsContext.startingGiantsMask > 0) {
+      inventoryData.masks[22] = game::ItemId::GiantMask;
+    }
+
+    if (gSettingsContext.startingFierceDietyMask > 0) {
+      inventoryData.masks[23] = game::ItemId::FierceDeityMask;
+    }   
+
+    //Songs
+
+    if (gSettingsContext.startingSongOfHealing >= 0) {
+      saveData.inventory.collect_register.song_of_healing = 1; //until happy mask salesman is overridden
+
+    }
+
+    if (gSettingsContext.startingSongOfSoaring > 0) {
+      saveData.inventory.collect_register.song_of_soaring = 1; 
+
+    }
+
+    if (gSettingsContext.startingSonataOfAwakening > 0) {
+      saveData.inventory.collect_register.sonata_of_awakening = 1; 
+
+    }
+    if (gSettingsContext.startingGoronsLullaby > 0) {
+      saveData.inventory.collect_register.goron_lullaby = 1; 
+
+    }
+    if (gSettingsContext.startingNewWaveBossaNova > 0) {
+      saveData.inventory.collect_register.new_wave_bossa_nova = 1; 
+
+    }
+    if (gSettingsContext.startingElegyOfEmptiness > 0) {
+      saveData.inventory.collect_register.elegy_of_emptiness = 1; 
+
+    }
+    if (gSettingsContext.startingEponasSong > 0) {
+      saveData.inventory.collect_register.eponas_song = 1; 
+
+    }
+    if (gSettingsContext.startingSongOfStorms > 0) {
+      saveData.inventory.collect_register.song_of_storms = 1; 
+
+    }
+    if (gSettingsContext.startingOathToOrder > 0) {
+      saveData.inventory.collect_register.oath_to_order = 1; 
+
+    }
+
+    //Boss Remains
+
+    if (gSettingsContext.startingOdolwaRemains > 0) {
+      inventoryData.collect_register.odolwas_remains = 1; 
+
+    }
+
+    if (gSettingsContext.startingGohtRemains > 0) {
+      inventoryData.collect_register.gohts_remains = 1; 
+
+    }
+
+    if (gSettingsContext.startingGyorgRemains > 0) {
+      inventoryData.collect_register.gyorgs_remains = 1; 
+
+    }
+
+    if (gSettingsContext.startingTwinmoldRemains > 0) {
+      inventoryData.collect_register.twinmolds_remains = 1; 
+
     }
 
     if (gSettingsContext.startingMagicMeter == 1) {
@@ -529,20 +759,15 @@ namespace rnd {
 
   void SaveFile_InitExtSaveData(u32 saveNumber) {
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-    rnd::util::Print("%s: INITING ExtData.\n", __func__);
+    rnd::util::Print("%s: INITING ExtData.\n", __func__);    
 #endif
     gExtSaveData.version = EXTSAVEDATA_VERSION;  // Do not change this line
-    gExtSaveData.isNewFile = 1;
-#if defined ENABLE_DEBUG || defined DEBUG_PRINT
-    util::Print("%s: Size of isNewFile and version is %u and %u", __func__, sizeof(gExtSaveData.isNewFile),
-                sizeof(gExtSaveData.version));
-#endif
     // TODO: BitField for event flags instead?
     // memset(&gExtSaveData.extInf, 0, sizeof(gExtSaveData.extInf));
     memset(&gExtSaveData.aromaGivenItem, 0, sizeof(gExtSaveData.aromaGivenItem));
     memset(&gExtSaveData.grannyGaveReward, 0, sizeof(gExtSaveData.grannyGaveReward));
-
     gExtSaveData.playtimeSeconds = 0;
+    SaveFile_SaveExtSaveData();
     // TODO: Settings options belong in ext.
     // memset(&gExtSaveData.scenesDiscovered, 0, sizeof(gExtSaveData.scenesDiscovered));
     // memset(&gExtSaveData.entrancesDiscovered, 0, sizeof(gExtSaveData.entrancesDiscovered));
@@ -554,21 +779,18 @@ namespace rnd {
     // gExtSaveData.option_SkipSongReplays    = gSettingsContext.skipSongReplays;
   }
 
-  extern "C" void SaveFile_LoadExtSaveData() {
+  void SaveFile_LoadExtSaveData(u32 saveNumber) {
     char path[] = "/0.bin";
     u32 version;
     u64 fileSize;
-    u32 newSave;
-    u16 saveNumber = game::GetCommonData().save_idx;
+
     Result res;
     FS_Archive fsa;
-    Handle fileHandle = extInitFileHandle();
+    Handle fileHandle = extInitFileHandle(); ;
     if (R_FAILED(res = extDataMount(&fsa))) {
-#if defined ENABLE_DEBUG || defined DEBUG_PRINT
       rnd::util::Print("%s: Failed to mount ext data.\n", __func__);
-#endif
       SaveFile_InitExtSaveData(saveNumber);
-      SaveFile_SaveExtSaveData();
+      extEndFSSession();
       return;
     }
 
@@ -578,7 +800,7 @@ namespace rnd {
     if (R_FAILED(res = extDataOpen(&fileHandle, fsa, path))) {
       extDataUnmount(fsa);
       SaveFile_InitExtSaveData(saveNumber);
-      SaveFile_SaveExtSaveData();
+      extEndFSSession();
       return;
     }
 
@@ -586,35 +808,30 @@ namespace rnd {
     // different
     FSFILE_GetSize(fileHandle, &fileSize);
     extDataReadFile(fileHandle, &version, 0, sizeof(version));
-    extDataReadFile(fileHandle, &newSave, 8, sizeof(newSave));
-#if defined ENABLE_DEBUG || defined DEBUG_PRINT
-    rnd::util::Print("%s: Is New file? %u\n", __func__, newSave);
-#endif
-    if (fileSize != sizeof(gExtSaveData) || version != EXTSAVEDATA_VERSION || gExtSaveData.isNewFile == 1) {
+    rnd::util::Print("%s: Filesize is %u", __func__, fileSize);
+    if (fileSize != sizeof(gExtSaveData) || version != EXTSAVEDATA_VERSION) {
       extDataClose(fileHandle);
       extDataDeleteFile(fsa, path);
-      SaveFile_InitExtSaveData(saveNumber);
-      gExtSaveData.isNewFile = 0;
-      extDataWriteFileDirectly(fsa, path, &gExtSaveData, 0, sizeof(gExtSaveData));
       extDataUnmount(fsa);
+      extEndFSSession();
+      SaveFile_InitExtSaveData(saveNumber);
       return;
     }
 
     extDataReadFile(fileHandle, &gExtSaveData, 0, sizeof(gExtSaveData));
 
-    extDataUnmount(fsa);
     extDataClose(fileHandle);
+    extDataUnmount(fsa);
+    extEndFSSession();
   }
   extern "C" void SaveFile_SaveExtSaveData() {
-#if defined ENABLE_DEBUG || defined DEBUG_PRINT
-    rnd::util::Print("%s: Saving extdata.\n", __func__);
-#endif
+    rnd::util::Print("%s: Saving on owl.\n", __func__);
     game::CommonData& comData = game::GetCommonData();
     char path[] = "/0.bin";
 
     Result res;
     FS_Archive fsa;
-    extInitFileHandle();
+
     if (R_FAILED(res = extDataMount(&fsa))) {
       return;
     }
@@ -622,10 +839,9 @@ namespace rnd {
     path[1] = comData.save_idx + '0';
 
     extDataWriteFileDirectly(fsa, path, &gExtSaveData, 0, sizeof(gExtSaveData));
-#if defined ENABLE_DEBUG || defined DEBUG_PRINT
-    util::Print("%s: Unmounting now...\n", __func__);
-#endif
+
     extDataUnmount(fsa);
+    extEndFSSession();
   }
 
 }  // namespace rnd
