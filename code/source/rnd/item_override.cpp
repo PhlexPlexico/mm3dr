@@ -56,8 +56,7 @@ namespace rnd {
     rDummyActor->parent_actor = NULL;
   }
 
-  static ItemOverride_Key ItemOverride_GetSearchKey(game::act::Actor* actor, u16 scene,
-                                                    s16 getItemId) {
+  static ItemOverride_Key ItemOverride_GetSearchKey(game::act::Actor* actor, u16 scene, s16 getItemId) {
     game::CommonData& cdata = game::GetCommonData();
     ItemOverride_Key retKey;
     retKey.all = 0;
@@ -72,9 +71,10 @@ namespace rnd {
       // }
       retKey.scene = scene;
       retKey.type = ItemOverride_Type::OVR_CHEST;
-// #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-//       util::Print("%s Our flag is actually %#06x and & 0x1F is %#06x\n", __func__, actor->params, actor->params & 0x1F);
-// #endif
+      // #if defined ENABLE_DEBUG || defined DEBUG_PRINT
+      //       util::Print("%s Our flag is actually %#06x and & 0x1F is %#06x\n", __func__,
+      //       actor->params, actor->params & 0x1F);
+      // #endif
       retKey.flag = actor->params & 0x1F;
       return retKey;
     } else if (actor->actor_type == game::act::Type::Misc) {  // Heart pieces are misc apparently
@@ -154,8 +154,7 @@ namespace rnd {
     rActiveItemActionId = itemRow->itemId;
     rActiveItemTextId = itemRow->textId;
     rActiveItemObjectId = itemRow->objectId;
-    rActiveItemGraphicId =
-        looksLikeItemId ? ItemTable_GetItemRow(looksLikeItemId)->graphicId : itemRow->graphicId;
+    rActiveItemGraphicId = looksLikeItemId ? ItemTable_GetItemRow(looksLikeItemId)->graphicId : itemRow->graphicId;
     rActiveItemFastChest = (u32)itemRow->chestType & 0x01;
   }
 
@@ -396,16 +395,16 @@ namespace rnd {
       gExtSaveData.grannyGaveReward++;
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
       rnd::util::Print("%s: Granny give reward is currently %u, should be incremented.\n", __func__,
-#endif
                        gExtSaveData.grannyGaveReward);
+#endif
     } else if (actorId == game::act::Id::NpcEnBjt) {
       getItemId = incomingNegative ? -0x01 : 0x01;
     } else if (actorId == game::act::Id::NpcSwampPhotographer) {
       getItemId = incomingNegative ? -0xBA : 0xBA;
     } else if (actorId == game::act::Id::NpcInvisibleGuard) {
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-      rnd::util::Print("%s: Invisilbe Stone Man give reward is currently %u, incrementing.\n",
-                       __func__, gExtSaveData.stoneMaskReward);
+      rnd::util::Print("%s: Invisilbe Stone Man give reward is currently %u, incrementing.\n", __func__,
+                       gExtSaveData.stoneMaskReward);
 #endif
       if (gExtSaveData.stoneMaskReward > 0) {
         getItemId = incomingNegative ? -0xBA : 0xBA;
@@ -431,15 +430,15 @@ namespace rnd {
     if (rActiveItemRow != NULL) {
       if (rActiveItemOverride.key.type == ItemOverride_Type::OVR_CHEST) {
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-        rnd::util::Print("%s: Item Override is the chest right now. Our activeItemRow itemId is %06x\n", __func__, rActiveItemRow->itemId);
+        rnd::util::Print("%s: Item Override is the chest right now. Our activeItemRow itemId is %06x\n", __func__,
+                         rActiveItemRow->itemId);
 #endif
         if (rActiveItemRow->itemId < 0x28 && rActiveItemRow->itemId > 0x30) {
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-            rnd::util::Print("%s:\n", __func__);
+          rnd::util::Print("%s:\n", __func__);
 #endif
           gExtSaveData.chestRewarded[rActiveItemOverride.key.scene][rActiveItemOverride.key.flag] = 1;
         }
-          
       }
       game::GlobalContext* gctx = rnd::GetContext().gctx;
       // int retVal;
@@ -449,21 +448,20 @@ namespace rnd {
       gctx->ShowMessage(textId, actor);
       // Get_Item_Handler. Don't give ice traps, since it may cause UB.
       if (itemId != (u8)game::ItemId::X82) {
-        rnd::util::GetPointer<int(game::GlobalContext*, game::ItemId)>(0x233BEC)(
-            gctx, (game::ItemId)itemId);
+        rnd::util::GetPointer<int(game::GlobalContext*, game::ItemId)>(0x233BEC)(gctx, (game::ItemId)itemId);
       }
       ItemOverride_AfterItemReceived();
     }
   }
 
-  void ItemOverride_GetItem(game::GlobalContext* gctx, game::act::Actor* fromActor,
-                            game::act::Player* player, s16 incomingGetItemId) {
+  void ItemOverride_GetItem(game::GlobalContext* gctx, game::act::Actor* fromActor, game::act::Player* player,
+                            s16 incomingGetItemId) {
     ItemOverride override = {0};
     s32 incomingNegative = incomingGetItemId < 0;
     if (fromActor != NULL && incomingGetItemId != 0) {
-// #if defined ENABLE_DEBUG || DEBUG_PRINT
-//       rnd::util::Print("%s: Our actor ID is %#06x\n", __func__, fromActor->id);
-// #endif
+      // #if defined ENABLE_DEBUG || DEBUG_PRINT
+      //       rnd::util::Print("%s: Our actor ID is %#06x\n", __func__, fromActor->id);
+      // #endif
       s16 getItemId = ItemOverride_CheckNpc(fromActor->id, incomingGetItemId, incomingNegative);
       override = ItemOverride_Lookup(fromActor, (u16)gctx->scene, getItemId);
     }
@@ -494,8 +492,7 @@ namespace rnd {
     return;
   }
 
-  void ItemOverride_GetFairyRewardItem(game::GlobalContext* gctx, game::act::Actor* fromActor,
-                                       s16 incomingItemId) {
+  void ItemOverride_GetFairyRewardItem(game::GlobalContext* gctx, game::act::Actor* fromActor, s16 incomingItemId) {
     ItemOverride override = {0};
     s32 incomingNegative = incomingItemId < 0;
     if (fromActor != NULL && incomingItemId != 0) {
@@ -522,7 +519,7 @@ namespace rnd {
       rActiveItemRow->effectArg1 = override.key.all >> 16;
       rActiveItemRow->effectArg2 = override.key.all & 0xFFFF;
     }
-    
+
     if (game::GetCommonData().save.player.anonymous_18 == 0) {
       game::GetCommonData().save.player.anonymous_18 = 1;
       // Since we're in control here, use the GetItemId and not the item id.

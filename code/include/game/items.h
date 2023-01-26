@@ -170,10 +170,10 @@ namespace game {
     TenSticksAgain = 0x8c,
     FiveNuts = 0x8d,
     TenNuts = 0x8e,
-    FiveBombs = 0x8f,  // These are no item above head and allows player to move around with textbox
-                       // for GetItem Tables.
-    TenBombs = 0x90,   // These are no item above head and allows player to move around with textbox
-                       // for GetItem Tables.
+    FiveBombs = 0x8f,    // These are no item above head and allows player to move around with textbox
+                         // for GetItem Tables.
+    TenBombs = 0x90,     // These are no item above head and allows player to move around with textbox
+                         // for GetItem Tables.
     TwentyBombs = 0x91,  // These are no item above head and allows player to move around with
                          // textbox for GetItem Tables.
     ThirtyBombs = 0x92,  // These are no item above head and allows player to move around with
@@ -215,18 +215,14 @@ namespace game {
   static_assert(sizeof(GetItemEntry) == 0x8);
 
   const ItemId MaskSlots[] = {
-      ItemId::PostmanHat,  ItemId::AllNightMask,     ItemId::StoneMask,
-      ItemId::BlastMask,   ItemId::GreatFairyMask,   ItemId::DekuMask,
-      ItemId::KeatonMask,  ItemId::BremenMask,       ItemId::BunnyHood,
-      ItemId::DonGeroMask, ItemId::MaskOfScents,     ItemId::GoronMask,
-      ItemId::RomaniMask,  ItemId::CircusLeaderMask, ItemId::KafeiMask,
-      ItemId::CoupleMask,  ItemId::MaskOfTruth,      ItemId::ZoraMask,
-      ItemId::KamaroMask,  ItemId::GibdoMask,        ItemId::GaroMask,
-      ItemId::CaptainHat,  ItemId::GiantMask,        ItemId::FierceDeityMask};
+      ItemId::PostmanHat,   ItemId::AllNightMask, ItemId::StoneMask,  ItemId::BlastMask,        ItemId::GreatFairyMask,
+      ItemId::DekuMask,     ItemId::KeatonMask,   ItemId::BremenMask, ItemId::BunnyHood,        ItemId::DonGeroMask,
+      ItemId::MaskOfScents, ItemId::GoronMask,    ItemId::RomaniMask, ItemId::CircusLeaderMask, ItemId::KafeiMask,
+      ItemId::CoupleMask,   ItemId::MaskOfTruth,  ItemId::ZoraMask,   ItemId::KamaroMask,       ItemId::GibdoMask,
+      ItemId::GaroMask,     ItemId::CaptainHat,   ItemId::GiantMask,  ItemId::FierceDeityMask};
 
   // Ordered from inventory.cpp.
-  const u32 MaskSlotsOrdered[] = {0,  1,  3,  2,  4,  5,  6,  7,  8,  9,  10, 11,
-                                  12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23};
+  const u32 MaskSlotsOrdered[] = {0, 1, 3, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23};
 
   constexpr bool ItemIsBottled(ItemId item) {
     return ItemId::Bottle <= item && item <= ItemId::MysteryMilkSpoiled;

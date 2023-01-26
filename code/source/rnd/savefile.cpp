@@ -20,8 +20,8 @@ namespace rnd {
     u8 isNewFile = saveData.has_completed_intro;
     if (isNewFile == 0) {
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-      rnd::util::Print("%s: Initing save file. Our save index is %u\nAre we a new file? %#04x\n",
-                       __func__, comData.save_idx, saveData.has_completed_intro);
+      rnd::util::Print("%s: Initing save file. Our save index is %u\nAre we a new file? %#04x\n", __func__,
+                       comData.save_idx, saveData.has_completed_intro);
 #endif
 #ifdef ENABLE_DEBUG
       saveData.equipment.sword_shield.sword = game::SwordType::GildedSword;
@@ -259,8 +259,7 @@ namespace rnd {
       saveData.bomberscode[2] = 0x01;
       saveData.bomberscode[3] = 0x01;
       saveData.bomberscode[4] = 0x01;
-      saveData.temp_event_flag_bundle1.bomber_open_hideout =
-          1;  // Currently gets reset by Song of time
+      saveData.temp_event_flag_bundle1.bomber_open_hideout = 1;  // Currently gets reset by Song of time
     }
 
     // Game uses an inventory check to determine whether you can
@@ -334,8 +333,7 @@ namespace rnd {
     game::EquipmentData& equipmentData = game::GetCommonData().save.equipment;
     game::SaveData& saveData = game::GetCommonData().save;
     // give maps and compasses
-    if (gSettingsContext.mapsAndCompasses ==
-        (u8)MapsAndCompassesSetting::MAPSANDCOMPASSES_ANY_DUNGEON) {
+    if (gSettingsContext.mapsAndCompasses == (u8)MapsAndCompassesSetting::MAPSANDCOMPASSES_ANY_DUNGEON) {
       inventoryData.woodfall_dungeon_items.map = 1;
       inventoryData.woodfall_dungeon_items.compass = 1;
       inventoryData.snowhead_dungeon_items.map = 1;
@@ -345,8 +343,7 @@ namespace rnd {
       inventoryData.stone_tower_dungeon_items.map = 1;
       inventoryData.stone_tower_dungeon_items.compass = 1;
     }
-    if (gSettingsContext.mapsAndCompasses ==
-        (u8)MapsAndCompassesSetting::MAPSANDCOMPASSES_OVERWORLD) {
+    if (gSettingsContext.mapsAndCompasses == (u8)MapsAndCompassesSetting::MAPSANDCOMPASSES_OVERWORLD) {
       SaveFile_FillOverWorldMapData();
     }
 
@@ -537,8 +534,8 @@ namespace rnd {
     gExtSaveData.version = EXTSAVEDATA_VERSION;  // Do not change this line
     gExtSaveData.isNewFile = 1;
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-    util::Print("%s: Size of isNewFile and version is %u and %u", __func__,
-                sizeof(gExtSaveData.isNewFile), sizeof(gExtSaveData.version));
+    util::Print("%s: Size of isNewFile and version is %u and %u", __func__, sizeof(gExtSaveData.isNewFile),
+                sizeof(gExtSaveData.version));
 #endif
     // TODO: BitField for event flags instead?
     // memset(&gExtSaveData.extInf, 0, sizeof(gExtSaveData.extInf));
@@ -593,8 +590,7 @@ namespace rnd {
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
     rnd::util::Print("%s: Is New file? %u\n", __func__, newSave);
 #endif
-    if (fileSize != sizeof(gExtSaveData) || version != EXTSAVEDATA_VERSION ||
-        gExtSaveData.isNewFile == 1) {
+    if (fileSize != sizeof(gExtSaveData) || version != EXTSAVEDATA_VERSION || gExtSaveData.isNewFile == 1) {
       extDataClose(fileHandle);
       extDataDeleteFile(fsa, path);
       SaveFile_InitExtSaveData(saveNumber);

@@ -249,8 +249,7 @@ namespace game::ui {
     virtual void init0(LayoutBase* layout, const char* name);
     virtual void init(LayoutBase* layout, const char* name);
     virtual void reset();
-    virtual void calc(z3d_nn_math_MTX34& mtx, z3dVec4f& vec, z3d_nn_math_MTX23& mtx23, int,
-                      float time_delta);
+    virtual void calc(z3d_nn_math_MTX34& mtx, z3dVec4f& vec, z3d_nn_math_MTX23& mtx23, int, float time_delta);
 
     const char* GetName() const { return name; }
     WidgetType GetType() const;
@@ -387,11 +386,10 @@ namespace game::ui {
   class LayoutBase {
   public:
     virtual ~LayoutBase();
-    virtual void init(LayoutClass*, MainWidget** main_widgets, int num_main_widgets,
-                      AnimPlayer** players, int num_players, const char* name);
+    virtual void init(LayoutClass*, MainWidget** main_widgets, int num_main_widgets, AnimPlayer** players,
+                      int num_players, const char* name);
     virtual void m3();
-    virtual void calc(z3d_nn_math_MTX34& mtx, z3dVec4f& vec, z3d_nn_math_MTX23& mtx2, int,
-                      float time_delta);
+    virtual void calc(z3d_nn_math_MTX34& mtx, z3dVec4f& vec, z3d_nn_math_MTX23& mtx2, int, float time_delta);
 
     void calc(float time_delta = 0.033333);
 
@@ -421,8 +419,7 @@ namespace game::ui {
   public:
     // Usually called from the calc function to detect on-screen button presses and update button
     // state accordingly.
-    virtual void HandleTouch(bool a, bool b, bool c, ScreenContext& ctx, int d, float time_delta,
-                             float x, float y);
+    virtual void HandleTouch(bool a, bool b, bool c, ScreenContext& ctx, int d, float time_delta, float x, float y);
     virtual void m6();
     virtual void DoInit();
     virtual void m8();

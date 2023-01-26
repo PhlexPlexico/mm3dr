@@ -46,8 +46,7 @@ static inline u32 makeARMBranch(const void* src, const void* dst,
 {
   u32 instrBase = link ? 0xEB000000 : 0xEA000000;
   u32 off = (u32)((const u8*)dst -
-                  ((const u8*)src +
-                   8));  // the PC is always two instructions ahead of the one being executed
+                  ((const u8*)src + 8));  // the PC is always two instructions ahead of the one being executed
 
   return instrBase | ((off >> 2) & 0xFFFFFF);
 }
