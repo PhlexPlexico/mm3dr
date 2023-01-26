@@ -44,8 +44,7 @@ namespace game {
     int customEnd = numCustomMessageEntries - 1;
     bool isCustom = false;
     const auto get_entry = [this](size_t idx) {
-      return reinterpret_cast<const MessageResEntry*>((const u8*)res_entries +
-                                                      res_entry_size * idx);
+      return reinterpret_cast<const MessageResEntry*>((const u8*)res_entries + res_entry_size * idx);
     };
     const auto get_custom_entry = [this](size_t idx) {
       return reinterpret_cast<const MessageResEntry*>((const u8*)ptrCustomMessageEntries + idx);
@@ -124,12 +123,11 @@ namespace game {
       auto& text = msg->texts[i];
       text.reader = rnd::util::GetPointer<MessageReader*(Language)>(0x1C519C)(Language(i));
       if (res_header->languages.IsSet(Language(i))) {
-#ifdef ENABLE_DEBUG
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
 // rnd::util::Print("%s: Here's some info for text length: %u\n", __func__,
 // entry->texts[res_idx].length);
 #endif
-        text.ptr = isCustom ? (u8*)entry->texts[res_idx].offset :
-                              (u8*)res_header + (u32)entry->texts[res_idx].offset;
+        text.ptr = isCustom ? (u8*)entry->texts[res_idx].offset : (u8*)res_header + (u32)entry->texts[res_idx].offset;
         text.size = entry->texts[res_idx].length;
         ++res_idx;
       } else {

@@ -24,9 +24,9 @@ SECTIONS{
 		*(.patch_DecoupleStartSelect)
 	}
 
-	.patch_AttemptKeepChestsClosed 0x1c9300 : {
+	/* .patch_AttemptKeepChestsClosed 0x1c9300 : {
 		*(.patch_AttemptKeepChestsClosed)
-	}
+	} */
 
 	.patch_DoNotRemoveKeys 0x1c9b94 : {
 		*(.patch_DoNotRemoveKeys)
@@ -108,9 +108,13 @@ SECTIONS{
 		*(.patch_OverrideItemID)
 	}
 
-	.patch_OverrideFairyGiveItemOne 0x3BECB4 : {
+	.patch_OverrideFairyGiveItemOne 0x3BECB8 : {
 		*(.patch_OverrideFairyGiveItemOne)
 	}
+
+	/* .patch_OverrideFairyItemAnonStruct 0x3BECD4 : {
+		*(.patch_OverrideFairyItemAnonStruct)
+	} */
 
 	/* .patch_OverrideGreatFairyText 0x3b783c : {
 		*(.patch_OverrideGreatFairyText)

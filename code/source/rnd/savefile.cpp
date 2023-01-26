@@ -20,8 +20,8 @@ namespace rnd {
     u8 isNewFile = saveData.has_completed_intro;
     if (isNewFile == 0) {
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-      rnd::util::Print("%s: Initing save file. Our save index is %u\nAre we a new file? %#04x\n",
-                       __func__, comData.save_idx, saveData.has_completed_intro);
+      rnd::util::Print("%s: Initing save file. Our save index is %u\nAre we a new file? %#04x\n", __func__,
+                       comData.save_idx, saveData.has_completed_intro);
 #endif
 #ifdef ENABLE_DEBUG
       saveData.equipment.sword_shield.sword = game::SwordType::GildedSword;
@@ -259,8 +259,7 @@ namespace rnd {
       saveData.bomberscode[2] = 0x01;
       saveData.bomberscode[3] = 0x01;
       saveData.bomberscode[4] = 0x01;
-      saveData.temp_event_flag_bundle1.bomber_open_hideout =
-          1;  // Currently gets reset by Song of time
+      saveData.temp_event_flag_bundle1.bomber_open_hideout = 1;  // Currently gets reset by Song of time
     }
 
     // Game uses an inventory check to determine whether you can
@@ -334,8 +333,7 @@ namespace rnd {
     game::EquipmentData& equipmentData = game::GetCommonData().save.equipment;
     game::SaveData& saveData = game::GetCommonData().save;
     // give maps and compasses
-    if (gSettingsContext.mapsAndCompasses ==
-        (u8)MapsAndCompassesSetting::MAPSANDCOMPASSES_ANY_DUNGEON) {
+    if (gSettingsContext.mapsAndCompasses == (u8)MapsAndCompassesSetting::MAPSANDCOMPASSES_ANY_DUNGEON) {
       inventoryData.woodfall_dungeon_items.map = 1;
       inventoryData.woodfall_dungeon_items.compass = 1;
       inventoryData.snowhead_dungeon_items.map = 1;
@@ -345,8 +343,7 @@ namespace rnd {
       inventoryData.stone_tower_dungeon_items.map = 1;
       inventoryData.stone_tower_dungeon_items.compass = 1;
     }
-    if (gSettingsContext.mapsAndCompasses ==
-        (u8)MapsAndCompassesSetting::MAPSANDCOMPASSES_OVERWORLD) {
+    if (gSettingsContext.mapsAndCompasses == (u8)MapsAndCompassesSetting::MAPSANDCOMPASSES_OVERWORLD) {
       SaveFile_FillOverWorldMapData();
     }
 
@@ -536,8 +533,10 @@ namespace rnd {
 #endif
     gExtSaveData.version = EXTSAVEDATA_VERSION;  // Do not change this line
     gExtSaveData.isNewFile = 1;
-    util::Print("%s: Size of isNewFile and version is %u and %u", __func__,
-                sizeof(gExtSaveData.isNewFile), sizeof(gExtSaveData.version));
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+    util::Print("%s: Size of isNewFile and version is %u and %u", __func__, sizeof(gExtSaveData.isNewFile),
+                sizeof(gExtSaveData.version));
+#endif
     // TODO: BitField for event flags instead?
     // memset(&gExtSaveData.extInf, 0, sizeof(gExtSaveData.extInf));
     memset(&gExtSaveData.aromaGivenItem, 0, sizeof(gExtSaveData.aromaGivenItem));
@@ -565,7 +564,9 @@ namespace rnd {
     FS_Archive fsa;
     Handle fileHandle = extInitFileHandle();
     if (R_FAILED(res = extDataMount(&fsa))) {
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
       rnd::util::Print("%s: Failed to mount ext data.\n", __func__);
+#endif
       SaveFile_InitExtSaveData(saveNumber);
       SaveFile_SaveExtSaveData();
       return;
@@ -586,9 +587,10 @@ namespace rnd {
     FSFILE_GetSize(fileHandle, &fileSize);
     extDataReadFile(fileHandle, &version, 0, sizeof(version));
     extDataReadFile(fileHandle, &newSave, 8, sizeof(newSave));
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
     rnd::util::Print("%s: Is New file? %u\n", __func__, newSave);
-    if (fileSize != sizeof(gExtSaveData) || version != EXTSAVEDATA_VERSION ||
-        gExtSaveData.isNewFile == 1) {
+#endif
+    if (fileSize != sizeof(gExtSaveData) || version != EXTSAVEDATA_VERSION || gExtSaveData.isNewFile == 1) {
       extDataClose(fileHandle);
       extDataDeleteFile(fsa, path);
       SaveFile_InitExtSaveData(saveNumber);
@@ -604,7 +606,9 @@ namespace rnd {
     extDataClose(fileHandle);
   }
   extern "C" void SaveFile_SaveExtSaveData() {
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
     rnd::util::Print("%s: Saving extdata.\n", __func__);
+#endif
     game::CommonData& comData = game::GetCommonData();
     char path[] = "/0.bin";
 
@@ -618,7 +622,9 @@ namespace rnd {
     path[1] = comData.save_idx + '0';
 
     extDataWriteFileDirectly(fsa, path, &gExtSaveData, 0, sizeof(gExtSaveData));
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
     util::Print("%s: Unmounting now...\n", __func__);
+#endif
     extDataUnmount(fsa);
   }
 

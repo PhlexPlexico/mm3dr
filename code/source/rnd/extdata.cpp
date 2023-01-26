@@ -41,9 +41,8 @@ namespace rnd {
 
     FS_Path iconPath = {PATH_BINARY, sizeof(iconLowPath), &iconLowPath};
     // Open icon
-    if (R_FAILED(res =
-                     FSUSER_OpenFileDirectly(&icnHandle, ARCHIVE_ROMFS, fsMakePath(PATH_EMPTY, ""),
-                                             iconPath, FS_OPEN_READ, 0))) {
+    if (R_FAILED(res = FSUSER_OpenFileDirectly(&icnHandle, ARCHIVE_ROMFS, fsMakePath(PATH_EMPTY, ""), iconPath,
+                                               FS_OPEN_READ, 0))) {
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
       rnd::util::Print("%s: Opened icon FAILED.\n", __func__);
 #endif
@@ -150,8 +149,7 @@ namespace rnd {
     return bytes_read;
   }
 
-  u32 extDataReadFileDirectly(FS_Archive fsa, char* filename, void* buf_out, u64 offset,
-                              u32 count) {
+  u32 extDataReadFileDirectly(FS_Archive fsa, char* filename, void* buf_out, u64 offset, u32 count) {
     Result res;
     Handle handle = extInitFileHandle();
     u32 bytes_read;
@@ -172,8 +170,7 @@ namespace rnd {
     Result res;
     u32 bytes_written;
 
-    if (R_FAILED(
-            res = FSFILE_Write(handle, &bytes_written, offset, buf, count, FS_WRITE_UPDATE_TIME))) {
+    if (R_FAILED(res = FSFILE_Write(handle, &bytes_written, offset, buf, count, FS_WRITE_UPDATE_TIME))) {
       bytes_written = res;
     }
 
@@ -220,8 +217,7 @@ namespace rnd {
       }
     }
 
-    if (R_FAILED(
-            res = FSFILE_Write(handle, &bytes_written, offset, buf, count, FS_WRITE_UPDATE_TIME))) {
+    if (R_FAILED(res = FSFILE_Write(handle, &bytes_written, offset, buf, count, FS_WRITE_UPDATE_TIME))) {
       res = -3;
       bytes_written = res;
     }

@@ -18,8 +18,7 @@ namespace rnd {
     const auto set_ocarina_fadeout = util::GetPointer<void(int zero, int duration)>(0x4FE0BC);
     set_ocarina_fadeout(0, fade_durations[u8(gctx->GetPlayerActor()->active_form)]);
 
-    const auto set_ocarina_mode =
-        util::GetPointer<void(game::ui::MessageWindow*, int mode)>(0x1D1A18);
+    const auto set_ocarina_mode = util::GetPointer<void(game::ui::MessageWindow*, int mode)>(0x1D1A18);
     set_ocarina_mode(window, 1);
 
     // Disable BGM fadeout

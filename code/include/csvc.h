@@ -22,10 +22,9 @@
 
 /// Operations for svcControlService
 typedef enum ServiceOp {
-  SERVICEOP_STEAL_CLIENT_SESSION =
-      0,               ///< Steal a client session given a service or global port name
-  SERVICEOP_GET_NAME,  ///< Get the name of a service or global port given a client or session
-                       ///< handle
+  SERVICEOP_STEAL_CLIENT_SESSION = 0,  ///< Steal a client session given a service or global port name
+  SERVICEOP_GET_NAME,                  ///< Get the name of a service or global port given a client or session
+                                       ///< handle
 } ServiceOp;
 
 /**
@@ -114,8 +113,7 @@ Result svcQueryMemory(MemInfo* info, PageInfo* out, u32 addr);
  *
  * @sa svcControlMemory
  */
-Result svcControlMemoryEx(u32* addr_out, u32 addr0, u32 addr1, u32 size, MemOp op, MemPerm perm,
-                          bool isLoader);
+Result svcControlMemoryEx(u32* addr_out, u32 addr0, u32 addr1, u32 size, MemOp op, MemPerm perm, bool isLoader);
 ///@}
 
 ///@name System

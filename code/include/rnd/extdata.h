@@ -116,7 +116,7 @@ namespace rnd {
  * @param fsa FS_Archive : The archive obtained from extDataMount.
  * @param filename char* : The path to the file to open in the extData.
  */
-#define extDataOpen(out, fsa, filename)                                                            \
+#define extDataOpen(out, fsa, filename)                                                                                \
   FSUSER_OpenFile(out, fsa, fsMakePath(PATH_ASCII, filename), FS_OPEN_WRITE | FS_OPEN_READ, 0)
 
 /**

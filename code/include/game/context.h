@@ -153,9 +153,7 @@ namespace game {
 
   // Likely incomplete.
   struct GlobalContext : State {
-    bool IsPaused() const {
-      return pause_flags.IsOneSet(PauseFlag::PauseCalc, PauseFlag::PauseDraw);
-    }
+    bool IsPaused() const { return pause_flags.IsOneSet(PauseFlag::PauseCalc, PauseFlag::PauseDraw); }
 
     act::Actor* FindActorWithId(act::Id id, act::Type type) const;
     template <typename T>
@@ -169,8 +167,7 @@ namespace game {
 
     act::Player* GetPlayerActor() const;
 
-    act::Actor* SpawnActor(act::Actor* actor, act::Id id, u16 rx, u16 ry, u16 rz, u16 param,
-                           z3dVec3f pos);
+    act::Actor* SpawnActor(act::Actor* actor, act::Id id, u16 rx, u16 ry, u16 rz, u16 param, z3dVec3f pos);
     act::Actor* SpawnActor(act::Id id, u16 rx, u16 ry, u16 rz, u16 param, z3dVec3f pos);
     void ChangeActorType(act::Actor& actor, act::Type type);
 

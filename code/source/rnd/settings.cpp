@@ -58,10 +58,8 @@ namespace rnd {
   // Bowling are turned off, and fairies restore 3 hearts Otherwise, they grant a full heal, and the
   // default effect applies (full heal from bottle, 8 hearts on contact)
   u32 Settings_SetFullHealthRestore(u8 setAmount) {
-    if ((gSettingsContext.heartDropRefill ==
-         (u8)HeartDropRefillSetting::HEARTDROPREFILL_NOREFILL) ||
-        (gSettingsContext.heartDropRefill ==
-         (u8)HeartDropRefillSetting::HEARTDROPREFILL_NODROPREFILL)) {
+    if ((gSettingsContext.heartDropRefill == (u8)HeartDropRefillSetting::HEARTDROPREFILL_NOREFILL) ||
+        (gSettingsContext.heartDropRefill == (u8)HeartDropRefillSetting::HEARTDROPREFILL_NODROPREFILL)) {
       return setAmount;
     } else {
       return 0x140;

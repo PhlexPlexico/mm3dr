@@ -10,8 +10,7 @@ namespace game::act {
 
   static void PlayerChangeStateToStill(Player* player, GlobalContext* gctx) {
     constexpr float speed_maybe = -6.0;
-    rnd::util::GetPointer<void(Player*, GlobalContext*, float)>(0x1E6500)(player, gctx,
-                                                                          speed_maybe);
+    rnd::util::GetPointer<void(Player*, GlobalContext*, float)>(0x1E6500)(player, gctx, speed_maybe);
   }
 
   FormParam& GetFormParam(FormParamIndex idx) {
@@ -37,12 +36,11 @@ namespace game::act {
 
     if (active_form == Player::Form::Deku) {
       // Playing the Honey and Darling shooting minigame as Deku Link.
-      info.can_use = cdata.save.player.magic >= 2 ||
-                     ((cdata.save.anonymous_72 & 1) && gctx->scene == SceneId::HoneyAndDarling);
+      info.can_use =
+          cdata.save.player.magic >= 2 || ((cdata.save.anonymous_72 & 1) && gctx->scene == SceneId::HoneyAndDarling);
     } else {
-      info.can_use = flags3.IsSet(Flag3::DekuStuffMaybe) ||
-                     (cdata.field_3696 == 1 && gctx->hud_state.field_244) || gctx->field_C531 ||
-                     rnd::util::GetPointer<bool(ItemId)>(0x224EF8)(info.item_id);
+      info.can_use = flags3.IsSet(Flag3::DekuStuffMaybe) || (cdata.field_3696 == 1 && gctx->hud_state.field_244) ||
+                     gctx->field_C531 || rnd::util::GetPointer<bool(ItemId)>(0x224EF8)(info.item_id);
     }
 
     return info;
@@ -82,9 +80,9 @@ namespace game::act {
       statue->timer = 0;
     } else if (player->timer > 5) {
       auto* statue = gctx->elegy_statues[u8(player->active_form)];
-      const bool statue_ready = !statue || (statue->pos.pos.x == player->pos.pos.x &&
-                                            statue->pos.pos.y == player->pos.pos.y &&
-                                            statue->pos.pos.z == player->pos.pos.z);
+      const bool statue_ready =
+          !statue || (statue->pos.pos.x == player->pos.pos.x && statue->pos.pos.y == player->pos.pos.y &&
+                      statue->pos.pos.z == player->pos.pos.z);
       if (player->timer > 135 || statue_ready) {
         gctx->ocarina_state = OcarinaState::StoppedPlaying;
         PlayerChangeStateToStill(player, gctx);

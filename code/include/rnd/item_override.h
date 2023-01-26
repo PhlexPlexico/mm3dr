@@ -28,11 +28,11 @@ namespace rnd {
     /* 0x0E */ GI_MAGIC_POT_SMALL,              // Item above head, no animation like 0x01.
     /* 0x0F */ GI_MAGIC_POT_LARGE,              // Item above head, no animation like 0x01.
     /* 0x10 */ GI_RECOVERY_HEART_SINGLE_THREE,  // No actor, just sound and recovery.
-    /* 0x11 */  // GI_ERROR_NOTHING_11, // Item above head, no animation like 0x01.
+    /* 0x11 */                                  // GI_ERROR_NOTHING_11, // Item above head, no animation like 0x01.
     /* 0x12 */ GI_RECOVERY_HEART_SINGLE_FOUR = 0x12,  // No actor, just sound and recovery.
     /* 0x13 */ GI_RECOVERY_HEART_SINGLE_FIVE,         // No actor, just sound and recovery.,
-    /* 0x14 */ GI_BOMBS_1,  // Item above head, no animation like 0x01. Bomb bag required.
-    /* 0x15 */ GI_BOMBS_5,  // Item above head, no animation like 0x01.
+    /* 0x14 */ GI_BOMBS_1,                            // Item above head, no animation like 0x01. Bomb bag required.
+    /* 0x15 */ GI_BOMBS_5,                            // Item above head, no animation like 0x01.
     /* 0x16 */ GI_BOMBS_10,
     /* 0x17 */ GI_BOMBS_20,
     /* 0x18 */ GI_BOMBS_30,
@@ -79,8 +79,8 @@ namespace rnd {
     /* 0x40 */ GI_ERROR_NOTHING_40,  // ***ERROR TEXT Get Item Nothing in hand - Green Rupee with
                                      // Ocarina in Inventory
                                      // XXX: ICE TRAP
-    /* 0x41 */ GI_HOOKSHOT,  // ***ERROR TEXT Get Item Nothing in hand - Green Rupee with Ocarina in
-                             // Inventory
+    /* 0x41 */ GI_HOOKSHOT,          // ***ERROR TEXT Get Item Nothing in hand - Green Rupee with Ocarina in
+                                     // Inventory
     /* 0x42 */ GI_LENS_OF_TRUTH = 0x42,
     /* 0x43 */ GI_PICTOGRAPH_BOX = 0x43,
     /* 0x44 */  // GI_ERROR_PICTOGRAPH_BOX, // ***ERROR TEXT Get Item Nothing in hand - Gives
@@ -108,8 +108,7 @@ namespace rnd {
     /* 0x50 */ GI_BOMBERS_NOTEBOOK = 0x50,
     /* 0x51 */  // GI_ERROR_YELLOW_RUPPEE, // ***ERROR TEXT Get Item Nothing in hand at first - then
                 // subsequently yellow rupee. No rupee increment.
-    /* 0x52 */ GI_GOLD_SKULLTULA_SPIRIT =
-        0x52,   // Pickup model is whacky since we usually don't have one.
+    /* 0x52 */ GI_GOLD_SKULLTULA_SPIRIT = 0x52,  // Pickup model is whacky since we usually don't have one.
     /* 0x53 */  // GI_ERROR_NOTHING_53, // ***ERROR TEXT Get Item Nothing in hand - Green Rupee with
                 // Ocarina in Inventory
     /* 0x54 */  // GI_ERROR_NOTHING_54, // ***ERROR TEXT Get Item Nothing in hand - Green Rupee with
@@ -120,7 +119,7 @@ namespace rnd {
     /* 0x58 */ GI_TWINMOLDS_REMAINS,       // Also softlocks!
     /* 0x59 */ GI_BOTTLE_POTION_RED,
     /* 0x5A */ GI_BOTTLE_EMPTY,
-    /* 0x5B */ GI_POTION_RED,  // If all bottles in item screen are full, it gives recovery hearts.
+    /* 0x5B */ GI_POTION_RED,           // If all bottles in item screen are full, it gives recovery hearts.
     /* 0x5C */ GI_POTION_GREEN,         // Does not give new bottles.
     /* 0x5D */ GI_POTION_BLUE,          // Does not give new bottles.
     /* 0x5E */ GI_FAIRY,                // Does not give new bottles.
@@ -182,15 +181,14 @@ namespace rnd {
     /* 0x8F */ GI_MASK_KAFEIS,
     /* 0x90 */  // GI_ERROR_NOTHING_90, // ***ERROR TEXT Get Item Nothing in hand - Green Rupee with
                 // Ocarina in Inventory
-    /* 0x91 */ GI_BOTTLE_CHATEAU_ROMANI_TWO =
-        0x91,  // Sets it in a different slot if no bottle present. Second bottle?
-    /* 0x92 */ GI_BOTTLE_MILK_TWO,       // Sets it in a different slot if no bottle present. Second
-                                         // bottle?
-    /* 0x93 */ GI_BOTTLE_GOLD_DUST_TWO,  // Sets it in a different slot if no bottle present. Second
-                                         // bottle?
-    /* 0x94 */ GI_BOTTLE_MYSTERY_MILK_TWO,  // Timer set to 0.
-    /* 0x95 */ GI_BOTTLE_SEAHORSE_TWO,      // Proper sea horse actor!
-    /* 0x96 */ GI_MOONS_TEAR,               // Provides a black screen after collecting in citra.
+    /* 0x91 */ GI_BOTTLE_CHATEAU_ROMANI_TWO = 0x91,  // Sets it in a different slot if no bottle present. Second bottle?
+    /* 0x92 */ GI_BOTTLE_MILK_TWO,                   // Sets it in a different slot if no bottle present. Second
+                                                     // bottle?
+    /* 0x93 */ GI_BOTTLE_GOLD_DUST_TWO,              // Sets it in a different slot if no bottle present. Second
+                                                     // bottle?
+    /* 0x94 */ GI_BOTTLE_MYSTERY_MILK_TWO,           // Timer set to 0.
+    /* 0x95 */ GI_BOTTLE_SEAHORSE_TWO,               // Proper sea horse actor!
+    /* 0x96 */ GI_MOONS_TEAR,                        // Provides a black screen after collecting in citra.
     /* 0x97 */ GI_TOWN_TITLE_DEED,
     /* 0x98 */ GI_SWAMP_TITLE_DEED,
     /* 0x99 */ GI_MOUNTAIN_TITLE_DEED,
@@ -203,19 +201,19 @@ namespace rnd {
                                          // take with a grain of salt
     /* 0xA0 */ GI_ROOM_KEY,              // Softlocks if you go to the room
     /* 0xA1 */ GI_LETTER_TO_MAMA,
-    /* 0xA2 */  // GI_ERROR_NOTHING_A2, // ***ERROR TEXT Get Item Nothing in hand - Green Rupee with
-                // Ocarina in Inventory
-    /* 0xA3 */  // GI_ERROR_NOTHING_A3, // ***ERROR TEXT Get Item Nothing in hand - Green Rupee with
-                // Ocarina in Inventory
-    /* 0xA4 */  // GI_ERROR_NOTHING_A4, // ***ERROR TEXT Get Item Keaton Mask if do not have.
-    /* 0xA5 */  // GI_ERROR_NOTHING_A5, // ***ERROR TEXT Get Item Nothing in hand - Green Rupee with
-                // Ocarina in Inventory
-    /* 0xA6 */  // GI_ERROR_NOTHING_A6, // ***ERROR TEXT Get Item Nothing in hand - Green Rupee with
-                // Ocarina in Inventory
-    /* 0xA7 */  // GI_ERROR_NOTHING_A7, // ***ERROR TEXT Get Item Nothing in hand - Green Rupee with
-                // Ocarina in Inventory
-    /* 0xA8 */  // GI_ERROR_NOTHING_A8, // ***ERROR TEXT Get Item Nothing in hand - Green Rupee with
-                // Ocarina in Inventory,
+    /* 0xA2 */                    // GI_ERROR_NOTHING_A2, // ***ERROR TEXT Get Item Nothing in hand - Green Rupee with
+                                  // Ocarina in Inventory
+    /* 0xA3 */                    // GI_ERROR_NOTHING_A3, // ***ERROR TEXT Get Item Nothing in hand - Green Rupee with
+                                  // Ocarina in Inventory
+    /* 0xA4 */                    // GI_ERROR_NOTHING_A4, // ***ERROR TEXT Get Item Keaton Mask if do not have.
+    /* 0xA5 */                    // GI_ERROR_NOTHING_A5, // ***ERROR TEXT Get Item Nothing in hand - Green Rupee with
+                                  // Ocarina in Inventory
+    /* 0xA6 */                    // GI_ERROR_NOTHING_A6, // ***ERROR TEXT Get Item Nothing in hand - Green Rupee with
+                                  // Ocarina in Inventory
+    /* 0xA7 */                    // GI_ERROR_NOTHING_A7, // ***ERROR TEXT Get Item Nothing in hand - Green Rupee with
+                                  // Ocarina in Inventory
+    /* 0xA8 */                    // GI_ERROR_NOTHING_A8, // ***ERROR TEXT Get Item Nothing in hand - Green Rupee with
+                                  // Ocarina in Inventory,
     /* 0xA9 */ GI_BOTTLE = 0xA9,  // Bottle purchase back text.
     /* 0xAA */ GI_LETTER_TO_KAFEI,
     /* 0xAB */ GI_PENDANT_OF_MEMORIES,
@@ -434,8 +432,7 @@ namespace rnd {
   void ItemOverride_CheckStartingItem();
   void ItemOverride_Init();
   void ItemOverride_Update();
-  extern "C" void ItemOverride_GetItem(game::GlobalContext*, game::act::Actor*, game::act::Player*,
-                                       s16);
+  extern "C" void ItemOverride_GetItem(game::GlobalContext*, game::act::Actor*, game::act::Player*, s16);
   extern "C" void ItemOverride_GetFairyRewardItem(game::GlobalContext*, game::act::Actor*, s16);
   extern "C" void ItemOverride_GetItemTextAndItemID(game::act::Player*);
   extern "C" u32 rActiveItemGraphicId;

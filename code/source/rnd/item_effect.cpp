@@ -11,10 +11,8 @@ namespace rnd {
 
   void ItemEffect_FullHeal(game::CommonData* comData, s16 arg1, s16 arg) {
     // With the No Health Refills option on, store-bought health upgrades do not heal the player
-    if ((gSettingsContext.heartDropRefill !=
-         (u8)HeartDropRefillSetting::HEARTDROPREFILL_NOREFILL) &&
-        (gSettingsContext.heartDropRefill !=
-         (u8)HeartDropRefillSetting::HEARTDROPREFILL_NODROPREFILL)) {
+    if ((gSettingsContext.heartDropRefill != (u8)HeartDropRefillSetting::HEARTDROPREFILL_NOREFILL) &&
+        (gSettingsContext.heartDropRefill != (u8)HeartDropRefillSetting::HEARTDROPREFILL_NODROPREFILL)) {
       comData->health_accumulator = 20 * 0x10;
     }
     return;
@@ -32,8 +30,7 @@ namespace rnd {
     if (comData->save.equipment.sword_shield.sword > game::SwordType::KokiriSword) {
       return;
     }
-    comData->save.equipment.sword_shield.sword =
-        game::SwordType::KokiriSword;  // Set sword to kokiri.
+    comData->save.equipment.sword_shield.sword = game::SwordType::KokiriSword;  // Set sword to kokiri.
   }
 
   void ItemEffect_GiveRazorSword(game::CommonData* comData, s16 arg1, s16 arg2) {
@@ -41,14 +38,12 @@ namespace rnd {
     if (comData->save.equipment.sword_shield.sword > game::SwordType::RazorSword) {
       return;
     }
-    comData->save.player.razor_sword_hp = 100;  // Set to 100 hits. Maybe randomize?
-    comData->save.equipment.sword_shield.sword =
-        game::SwordType::RazorSword;  // Set sword to razor.
+    comData->save.player.razor_sword_hp = 100;                                 // Set to 100 hits. Maybe randomize?
+    comData->save.equipment.sword_shield.sword = game::SwordType::RazorSword;  // Set sword to razor.
   }
 
   void ItemEffect_GiveGildedSword(game::CommonData* comData, s16 arg1, s16 arg2) {
-    comData->save.equipment.sword_shield.sword =
-        game::SwordType::GildedSword;  // Set sword to gilded.
+    comData->save.equipment.sword_shield.sword = game::SwordType::GildedSword;  // Set sword to gilded.
   }
 
   void ItemEffect_GiveBottle(game::CommonData* comData, s16 bottleItemId, s16 arg2) {
@@ -68,27 +63,19 @@ namespace rnd {
     s8 keys;
     switch (dungeonId) {
     case 0:
-      keys = comData->save.inventory.woodfall_temple_keys < 0 ?
-                 0 :
-                 comData->save.inventory.woodfall_temple_keys;
+      keys = comData->save.inventory.woodfall_temple_keys < 0 ? 0 : comData->save.inventory.woodfall_temple_keys;
       comData->save.inventory.woodfall_temple_keys = keys + 1;
       break;
     case 1:
-      keys = comData->save.inventory.snowhead_temple_keys < 0 ?
-                 0 :
-                 comData->save.inventory.snowhead_temple_keys;
+      keys = comData->save.inventory.snowhead_temple_keys < 0 ? 0 : comData->save.inventory.snowhead_temple_keys;
       comData->save.inventory.snowhead_temple_keys = keys + 1;
       break;
     case 2:
-      keys = comData->save.inventory.great_bay_temple_keys < 0 ?
-                 0 :
-                 comData->save.inventory.great_bay_temple_keys;
+      keys = comData->save.inventory.great_bay_temple_keys < 0 ? 0 : comData->save.inventory.great_bay_temple_keys;
       comData->save.inventory.great_bay_temple_keys = keys + 1;
       break;
     case 3:
-      keys = comData->save.inventory.stone_tower_temple_keys < 0 ?
-                 0 :
-                 comData->save.inventory.stone_tower_temple_keys;
+      keys = comData->save.inventory.stone_tower_temple_keys < 0 ? 0 : comData->save.inventory.stone_tower_temple_keys;
       comData->save.inventory.stone_tower_temple_keys = keys + 1;
       break;
     default:
@@ -122,10 +109,6 @@ namespace rnd {
   }
 
   void ItemEffect_GiveProgressiveMagic(game::CommonData* comData, s16 arg1, s16 arg2) {
-#if defined ENABLE_DEBUG || DEBUG_PRINT
-    util::Print("%s: Current magic acquired == %u\n", __func__,
-                comData->save.player.magic_acquired);
-#endif
     if (comData->save.player.magic_acquired != 0) {
       ItemEffect_GiveDoubleMagic(comData, arg1, arg2);
     } else {
@@ -140,10 +123,8 @@ namespace rnd {
 
   void ItemEffect_GiveDoubleDefense(game::CommonData* comData, s16 arg1, s16 arg2) {
     comData->save.player.double_defense = 1;
-    if ((gSettingsContext.heartDropRefill !=
-         (u8)HeartDropRefillSetting::HEARTDROPREFILL_NOREFILL) &&
-        (gSettingsContext.heartDropRefill !=
-         (u8)HeartDropRefillSetting::HEARTDROPREFILL_NODROPREFILL)) {
+    if ((gSettingsContext.heartDropRefill != (u8)HeartDropRefillSetting::HEARTDROPREFILL_NOREFILL) &&
+        (gSettingsContext.heartDropRefill != (u8)HeartDropRefillSetting::HEARTDROPREFILL_NODROPREFILL)) {
       comData->health_accumulator = 20 * 0x10;
     }
   }
@@ -330,12 +311,10 @@ namespace rnd {
   void ItemEffect_GiveSkulltula(game::CommonData* comData, s16 whichHouse, s16 arg2) {
     switch (whichHouse) {
     case 0:
-      comData->save.skulltulas_collected.swamp_count =
-          comData->save.skulltulas_collected.swamp_count + 1;
+      comData->save.skulltulas_collected.swamp_count = comData->save.skulltulas_collected.swamp_count + 1;
       break;
     case 1:
-      comData->save.skulltulas_collected.ocean_count =
-          comData->save.skulltulas_collected.ocean_count + 1;
+      comData->save.skulltulas_collected.ocean_count = comData->save.skulltulas_collected.ocean_count + 1;
       break;
     default:
       break;

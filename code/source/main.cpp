@@ -64,6 +64,10 @@ namespace rnd {
       game::act::Player* link = context.gctx->GetPlayerActor();
       // Before calling let's be absolutely sure we have the player available.
       if (link) {
+        game::SaveData& saveData = game::GetCommonData().save;
+        util::Print("%s: Address is %p and value is %u\n", __func__, &saveData.player.magic_acquired,
+                    saveData.player.magic_acquired);
+        saveData.player.magic_acquired = 1;
         return;
       }
     }

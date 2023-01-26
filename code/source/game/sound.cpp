@@ -26,18 +26,16 @@ namespace game::sound {
   }
 
   StreamId GetCurrentStreamId(StreamPlayer player) {
-    return rnd::util::GetPointer<StreamId(StreamMgr&, StreamPlayer)>(0x1E1194)(GetStreamMgr(),
-                                                                               player);
+    return rnd::util::GetPointer<StreamId(StreamMgr&, StreamPlayer)>(0x1E1194)(GetStreamMgr(), player);
   }
 
   bool PlayStream(StreamId id, StreamPlayer player) {
-    return rnd::util::GetPointer<bool(StreamMgr&, StreamId, StreamPlayer, u32)>(0x239228)(
-        GetStreamMgr(), id, player, 0xffffffff);
+    return rnd::util::GetPointer<bool(StreamMgr&, StreamId, StreamPlayer, u32)>(0x239228)(GetStreamMgr(), id, player,
+                                                                                          0xffffffff);
   }
 
   void ControlStream(StreamPlayer player, int a, int b) {
-    rnd::util::GetPointer<void(StreamMgr&, StreamPlayer, int, int)>(0x1DC2F0)(GetStreamMgr(),
-                                                                              player, a, b);
+    rnd::util::GetPointer<void(StreamMgr&, StreamPlayer, int, int)>(0x1DC2F0)(GetStreamMgr(), player, a, b);
   }
 
   void ControlEnv(int index) {

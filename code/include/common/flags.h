@@ -30,9 +30,7 @@ namespace rnd {
         Clear(v);
     }
 
-    constexpr bool IsSet(FlagType v) const {
-      return (flags & std::underlying_type_t<FlagType>(v)) != 0;
-    }
+    constexpr bool IsSet(FlagType v) const { return (flags & std::underlying_type_t<FlagType>(v)) != 0; }
 
     constexpr bool TestAndClear(FlagType v) {
       if (!IsSet(v))
@@ -60,9 +58,7 @@ namespace rnd {
   public:
     constexpr void Set(IndexType idx) { GetWord(idx) |= 1 << (size_t(idx) % NumBitsPerWord); }
     constexpr void Clear(IndexType idx) { GetWord(idx) &= ~(1 << (size_t(idx) % NumBitsPerWord)); }
-    constexpr bool IsSet(IndexType idx) const {
-      return (GetWord(idx) & (1 << (size_t(idx) % NumBitsPerWord))) != 0;
-    }
+    constexpr bool IsSet(IndexType idx) const { return (GetWord(idx) & (1 << (size_t(idx) % NumBitsPerWord))) != 0; }
 
     constexpr bool TestAndClear(IndexType idx) {
       if (!IsSet(idx))
@@ -81,9 +77,7 @@ namespace rnd {
     static constexpr size_t NumBitsPerWord = sizeof(WordType) * 8;
     static constexpr size_t NumWords = (N + NumBitsPerWord - 1) / NumBitsPerWord;
     constexpr WordType& GetWord(IndexType idx) { return m_storage[size_t(idx) / NumBitsPerWord]; }
-    constexpr const WordType& GetWord(IndexType idx) const {
-      return m_storage[size_t(idx) / NumBitsPerWord];
-    }
+    constexpr const WordType& GetWord(IndexType idx) const { return m_storage[size_t(idx) / NumBitsPerWord]; }
     std::array<WordType, NumWords> m_storage{};
   };
 

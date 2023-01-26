@@ -12,8 +12,7 @@ namespace rnd::link {
                      GetContext().use_fast_swim);
 #endif
     // Toggle fast swim with D-Pad Up/Down or ZL
-    if (input.new_buttons.IsOneSet(game::pad::Button::Up, game::pad::Button::Down,
-                                   game::pad::Button::ZL)) {
+    if (input.new_buttons.IsOneSet(game::pad::Button::Up, game::pad::Button::Down, game::pad::Button::ZL)) {
       GetContext().use_fast_swim ^= true;
     }
 

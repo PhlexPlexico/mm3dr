@@ -52,9 +52,8 @@ namespace game {
 
   bool HasBottle(ItemId bottle_contents) {
     const auto& bottles = GetCommonData().save.inventory.bottles;
-    return std::any_of(bottles.begin(), bottles.end(), [&](ItemId id) {
-      return bottle_contents == id && bottle_contents != game::ItemId::None;
-    });
+    return std::any_of(bottles.begin(), bottles.end(),
+                       [&](ItemId id) { return bottle_contents == id && bottle_contents != game::ItemId::None; });
   }
 
   void RemoveBottle(u32 bottle_index) {
@@ -750,8 +749,8 @@ namespace game {
   }};
 
   static bool IsBossRoomScene(GlobalContext* gctx) {
-    return rnd::util::IsAnyOf(gctx->scene, SceneId::OdolwaLair, SceneId::GohtLair,
-                              SceneId::GyorgLair, SceneId::TwinmoldLair, SceneId::MajoraLair);
+    return rnd::util::IsAnyOf(gctx->scene, SceneId::OdolwaLair, SceneId::GohtLair, SceneId::GyorgLair,
+                              SceneId::TwinmoldLair, SceneId::MajoraLair);
   }
 
   bool CanUseItem(ItemId item) {
@@ -786,14 +785,13 @@ namespace game {
     }
 
     if (gctx->scene == SceneId::SwampFishingHole || gctx->scene == SceneId::OceanFishingHole) {
-      return item == ItemId::ZoraMask || item == ItemId::FierceDeityMask ||
-             ItemIsNonTransformationMask(item) || (ItemIsTransformationMask(item) && mode < 2);
+      return item == ItemId::ZoraMask || item == ItemId::FierceDeityMask || ItemIsNonTransformationMask(item) ||
+             (ItemIsTransformationMask(item) && mode < 2);
     }
 
     const bool is_beaver_race = cdata.field_3696 == 1 && cdata.sub1.entrance == 0x8E10;
     const bool is_goron_race = cdata.sub1.entrance == 0xD010;
-    if ((is_beaver_race || is_goron_race) && !gctx->field_C529_one_to_clear_input &&
-        !gctx->field_C85A) {
+    if ((is_beaver_race || is_goron_race) && !gctx->field_C529_one_to_clear_input && !gctx->field_C85A) {
       return false;
     }
 
@@ -827,8 +825,7 @@ namespace game {
     if (player->flags1.IsSet(act::Player::Flag1::Unk200000))
       return item == ItemId::LensOfTruth;
 
-    if (player->flags1.IsSet(act::Player::Flag1::Unk2000) &&
-        cdata.usable_btns[0] != ButtonIsUsable::No) {
+    if (player->flags1.IsSet(act::Player::Flag1::Unk2000) && cdata.usable_btns[0] != ButtonIsUsable::No) {
       return false;
     }
 
