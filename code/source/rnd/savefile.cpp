@@ -70,6 +70,7 @@ namespace rnd {
     saveData.inventory.stone_tower_dungeon_items.map = 1;
     saveData.inventory.stone_tower_dungeon_items.compass = 1;
     saveData.inventory.stone_tower_dungeon_items.boss_key = 1;
+    saveData.inventory.woodfall_fairies = 15;
     // saveData.player.magic_acquired = 1;  // Game does not check if value = 0, magic items still
     // work saveData.player.magic_size_type = 0; saveData.player.magic = 10;
     // saveData.player.magic_num_upgrades = 0;

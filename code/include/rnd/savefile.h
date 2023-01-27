@@ -35,6 +35,8 @@ namespace rnd {
     u32 version;  // Needs to always be the first field of the structure
     u32 playtimeSeconds;
     u32 isNewFile;
+    u8 playedSosOnce;
+    u8 playedElegyOnce;
     s8 aromaGivenItem;
     s8 grannyGaveReward;
     s8 stoneMaskReward;
