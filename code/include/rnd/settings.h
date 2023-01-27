@@ -204,7 +204,7 @@ namespace rnd {
     STARTINGSHIELD_NONE,
     STARTINGSHIELD_HERO,
     STARTINGSHIELD_MIRROR,
-  }
+  };
 
   enum class StartingSpinSetting : u8 {
     STARTINGSPIN_REGULAR,
