@@ -131,17 +131,23 @@ OverrideBomberTextID_patch:
 OverrideItemID_patch:
     b hook_OverrideItemID
 
-.section .patch_OverrideFairyGiveItemOne
+.section .patch_OverrideFairyGiveItem
 .global OverrideFairyItemID_patch
 OverrideFairyItemID_patch:
-    b hook_OverrideFairyItemID
+    b hook_OverrideFairyItem
 
-.section .patch_OverrideGreatFairyText
-.global OverrideGreatFairyText_patch
-OverrideGreatFairyText_patch:
+.section .patch_OverrideFairyGiveItemWF
+.global OverrideFairyItemIDWF_patch
+OverrideFairyItemIDWF_patch:
+    b hook_OverrideFairyItemWF
+
+
+.section .patch_OverrideGreatFairySpawn
+.global OverrideGreatFairySpawn_patch
+OverrideGreatFairySpawn_patch:
     nop
-    @ldmia sp!,{r4-r6, pc}
-    @ ldmia sp!,{r4-r6, lr}
+    @ldmia sp!,{r4 - r6, pc}
+    @ldmia sp !, {r4 - r6, lr}
     @ bx lr
 
 .section .patch_ReadGamePad

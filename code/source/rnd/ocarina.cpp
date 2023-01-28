@@ -8,6 +8,7 @@
 #include "game/player.h"
 #include "game/sound.h"
 #include "game/ui/layouts/message_window.h"
+#include "rnd/savefile.h"
 
 namespace rnd {
 
@@ -54,12 +55,14 @@ namespace rnd {
     // 0x17 repeating (step 6; textbox disappears)
     // 0x18 repeating (step 7; end)
     static rnd::BitSet<16> s_played_songs;
-    const bool played_once = u16(song) < s_played_songs.Count() && s_played_songs.IsSet(u16(song));
+    bool played_once = u16(song) < s_played_songs.Count() && s_played_songs.IsSet(u16(song));
     if (u16(song) < s_played_songs.Count())
       s_played_songs.Set(u16(song));
 
     if (song == game::OcarinaSong::SongOfSoaring) {
+      played_once = (bool)gExtSaveData.playedSosOnce;
       if (!played_once) {
+        gExtSaveData.playedSosOnce = 1;
         util::Print("\n%s: Returning false.\n", __func__);
         return false;
       }
@@ -79,8 +82,11 @@ namespace rnd {
     }
 
     if (song == game::OcarinaSong::ElegyOfEmptiness) {
-      if (!played_once)
+      played_once = (bool)gExtSaveData.playedElegyOnce;
+      if (!played_once) {
+        gExtSaveData.playedElegyOnce = 1;
         return false;
+      }
 
       EndOcarinaSession(self);
 

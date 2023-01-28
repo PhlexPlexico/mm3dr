@@ -3,6 +3,7 @@
 
 #include "common/advanced_context.h"
 #include "common/utils.h"
+#include "game/actors/great_fairy.h"
 #include "game/common_data.h"
 #include "game/context.h"
 #include "game/items.h"
@@ -433,7 +434,7 @@ namespace rnd {
   void ItemOverride_Init();
   void ItemOverride_Update();
   extern "C" void ItemOverride_GetItem(game::GlobalContext*, game::act::Actor*, game::act::Player*, s16);
-  extern "C" void ItemOverride_GetFairyRewardItem(game::GlobalContext*, game::act::Actor*, s16);
+  extern "C" void ItemOverride_GetFairyRewardItem(game::GlobalContext*, game::act::GreatFairy*, s16);
   extern "C" void ItemOverride_GetItemTextAndItemID(game::act::Player*);
   extern "C" u32 rActiveItemGraphicId;
   extern "C" ItemOverride rItemOverrides[640];
