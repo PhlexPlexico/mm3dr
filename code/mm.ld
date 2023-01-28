@@ -114,7 +114,7 @@ SECTIONS{
     *(.patch_OverrideFairyGiveItemNCT)
   }
 
-  .patch_OverrideFairyGiveItemWF 0x3becb0 : {
+  .patch_OverrideFairyGiveItemWF 0x3beccc : {
     *(.patch_OverrideFairyGiveItemNCT)
   }
 

@@ -10,6 +10,7 @@ hook_OverrideFairyItemNCT:
     push {r0-r12, lr}
     cpy r0,r5
     cpy r1,r4
+    mov r2,#0x40
     bl ItemOverride_GetFairyRewardItem
     ldr r5,.rActiveItemRow_addr
     ldr r5,[r5]

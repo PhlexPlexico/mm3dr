@@ -41,6 +41,7 @@ namespace rnd {
     s8 grannyGaveReward;
     s8 stoneMaskReward;
     s8 gaveFairyMaskReward;
+    s8 gaveGreatFairySword;
     u8 chestRewarded[116][30];  // Reward table that's stored by scene and chest param/flag.
   } ExtSaveData;
 
