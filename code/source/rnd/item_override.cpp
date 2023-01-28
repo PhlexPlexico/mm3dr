@@ -487,6 +487,7 @@ namespace rnd {
       if (game::GetCommonData().save.player.anonymous_18 == 0) {
         game::GetCommonData().save.player.anonymous_18 = 1;
         // Since we're in control here, use the GetItemId and not the item id.
+        ItemOverride_GetFairyRewardItem(gctx, fromActor, 0x40);
         ItemOverride_GetFairyRewardItem(gctx, fromActor, 0xB3);
         // ItemOverride_GetItemTextAndItemID(gctx->GetPlayerActor());
       }
@@ -511,18 +512,8 @@ namespace rnd {
       // we need to map this back to the index to work with lookups.
       // Manual override if we're receiving an item such as an upgrade.
       if (incomingItemId == 0x40) {
-        if (gExtSaveData.gaveFairyMaskReward) {
-          ItemOverride_Clear();
-          return;
-        }
-        gExtSaveData.gaveFairyMaskReward = 1;
         getItemId = incomingNegative ? -0x86 : 0x86;
       } else if (incomingItemId == 0x10) {
-        if (gExtSaveData.gaveGreatFairySword) {
-          ItemOverride_Clear();
-          return;
-        }
-        gExtSaveData.gaveGreatFairySword = 1;
         getItemId = incomingNegative ? -0x9B : 0x9B;
       } else
         getItemId = incomingItemId;

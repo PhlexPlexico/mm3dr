@@ -110,13 +110,13 @@ SECTIONS{
     *(.patch_OverrideItemID)
   }
 
-  .patch_OverrideFairyGiveItemNCT 0x3BECB8 : {
+  .patch_OverrideFairyGiveItemNCT 0x3becac : {
     *(.patch_OverrideFairyGiveItemNCT)
   }
 
-  .patch_OverrideFairyGiveItemWF 0x3beccc : {
+  /* .patch_OverrideFairyGiveItemWF 0x3becd4 : {
     *(.patch_OverrideFairyGiveItemNCT)
-  }
+  } */
 
   /* .patch_OverrideFairyItemAnonStruct 0x3BECD4 : {
   *(.patch_OverrideFairyItemAnonStruct)
