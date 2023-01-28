@@ -29,7 +29,9 @@ namespace game::as {
     void PlayAnimFull(u32 id, float x);
     int GetAnimDuration(u32 id);
 
-    void* vtable;
+    u16 field_0;
+    u8 field_2;
+    u8 field_3;
     int field_4;
     int field_8;
     void* vtable_C;

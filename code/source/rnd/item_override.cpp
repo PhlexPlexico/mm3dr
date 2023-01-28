@@ -1,4 +1,5 @@
 #include "rnd/item_override.h"
+#include "game/actors/great_fairy.h"
 #include "rnd/extdata.h"
 #include "rnd/icetrap.h"
 #include "rnd/item_table.h"
@@ -176,7 +177,7 @@ namespace rnd {
       }
       if (rPendingOverrideQueue[i].key.all == override.key.all) {
         // Prevent duplicate entries
-        //break;
+        // break;
       }
     }
   }
@@ -492,7 +493,8 @@ namespace rnd {
     return;
   }
 
-  void ItemOverride_GetFairyRewardItem(game::GlobalContext* gctx, game::act::Actor* fromActor, s16 incomingItemId) {
+  void ItemOverride_GetFairyRewardItem(game::GlobalContext* gctx, game::act::GreatFairy* fromActor,
+                                       s16 incomingItemId) {
     ItemOverride override = {0};
     s32 incomingNegative = incomingItemId < 0;
     u16 greatFairyParam = fromActor->params & 0xF;
@@ -501,21 +503,21 @@ namespace rnd {
         game::GetCommonData().save.player.anonymous_18 = 1;
         // Since we're in control here, use the GetItemId and not the item id.
         ItemOverride_GetFairyRewardItem(gctx, fromActor, 0xB3);
-        //ItemOverride_GetItemTextAndItemID(gctx->GetPlayerActor());
+        // ItemOverride_GetItemTextAndItemID(gctx->GetPlayerActor());
       }
     } else if (greatFairyParam == 1) {
       if (game::GetCommonData().save.player.anonymous_19 == 0) {
         game::GetCommonData().save.player.anonymous_19 = 1;
         // Since we're in control here, use the GetItemId and not the item id.
         ItemOverride_GetFairyRewardItem(gctx, fromActor, 0xB3);
-        //ItemOverride_GetItemTextAndItemID(gctx->GetPlayerActor());
+        // ItemOverride_GetItemTextAndItemID(gctx->GetPlayerActor());
       }
-    } else if(greatFairyParam == 3) {
+    } else if (greatFairyParam == 3) {
       if (game::GetCommonData().save.player.anonymous_20 == 0) {
         game::GetCommonData().save.player.anonymous_20 = 1;
         // Since we're in control here, use the GetItemId and not the item id.
         ItemOverride_GetFairyRewardItem(gctx, fromActor, 0xB3);
-        //ItemOverride_GetItemTextAndItemID(gctx->GetPlayerActor());
+        // ItemOverride_GetItemTextAndItemID(gctx->GetPlayerActor());
       }
     }
     if (fromActor != NULL && incomingItemId != 0) {
@@ -542,8 +544,7 @@ namespace rnd {
       rActiveItemRow->effectArg1 = override.key.all >> 16;
       rActiveItemRow->effectArg2 = override.key.all & 0xFFFF;
     }
-    
-    
+
     // rStoredBomberNoteTextId = rActiveItemRow->textId;
     return;
   }

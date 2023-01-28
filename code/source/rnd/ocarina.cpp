@@ -87,7 +87,6 @@ namespace rnd {
         gExtSaveData.playedElegyOnce = 1;
         return false;
       }
-        
 
       EndOcarinaSession(self);
 
