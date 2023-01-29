@@ -492,7 +492,7 @@ namespace rnd {
       gExtSaveData.fairyRewards.woodfall = 1;
       ItemOverride_GetFairyRewardItem(gctx, fromActor, 0x2C);
     } else if (fairyEntrance == 0x4620 && gExtSaveData.fairyRewards.snowhead != 1) {
-      gExtSaveData.fairyRewards.woodfall = 1;
+      gExtSaveData.fairyRewards.snowhead = 1;
       ItemOverride_GetFairyRewardItem(gctx, fromActor, 0x2B);
     } else if (fairyEntrance == 0x4630 && gExtSaveData.fairyRewards.great_bay != 1) {
       gExtSaveData.fairyRewards.great_bay = 1;
