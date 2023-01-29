@@ -402,6 +402,28 @@ namespace rnd {
     return getItemId;
   }
 
+  void ItemOverride_PushPendingFairyRewardItem(game::GlobalContext* gctx, game::act::GreatFairy* fromActor,
+                                       s16 incomingItemId) {
+    ItemOverride override = {0};
+    s32 incomingNegative = incomingItemId < 0;
+    if (fromActor != NULL && incomingItemId != 0) {
+      s16 getItemId = incomingNegative ? -incomingItemId : incomingItemId;
+      override = ItemOverride_Lookup(fromActor, (u16)gctx->scene, getItemId);
+    }
+
+    if (override.key.all == 0) {
+      ItemOverride_Clear();
+      return;
+    }
+
+    ItemOverride_PushPendingOverride(override);
+    if (override.value.getItemId == 0x12) {
+      rActiveItemRow->effectArg1 = override.key.all >> 16;
+      rActiveItemRow->effectArg2 = override.key.all & 0xFFFF;
+    }
+    return;
+  }
+
   extern "C" {
   bool ItemOverride_CheckAromaGivenItem() {
     if (gExtSaveData.aromaGivenItem > 0)
@@ -476,8 +498,7 @@ namespace rnd {
 
   void ItemOverride_GetFairyRewardItem(game::GlobalContext* gctx, game::act::GreatFairy* fromActor,
                                        s16 incomingItemId) {
-    ItemOverride override = {0};
-    s32 incomingNegative = incomingItemId < 0;
+    
     int fairyEntrance = game::GetCommonData().sub1.entrance;
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
     rnd::util::Print(
@@ -486,38 +507,26 @@ namespace rnd {
 #endif
     if (fairyEntrance == 0x4600 && gExtSaveData.fairyRewards.nct != 1) {
       gExtSaveData.fairyRewards.nct = 1;
-      ItemOverride_GetFairyRewardItem(gctx, fromActor, 0x86);
-      ItemOverride_GetFairyRewardItem(gctx, fromActor, 0x0E);
+      ItemOverride_PushPendingFairyRewardItem(gctx, fromActor, 0x86);
+      ItemOverride_PushPendingFairyRewardItem(gctx, fromActor, 0x0E);
+      return;
     } else if (fairyEntrance == 0x4610 && gExtSaveData.fairyRewards.woodfall != 1) {
       gExtSaveData.fairyRewards.woodfall = 1;
-      ItemOverride_GetFairyRewardItem(gctx, fromActor, 0x2C);
+      ItemOverride_PushPendingFairyRewardItem(gctx, fromActor, 0x2C);
+      return;
     } else if (fairyEntrance == 0x4620 && gExtSaveData.fairyRewards.snowhead != 1) {
       gExtSaveData.fairyRewards.snowhead = 1;
-      ItemOverride_GetFairyRewardItem(gctx, fromActor, 0x2B);
+      ItemOverride_PushPendingFairyRewardItem(gctx, fromActor, 0x2B);
+      return;
     } else if (fairyEntrance == 0x4630 && gExtSaveData.fairyRewards.great_bay != 1) {
       gExtSaveData.fairyRewards.great_bay = 1;
-      ItemOverride_GetFairyRewardItem(gctx, fromActor, 0xB2);
+      ItemOverride_PushPendingFairyRewardItem(gctx, fromActor, 0xB2);
+      return;
     } else if (fairyEntrance == 0x4640 && gExtSaveData.fairyRewards.ikana != 1) {
       gExtSaveData.fairyRewards.ikana = 1;
-      ItemOverride_GetFairyRewardItem(gctx, fromActor, 0x9B);
-    }
-    if (fromActor != NULL && incomingItemId != 0) {
-      s16 getItemId = incomingNegative ? -incomingItemId : incomingItemId;
-      override = ItemOverride_Lookup(fromActor, (u16)gctx->scene, getItemId);
-    }
-
-    if (override.key.all == 0) {
-      ItemOverride_Clear();
+      ItemOverride_PushPendingFairyRewardItem(gctx, fromActor, 0x9B);
       return;
     }
-
-    ItemOverride_PushPendingOverride(override);
-    if (override.value.getItemId == 0x12) {
-      rActiveItemRow->effectArg1 = override.key.all >> 16;
-      rActiveItemRow->effectArg2 = override.key.all & 0xFFFF;
-    }
-
-    return;
   }
 
   void ItemOverride_RemoveTextId() {
