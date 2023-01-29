@@ -136,11 +136,6 @@ OverrideItemID_patch:
 OverrideFairyItemID_patch:
     b hook_OverrideFairyItem
 
-.section .patch_OverrideFairyGiveItemWF
-.global OverrideFairyItemIDWF_patch
-OverrideFairyItemIDWF_patch:
-    b hook_OverrideFairyItemWF
-
 
 .section .patch_OverrideGreatFairySpawn
 .global OverrideGreatFairySpawn_patch

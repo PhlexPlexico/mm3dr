@@ -6,7 +6,7 @@
     .word rActiveItemRow
 
 .global hook_OverrideFairyItem
-hook_OverrideFairyItemNCT:
+hook_OverrideFairyItem:
     push {r0-r12, lr}
     cpy r0,r5
     cpy r1,r4
