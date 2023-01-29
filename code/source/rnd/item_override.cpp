@@ -403,7 +403,7 @@ namespace rnd {
   }
 
   void ItemOverride_PushPendingFairyRewardItem(game::GlobalContext* gctx, game::act::GreatFairy* fromActor,
-                                       s16 incomingItemId) {
+                                               s16 incomingItemId) {
     ItemOverride override = {0};
     s32 incomingNegative = incomingItemId < 0;
     if (fromActor != NULL && incomingItemId != 0) {
@@ -498,7 +498,6 @@ namespace rnd {
 
   void ItemOverride_GetFairyRewardItem(game::GlobalContext* gctx, game::act::GreatFairy* fromActor,
                                        s16 incomingItemId) {
-    
     int fairyEntrance = game::GetCommonData().sub1.entrance;
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
     rnd::util::Print(
