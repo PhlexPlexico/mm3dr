@@ -480,9 +480,9 @@ namespace rnd {
     s32 incomingNegative = incomingItemId < 0;
     int fairyEntrance = game::GetCommonData().sub1.entrance;
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-    rnd::util::Print("%s: Some important info:\ngreatFairyParam: %#06x\nActor type: %#04x\nIncoming item ID: %#04x\nAnon_19: %u",
-                     __func__, fairyEntrance, fromActor->actor_type, incomingItemId,
-                     gExtSaveData.fairyRewards.nct);
+    rnd::util::Print(
+        "%s: Some important info:\ngreatFairyParam: %#06x\nActor type: %#04x\nIncoming item ID: %#04x\nAnon_19: %u",
+        __func__, fairyEntrance, fromActor->actor_type, incomingItemId, gExtSaveData.fairyRewards.nct);
 #endif
     if (fairyEntrance == 0x4600 && gExtSaveData.fairyRewards.nct != 1) {
       gExtSaveData.fairyRewards.nct = 1;
