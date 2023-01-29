@@ -131,10 +131,10 @@ OverrideBomberTextID_patch:
 OverrideItemID_patch:
     b hook_OverrideItemID
 
-.section .patch_OverrideFairyGiveItemNCT
-.global OverrideFairyItemIDNCT_patch
-OverrideFairyItemIDNCT_patch:
-    b hook_OverrideFairyItemNCT
+.section .patch_OverrideFairyGiveItem
+.global OverrideFairyItemID_patch
+OverrideFairyItemID_patch:
+    b hook_OverrideFairyItem
 
 .section .patch_OverrideFairyGiveItemWF
 .global OverrideFairyItemIDWF_patch

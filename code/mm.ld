@@ -110,21 +110,9 @@ SECTIONS{
     *(.patch_OverrideItemID)
   }
 
-  .patch_OverrideFairyGiveItemNCT 0x3becac : {
-    *(.patch_OverrideFairyGiveItemNCT)
+  .patch_OverrideFairyGiveItem 0x3becac : {
+    *(.patch_OverrideFairyGiveItem)
   }
-
-  /* .patch_OverrideFairyGiveItemWF 0x3becd4 : {
-    *(.patch_OverrideFairyGiveItemNCT)
-  } */
-
-  /* .patch_OverrideFairyItemAnonStruct 0x3BECD4 : {
-  *(.patch_OverrideFairyItemAnonStruct)
-  } */
-
-  /* .patch_OverrideGreatFairyText 0x3b783c : {
-  *(.patch_OverrideGreatFairyText)
-  }*/
 
   .patch_OverrideGreatFairySpawn 0x3bec84 : {
     *(.patch_OverrideGreatFairySpawn)

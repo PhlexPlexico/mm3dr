@@ -486,30 +486,20 @@ namespace rnd {
 #endif
     if (fairyEntrance == 0x4600 && gExtSaveData.fairyRewards.nct != 1) {
       gExtSaveData.fairyRewards.nct = 1;
-      // Since we're in control here, use the GetItemId and not the item id.
       ItemOverride_GetFairyRewardItem(gctx, fromActor, 0x86);
       ItemOverride_GetFairyRewardItem(gctx, fromActor, 0x0E);
-      // ItemOverride_GetItemTextAndItemID(gctx->GetPlayerActor());
     } else if (fairyEntrance == 0x4610 && gExtSaveData.fairyRewards.woodfall != 1) {
       gExtSaveData.fairyRewards.woodfall = 1;
-      // Since we're in control here, use the GetItemId and not the item id.
       ItemOverride_GetFairyRewardItem(gctx, fromActor, 0x2C);
-      // ItemOverride_GetItemTextAndItemID(gctx->GetPlayerActor());
     } else if (fairyEntrance == 0x4620 && gExtSaveData.fairyRewards.snowhead != 1) {
       gExtSaveData.fairyRewards.woodfall = 1;
-      // Since we're in control here, use the GetItemId and not the item id.
       ItemOverride_GetFairyRewardItem(gctx, fromActor, 0x2B);
-      // ItemOverride_GetItemTextAndItemID(gctx->GetPlayerActor());
     } else if (fairyEntrance == 0x4630 && gExtSaveData.fairyRewards.great_bay != 1) {
       gExtSaveData.fairyRewards.great_bay = 1;
-      // Since we're in control here, use the GetItemId and not the item id.
       ItemOverride_GetFairyRewardItem(gctx, fromActor, 0xB2);
-      // ItemOverride_GetItemTextAndItemID(gctx->GetPlayerActor());
     } else if (fairyEntrance == 0x4640 && gExtSaveData.fairyRewards.ikana != 1) {
       gExtSaveData.fairyRewards.ikana = 1;
-      // Since we're in control here, use the GetItemId and not the item id.
       ItemOverride_GetFairyRewardItem(gctx, fromActor, 0x9B);
-      // ItemOverride_GetItemTextAndItemID(gctx->GetPlayerActor());
     }
     if (fromActor != NULL && incomingItemId != 0) {
       s16 getItemId = incomingNegative ? -incomingItemId : incomingItemId;
@@ -522,13 +512,11 @@ namespace rnd {
     }
 
     ItemOverride_PushPendingOverride(override);
-    // s8 baseItemId = rActiveItemRow->textId;
     if (override.value.getItemId == 0x12) {
       rActiveItemRow->effectArg1 = override.key.all >> 16;
       rActiveItemRow->effectArg2 = override.key.all & 0xFFFF;
     }
 
-    // rStoredBomberNoteTextId = rActiveItemRow->textId;
     return;
   }
 
