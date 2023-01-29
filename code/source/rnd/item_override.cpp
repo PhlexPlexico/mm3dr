@@ -523,7 +523,7 @@ namespace rnd {
       return;
     } else if (fairyEntrance == 0x4640 && gExtSaveData.fairyRewards.ikana != 1) {
       gExtSaveData.fairyRewards.ikana = 1;
-      ItemOverride_PushPendingFairyRewardItem(gctx, fromActor, 0x9B);
+      ItemOverride_PushPendingFairyRewardItem(gctx, fromActor, 0x3B);
       return;
     }
   }
