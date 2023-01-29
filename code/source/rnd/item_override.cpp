@@ -478,45 +478,41 @@ namespace rnd {
                                        s16 incomingItemId) {
     ItemOverride override = {0};
     s32 incomingNegative = incomingItemId < 0;
-    u16 greatFairyParam = fromActor->params & 0xF;
+    int fairyEntrance = game::GetCommonData().sub1.entrance;
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-    rnd::util::Print("%s: Some important info:\ngreatFairyParam: %u\nActor type: %#04x\nIncoming item ID: %#04x\n",
-                     __func__, greatFairyParam, fromActor->actor_type, incomingItemId);
+    rnd::util::Print("%s: Some important info:\ngreatFairyParam: %#06x\nActor type: %#04x\nIncoming item ID: %#04x\nAnon_19: %u",
+                     __func__, fairyEntrance, fromActor->actor_type, incomingItemId,
+                     gExtSaveData.fairyRewards.nct);
 #endif
-    if (greatFairyParam == 0) {
-      if (game::GetCommonData().save.player.anonymous_18 == 0) {
-        game::GetCommonData().save.player.anonymous_18 = 1;
-        // Since we're in control here, use the GetItemId and not the item id.
-        ItemOverride_GetFairyRewardItem(gctx, fromActor, 0x40);
-        ItemOverride_GetFairyRewardItem(gctx, fromActor, 0xB3);
-        // ItemOverride_GetItemTextAndItemID(gctx->GetPlayerActor());
-      }
-    } else if (greatFairyParam == 1) {
-      if (game::GetCommonData().save.player.anonymous_19 == 0) {
-        game::GetCommonData().save.player.anonymous_19 = 1;
-        // Since we're in control here, use the GetItemId and not the item id.
-        ItemOverride_GetFairyRewardItem(gctx, fromActor, 0xB3);
-        // ItemOverride_GetItemTextAndItemID(gctx->GetPlayerActor());
-      }
-    } else if (greatFairyParam == 3) {
-      if (game::GetCommonData().save.player.anonymous_20 == 0) {
-        game::GetCommonData().save.player.anonymous_20 = 1;
-        // Since we're in control here, use the GetItemId and not the item id.
-        ItemOverride_GetFairyRewardItem(gctx, fromActor, 0xB3);
-        // ItemOverride_GetItemTextAndItemID(gctx->GetPlayerActor());
-      }
+    if (fairyEntrance == 0x4600 && gExtSaveData.fairyRewards.nct != 1) {
+      gExtSaveData.fairyRewards.nct = 1;
+      // Since we're in control here, use the GetItemId and not the item id.
+      ItemOverride_GetFairyRewardItem(gctx, fromActor, 0x86);
+      ItemOverride_GetFairyRewardItem(gctx, fromActor, 0x0E);
+      // ItemOverride_GetItemTextAndItemID(gctx->GetPlayerActor());
+    } else if (fairyEntrance == 0x4610 && gExtSaveData.fairyRewards.woodfall != 1) {
+      gExtSaveData.fairyRewards.woodfall = 1;
+      // Since we're in control here, use the GetItemId and not the item id.
+      ItemOverride_GetFairyRewardItem(gctx, fromActor, 0x2C);
+      // ItemOverride_GetItemTextAndItemID(gctx->GetPlayerActor());
+    } else if (fairyEntrance == 0x4620 && gExtSaveData.fairyRewards.snowhead != 1) {
+      gExtSaveData.fairyRewards.woodfall = 1;
+      // Since we're in control here, use the GetItemId and not the item id.
+      ItemOverride_GetFairyRewardItem(gctx, fromActor, 0x2B);
+      // ItemOverride_GetItemTextAndItemID(gctx->GetPlayerActor());
+    } else if (fairyEntrance == 0x4630 && gExtSaveData.fairyRewards.great_bay != 1) {
+      gExtSaveData.fairyRewards.great_bay = 1;
+      // Since we're in control here, use the GetItemId and not the item id.
+      ItemOverride_GetFairyRewardItem(gctx, fromActor, 0xB2);
+      // ItemOverride_GetItemTextAndItemID(gctx->GetPlayerActor());
+    } else if (fairyEntrance == 0x4640 && gExtSaveData.fairyRewards.ikana != 1) {
+      gExtSaveData.fairyRewards.ikana = 1;
+      // Since we're in control here, use the GetItemId and not the item id.
+      ItemOverride_GetFairyRewardItem(gctx, fromActor, 0x9B);
+      // ItemOverride_GetItemTextAndItemID(gctx->GetPlayerActor());
     }
     if (fromActor != NULL && incomingItemId != 0) {
-      s16 getItemId = 0;
-      // Since we deal directly with the get item ID and not the index,
-      // we need to map this back to the index to work with lookups.
-      // Manual override if we're receiving an item such as an upgrade.
-      if (incomingItemId == 0x40) {
-        getItemId = incomingNegative ? -0x86 : 0x86;
-      } else if (incomingItemId == 0x10) {
-        getItemId = incomingNegative ? -0x9B : 0x9B;
-      } else
-        getItemId = incomingItemId;
+      s16 getItemId = incomingNegative ? -incomingItemId : incomingItemId;
       override = ItemOverride_Lookup(fromActor, (u16)gctx->scene, getItemId);
     }
 

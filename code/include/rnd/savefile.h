@@ -1,6 +1,7 @@
 #ifndef _RND_SAVEFILE_H_
 #define _RND_SAVEFILE_H_
 
+#include "common/bitfield.h"
 #include "game/common_data.h"
 #include "rnd/extdata.h"
 #include "z3d/z3DVec.h"
@@ -40,8 +41,17 @@ namespace rnd {
     s8 aromaGivenItem;
     s8 grannyGaveReward;
     s8 stoneMaskReward;
-    s8 gaveFairyMaskReward;
-    s8 gaveGreatFairySword;
+    union FairyCollectRegister {
+      u8 raw;
+
+      BitField<0, 1, u8> nct;
+      BitField<1, 1, u8> woodfall;
+      BitField<2, 1, u8> snowhead;
+      BitField<3, 1, u8> great_bay;
+      BitField<4, 1, u8> ikana;
+      BitField<5, 3, u8> unused;
+    };
+    FairyCollectRegister fairyRewards;
     u8 chestRewarded[116][30];  // Reward table that's stored by scene and chest param/flag.
   } ExtSaveData;
 

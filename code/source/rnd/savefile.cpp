@@ -742,7 +742,7 @@ namespace rnd {
     // memset(&gExtSaveData.extInf, 0, sizeof(gExtSaveData.extInf));
     memset(&gExtSaveData.aromaGivenItem, 0, sizeof(gExtSaveData.aromaGivenItem));
     memset(&gExtSaveData.grannyGaveReward, 0, sizeof(gExtSaveData.grannyGaveReward));
-
+    gExtSaveData.fairyRewards.raw = 0;
     gExtSaveData.playtimeSeconds = 0;
     // TODO: Settings options belong in ext.
     // memset(&gExtSaveData.scenesDiscovered, 0, sizeof(gExtSaveData.scenesDiscovered));
