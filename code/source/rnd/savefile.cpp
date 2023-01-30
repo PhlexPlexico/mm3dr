@@ -791,8 +791,7 @@ namespace rnd {
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
     util::Print("%s: Is New file? %u\n", __func__, newSave);
 #endif
-    if (fileSize != sizeof(gExtSaveData) || version != EXTSAVEDATA_VERSION ||
-        gExtSaveData.isNewFile == 1) {
+    if (fileSize != sizeof(gExtSaveData) || version != EXTSAVEDATA_VERSION || gExtSaveData.isNewFile == 1) {
       extDataClose(fileHandle);
       extDataDeleteFile(fsa, path);
       SaveFile_InitExtSaveData(saveNumber);

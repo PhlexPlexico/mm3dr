@@ -33,6 +33,10 @@ SECTIONS{
     *(.patch_DoNotRemoveKeys)
   }
 
+  .patch_RemoveMysteryMilkUsability 0x1E04F8 : {
+    *(.patch_RemoveMysteryMilkUsability)
+  }
+
   .patch_SpawnFastElegyStatues 0x1E9FB8 : {
     *(.patch_SpawnFastElegyStatues)
   }
@@ -53,14 +57,19 @@ SECTIONS{
     *(.patch_FirstZoraSwimCheck)
   }
 
+  .patch_SecondZoraSwimCheck 0x2210DC : {
+    *(.patch_SecondZoraSwimCheck)
+  }
+
 	.patch_DisableMilkTimer 0x234BFC : {
 		*(.patch_DisableMilkTimer)
 	}
 
- .patch_LoadExtData 0x48C760 : {
-		*(.patch_LoadExtData)
-	}
-	 /*0x05ffc70*/ /*0x177ddc*/ /*0x5bbab8 */ /* 0x5b8b24 */
+  .patch_LoadExtData 0x48C760 : {
+    *(.patch_LoadExtData)
+  }
+
+  /*0x05ffc70*/ /*0x177ddc*/ /*0x5bbab8 */ /* 0x5b8b24 */
 	.patch_SaveFile_init 0x5b8b24 : {
 		*(.patch_SaveFile_init)
 	}
