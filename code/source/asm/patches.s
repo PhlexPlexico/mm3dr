@@ -72,9 +72,9 @@ patch_DoNotRemoveKeys:
     nop
 
 @ Avoids all the check items for mystery milk so we can use items freely.
-.section .patch_RemoveMysteryMilkUsabilityOne
-.global patch_RemoveMysteryMilkUsabilityOne
-patch_RemoveMysteryMilkUsabilityOne:
+.section .patch_RemoveMysteryMilkUsabilityCheck
+.global patch_RemoveMysteryMilkUsabilityCheck
+patch_RemoveMysteryMilkUsabilityCheck:
     nop
 
 .section .patch_DisableMilkTimer
@@ -96,6 +96,13 @@ patch_SaveFile_init:
 .global patch_GetCustomText
 patch_GetCustomText:
     b GetMessageFromId
+
+@ This removes the song of saoring check for the mystery milk.
+@ We can now soar freely.
+.section .patch_RemoveMysteryMilkSoSCheck
+.global patch_RemoveMysteryMilkSoSCheck
+patch_RemoveMysteryMilkSoSCheck:
+    mov r0, #0x0
 
 .section .patch_ISGCrouchStabOne
 .global patch_ISGCrouchStabOne

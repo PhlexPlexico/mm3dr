@@ -33,8 +33,8 @@ SECTIONS{
     *(.patch_DoNotRemoveKeys)
   }
 
-  .patch_RemoveMysteryMilkUsabilityOne 0x1DD358 : {
-    *(.patch_RemoveMysteryMilkUsabilityOne)
+  .patch_RemoveMysteryMilkUsabilityCheck 0x1e04d8 : {
+    *(.patch_RemoveMysteryMilkUsabilityCheck)
   }
 
   .patch_SpawnFastElegyStatues 0x1E9FB8 : {
@@ -92,6 +92,10 @@ SECTIONS{
 
   .patch_ISGCrouchStabOne 0x1D32E0 : {
     *(.patch_ISGCrouchStabOne)
+  }
+
+  .patch_RemoveMysteryMilkSoSCheck 0x1d79f8 : {
+    *(.patch_RemoveMysteryMilkSoSCheck)
   }
 
   .patch_ISGCrouchStabTwo 0x1DBEA4 : {
