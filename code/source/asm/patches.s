@@ -72,10 +72,10 @@ patch_DoNotRemoveKeys:
     nop
 
 @ Avoids all the check items for mystery milk so we can use items freely.
-.section .patch_RemoveMysteryMilkUsability
-.global patch_RemoveMysteryMilkUsability
-patch_RemoveMysteryMilkUsability:
-    b 0x1E04EC
+.section .patch_RemoveMysteryMilkUsabilityOne
+.global patch_RemoveMysteryMilkUsabilityOne
+patch_RemoveMysteryMilkUsabilityOne:
+    nop
 
 .section .patch_DisableMilkTimer
 .global patch_DisableMilkTimer

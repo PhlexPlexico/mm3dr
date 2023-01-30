@@ -33,8 +33,8 @@ SECTIONS{
     *(.patch_DoNotRemoveKeys)
   }
 
-  .patch_RemoveMysteryMilkUsability 0x1E04F8 : {
-    *(.patch_RemoveMysteryMilkUsability)
+  .patch_RemoveMysteryMilkUsabilityOne 0x1DD358 : {
+    *(.patch_RemoveMysteryMilkUsabilityOne)
   }
 
   .patch_SpawnFastElegyStatues 0x1E9FB8 : {
