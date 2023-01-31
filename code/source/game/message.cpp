@@ -1,3 +1,11 @@
+/**
+ * @file actor.cpp
+ * @author leoetlino (https://github.com/leoetlino/)
+ * @brief
+ * @date 2021-09-15
+ *
+ * Brought in from the Project Restoration libraries. Modified for custom messages.
+ */
 #include "game/message.h"
 
 #include "common/utils.h"

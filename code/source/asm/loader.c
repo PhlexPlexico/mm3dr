@@ -1,6 +1,6 @@
 /*
  * This file is a modified version of a file originally written by RicBent
- * for the program Magikoopa.
+ * for the program Magikoopa. Modified to fit alongside libctru in projects.
  */
 
 #include <3ds/svc.h>

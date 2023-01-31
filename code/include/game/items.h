@@ -1,3 +1,11 @@
+/**
+ * @file items.h
+ * @author leoetlino (https://github.com/leoetlino/)
+ * @brief
+ * @date 2021-09-15
+ *
+ * Brought in from the Project Restoration libraries. Modified for more items.
+ */
 #ifndef _GAME_ITEMS_H
 #define _GAME_ITEMS_H
 

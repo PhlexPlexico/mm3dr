@@ -1,3 +1,11 @@
+/**
+ * @file advanced_context.h
+ * @author leoetlino (https://github.com/leoetlino/)
+ * @brief
+ * @date 2021-09-15
+ *
+ * Brought in from the Project Restoration libraries (context.h). Edited to adjust for the randomizer.
+ */
 #ifndef _COMMON_ADVANCED_CONTEXT_H
 #define _COMMON_ADVANCED_CONTEXT_H
 #include "z3d/z3DVec.h"

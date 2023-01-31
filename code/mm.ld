@@ -25,12 +25,20 @@ SECTIONS{
     *(.patch_DecoupleStartSelect)
   }
 
+  .patch_RemoveMysteryMilkTimer 0x1B7A54 : {
+    *(.patch_RemoveMysteryMilkTimer)
+  }
+
   /* .patch_AttemptKeepChestsClosed 0x1c9300 : {
   *(.patch_AttemptKeepChestsClosed)
   } */
 
   .patch_DoNotRemoveKeys 0x1c9b94 : {
     *(.patch_DoNotRemoveKeys)
+  }
+
+  .patch_RemoveMysteryMilkUsabilityCheck 0x1e04d8 : {
+    *(.patch_RemoveMysteryMilkUsabilityCheck)
   }
 
   .patch_SpawnFastElegyStatues 0x1E9FB8 : {
@@ -57,14 +65,18 @@ SECTIONS{
     *(.patch_SecondZoraSwimCheck)
   }
 
-  /*0x05ffc70*/ /*0x177ddc*/ /*0x5bbab8 */ /* 0x5b8b24 */
+	.patch_DisableMilkTimer 0x234BFC : {
+		*(.patch_DisableMilkTimer)
+	}
+
   .patch_LoadExtData 0x48C760 : {
     *(.patch_LoadExtData)
   }
 
-  .patch_SaveFile_init 0x5b8b24 : {
-    *(.patch_SaveFile_init)
-  }
+  /*0x05ffc70*/ /*0x177ddc*/ /*0x5bbab8 */ /* 0x5b8b24 */
+	.patch_SaveFile_init 0x5b8b24 : {
+		*(.patch_SaveFile_init)
+	}
 
   .patch_FixSurroundSound 0x1404E8 : {
     *(.patch_FixSurroundSound)
@@ -84,6 +96,10 @@ SECTIONS{
 
   .patch_ISGCrouchStabOne 0x1D32E0 : {
     *(.patch_ISGCrouchStabOne)
+  }
+
+  .patch_RemoveMysteryMilkSoSCheck 0x1d79f8 : {
+    *(.patch_RemoveMysteryMilkSoSCheck)
   }
 
   .patch_ISGCrouchStabTwo 0x1DBEA4 : {

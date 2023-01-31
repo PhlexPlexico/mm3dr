@@ -65,7 +65,6 @@ hook_SaveFile_Init:
     pop {r0-r12, lr}
     mov r3,#0x0
     b 0x5b8b28  
-    
 
 @ State handler calls 0x5D for masks, check this value and ignore states where that is equal, since this function
 @ is also used by song of soaring and get_item.

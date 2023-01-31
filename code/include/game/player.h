@@ -8,6 +8,14 @@
 #include "game/actorresource.h"
 #include "game/as.h"
 #include "game/context.h"
+/**
+ * @file player.h
+ * @author leoetlino (https://github.com/leoetlino/)
+ * @brief
+ * @date 2021-09-15
+ *
+ * Brought in from the Project Restoration libraries. Edited to adjust for the randomizer.
+ */
 #include "game/items.h"
 #include "game/pad.h"
 #include "z3d/z3DVec.h"

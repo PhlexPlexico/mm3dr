@@ -44,6 +44,15 @@ patch_MainLoop:
 patch_DecoupleStartSelect:
     nop
 
+@ There's a while loop located in the event
+@ timer that checks if we have mystery milk.
+@ We do not wish to show this since we want to remove
+@ the timer, so we just nop the branch.
+.section .patch_RemoveMysteryMilkTimer
+.global patch_RemoveMysteryMilkTimer
+patch_RemoveMysteryMilkTimer:
+    nop
+
 @ Skip past all chest content resetting.
 @ Since this is rando, we don't want users
 @ getting chests again, and instead of
@@ -71,6 +80,17 @@ patch_DoNotRemoveKeys:
     nop
     nop
 
+@ Avoids all the check items for mystery milk so we can use items freely.
+.section .patch_RemoveMysteryMilkUsabilityCheck
+.global patch_RemoveMysteryMilkUsabilityCheck
+patch_RemoveMysteryMilkUsabilityCheck:
+    nop
+
+.section .patch_DisableMilkTimer
+.global patch_DisableMilkTimer
+patch_DisableMilkTimer:
+    nop
+
 .section .patch_LoadExtData
 .global patch_LoadExtData
 patch_LoadExtData:
@@ -85,6 +105,13 @@ patch_SaveFile_init:
 .global patch_GetCustomText
 patch_GetCustomText:
     b GetMessageFromId
+
+@ This removes the song of saoring check for the mystery milk.
+@ We can now soar freely.
+.section .patch_RemoveMysteryMilkSoSCheck
+.global patch_RemoveMysteryMilkSoSCheck
+patch_RemoveMysteryMilkSoSCheck:
+    mov r0, #0x0
 
 .section .patch_ISGCrouchStabOne
 .global patch_ISGCrouchStabOne

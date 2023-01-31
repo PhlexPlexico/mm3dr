@@ -1,3 +1,5 @@
+@ This file has been taken and modified from
+@ https://github.com/leoetlino/project-restoration/blob/181ecbf6e806fc10c8d1f8b2d74489b0bd7f5e67/hooks/rst_zora_swim.hks
 .arm
 .text
 
