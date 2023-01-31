@@ -1,3 +1,11 @@
+/**
+ * @file camera.h
+ * @author leoetlino (https://github.com/leoetlino/)
+ * @brief
+ * @date 2021-09-15
+ *
+ * Brought in from the Project Restoration libraries. Edited to adjust for the randomizer.
+ */
 #ifndef _GAME_CAMERA_H
 #define _GAME_CAMERA_H
 

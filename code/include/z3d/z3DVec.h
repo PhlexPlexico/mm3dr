@@ -1,3 +1,11 @@
+/**
+ * @file z3d.h
+ * @author gamestabled (https://github.com/gamestabled/)
+ * @brief
+ * @date 2021-09-15
+ *
+ * Brought in from the OoT3DR libraries. Edited to adjust for this randomizer.
+ */
 #ifndef _Z3DVEC_H_
 #define _Z3DVEC_H_
 

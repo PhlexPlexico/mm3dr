@@ -1,3 +1,11 @@
+/**
+ * @file obj_elegy_statue.h
+ * @author leoetlino (https://github.com/leoetlino/)
+ * @brief
+ * @date 2021-09-15
+ *
+ * Brought in from the Project Restoration libraries. Edited to adjust for the randomizer.
+ */
 #ifndef _GAME_ACTORS_OBJ_ELEGY_STATUE
 #define _GAME_ACTORS_OBJ_ELEGY_STATUE
 

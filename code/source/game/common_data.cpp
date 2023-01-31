@@ -1,3 +1,11 @@
+/**
+ * @file common_data.cpp
+ * @author leoetlino (https://github.com/leoetlino/)
+ * @brief
+ * @date 2021-09-15
+ *
+ * Brought in from the Project Restoration libraries. Edited to adjust for the randomizer.
+ */
 #include "game/common_data.h"
 
 #include "common/utils.h"

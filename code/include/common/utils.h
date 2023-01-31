@@ -1,6 +1,14 @@
 #ifndef _COMMON_UTILS_H
 #define _COMMON_UTILS_H
 
+/**
+ * @file utils.h
+ * @author leoetlino (https://github.com/leoetlino/)
+ * @brief
+ * @date 2021-09-15
+ *
+ * Brought in from the Project Restoration libraries. Edited to adjust for the randomizer.
+ */
 #include <algorithm>
 #include <cstring>
 #include <tuple>
