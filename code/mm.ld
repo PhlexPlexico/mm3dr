@@ -25,6 +25,10 @@ SECTIONS{
     *(.patch_DecoupleStartSelect)
   }
 
+  .patch_RemoveMysteryMilkTimer 0x1B7A54 : {
+    *(.patch_RemoveMysteryMilkTimer)
+  }
+
   /* .patch_AttemptKeepChestsClosed 0x1c9300 : {
   *(.patch_AttemptKeepChestsClosed)
   } */

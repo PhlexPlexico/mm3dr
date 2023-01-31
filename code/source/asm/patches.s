@@ -44,6 +44,15 @@ patch_MainLoop:
 patch_DecoupleStartSelect:
     nop
 
+@ There's a while loop located in the event
+@ timer that checks if we have mystery milk.
+@ We do not wish to show this since we want to remove
+@ the timer, so we just nop the branch.
+.section .patch_RemoveMysteryMilkTimer
+.global patch_RemoveMysteryMilkTimer
+patch_RemoveMysteryMilkTimer:
+    nop
+
 @ Skip past all chest content resetting.
 @ Since this is rando, we don't want users
 @ getting chests again, and instead of
