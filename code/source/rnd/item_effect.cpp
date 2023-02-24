@@ -1,4 +1,5 @@
 #include "rnd/item_effect.h"
+#include "game/sound.h"
 #include "rnd/icetrap.h"
 #include "rnd/savefile.h"
 #include "rnd/settings.h"
@@ -13,7 +14,7 @@ namespace rnd {
     // With the No Health Refills option on, store-bought health upgrades do not heal the player
     if ((gSettingsContext.heartDropRefill != (u8)HeartDropRefillSetting::HEARTDROPREFILL_NOREFILL) &&
         (gSettingsContext.heartDropRefill != (u8)HeartDropRefillSetting::HEARTDROPREFILL_NODROPREFILL)) {
-      comData->health_accumulator = 20 * 0x10;
+      // comData->health_accumulator = 20 * 0x10;
     }
     return;
   }
@@ -112,6 +113,7 @@ namespace rnd {
     if (comData->save.player.magic_acquired != 0) {
       ItemEffect_GiveDoubleMagic(comData, arg1, arg2);
     } else {
+      comData->save.player.anonymous_18 = 1;
       ItemEffect_GiveMagic(comData, arg1, arg2);
     }
   }
@@ -123,9 +125,10 @@ namespace rnd {
 
   void ItemEffect_GiveDoubleDefense(game::CommonData* comData, s16 arg1, s16 arg2) {
     comData->save.player.double_defense = 1;
+    comData->save.player.anonymous_19 = 1;
     if ((gSettingsContext.heartDropRefill != (u8)HeartDropRefillSetting::HEARTDROPREFILL_NOREFILL) &&
         (gSettingsContext.heartDropRefill != (u8)HeartDropRefillSetting::HEARTDROPREFILL_NODROPREFILL)) {
-      comData->health_accumulator = 20 * 0x10;
+      comData->save.player.health_current = comData->save.player.health_max;
     }
   }
 

@@ -602,7 +602,10 @@ namespace game {
   static_assert(sizeof(CommonDataSub1) == 0x20);
 
   struct CommonDataSub3 {
-    u32 field_0;
+    u8 field_0;
+    u8 field_1;
+    u8 field_2;
+    u8 field_3;
     int field_4;
     int field_8;
     int field_C;
@@ -764,7 +767,8 @@ namespace game {
     CommonDataSub11 sub11;
     CommonDataSub12 sub12;
     u8 gap_3668[14];
-    __attribute__((packed)) __attribute__((aligned(1))) int field_3676;
+    __attribute__((packed)) __attribute__((aligned(1))) u16 field_3676;
+    __attribute__((packed)) __attribute__((aligned(1))) u16 field_3678;
     __attribute__((packed)) __attribute__((aligned(1))) int field_367A;
     __attribute__((packed)) __attribute__((aligned(1))) int field_367E;
     u16 field_3682;
@@ -776,7 +780,7 @@ namespace game {
     s16 magic_cost;
     u16 field_3690;
     u16 field_3692;
-    u16 health_accumulator;
+    u16 field_3694;
     u16 field_3696;
     u16 field_3698;
     u16 field_369A;

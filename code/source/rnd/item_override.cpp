@@ -40,8 +40,8 @@ namespace rnd {
     rItemOverrides[0].value.looksLikeItemId = 0x26;
     rItemOverrides[1].key.scene = 0x6C;
     rItemOverrides[1].key.type = ItemOverride_Type::OVR_CHEST;
-    rItemOverrides[1].value.getItemId = 0x70;
-    rItemOverrides[1].value.looksLikeItemId = 0x70;
+    rItemOverrides[1].value.getItemId = 0xB2;
+    rItemOverrides[1].value.looksLikeItemId = 0xB2;
     rItemOverrides[2].key.scene = 0x12;
     rItemOverrides[2].key.type = ItemOverride_Type::OVR_COLLECTABLE;
     rItemOverrides[2].value.getItemId = 0x37;
