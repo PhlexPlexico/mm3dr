@@ -150,8 +150,16 @@ SECTIONS{
     *(.patch_SaveExtDataOnOwl)
   }
 
+  .patch_RemoveZoraMaskCheckMikau 0x32bbb8 : {
+    *(.patch_RemoveZoraMaskCheckMikau)
+  }
+
   .patch_AromaItemCheck 0x35091C : {
     *(.patch_AromaItemCheck)
+  }
+
+  .patch_ZoraMaskGiveItem 0x41DB84 : {
+    *(.patch_ZoraMaskGiveItem)
   }
 
   .patch_IncomingGetItemID 0x4B1394 : {
