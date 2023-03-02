@@ -7,7 +7,7 @@
 #include "z3d/z3DVec.h"
 
 // Increment the version number whenever the ExtSaveData structure is changed
-#define EXTSAVEDATA_VERSION 02
+#define EXTSAVEDATA_VERSION 03
 
 namespace rnd {
   void SaveFile_SkipMinorCutscenes();
@@ -25,12 +25,9 @@ namespace rnd {
   void SaveFile_SetOwnedTradeItemEquipped(void);
   void SaveFile_ResetItemSlotsIfMatchesID(u8 itemSlot);
   bool SaveFile_IsValidSettingsHealth(void);
-  // extern "C" {
   void SaveFile_InitExtSaveData(u32 fileBaseIndex);
   void SaveFile_LoadExtSaveData(u32 saveNumber);
   extern "C" void SaveFile_SaveExtSaveData();
-
-  //}
 
   typedef struct {
     u32 version;  // Needs to always be the first field of the structure
@@ -41,6 +38,9 @@ namespace rnd {
     s8 aromaGivenItem;
     s8 grannyGaveReward;
     s8 stoneMaskReward;
+    s8 mummyDaddyReward;
+    s8 mikauReward;
+    s8 darmaniReward;
     union FairyCollectRegister {
       u8 raw;
 

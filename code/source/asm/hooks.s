@@ -186,6 +186,18 @@ hook_OwlExtDataSave:
     cpy r6,r0
     b 0x317008
 
+.global hook_MikauRewardCheck
+hook_MikauRewardCheck:
+    push {r0-r12, lr}
+    bl ItemOverride_CheckMikauGivenItem
+    cmp r0,#0x1
+    pop {r0-r12, lr}
+    beq doNotSpawnMikau
+    b 0x32BC20
+doNotSpawnMikau:
+    nop
+    b 0x32BBDC
+
 .global hook_AromaItemCheck
 hook_AromaItemCheck:
     push {r0-r12, lr}

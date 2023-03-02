@@ -430,6 +430,13 @@ namespace rnd {
       return true;
     return false;
   }
+
+  bool ItemOverride_CheckMikauGivenItem() {
+    if (gExtSaveData.mikauReward > 0)
+      return true;
+    return false;
+  }
+
   void ItemOverride_GetItemTextAndItemID(game::act::Player* actor) {
     if (rActiveItemRow != NULL) {
       if (rActiveItemOverride.key.type == ItemOverride_Type::OVR_CHEST) {

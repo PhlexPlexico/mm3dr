@@ -214,6 +214,11 @@ patch_FasterBlockMovementBack:
 patch_SaveExtDataOnOwl:
     b hook_OwlExtDataSave
 
+.section .patch_RemoveZoraMaskCheckMikau
+.global patch_RemoveZoraMaskCheckMikau
+patch_RemoveZoraMaskCheckMikau:
+    b hook_MikauRewardCheck
+
 .section .patch_AromaItemCheck
 .global patch_AromaItemCheck
 patch_AromaItemCheck:

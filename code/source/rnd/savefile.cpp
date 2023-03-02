@@ -217,10 +217,10 @@ namespace rnd {
   void SaveFile_SetFastAnimationFlags() {
     game::SaveData& saveData = game::GetCommonData().save;
     // Masks
-    saveData.set_fast_mask_animations.has_worn_deku_mask_once = 1;
-    saveData.set_fast_mask_animations.has_worn_goron_mask_once = 1;
-    saveData.set_fast_mask_animations.has_worn_zora_mask_once = 1;
-    saveData.set_fast_mask_animations.has_worn_deity_mask_once = 1;
+    saveData.have_worn_mask_once.has_worn_deku_mask_once = 1;
+    saveData.have_worn_mask_once.has_worn_goron_mask_once = 1;
+    saveData.have_worn_mask_once.has_worn_zora_mask_once = 1;
+    saveData.have_worn_mask_once.has_worn_deity_mask_once = 1;
     // Dungeons
     saveData.set_fast_animation_flags.woodfall_temple_opened_at_least_once = 1;
     saveData.set_fast_animation_flags.snowhead_temple_opened_at_least_once = 1;
@@ -742,6 +742,9 @@ namespace rnd {
     // memset(&gExtSaveData.extInf, 0, sizeof(gExtSaveData.extInf));
     memset(&gExtSaveData.aromaGivenItem, 0, sizeof(gExtSaveData.aromaGivenItem));
     memset(&gExtSaveData.grannyGaveReward, 0, sizeof(gExtSaveData.grannyGaveReward));
+    memset(&gExtSaveData.mummyDaddyReward, 0, sizeof(gExtSaveData.mummyDaddyReward));
+    memset(&gExtSaveData.mikauReward, 0, sizeof(gExtSaveData.mikauReward));
+    memset(&gExtSaveData.darmaniReward, 0, sizeof(gExtSaveData.darmaniReward));
     gExtSaveData.fairyRewards.raw = 0;
     gExtSaveData.playtimeSeconds = 0;
     // TODO: Settings options belong in ext.
