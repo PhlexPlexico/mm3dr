@@ -39,7 +39,7 @@ namespace rnd {
     rItemOverrides[0].value.getItemId = 0x26;
     rItemOverrides[0].value.looksLikeItemId = 0x26;
     rItemOverrides[1].key.scene = 0x6C;
-    rItemOverrides[1].key.type = ItemOverride_Type::OVR_CHEST;
+    rItemOverrides[1].key.type = ItemOverride_Type::OVR_COLLECTABLE;
     rItemOverrides[1].value.getItemId = 0xB2;
     rItemOverrides[1].value.looksLikeItemId = 0xB2;
     rItemOverrides[2].key.scene = 0x12;
@@ -177,7 +177,7 @@ namespace rnd {
       }
       if (rPendingOverrideQueue[i].key.all == override.key.all) {
         // Prevent duplicate entries
-        // break;
+        break;
       }
     }
   }
@@ -533,6 +533,21 @@ namespace rnd {
       ItemOverride_PushPendingFairyRewardItem(gctx, fromActor, 0x3B);
       return;
     }
+  }
+
+  void ItemOverride_GetSoHItem(game::GlobalContext* gctx, game::act::Actor* fromActor, s16 incomingItemId) {
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+    rnd::util::Print("%s: Song of healing item is now being obtained. Item ID is %i\n", __func__, incomingItemId);
+#endif
+    if (incomingItemId == 0x7A) {
+      gExtSaveData.mikauReward = 1;
+    } else if (incomingItemId == 0x79) {
+      gExtSaveData.darmaniReward = 1;
+    } else if (incomingItemId == 0x87) {
+      gExtSaveData.mummyDaddyReward = 1;
+    }
+    ItemOverride_GetItem(gctx, fromActor, gctx->GetPlayerActor(), incomingItemId);
+    return;
   }
 
   void ItemOverride_RemoveTextId() {

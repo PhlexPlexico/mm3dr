@@ -158,9 +158,9 @@ SECTIONS{
     *(.patch_AromaItemCheck)
   }
 
-  .patch_ZoraMaskGiveItem 0x41DB84 : {
+  /* .patch_ZoraMaskGiveItem 0x41DB80 : {
     *(.patch_ZoraMaskGiveItem)
-  }
+  } */
 
   .patch_IncomingGetItemID 0x4B1394 : {
     *(.patch_IncomingGetItemID)

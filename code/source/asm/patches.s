@@ -224,6 +224,11 @@ patch_RemoveZoraMaskCheckMikau:
 patch_AromaItemCheck:
     b hook_AromaItemCheck
 
+.section .patch_ZoraMaskGiveItem
+.global patch_ZoraMaskGiveItem
+patch_ZoraMaskGiveItem:
+    b hook_ZoraMaskGiveItem
+
 .section .patch_loader
 .global loader_patch
 loader_patch:
