@@ -553,5 +553,18 @@ namespace rnd {
   void ItemOverride_RemoveTextId() {
     rStoredBomberNoteTextId = 0;
   }
+
+  int ItemOverride_CheckInventoryItemOverride(game::ItemId currentItem) {
+    if (currentItem == game::ItemId::BlastMask) {
+      if (gExtSaveData.grannyGaveReward == 0)
+        return 0xFF;
+      else
+        return (int)currentItem;
+    } else if (currentItem == game::ItemId::DonGeroMask) {
+      return (int)currentItem;
+    }
+
+    return 0xFF;
+  }
   }
 }  // namespace rnd

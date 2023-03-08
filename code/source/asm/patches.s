@@ -10,6 +10,11 @@ patch_DecoupleZlZr:
 patch_SpawnFastElegyStatues: 
     b hook_SpawnFastElegyStatues
 
+.section .patch_CheckCurrentInventoryOverrideItem
+.global patch_CheckCurrentInventoryOverrideItem
+patch_CheckCurrentInventoryOverrideItem:
+    b hook_CheckCurrentInventory
+
 .section .patch_startHeap
 .global patch_startHeap
 patch_startHeap:

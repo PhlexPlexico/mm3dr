@@ -26,6 +26,18 @@ hook_SpawnFastElegyStatues:
     beq 0x1E9FBC
     bx lr
 
+.global hook_CheckCurrentInventory
+hook_CheckCurrentInventory:
+    push {r1, lr}
+    bl ItemOverride_CheckInventoryItemOverride
+    cmp r0,#0xFF
+    beq DoNotOverrideInventoryCheck
+    pop {r1, lr}
+    bx lr
+DoNotOverrideInventoryCheck:
+    ldrb r0,[r1,r0]
+    b 0x1F3D64
+
 .global hook_CheckOcarinaDive
 hook_CheckOcarinaDive:
     push {r0-r12, lr}

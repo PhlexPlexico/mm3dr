@@ -45,6 +45,10 @@ SECTIONS{
     *(.patch_SpawnFastElegyStatues)
   }
 
+  .patch_CheckCurrentInventoryOverrideItem 0x1F3D60 : {
+    *(.patch_CheckCurrentInventoryOverrideItem)
+  }
+
   .patch_UseZoraASwimSecond 0X1FFD74 : {
     *(.patch_UseZoraASwimSecond)
   }
