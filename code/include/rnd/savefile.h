@@ -35,12 +35,22 @@ namespace rnd {
     u32 isNewFile;
     u8 playedSosOnce;
     u8 playedElegyOnce;
-    s8 aromaGivenItem;
-    s8 grannyGaveReward;
-    s8 stoneMaskReward;
-    s8 mummyDaddyReward;
-    s8 mikauReward;
-    s8 darmaniReward;
+    union GivenItemRegister {
+      u16 raw;
+
+      BitField<0, 1, u16> enNbGivenItem;
+      BitField<1, 1, u16> enAlGivenItem;
+      BitField<2, 1, u16> enBabaGivenItem;
+      BitField<3, 1, u16> enStoneHeishiGivenItem;
+      BitField<4, 1, u16> mummyDaddyGivenItem;
+      BitField<5, 1, u16> enGuruGuruGivenItem;
+      BitField<6, 1, u16> enYbGivenItem;
+      BitField<7, 1, u16> enGegGivenItem;
+      BitField<8, 1, u16> enZogGivenItem;
+      BitField<9, 1, u16> enGgGivenItem;
+      BitField<10, 6, u16> unused;
+    };
+    GivenItemRegister givenItemChecks; 
     union FairyCollectRegister {
       u8 raw;
 

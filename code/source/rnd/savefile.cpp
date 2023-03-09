@@ -740,11 +740,13 @@ namespace rnd {
 #endif
     // TODO: BitField for event flags instead?
     // memset(&gExtSaveData.extInf, 0, sizeof(gExtSaveData.extInf));
-    memset(&gExtSaveData.aromaGivenItem, 0, sizeof(gExtSaveData.aromaGivenItem));
-    memset(&gExtSaveData.grannyGaveReward, 0, sizeof(gExtSaveData.grannyGaveReward));
+    memset(&gExtSaveData.givenItemChecks.raw, 0, sizeof(gExtSaveData.givenItemChecks.raw));
+    /*memset(&gExtSaveData.aromaGivenItem, 0, sizeof(gExtSaveData.aromaGivenItem));
+    memset(&gExtSaveData.enBabaGivenItem, 0, sizeof(gExtSaveData.enBabaGivenItem));
+    memset(&gExtSaveData.stoneMaskReward, 0, sizeof(gExtSaveData.stoneMaskReward));
     memset(&gExtSaveData.mummyDaddyReward, 0, sizeof(gExtSaveData.mummyDaddyReward));
-    memset(&gExtSaveData.mikauReward, 0, sizeof(gExtSaveData.mikauReward));
-    memset(&gExtSaveData.darmaniReward, 0, sizeof(gExtSaveData.darmaniReward));
+    memset(&gExtSaveData.enZogGivenItem, 0, sizeof(gExtSaveData.enZogGivenItem));
+    memset(&gExtSaveData.darmaniReward, 0, sizeof(gExtSaveData.darmaniReward));*/
     gExtSaveData.fairyRewards.raw = 0;
     gExtSaveData.playtimeSeconds = 0;
     // TODO: Settings options belong in ext.

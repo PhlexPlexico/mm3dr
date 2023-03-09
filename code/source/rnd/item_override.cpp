@@ -383,21 +383,27 @@ namespace rnd {
     s16 getItemId = incomingNegative ? -originalGetItemId : originalGetItemId;
     // TODO: Granny Override here - check actor scene, and check gExtData.
     if (actorId == game::act::Id::NpcEnNb) {
-      if (gExtSaveData.grannyGaveReward > 0) {
+      if (gExtSaveData.givenItemChecks.enNbGivenItem > 0) {
         getItemId = incomingNegative ? -0xBA : 0xBA;
       }
-      gExtSaveData.grannyGaveReward++;
+      gExtSaveData.givenItemChecks.enNbGivenItem = 1;
     } else if (actorId == game::act::Id::NpcEnBjt) {
       getItemId = incomingNegative ? -0x01 : 0x01;
     } else if (actorId == game::act::Id::NpcSwampPhotographer) {
       getItemId = incomingNegative ? -0xBA : 0xBA;
     } else if (actorId == game::act::Id::NpcInvisibleGuard) {
-      if (gExtSaveData.stoneMaskReward > 0) {
+      if (gExtSaveData.givenItemChecks.enStoneHeishiGivenItem > 0) {
         getItemId = incomingNegative ? -0xBA : 0xBA;
       }
-      gExtSaveData.stoneMaskReward++;
+      gExtSaveData.givenItemChecks.enStoneHeishiGivenItem = 1;
     } else if (actorId == game::act::Id::NpcAroma) {
-      gExtSaveData.aromaGivenItem++;
+      gExtSaveData.givenItemChecks.enAlGivenItem = 1;
+    } else if (actorId == game::act::Id::NpcEnGuruGuru) {
+      gExtSaveData.givenItemChecks.enGuruGuruGivenItem = 1;
+    } else if (actorId == game::act::Id::NpcEnYb) {
+      gExtSaveData.givenItemChecks.enYbGivenItem = 1;
+    } else if (actorId == game::act::Id::NpcEnBaba) {
+      gExtSaveData.givenItemChecks.enBabaGivenItem = 1;
     }
     return getItemId;
   }
@@ -426,13 +432,13 @@ namespace rnd {
 
   extern "C" {
   bool ItemOverride_CheckAromaGivenItem() {
-    if (gExtSaveData.aromaGivenItem > 0)
+    if (gExtSaveData.givenItemChecks.enAlGivenItem > 0)
       return true;
     return false;
   }
 
   bool ItemOverride_CheckMikauGivenItem() {
-    if (gExtSaveData.mikauReward > 0)
+    if (gExtSaveData.givenItemChecks.enZogGivenItem > 0)
       return true;
     return false;
   }
@@ -540,11 +546,11 @@ namespace rnd {
     rnd::util::Print("%s: Song of healing item is now being obtained. Item ID is %i\n", __func__, incomingItemId);
 #endif
     if (incomingItemId == 0x7A) {
-      gExtSaveData.mikauReward = 1;
+      gExtSaveData.givenItemChecks.enZogGivenItem = 1;
     } else if (incomingItemId == 0x79) {
-      gExtSaveData.darmaniReward = 1;
+      gExtSaveData.givenItemChecks.enGgGivenItem = 1;
     } else if (incomingItemId == 0x87) {
-      gExtSaveData.mummyDaddyReward = 1;
+      gExtSaveData.givenItemChecks.mummyDaddyGivenItem = 1;
     }
     ItemOverride_GetItem(gctx, fromActor, gctx->GetPlayerActor(), incomingItemId);
     return;
@@ -555,19 +561,14 @@ namespace rnd {
   }
 
   int ItemOverride_CheckInventoryItemOverride(game::ItemId currentItem) {
-    if (currentItem == game::ItemId::BlastMask) {
-      if (gExtSaveData.grannyGaveReward == 0) {
-#if defined ENABLE_DEBUG || defined DEBUG_PRINT
-        rnd::util::Print("%s: Checking inventory current item is %04x and granny reward is %u\n", __func__, currentItem,
-                         gExtSaveData.grannyGaveReward);
-#endif
+    if (currentItem == game::ItemId::BlastMask && gExtSaveData.givenItemChecks.enBabaGivenItem == 0) {
+      return (int)0xFF;
+    } else if (currentItem == game::ItemId::BremenMask && gExtSaveData.givenItemChecks.enGuruGuruGivenItem == 0) {
+      return (int)0xFF;
+    }  else if (currentItem == game::ItemId::KamaroMask && gExtSaveData.givenItemChecks.enYbGivenItem == 0) {
         return (int)0xFF;
-      }
-
-      else
-        return (int)currentItem;
-    } else if (currentItem == game::ItemId::DonGeroMask) {
-      return (int)currentItem;
+    } else if (currentItem == game::ItemId::DonGeroMask && gExtSaveData.givenItemChecks.enGegGivenItem == 0) {
+        return (int)0xFF;
     }
 
     return (int)currentItem;
