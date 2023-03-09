@@ -50,7 +50,7 @@ namespace rnd {
       BitField<9, 1, u16> enGgGivenItem;
       BitField<10, 6, u16> unused;
     };
-    GivenItemRegister givenItemChecks; 
+    GivenItemRegister givenItemChecks;
     union FairyCollectRegister {
       u8 raw;
 

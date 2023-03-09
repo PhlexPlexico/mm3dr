@@ -565,10 +565,15 @@ namespace rnd {
       return (int)0xFF;
     } else if (currentItem == game::ItemId::BremenMask && gExtSaveData.givenItemChecks.enGuruGuruGivenItem == 0) {
       return (int)0xFF;
-    }  else if (currentItem == game::ItemId::KamaroMask && gExtSaveData.givenItemChecks.enYbGivenItem == 0) {
-        return (int)0xFF;
+    } else if (currentItem == game::ItemId::KamaroMask && gExtSaveData.givenItemChecks.enYbGivenItem == 0) {
+      return (int)0xFF;
     } else if (currentItem == game::ItemId::DonGeroMask && gExtSaveData.givenItemChecks.enGegGivenItem == 0) {
-        return (int)0xFF;
+      return (int)0xFF;
+    } else if (currentItem == game::ItemId::ZoraMask && gExtSaveData.givenItemChecks.enZogGivenItem == 0) {
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+      rnd::util::Print("%s: Zog is still 0.\n", __func__);
+#endif
+      return (int)0xFF;
     }
 
     return (int)currentItem;
