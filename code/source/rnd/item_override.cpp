@@ -556,15 +556,21 @@ namespace rnd {
 
   int ItemOverride_CheckInventoryItemOverride(game::ItemId currentItem) {
     if (currentItem == game::ItemId::BlastMask) {
-      if (gExtSaveData.grannyGaveReward == 0)
-        return 0xFF;
+      if (gExtSaveData.grannyGaveReward == 0) {
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+        rnd::util::Print("%s: Checking inventory current item is %04x and granny reward is %u\n", __func__, currentItem,
+                         gExtSaveData.grannyGaveReward);
+#endif
+        return (int)0xFF;
+      }
+
       else
         return (int)currentItem;
     } else if (currentItem == game::ItemId::DonGeroMask) {
       return (int)currentItem;
     }
 
-    return 0xFF;
+    return (int)currentItem;
   }
   }
 }  // namespace rnd

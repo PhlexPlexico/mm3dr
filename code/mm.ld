@@ -45,7 +45,7 @@ SECTIONS{
     *(.patch_SpawnFastElegyStatues)
   }
 
-  .patch_CheckCurrentInventoryOverrideItem 0x1F3D60 : {
+  .patch_CheckCurrentInventoryOverrideItem 0x1F3D6C : {
     *(.patch_CheckCurrentInventoryOverrideItem)
   }
 

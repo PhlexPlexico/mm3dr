@@ -31,12 +31,11 @@ hook_CheckCurrentInventory:
     push {r1, lr}
     bl ItemOverride_CheckInventoryItemOverride
     cmp r0,#0xFF
-    beq DoNotOverrideInventoryCheck
     pop {r1, lr}
+    bne DoNotOverrideInventoryCheck
     bx lr
 DoNotOverrideInventoryCheck:
-    ldrb r0,[r1,r0]
-    b 0x1F3D64
+    bx lr
 
 .global hook_CheckOcarinaDive
 hook_CheckOcarinaDive:
