@@ -134,8 +134,9 @@ namespace rnd {
       gSettingsContext.startingOcarina = 1;
       gSettingsContext.startingDekuMask = 1;  // start with Deku Mask, Song of Healing & Bomber's notebook always
       saveData.inventory.collect_register.song_of_healing = 1;  // until happy mask salesman is overridden
-      gSettingsContext.startingKokiriSword = 1;
-      gSettingsContext.startingShield = 1;
+      saveData.player.owl_statue_flags.clock_town = 1;
+      // gSettingsContext.startingKokiriSword = 1;
+      // gSettingsContext.startingShield = 1;
 
       SaveFile_SetStartingInventory();
 
