@@ -20,26 +20,6 @@ hook_MainLoop:
     ldr r1, [r0,#0x138]
     b 0x0106770
 
-.global hook_CheckShowMessageTimeStuff
-hook_CheckShowMessageTimeStuff:
-    push {r0-r12,lr}
-    ldr r1,.rActiveItemTextId_addr
-    ldr r1,[r1]
-    cmp r1,#0x0
-    pop {r0-r12,lr}
-    beq DoNotOverrideMajorItemText
-    ldr r1,.rActiveItemTextId_addr
-    ldr r1,[r1]
-    b 0x21BAFC
-    bx lr
-DoNotOverrideMajorItemText:
-    b 0x21BAFC
-    bx lr
-    @ push {r0-r12}
-    @ bl ItemOverride_OverrideTextIDMajorItems
-    @ pop {r0,r12}
-    @ b 0x186814
-    @ b 0x21BAFC
 
 .global hook_SpawnFastElegyStatues
 hook_SpawnFastElegyStatues:

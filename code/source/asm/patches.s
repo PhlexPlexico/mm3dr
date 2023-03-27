@@ -55,7 +55,7 @@ patch_DecoupleStartSelect:
 .section .patch_RemoveMessageZoraMaskMaybeMore
 .global patch_RemoveMessageZoraMaskMaybeMore
 patch_RemoveMessageZoraMaskMaybeMore:
-    b hook_CheckShowMessageTimeStuff
+    nop
 
 @ There's a while loop located in the event
 @ timer that checks if we have mystery milk.

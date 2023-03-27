@@ -47,7 +47,7 @@ namespace rnd {
 
     saveData.inventory.masks[5] = game::ItemId::DekuMask;
     saveData.inventory.masks[11] = game::ItemId::GoronMask;
-    //saveData.inventory.masks[17] = game::ItemId::ZoraMask;
+    // saveData.inventory.masks[17] = game::ItemId::ZoraMask;
     saveData.inventory.masks[23] = game::ItemId::FierceDeityMask;
     saveData.inventory.masks[19] = game::ItemId::GibdoMask;
     saveData.inventory.masks[8] = game::ItemId::BunnyHood;
