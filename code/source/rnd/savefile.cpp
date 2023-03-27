@@ -47,7 +47,7 @@ namespace rnd {
 
     saveData.inventory.masks[5] = game::ItemId::DekuMask;
     saveData.inventory.masks[11] = game::ItemId::GoronMask;
-    saveData.inventory.masks[17] = game::ItemId::ZoraMask;
+    //saveData.inventory.masks[17] = game::ItemId::ZoraMask;
     saveData.inventory.masks[23] = game::ItemId::FierceDeityMask;
     saveData.inventory.masks[19] = game::ItemId::GibdoMask;
     saveData.inventory.masks[8] = game::ItemId::BunnyHood;
@@ -101,7 +101,7 @@ namespace rnd {
     saveData.inventory.collect_register.song_of_soaring = 1;
     saveData.inventory.collect_register.song_of_time = 1;
     // saveData.inventory.collect_register.oath_to_order = 1;
-    // saveData.inventory.collect_register.song_of_healing = 1;
+    saveData.inventory.collect_register.song_of_healing = 1;
 
     gSettingsContext.skipBombersMinigame = 1;
     gSettingsContext.freeScarecrow = 1;
@@ -411,8 +411,6 @@ namespace rnd {
 
     if (gSettingsContext.startingHerosBow > 0) {
       saveData.inventory.items[1] = game::ItemId::Arrow;
-      saveData.inventory.items[1] = game::ItemId::Arrow;
-      saveData.inventory.item_counts[6] = (gSettingsContext.startingHerosBow + 2) * 10;
       saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver30;
       saveData.inventory.item_counts[6] = (gSettingsContext.startingHerosBow) * 10;
     } else if (gSettingsContext.startingHerosBow > 1) {
@@ -666,8 +664,7 @@ namespace rnd {
     }
 
     if (gSettingsContext.startingDoubleDefense) {
-      game::CommonData& cdata = game::GetCommonData();
-      ItemEffect_GiveDefense(&cdata, 0, 0);
+      playerData.double_defense = 1;
     }
 
 #ifdef ENABLE_DEBUG

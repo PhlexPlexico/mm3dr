@@ -49,6 +49,14 @@ patch_MainLoop:
 patch_DecoupleStartSelect:
     nop
 
+@ This should remove the overwriting message for when the
+@ user receives the Zora Mask.
+@ Largely untested, need to check for any UB.
+.section .patch_RemoveMessageZoraMaskMaybeMore
+.global patch_RemoveMessageZoraMaskMaybeMore
+patch_RemoveMessageZoraMaskMaybeMore:
+    b hook_CheckShowMessageTimeStuff
+
 @ There's a while loop located in the event
 @ timer that checks if we have mystery milk.
 @ We do not wish to show this since we want to remove

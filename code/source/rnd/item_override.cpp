@@ -452,7 +452,8 @@ namespace rnd {
 #endif
         if (rActiveItemRow->itemId < 0x28 && rActiveItemRow->itemId > 0x30) {
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-          rnd::util::Print("%s:\n", __func__);
+          rnd::util::Print("%s: Setting indicies rActiveItemOverride.key.scene  %u and rActiveItemOverride.key.flag %u to retrieved.\n", \
+          __func__, rActiveItemOverride.key.scene, rActiveItemOverride.key.flag);
 #endif
           gExtSaveData.chestRewarded[rActiveItemOverride.key.scene][rActiveItemOverride.key.flag] = 1;
         }
@@ -462,6 +463,9 @@ namespace rnd {
       u16 textId = rActiveItemRow->textId;
       u8 itemId = rActiveItemRow->itemId;
       ItemTable_CallEffect(rActiveItemRow);
+      #if defined ENABLE_DEBUG || defined DEBUG_PRINT
+          rnd::util::Print("%s:Player Item ID is %#04x\n", __func__, actor->get_item_id);
+      #endif
       gctx->ShowMessage(textId, actor);
       // Get_Item_Handler. Don't give ice traps, since it may cause UB.
       if (itemId != (u8)game::ItemId::X82 && itemId != (u8)game::ItemId::None) {

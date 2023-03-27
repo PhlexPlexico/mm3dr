@@ -25,6 +25,10 @@ SECTIONS{
     *(.patch_DecoupleStartSelect)
   }
 
+  .patch_RemoveMessageZoraMaskMaybeMore 0x186810 : {
+    *(.patch_RemoveMessageZoraMaskMaybeMore)
+  }
+
   .patch_RemoveMysteryMilkTimer 0x1B7A54 : {
     *(.patch_RemoveMysteryMilkTimer)
   }
@@ -162,9 +166,9 @@ SECTIONS{
     *(.patch_AromaItemCheck)
   }
 
-  /* .patch_ZoraMaskGiveItem 0x41DB80 : {
+  .patch_ZoraMaskGiveItem 0x41DB80 : {
     *(.patch_ZoraMaskGiveItem)
-  } */
+  }
 
   .patch_IncomingGetItemID 0x4B1394 : {
     *(.patch_IncomingGetItemID)

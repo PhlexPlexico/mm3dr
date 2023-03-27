@@ -1,6 +1,10 @@
 .arm
 .text
 
+.global rActiveItemTextId
+.rActiveItemTextId_addr:
+    .word rActiveItemTextId
+
 .global hook_Start
 hook_Start:
     push {r0-r12, lr}
@@ -15,6 +19,23 @@ hook_MainLoop:
     pop {r0-r12, lr}
     ldr r1, [r0,#0x138]
     b 0x0106770
+
+.global hook_CheckShowMessageTimeStuff
+hook_CheckShowMessageTimeStuff:
+    push {r1}
+    ldr r1,.rActiveItemTextId_addr
+    ldr r1,[r1]
+    cmp r1,#0x0
+    pop {r1}
+    beq 0x186810
+    ldr r1,.rActiveItemTextId_addr
+    ldr r1,[r1]
+    b 0x186810
+    @ push {r0-r12}
+    @ bl ItemOverride_OverrideTextIDMajorItems
+    @ pop {r0,r12}
+    @ b 0x186814
+    @ b 0x21BAFC
 
 .global hook_SpawnFastElegyStatues
 hook_SpawnFastElegyStatues:
