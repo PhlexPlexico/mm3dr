@@ -22,15 +22,19 @@ hook_MainLoop:
 
 .global hook_CheckShowMessageTimeStuff
 hook_CheckShowMessageTimeStuff:
-    push {r1}
+    push {r0-r12,lr}
     ldr r1,.rActiveItemTextId_addr
     ldr r1,[r1]
     cmp r1,#0x0
-    pop {r1}
-    beq 0x186810
+    pop {r0-r12,lr}
+    beq DoNotOverrideMajorItemText
     ldr r1,.rActiveItemTextId_addr
     ldr r1,[r1]
-    b 0x186810
+    b 0x21BAFC
+    bx lr
+DoNotOverrideMajorItemText:
+    b 0x21BAFC
+    bx lr
     @ push {r0-r12}
     @ bl ItemOverride_OverrideTextIDMajorItems
     @ pop {r0,r12}
