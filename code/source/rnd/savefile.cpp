@@ -22,6 +22,7 @@ namespace rnd {
 #endif
 #ifdef ENABLE_DEBUG
     saveData.equipment.sword_shield.sword = game::SwordType::GildedSword;
+    saveData.equipment.sword_shield.shield = game::ShieldType::MirrorShield;
     saveData.player.razor_sword_hp = 0x64;
     saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver50;
     saveData.inventory.inventory_count_register.bomb_bag_upgrade = game::BombBag::BombBag40;
@@ -135,9 +136,10 @@ namespace rnd {
       gSettingsContext.startingDekuMask = 1;  // start with Deku Mask, Song of Healing & Bomber's notebook always
       saveData.inventory.collect_register.song_of_healing = 1;  // until happy mask salesman is overridden
       saveData.player.owl_statue_flags.clock_town = 1;
-      // gSettingsContext.startingKokiriSword = 1;
-      // gSettingsContext.startingShield = 1;
-
+#ifdef ENABLE_DEBUG
+      gSettingsContext.startingKokiriSword = 2;
+      gSettingsContext.startingShield = 2;
+#endif
       SaveFile_SetStartingInventory();
 
       // These events replay after song of time

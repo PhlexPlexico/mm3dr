@@ -242,6 +242,11 @@ patch_AromaItemCheck:
 patch_ZoraMaskGiveItem:
     b hook_ZoraMaskGiveItem
 
+.section .patch_RemoveZoraMaskAppearing
+.global patch_RemoveZoraMaskAppearing
+patch_RemoveZoraMaskAppearing:
+    nop
+
 .section .patch_loader
 .global loader_patch
 loader_patch:

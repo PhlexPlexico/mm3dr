@@ -169,7 +169,9 @@ SECTIONS{
   .patch_ZoraMaskGiveItem 0x41DB80 : {
     *(.patch_ZoraMaskGiveItem)
   }
-
+  .patch_RemoveZoraMaskAppearing 0x41DB98 : {
+    *(.patch_RemoveZoraMaskAppearing)
+  }
   .patch_IncomingGetItemID 0x4B1394 : {
     *(.patch_IncomingGetItemID)
   }
