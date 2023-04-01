@@ -136,10 +136,16 @@ namespace rnd {
       gSettingsContext.startingDekuMask = 1;  // start with Deku Mask, Song of Healing & Bomber's notebook always
       saveData.inventory.collect_register.song_of_healing = 1;  // until happy mask salesman is overridden
       saveData.player.owl_statue_flags.clock_town = 1;
+<<<<<<< HEAD
 #ifdef ENABLE_DEBUG
       gSettingsContext.startingKokiriSword = 2;
       gSettingsContext.startingShield = 2;
 #endif
+=======
+      // gSettingsContext.startingKokiriSword = 1;
+      // gSettingsContext.startingShield = 1;
+
+>>>>>>> aad03c3 (Starting Inventory Fixes)
       SaveFile_SetStartingInventory();
 
       // These events replay after song of time
@@ -320,8 +326,8 @@ namespace rnd {
     game::SaveData& saveData = game::GetCommonData().save;
     if (startingBottle > StartingBottleSetting::STARTINGBOTTLE_NONE) {
       saveData.inventory.bottles[bottleSlot] = (game::ItemId)startingBottle;
+      }
     }
-  }
 
   u8 SaveFile_GetRemainsCount(void) {
     game::SaveData& saveData = game::GetCommonData().save;
@@ -377,6 +383,8 @@ namespace rnd {
       saveData.inventory.items[8] = game::ItemId::DekuStick;
       saveData.inventory.inventory_count_register.nut_upgrade = 0;
       saveData.inventory.inventory_count_register.stick_upgrades = 0;
+      saveData.inventory.item_counts[9] = 10;
+      saveData.inventory.item_counts[8] = 10;
     }
 
     // main inventory
@@ -395,15 +403,15 @@ namespace rnd {
     if (gSettingsContext.startingBombBag > 0) {
       saveData.inventory.inventory_count_register.bomb_bag_upgrade = game::BombBag::BombBag20;
       saveData.inventory.items[6] = game::ItemId::Bomb;
-      saveData.inventory.item_counts[11] = (gSettingsContext.startingBombBag) * 10;
+      saveData.inventory.item_counts[11] = 20; //(gSettingsContext.startingBombBag) * 10
     } else if (gSettingsContext.startingBombBag > 1) {
       saveData.inventory.inventory_count_register.bomb_bag_upgrade = game::BombBag::BombBag30;
       saveData.inventory.items[6] = game::ItemId::Bomb;
-      saveData.inventory.item_counts[11] = (gSettingsContext.startingBombBag) * 10;
+      saveData.inventory.item_counts[11] = 30;
     } else if (gSettingsContext.startingBombBag > 2) {
       saveData.inventory.inventory_count_register.bomb_bag_upgrade = game::BombBag::BombBag40;
       saveData.inventory.items[6] = game::ItemId::Bomb;
-      saveData.inventory.item_counts[11] = (gSettingsContext.startingBombBag) * 10;
+      saveData.inventory.item_counts[11] = 40;
     }
 
     if (gSettingsContext.startingBombchus > 0) {
@@ -413,16 +421,19 @@ namespace rnd {
 
     if (gSettingsContext.startingHerosBow > 0) {
       saveData.inventory.items[1] = game::ItemId::Arrow;
+<<<<<<< HEAD
+=======
+      saveData.inventory.item_counts[6] = 30;
+>>>>>>> aad03c3 (Starting Inventory Fixes)
       saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver30;
-      saveData.inventory.item_counts[6] = (gSettingsContext.startingHerosBow) * 10;
     } else if (gSettingsContext.startingHerosBow > 1) {
       saveData.inventory.items[1] = game::ItemId::Arrow;
       saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver40;
-      saveData.inventory.item_counts[6] = (gSettingsContext.startingHerosBow) * 10;
+      saveData.inventory.item_counts[6] = 40;
     } else if (gSettingsContext.startingHerosBow > 2) {
       saveData.inventory.items[1] = game::ItemId::Arrow;
       saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver50;
-      saveData.inventory.item_counts[6] = (gSettingsContext.startingHerosBow) * 10;
+      saveData.inventory.item_counts[6] = 50; //(gSettingsContext.startingHerosBow) * 10
     }
 
     if (gSettingsContext.startingFireArrows) {
@@ -472,6 +483,16 @@ namespace rnd {
 
     if (gSettingsContext.startingOcarina > 0) {
       saveData.inventory.items[0] = game::ItemId::Ocarina;
+    }
+
+    if (gSettingsContext.startingWallet == (u8)StartingWalletSetting::STARTINGWALLET_NONE) {
+       saveData.inventory.inventory_count_register.wallet_upgrade = 0; //might not be needed? 
+    } else if (gSettingsContext.startingWallet == (u8)StartingWalletSetting::STARTINGWALLET_ADULT) {
+         saveData.inventory.inventory_count_register.wallet_upgrade = 1;
+    } else if (gSettingsContext.startingWallet == (u8)StartingWalletSetting::STARTINGWALLET_GIANT) {
+         saveData.inventory.inventory_count_register.wallet_upgrade = 2;
+    } else if (gSettingsContext.startingWallet == (u8)StartingWalletSetting::STARTINGWALLET_TYCOON) {
+         saveData.inventory.inventory_count_register.wallet_upgrade = 2;//2 for now until tycoon is added
     }
 
     if (gSettingsContext.startingKokiriSword == (u8)StartingSwordSetting::STARTINGSWORD_NONE) {
