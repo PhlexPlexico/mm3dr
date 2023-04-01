@@ -54,15 +54,19 @@ namespace game::act {
     // [7] Owl statue
     ObjOwlStatue = 0x01B2,
     // [4] Old Lady from Bomb Shop
-    NpcOldLady = 0x01C5,
+    NpcEnBaba = 0x01C5,
     // Granny
     NpcEnNb = 0x01D2,
+    // GuruGuru (Bremen Mask Give Item)
+    NpcEnGuruGuru = 0x01D7,
     // Npc Invisible Guard
     NpcInvisibleGuard = 0x1D9,
     // Npc Madame Aroma
     NpcAroma = 0x1F1,
     // [4] Rosa Sisters
     NpcRosaSisters = 0x020A,
+    // En_Yb (Kamarao)
+    NpcEnYb = 0x0209,
     // En_Bjt (Toilet Hand)
     NpcEnBjt = 0x020C,
     // [4] Bombers

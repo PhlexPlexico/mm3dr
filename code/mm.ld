@@ -45,6 +45,10 @@ SECTIONS{
     *(.patch_SpawnFastElegyStatues)
   }
 
+  .patch_CheckCurrentInventoryOverrideItem 0x1F3D6C : {
+    *(.patch_CheckCurrentInventoryOverrideItem)
+  }
+
   .patch_UseZoraASwimSecond 0X1FFD74 : {
     *(.patch_UseZoraASwimSecond)
   }
@@ -150,9 +154,17 @@ SECTIONS{
     *(.patch_SaveExtDataOnOwl)
   }
 
+  .patch_RemoveZoraMaskCheckMikau 0x32bbb8 : {
+    *(.patch_RemoveZoraMaskCheckMikau)
+  }
+
   .patch_AromaItemCheck 0x35091C : {
     *(.patch_AromaItemCheck)
   }
+
+  /* .patch_ZoraMaskGiveItem 0x41DB80 : {
+    *(.patch_ZoraMaskGiveItem)
+  } */
 
   .patch_IncomingGetItemID 0x4B1394 : {
     *(.patch_IncomingGetItemID)

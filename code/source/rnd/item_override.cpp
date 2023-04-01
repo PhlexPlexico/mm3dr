@@ -39,7 +39,7 @@ namespace rnd {
     rItemOverrides[0].value.getItemId = 0x26;
     rItemOverrides[0].value.looksLikeItemId = 0x26;
     rItemOverrides[1].key.scene = 0x6C;
-    rItemOverrides[1].key.type = ItemOverride_Type::OVR_CHEST;
+    rItemOverrides[1].key.type = ItemOverride_Type::OVR_COLLECTABLE;
     rItemOverrides[1].value.getItemId = 0xB2;
     rItemOverrides[1].value.looksLikeItemId = 0xB2;
     rItemOverrides[2].key.scene = 0x12;
@@ -177,7 +177,7 @@ namespace rnd {
       }
       if (rPendingOverrideQueue[i].key.all == override.key.all) {
         // Prevent duplicate entries
-        // break;
+        break;
       }
     }
   }
@@ -383,21 +383,27 @@ namespace rnd {
     s16 getItemId = incomingNegative ? -originalGetItemId : originalGetItemId;
     // TODO: Granny Override here - check actor scene, and check gExtData.
     if (actorId == game::act::Id::NpcEnNb) {
-      if (gExtSaveData.grannyGaveReward > 0) {
+      if (gExtSaveData.givenItemChecks.enNbGivenItem > 0) {
         getItemId = incomingNegative ? -0xBA : 0xBA;
       }
-      gExtSaveData.grannyGaveReward++;
+      gExtSaveData.givenItemChecks.enNbGivenItem = 1;
     } else if (actorId == game::act::Id::NpcEnBjt) {
       getItemId = incomingNegative ? -0x01 : 0x01;
     } else if (actorId == game::act::Id::NpcSwampPhotographer) {
       getItemId = incomingNegative ? -0xBA : 0xBA;
     } else if (actorId == game::act::Id::NpcInvisibleGuard) {
-      if (gExtSaveData.stoneMaskReward > 0) {
+      if (gExtSaveData.givenItemChecks.enStoneHeishiGivenItem > 0) {
         getItemId = incomingNegative ? -0xBA : 0xBA;
       }
-      gExtSaveData.stoneMaskReward++;
+      gExtSaveData.givenItemChecks.enStoneHeishiGivenItem = 1;
     } else if (actorId == game::act::Id::NpcAroma) {
-      gExtSaveData.aromaGivenItem++;
+      gExtSaveData.givenItemChecks.enAlGivenItem = 1;
+    } else if (actorId == game::act::Id::NpcEnGuruGuru) {
+      gExtSaveData.givenItemChecks.enGuruGuruGivenItem = 1;
+    } else if (actorId == game::act::Id::NpcEnYb) {
+      gExtSaveData.givenItemChecks.enYbGivenItem = 1;
+    } else if (actorId == game::act::Id::NpcEnBaba) {
+      gExtSaveData.givenItemChecks.enBabaGivenItem = 1;
     }
     return getItemId;
   }
@@ -426,10 +432,17 @@ namespace rnd {
 
   extern "C" {
   bool ItemOverride_CheckAromaGivenItem() {
-    if (gExtSaveData.aromaGivenItem > 0)
+    if (gExtSaveData.givenItemChecks.enAlGivenItem > 0)
       return true;
     return false;
   }
+
+  bool ItemOverride_CheckMikauGivenItem() {
+    if (gExtSaveData.givenItemChecks.enZogGivenItem > 0)
+      return true;
+    return false;
+  }
+
   void ItemOverride_GetItemTextAndItemID(game::act::Player* actor) {
     if (rActiveItemRow != NULL) {
       if (rActiveItemOverride.key.type == ItemOverride_Type::OVR_CHEST) {
@@ -528,8 +541,42 @@ namespace rnd {
     }
   }
 
+  void ItemOverride_GetSoHItem(game::GlobalContext* gctx, game::act::Actor* fromActor, s16 incomingItemId) {
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+    rnd::util::Print("%s: Song of healing item is now being obtained. Item ID is %i\n", __func__, incomingItemId);
+#endif
+    if (incomingItemId == 0x7A) {
+      gExtSaveData.givenItemChecks.enZogGivenItem = 1;
+    } else if (incomingItemId == 0x79) {
+      gExtSaveData.givenItemChecks.enGgGivenItem = 1;
+    } else if (incomingItemId == 0x87) {
+      gExtSaveData.givenItemChecks.mummyDaddyGivenItem = 1;
+    }
+    ItemOverride_GetItem(gctx, fromActor, gctx->GetPlayerActor(), incomingItemId);
+    return;
+  }
+
   void ItemOverride_RemoveTextId() {
     rStoredBomberNoteTextId = 0;
+  }
+
+  int ItemOverride_CheckInventoryItemOverride(game::ItemId currentItem) {
+    if (currentItem == game::ItemId::BlastMask && gExtSaveData.givenItemChecks.enBabaGivenItem == 0) {
+      return (int)0xFF;
+    } else if (currentItem == game::ItemId::BremenMask && gExtSaveData.givenItemChecks.enGuruGuruGivenItem == 0) {
+      return (int)0xFF;
+    } else if (currentItem == game::ItemId::KamaroMask && gExtSaveData.givenItemChecks.enYbGivenItem == 0) {
+      return (int)0xFF;
+    } else if (currentItem == game::ItemId::DonGeroMask && gExtSaveData.givenItemChecks.enGegGivenItem == 0) {
+      return (int)0xFF;
+    } else if (currentItem == game::ItemId::ZoraMask && gExtSaveData.givenItemChecks.enZogGivenItem == 0) {
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+      rnd::util::Print("%s: Zog is still 0.\n", __func__);
+#endif
+      return (int)0xFF;
+    }
+
+    return (int)currentItem;
   }
   }
 }  // namespace rnd

@@ -126,6 +126,7 @@ namespace rnd {
   void ItemEffect_GiveDoubleDefense(game::CommonData* comData, s16 arg1, s16 arg2) {
     comData->save.player.double_defense = 1;
     comData->save.player.anonymous_19 = 1;
+    comData->save.inventory.items[0] = game::ItemId::Ocarina;
     if ((gSettingsContext.heartDropRefill != (u8)HeartDropRefillSetting::HEARTDROPREFILL_NOREFILL) &&
         (gSettingsContext.heartDropRefill != (u8)HeartDropRefillSetting::HEARTDROPREFILL_NODROPREFILL)) {
       comData->save.player.health_current = comData->save.player.health_max;

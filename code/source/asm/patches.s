@@ -10,6 +10,11 @@ patch_DecoupleZlZr:
 patch_SpawnFastElegyStatues: 
     b hook_SpawnFastElegyStatues
 
+.section .patch_CheckCurrentInventoryOverrideItem
+.global patch_CheckCurrentInventoryOverrideItem
+patch_CheckCurrentInventoryOverrideItem:
+    b hook_CheckCurrentInventory
+
 .section .patch_startHeap
 .global patch_startHeap
 patch_startHeap:
@@ -214,10 +219,20 @@ patch_FasterBlockMovementBack:
 patch_SaveExtDataOnOwl:
     b hook_OwlExtDataSave
 
+.section .patch_RemoveZoraMaskCheckMikau
+.global patch_RemoveZoraMaskCheckMikau
+patch_RemoveZoraMaskCheckMikau:
+    b hook_MikauRewardCheck
+
 .section .patch_AromaItemCheck
 .global patch_AromaItemCheck
 patch_AromaItemCheck:
     b hook_AromaItemCheck
+
+.section .patch_ZoraMaskGiveItem
+.global patch_ZoraMaskGiveItem
+patch_ZoraMaskGiveItem:
+    b hook_ZoraMaskGiveItem
 
 .section .patch_loader
 .global loader_patch
