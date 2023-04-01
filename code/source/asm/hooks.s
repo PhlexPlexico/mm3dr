@@ -1,6 +1,10 @@
 .arm
 .text
 
+.global rActiveItemTextId
+.rActiveItemTextId_addr:
+    .word rActiveItemTextId
+
 .global hook_Start
 hook_Start:
     push {r0-r12, lr}
@@ -16,6 +20,7 @@ hook_MainLoop:
     ldr r1, [r0,#0x138]
     b 0x0106770
 
+
 .global hook_SpawnFastElegyStatues
 hook_SpawnFastElegyStatues:
     push {r0-r12, lr}
@@ -24,6 +29,17 @@ hook_SpawnFastElegyStatues:
     pop {r0-r12, lr}
     cpy r2, r1
     beq 0x1E9FBC
+    bx lr
+
+.global hook_CheckCurrentInventory
+hook_CheckCurrentInventory:
+    push {r1, lr}
+    bl ItemOverride_CheckInventoryItemOverride
+    cmp r0,#0xFF
+    pop {r1, lr}
+    bne DoNotOverrideInventoryCheck
+    bx lr
+DoNotOverrideInventoryCheck:
     bx lr
 
 .global hook_CheckOcarinaDive
@@ -186,6 +202,18 @@ hook_OwlExtDataSave:
     cpy r6,r0
     b 0x317008
 
+.global hook_MikauRewardCheck
+hook_MikauRewardCheck:
+    push {r0-r12, lr}
+    bl ItemOverride_CheckMikauGivenItem
+    cmp r0,#0x1
+    pop {r0-r12, lr}
+    beq doNotSpawnMikau
+    b 0x32BC20
+doNotSpawnMikau:
+    nop
+    b 0x32BBDC
+
 .global hook_AromaItemCheck
 hook_AromaItemCheck:
     push {r0-r12, lr}
@@ -193,6 +221,30 @@ hook_AromaItemCheck:
     cmp r0,#0x1
     pop {r0-r12, lr}
     b 0x350920
+
+.global hook_ZoraMaskGiveItem
+hook_ZoraMaskGiveItem:
+    push {r0-r12, lr}
+    cpy r0,r5
+    cpy r1,r4
+    mov r2,#0x7A
+    bl ItemOverride_GetSoHItem
+    ldr r5,.rActiveItemRow_addr
+    ldr r5,[r5]
+    cmp r5,#0x0
+    pop {r0-r12, lr}
+    beq noOverrideMikauItemID
+    push {r0-r12, lr}
+    cpy r0,r5
+    cpy r1,r4
+    bl ItemOverride_GetItemTextAndItemID
+    pop {r0-r12, lr}
+    cpy r0,r5
+    b 0x41DB84
+noOverrideMikauItemID:
+    cpy r0,r5
+    bl 0x233BEC
+    b 0x41DB84
 
 .section .loader
 .global hook_into_loader

@@ -25,6 +25,10 @@ SECTIONS{
     *(.patch_DecoupleStartSelect)
   }
 
+  .patch_RemoveMessageZoraMaskMaybeMore 0x186810 : {
+    *(.patch_RemoveMessageZoraMaskMaybeMore)
+  }
+
   .patch_RemoveMysteryMilkTimer 0x1B7A54 : {
     *(.patch_RemoveMysteryMilkTimer)
   }
@@ -43,6 +47,10 @@ SECTIONS{
 
   .patch_SpawnFastElegyStatues 0x1E9FB8 : {
     *(.patch_SpawnFastElegyStatues)
+  }
+
+  .patch_CheckCurrentInventoryOverrideItem 0x1F3D6C : {
+    *(.patch_CheckCurrentInventoryOverrideItem)
   }
 
   .patch_UseZoraASwimSecond 0X1FFD74 : {
@@ -150,10 +158,27 @@ SECTIONS{
     *(.patch_SaveExtDataOnOwl)
   }
 
+  .patch_RemoveZoraMaskCheckMikau 0x32bbb8 : {
+    *(.patch_RemoveZoraMaskCheckMikau)
+  }
+
   .patch_AromaItemCheck 0x35091C : {
     *(.patch_AromaItemCheck)
   }
 
+<<<<<<< HEAD
+  .patch_ZoraMaskGiveItem 0x41DB80 : {
+    *(.patch_ZoraMaskGiveItem)
+  }
+  .patch_RemoveZoraMaskAppearing 0x41DB98 : {
+    *(.patch_RemoveZoraMaskAppearing)
+  }
+=======
+  /* .patch_ZoraMaskGiveItem 0x41DB80 : {
+    *(.patch_ZoraMaskGiveItem)
+  } */
+
+>>>>>>> aad03c3 (Starting Inventory Fixes)
   .patch_IncomingGetItemID 0x4B1394 : {
     *(.patch_IncomingGetItemID)
   }

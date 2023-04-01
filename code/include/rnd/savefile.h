@@ -7,7 +7,7 @@
 #include "z3d/z3DVec.h"
 
 // Increment the version number whenever the ExtSaveData structure is changed
-#define EXTSAVEDATA_VERSION 02
+#define EXTSAVEDATA_VERSION 03
 
 namespace rnd {
   void SaveFile_SkipMinorCutscenes();
@@ -25,12 +25,9 @@ namespace rnd {
   void SaveFile_SetOwnedTradeItemEquipped(void);
   void SaveFile_ResetItemSlotsIfMatchesID(u8 itemSlot);
   bool SaveFile_IsValidSettingsHealth(void);
-  // extern "C" {
   void SaveFile_InitExtSaveData(u32 fileBaseIndex);
   void SaveFile_LoadExtSaveData(u32 saveNumber);
   extern "C" void SaveFile_SaveExtSaveData();
-
-  //}
 
   typedef struct {
     u32 version;  // Needs to always be the first field of the structure
@@ -38,9 +35,22 @@ namespace rnd {
     u32 isNewFile;
     u8 playedSosOnce;
     u8 playedElegyOnce;
-    s8 aromaGivenItem;
-    s8 grannyGaveReward;
-    s8 stoneMaskReward;
+    union GivenItemRegister {
+      u16 raw;
+
+      BitField<0, 1, u16> enNbGivenItem;
+      BitField<1, 1, u16> enAlGivenItem;
+      BitField<2, 1, u16> enBabaGivenItem;
+      BitField<3, 1, u16> enStoneHeishiGivenItem;
+      BitField<4, 1, u16> mummyDaddyGivenItem;
+      BitField<5, 1, u16> enGuruGuruGivenItem;
+      BitField<6, 1, u16> enYbGivenItem;
+      BitField<7, 1, u16> enGegGivenItem;
+      BitField<8, 1, u16> enZogGivenItem;
+      BitField<9, 1, u16> enGgGivenItem;
+      BitField<10, 6, u16> unused;
+    };
+    GivenItemRegister givenItemChecks;
     union FairyCollectRegister {
       u8 raw;
 
