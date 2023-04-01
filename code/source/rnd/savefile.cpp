@@ -474,6 +474,15 @@ namespace rnd {
       saveData.inventory.items[0] = game::ItemId::Ocarina;
     }
 
+  if (gSettingsContext.startingWallet == (u8)StartingWalletSetting::STARTINGWALLET_NONE) {
+       saveData.inventory.inventory_count_register.wallet_upgrade = 0; //might not be needed? 
+    } else if (gSettingsContext.startingWallet == (u8)StartingWalletSetting::STARTINGWALLET_ADULT) {
+         saveData.inventory.inventory_count_register.wallet_upgrade = 1;
+    } else if (gSettingsContext.startingWallet == (u8)StartingWalletSetting::STARTINGWALLET_GIANT) {
+         saveData.inventory.inventory_count_register.wallet_upgrade = 2;
+    } else if (gSettingsContext.startingWallet == (u8)StartingWalletSetting::STARTINGWALLET_TYCOON) {
+         saveData.inventory.inventory_count_register.wallet_upgrade = 2;//2 for now until tycoon is added
+    }
     if (gSettingsContext.startingKokiriSword == (u8)StartingSwordSetting::STARTINGSWORD_NONE) {
       equipmentData.sword_shield.sword = game::SwordType::NoSword;
       saveData.equipment.data->item_btn_b = game::ItemId::None;
