@@ -199,7 +199,7 @@ namespace rnd {
     STARTINGWALLET_GIANT,
     STARTINGWALLET_TYCOON,
   };
-  
+
   enum class StartingSwordSetting : u8 {
     STARTINGSWORD_NONE,
     STARTINGSWORD_KOKIRI,

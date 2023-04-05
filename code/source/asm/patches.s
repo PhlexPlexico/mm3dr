@@ -246,6 +246,11 @@ patch_ZoraMaskGiveItem:
 .global patch_RemoveZoraMaskAppearing
 patch_RemoveZoraMaskAppearing:
     nop
+    
+.section .patch_GibdoMaskGiveItem
+.global patch_GibdoMaskGiveItem
+patch_GibdoMaskGiveItem:
+    b hook_GibdoMaskGiveItem
 
 .section .patch_loader
 .global loader_patch

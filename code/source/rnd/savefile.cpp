@@ -50,7 +50,7 @@ namespace rnd {
     saveData.inventory.masks[11] = game::ItemId::GoronMask;
     // saveData.inventory.masks[17] = game::ItemId::ZoraMask;
     saveData.inventory.masks[23] = game::ItemId::FierceDeityMask;
-    saveData.inventory.masks[19] = game::ItemId::GibdoMask;
+    saveData.inventory.masks[19] = game::ItemId::StoneMask;
     saveData.inventory.masks[8] = game::ItemId::BunnyHood;
     saveData.inventory.masks[20] = game::ItemId::GaroMask;
     saveData.inventory.masks[6] = game::ItemId::AllNightMask;
@@ -474,14 +474,14 @@ namespace rnd {
       saveData.inventory.items[0] = game::ItemId::Ocarina;
     }
 
-  if (gSettingsContext.startingWallet == (u8)StartingWalletSetting::STARTINGWALLET_NONE) {
-       saveData.inventory.inventory_count_register.wallet_upgrade = 0; //might not be needed? 
+    if (gSettingsContext.startingWallet == (u8)StartingWalletSetting::STARTINGWALLET_NONE) {
+      saveData.inventory.inventory_count_register.wallet_upgrade = 0;  // might not be needed?
     } else if (gSettingsContext.startingWallet == (u8)StartingWalletSetting::STARTINGWALLET_ADULT) {
-         saveData.inventory.inventory_count_register.wallet_upgrade = 1;
+      saveData.inventory.inventory_count_register.wallet_upgrade = 1;
     } else if (gSettingsContext.startingWallet == (u8)StartingWalletSetting::STARTINGWALLET_GIANT) {
-         saveData.inventory.inventory_count_register.wallet_upgrade = 2;
+      saveData.inventory.inventory_count_register.wallet_upgrade = 2;
     } else if (gSettingsContext.startingWallet == (u8)StartingWalletSetting::STARTINGWALLET_TYCOON) {
-         saveData.inventory.inventory_count_register.wallet_upgrade = 2;//2 for now until tycoon is added
+      saveData.inventory.inventory_count_register.wallet_upgrade = 2;  // 2 for now until tycoon is added
     }
     if (gSettingsContext.startingKokiriSword == (u8)StartingSwordSetting::STARTINGSWORD_NONE) {
       equipmentData.sword_shield.sword = game::SwordType::NoSword;

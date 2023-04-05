@@ -246,6 +246,30 @@ noOverrideMikauItemID:
     bl 0x233BEC
     b 0x41DB84
 
+.global hook_GibdoMaskGiveItem
+hook_GibdoMaskGiveItem:
+    push {r0-r12, lr}
+    cpy r0,r5
+    cpy r1,r4
+    mov r2,#0x7A
+    bl ItemOverride_GetSoHItem
+    ldr r5,.rActiveItemRow_addr
+    ldr r5,[r5]
+    cmp r5,#0x0
+    pop {r0-r12, lr}
+    beq noOverrideGibdoItemID
+    push {r0-r12, lr}
+    cpy r0,r5
+    cpy r1,r4
+    bl ItemOverride_GetItemTextAndItemID
+    pop {r0-r12, lr}
+    cpy r0,r5
+    b 0x41DC4C
+noOverrideGibdoItemID:
+    cpy r0,r5
+    bl 0x233BEC
+    b 0x41DC4C
+
 .section .loader
 .global hook_into_loader
 hook_into_loader:
