@@ -397,7 +397,7 @@ namespace game {
       BitField<6, 1, u8> has_worn_zora_mask_once;
       BitField<7, 1, u8> has_worn_deity_mask_once;
     };
-    HaveWornMasks set_fast_mask_animations;
+    HaveWornMasks have_worn_mask_once;
     union AdditonalTatlDialogueFlags {
       u8 raw;
 

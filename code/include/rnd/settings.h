@@ -193,6 +193,13 @@ namespace rnd {
     STARTINGBOTTLE_MYSTERY_MILK_SPOILED,
   };
 
+  enum class StartingWalletSetting : u8 {
+    STARTINGWALLET_NONE,
+    STARTINGWALLET_ADULT,
+    STARTINGWALLET_GIANT,
+    STARTINGWALLET_TYCOON,
+  };
+
   enum class StartingSwordSetting : u8 {
     STARTINGSWORD_NONE,
     STARTINGSWORD_KOKIRI,

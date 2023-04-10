@@ -36,6 +36,7 @@ namespace rnd {
 
   extern "C" ItemRow rItemTable[];
   extern "C" ItemRow* rActiveItemRow;
+  extern "C" u32 rActiveItemTextId;
   u16 ItemTable_ResolveUpgrades(u16 itemId);
   ItemRow* ItemTable_GetItemRow(u16 itemId);
   ItemRow* ItemTable_GetItemRowFromIndex(u8 rowIndex);

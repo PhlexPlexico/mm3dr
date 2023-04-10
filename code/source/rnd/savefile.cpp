@@ -22,6 +22,7 @@ namespace rnd {
 #endif
 #ifdef ENABLE_DEBUG
     saveData.equipment.sword_shield.sword = game::SwordType::GildedSword;
+    saveData.equipment.sword_shield.shield = game::ShieldType::MirrorShield;
     saveData.player.razor_sword_hp = 0x64;
     saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver50;
     saveData.inventory.inventory_count_register.bomb_bag_upgrade = game::BombBag::BombBag40;
@@ -47,9 +48,9 @@ namespace rnd {
 
     saveData.inventory.masks[5] = game::ItemId::DekuMask;
     saveData.inventory.masks[11] = game::ItemId::GoronMask;
-    saveData.inventory.masks[17] = game::ItemId::ZoraMask;
+    // saveData.inventory.masks[17] = game::ItemId::ZoraMask;
     saveData.inventory.masks[23] = game::ItemId::FierceDeityMask;
-    saveData.inventory.masks[19] = game::ItemId::GibdoMask;
+    saveData.inventory.masks[19] = game::ItemId::StoneMask;
     saveData.inventory.masks[8] = game::ItemId::BunnyHood;
     saveData.inventory.masks[20] = game::ItemId::GaroMask;
     saveData.inventory.masks[6] = game::ItemId::AllNightMask;
@@ -101,7 +102,7 @@ namespace rnd {
     saveData.inventory.collect_register.song_of_soaring = 1;
     saveData.inventory.collect_register.song_of_time = 1;
     // saveData.inventory.collect_register.oath_to_order = 1;
-    // saveData.inventory.collect_register.song_of_healing = 1;
+    saveData.inventory.collect_register.song_of_healing = 1;
 
     gSettingsContext.skipBombersMinigame = 1;
     gSettingsContext.freeScarecrow = 1;
@@ -134,9 +135,11 @@ namespace rnd {
       gSettingsContext.startingOcarina = 1;
       gSettingsContext.startingDekuMask = 1;  // start with Deku Mask, Song of Healing & Bomber's notebook always
       saveData.inventory.collect_register.song_of_healing = 1;  // until happy mask salesman is overridden
-      gSettingsContext.startingKokiriSword = 1;
-      gSettingsContext.startingShield = 1;
-
+      saveData.player.owl_statue_flags.clock_town = 1;
+#ifdef ENABLE_DEBUG
+      gSettingsContext.startingKokiriSword = 2;
+      gSettingsContext.startingShield = 2;
+#endif
       SaveFile_SetStartingInventory();
 
       // These events replay after song of time
@@ -217,10 +220,10 @@ namespace rnd {
   void SaveFile_SetFastAnimationFlags() {
     game::SaveData& saveData = game::GetCommonData().save;
     // Masks
-    saveData.set_fast_mask_animations.has_worn_deku_mask_once = 1;
-    saveData.set_fast_mask_animations.has_worn_goron_mask_once = 1;
-    saveData.set_fast_mask_animations.has_worn_zora_mask_once = 1;
-    saveData.set_fast_mask_animations.has_worn_deity_mask_once = 1;
+    saveData.have_worn_mask_once.has_worn_deku_mask_once = 1;
+    saveData.have_worn_mask_once.has_worn_goron_mask_once = 1;
+    saveData.have_worn_mask_once.has_worn_zora_mask_once = 1;
+    saveData.have_worn_mask_once.has_worn_deity_mask_once = 1;
     // Dungeons
     saveData.set_fast_animation_flags.woodfall_temple_opened_at_least_once = 1;
     saveData.set_fast_animation_flags.snowhead_temple_opened_at_least_once = 1;
@@ -410,8 +413,6 @@ namespace rnd {
 
     if (gSettingsContext.startingHerosBow > 0) {
       saveData.inventory.items[1] = game::ItemId::Arrow;
-      saveData.inventory.items[1] = game::ItemId::Arrow;
-      saveData.inventory.item_counts[6] = (gSettingsContext.startingHerosBow + 2) * 10;
       saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver30;
       saveData.inventory.item_counts[6] = (gSettingsContext.startingHerosBow) * 10;
     } else if (gSettingsContext.startingHerosBow > 1) {
@@ -473,6 +474,15 @@ namespace rnd {
       saveData.inventory.items[0] = game::ItemId::Ocarina;
     }
 
+    if (gSettingsContext.startingWallet == (u8)StartingWalletSetting::STARTINGWALLET_NONE) {
+      saveData.inventory.inventory_count_register.wallet_upgrade = 0;  // might not be needed?
+    } else if (gSettingsContext.startingWallet == (u8)StartingWalletSetting::STARTINGWALLET_ADULT) {
+      saveData.inventory.inventory_count_register.wallet_upgrade = 1;
+    } else if (gSettingsContext.startingWallet == (u8)StartingWalletSetting::STARTINGWALLET_GIANT) {
+      saveData.inventory.inventory_count_register.wallet_upgrade = 2;
+    } else if (gSettingsContext.startingWallet == (u8)StartingWalletSetting::STARTINGWALLET_TYCOON) {
+      saveData.inventory.inventory_count_register.wallet_upgrade = 2;  // 2 for now until tycoon is added
+    }
     if (gSettingsContext.startingKokiriSword == (u8)StartingSwordSetting::STARTINGSWORD_NONE) {
       equipmentData.sword_shield.sword = game::SwordType::NoSword;
       saveData.equipment.data->item_btn_b = game::ItemId::None;
@@ -665,8 +675,7 @@ namespace rnd {
     }
 
     if (gSettingsContext.startingDoubleDefense) {
-      game::CommonData& cdata = game::GetCommonData();
-      ItemEffect_GiveDefense(&cdata, 0, 0);
+      playerData.double_defense = 1;
     }
 
 #ifdef ENABLE_DEBUG
@@ -740,8 +749,13 @@ namespace rnd {
 #endif
     // TODO: BitField for event flags instead?
     // memset(&gExtSaveData.extInf, 0, sizeof(gExtSaveData.extInf));
-    memset(&gExtSaveData.aromaGivenItem, 0, sizeof(gExtSaveData.aromaGivenItem));
-    memset(&gExtSaveData.grannyGaveReward, 0, sizeof(gExtSaveData.grannyGaveReward));
+    memset(&gExtSaveData.givenItemChecks.raw, 0, sizeof(gExtSaveData.givenItemChecks.raw));
+    /*memset(&gExtSaveData.aromaGivenItem, 0, sizeof(gExtSaveData.aromaGivenItem));
+    memset(&gExtSaveData.enBabaGivenItem, 0, sizeof(gExtSaveData.enBabaGivenItem));
+    memset(&gExtSaveData.stoneMaskReward, 0, sizeof(gExtSaveData.stoneMaskReward));
+    memset(&gExtSaveData.mummyDaddyReward, 0, sizeof(gExtSaveData.mummyDaddyReward));
+    memset(&gExtSaveData.enZogGivenItem, 0, sizeof(gExtSaveData.enZogGivenItem));
+    memset(&gExtSaveData.darmaniReward, 0, sizeof(gExtSaveData.darmaniReward));*/
     gExtSaveData.fairyRewards.raw = 0;
     gExtSaveData.playtimeSeconds = 0;
     // TODO: Settings options belong in ext.

@@ -10,6 +10,11 @@ patch_DecoupleZlZr:
 patch_SpawnFastElegyStatues: 
     b hook_SpawnFastElegyStatues
 
+.section .patch_CheckCurrentInventoryOverrideItem
+.global patch_CheckCurrentInventoryOverrideItem
+patch_CheckCurrentInventoryOverrideItem:
+    b hook_CheckCurrentInventory
+
 .section .patch_startHeap
 .global patch_startHeap
 patch_startHeap:
@@ -42,6 +47,14 @@ patch_MainLoop:
 .section .patch_DecoupleStartSelect
 .global patch_DecoupleStartSelect
 patch_DecoupleStartSelect:
+    nop
+
+@ This should remove the overwriting message for when the
+@ user receives the Zora Mask.
+@ Largely untested, need to check for any UB.
+.section .patch_RemoveMessageZoraMaskMaybeMore
+.global patch_RemoveMessageZoraMaskMaybeMore
+patch_RemoveMessageZoraMaskMaybeMore:
     nop
 
 @ There's a while loop located in the event
@@ -214,10 +227,30 @@ patch_FasterBlockMovementBack:
 patch_SaveExtDataOnOwl:
     b hook_OwlExtDataSave
 
+.section .patch_RemoveZoraMaskCheckMikau
+.global patch_RemoveZoraMaskCheckMikau
+patch_RemoveZoraMaskCheckMikau:
+    b hook_MikauRewardCheck
+
 .section .patch_AromaItemCheck
 .global patch_AromaItemCheck
 patch_AromaItemCheck:
     b hook_AromaItemCheck
+
+.section .patch_ZoraMaskGiveItem
+.global patch_ZoraMaskGiveItem
+patch_ZoraMaskGiveItem:
+    b hook_ZoraMaskGiveItem
+
+.section .patch_RemoveZoraMaskAppearing
+.global patch_RemoveZoraMaskAppearing
+patch_RemoveZoraMaskAppearing:
+    nop
+    
+.section .patch_GibdoMaskGiveItem
+.global patch_GibdoMaskGiveItem
+patch_GibdoMaskGiveItem:
+    b hook_GibdoMaskGiveItem
 
 .section .patch_loader
 .global loader_patch
