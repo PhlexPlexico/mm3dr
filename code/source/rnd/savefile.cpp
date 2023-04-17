@@ -47,7 +47,7 @@ namespace rnd {
     saveData.inventory.items[20] = game::ItemId::LandTitleDeed;
 
     saveData.inventory.masks[5] = game::ItemId::DekuMask;
-    saveData.inventory.masks[11] = game::ItemId::GoronMask;
+    // saveData.inventory.masks[11] = game::ItemId::GoronMask;
     // saveData.inventory.masks[17] = game::ItemId::ZoraMask;
     saveData.inventory.masks[23] = game::ItemId::FierceDeityMask;
     saveData.inventory.masks[19] = game::ItemId::StoneMask;
@@ -72,9 +72,9 @@ namespace rnd {
     saveData.inventory.stone_tower_dungeon_items.compass = 1;
     saveData.inventory.stone_tower_dungeon_items.boss_key = 1;
     saveData.inventory.woodfall_fairies = 14;
-    // saveData.player.magic_acquired = 1;  // Game does not check if value = 0, magic items still
+    saveData.player.magic_acquired = 1;  // Game does not check if value = 0, magic items still
     // work saveData.player.magic_size_type = 0; saveData.player.magic = 10;
-    // saveData.player.magic_num_upgrades = 0;
+    saveData.player.magic_num_upgrades = 0;
     saveData.equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
     saveData.inventory.item_counts[6] = 50;   // Arrows
     saveData.inventory.item_counts[11] = 40;  // Bombs

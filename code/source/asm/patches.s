@@ -52,9 +52,9 @@ patch_DecoupleStartSelect:
 @ This should remove the overwriting message for when the
 @ user receives the Zora Mask.
 @ Largely untested, need to check for any UB.
-.section .patch_RemoveMessageZoraMaskMaybeMore
-.global patch_RemoveMessageZoraMaskMaybeMore
-patch_RemoveMessageZoraMaskMaybeMore:
+.section .patch_RemoveSOSCutesceneAfterMessage
+.global patch_RemoveSOSCutesceneAfterMessage
+patch_RemoveSOSCutesceneAfterMessage:
     nop
 
 @ There's a while loop located in the event
@@ -171,6 +171,11 @@ OverrideBomberTextID_patch:
 OverrideItemID_patch:
     b hook_OverrideItemID
 
+.section .patch_RemoveGoronMaskCheckDarmani
+.global patch_RemoveGoronMaskCheckDarmani
+patch_RemoveGoronMaskCheckDarmani:
+    b hook_DarmaniRewardCheck
+
 .section .patch_OverrideFairyGiveItem
 .global OverrideFairyItemID_patch
 OverrideFairyItemID_patch:
@@ -236,6 +241,11 @@ patch_RemoveZoraMaskCheckMikau:
 .global patch_AromaItemCheck
 patch_AromaItemCheck:
     b hook_AromaItemCheck
+
+.section .patch_GoronMaskGiveItem
+.global patch_GoronMaskGiveItem
+patch_GoronMaskGiveItem:
+    b hook_GoronMaskGiveItem
 
 .section .patch_ZoraMaskGiveItem
 .global patch_ZoraMaskGiveItem

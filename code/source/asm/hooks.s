@@ -161,6 +161,18 @@ noOverrideItemID:
     b 0x23110C
 
 
+.global hook_DarmaniRewardCheck
+hook_DarmaniRewardCheck:
+    push {r0-r12, lr}
+    bl ItemOverride_CheckDarmaniGivenItem
+    cmp r0,#0x1
+    pop {r0-r12, lr}
+    beq doNotSpawnDarmani
+    b 0x2DE794
+doNotSpawnDarmani:
+    nop
+    b 0x2DE96C
+
 .global hook_IncomingGetItemID
 hook_IncomingGetItemID:
     push {r0-r12, lr}
@@ -221,6 +233,30 @@ hook_AromaItemCheck:
     cmp r0,#0x1
     pop {r0-r12, lr}
     b 0x350920
+
+.global hook_GoronMaskGiveItem
+hook_GoronMaskGiveItem:
+    push {r0-r12, lr}
+    cpy r0,r5
+    cpy r1,r4
+    mov r2,#0x7A
+    bl ItemOverride_GetSoHItem
+    ldr r5,.rActiveItemRow_addr
+    ldr r5,[r5]
+    cmp r5,#0x0
+    pop {r0-r12, lr}
+    beq noOverrideDarmaniItemID
+    push {r0-r12, lr}
+    cpy r0,r5
+    cpy r1,r4
+    bl ItemOverride_GetItemTextAndItemID
+    pop {r0-r12, lr}
+    cpy r0,r5
+    b 0x41DAB4
+noOverrideDarmaniItemID:
+    cpy r0,r5
+    bl 0x233BEC
+    b 0x41DAB4
 
 .global hook_ZoraMaskGiveItem
 hook_ZoraMaskGiveItem:

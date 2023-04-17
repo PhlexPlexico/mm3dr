@@ -443,6 +443,12 @@ namespace rnd {
     return false;
   }
 
+  bool ItemOverride_CheckDarmaniGivenItem() {
+    if (gExtSaveData.givenItemChecks.enGgGivenItem > 0)
+      return true;
+    return false;
+  }
+
   void ItemOverride_GetItemTextAndItemID(game::act::Player* actor) {
     if (rActiveItemRow != NULL) {
       if (rActiveItemOverride.key.type == ItemOverride_Type::OVR_CHEST) {
