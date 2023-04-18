@@ -243,6 +243,16 @@ patch_RemoveZoraMaskCheckMikau:
 patch_AromaItemCheck:
     b hook_AromaItemCheck
 
+.section .patch_HMSGiveItem
+.global patch_HMSGiveItem
+patch_HMSGiveItem:
+    b hook_OverrideHMSDekuMask
+
+.section .patch_RemoveBombers
+.global patch_RemoveBombers
+patch_RemoveBombers:
+    nop
+
 .section .patch_GoronMaskGiveItem
 .global patch_GoronMaskGiveItem
 patch_GoronMaskGiveItem:

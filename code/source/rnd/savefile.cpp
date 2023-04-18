@@ -46,9 +46,9 @@ namespace rnd {
     saveData.inventory.items[15] = game::ItemId::Hookshot;
     saveData.inventory.items[20] = game::ItemId::LandTitleDeed;
 
-    saveData.inventory.masks[5] = game::ItemId::DekuMask;
-    // saveData.inventory.masks[11] = game::ItemId::GoronMask;
-    // saveData.inventory.masks[17] = game::ItemId::ZoraMask;
+    // saveData.inventory.masks[5] = game::ItemId::DekuMask;
+    //  saveData.inventory.masks[11] = game::ItemId::GoronMask;
+    //  saveData.inventory.masks[17] = game::ItemId::ZoraMask;
     saveData.inventory.masks[23] = game::ItemId::FierceDeityMask;
     saveData.inventory.masks[19] = game::ItemId::StoneMask;
     saveData.inventory.masks[8] = game::ItemId::BunnyHood;
@@ -102,7 +102,7 @@ namespace rnd {
     saveData.inventory.collect_register.song_of_soaring = 1;
     saveData.inventory.collect_register.song_of_time = 1;
     // saveData.inventory.collect_register.oath_to_order = 1;
-    saveData.inventory.collect_register.song_of_healing = 1;
+    // saveData.inventory.collect_register.song_of_healing = 1;
 
     gSettingsContext.skipBombersMinigame = 1;
     gSettingsContext.freeScarecrow = 1;
@@ -134,7 +134,7 @@ namespace rnd {
       saveData.inventory.collect_register.song_of_time = 1;  // Part of starting quest items options
       gSettingsContext.startingOcarina = 1;
       gSettingsContext.startingDekuMask = 1;  // start with Deku Mask, Song of Healing & Bomber's notebook always
-      saveData.inventory.collect_register.song_of_healing = 1;  // until happy mask salesman is overridden
+      // saveData.inventory.collect_register.song_of_healing = 1;  // until happy mask salesman is overridden
       saveData.player.owl_statue_flags.clock_town = 1;
 #ifdef ENABLE_DEBUG
       gSettingsContext.startingKokiriSword = 2;
@@ -149,8 +149,8 @@ namespace rnd {
       saveData.clock_town_temp_flags.ct_deku_in_flower_if_present = 1;
       saveData.skip_tingle_intro_dialogue_0x01 = 0x01;
 
-      saveData.player_form = game::act::Player::Form::Human;
-      saveData.inventory.collect_register.bombers_notebook = 1;
+      saveData.player_form = game::act::Player::Form::Deku;
+      // saveData.inventory.collect_register.bombers_notebook = 1;
     }
   }
 

@@ -161,6 +161,10 @@ SECTIONS{
     *(.patch_AromaItemCheck)
   }
 
+  .patch_HMSGiveItem 0x41D014 : {
+    *(.patch_HMSGiveItem)
+  }
+
   .patch_GoronMaskGiveItem 0x41DAB0 : {
     *(.patch_GoronMaskGiveItem)
   }

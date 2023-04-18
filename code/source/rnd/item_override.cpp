@@ -566,6 +566,8 @@ namespace rnd {
       gExtSaveData.givenItemChecks.enGgGivenItem = 1;
     } else if (incomingItemId == 0x87) {
       gExtSaveData.givenItemChecks.mummyDaddyGivenItem = 1;
+    } else if (incomingItemId == 0x78) {
+      gExtSaveData.givenItemChecks.enOsnGivenMask = 1;
     }
     ItemOverride_GetItem(gctx, fromActor, gctx->GetPlayerActor(), incomingItemId);
     return;
