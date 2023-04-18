@@ -475,7 +475,7 @@ namespace rnd {
 #endif
       gctx->ShowMessage(textId, actor);
       // Get_Item_Handler. Don't give ice traps, since it may cause UB.
-      if (itemId != (u8)game::ItemId::X82 && itemId != (u8)game::ItemId::None) {
+      if (itemId != (u8)game::ItemId::None) {
         rnd::util::GetPointer<int(game::GlobalContext*, game::ItemId)>(0x233BEC)(gctx, (game::ItemId)itemId);
       }
       ItemOverride_AfterItemReceived();

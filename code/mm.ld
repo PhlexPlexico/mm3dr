@@ -168,9 +168,10 @@ SECTIONS{
   .patch_ZoraMaskGiveItem 0x41DB80 : {
     *(.patch_ZoraMaskGiveItem)
   }
-  .patch_RemoveZoraMaskAppearing 0x41DB98 : {
-    *(.patch_RemoveZoraMaskAppearing)
-  }
+
+  /* .patch_RemoveSoHMaskAppearing 0x41DB98 : {
+    *(.patch_RemoveSoHMaskAppearing)
+  } */
 
   .patch_GibdoMaskGiveItem 0x41DC48 : {
     *(.patch_GibdoMaskGiveItem)

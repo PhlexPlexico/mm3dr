@@ -252,9 +252,9 @@ patch_GoronMaskGiveItem:
 patch_ZoraMaskGiveItem:
     b hook_ZoraMaskGiveItem
 
-.section .patch_RemoveZoraMaskAppearing
-.global patch_RemoveZoraMaskAppearing
-patch_RemoveZoraMaskAppearing:
+.section .patch_RemoveSoHMaskAppearing
+.global patch_RemoveSoHMaskAppearing
+patch_RemoveSoHMaskAppearing:
     nop
     
 .section .patch_GibdoMaskGiveItem
