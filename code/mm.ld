@@ -25,8 +25,8 @@ SECTIONS{
     *(.patch_DecoupleStartSelect)
   }
 
-  .patch_RemoveSOSCutesceneAfterMessage 0x186810 : {
-    *(.patch_RemoveSOSCutesceneAfterMessage)
+  .patch_RemoveSOHCutesceneAfterMessage 0x186810 : {
+    *(.patch_RemoveSOHCutesceneAfterMessage)
   }
 
   .patch_RemoveMysteryMilkTimer 0x1B7A54 : {

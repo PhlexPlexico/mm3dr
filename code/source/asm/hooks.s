@@ -20,6 +20,12 @@ hook_MainLoop:
     ldr r1, [r0,#0x138]
     b 0x0106770
 
+.global hook_ChangeSOHToCustomText
+hook_ChangeSOHToCustomText:
+    push {r0-r2, lr}
+    bl ItemOverride_SwapSoHGetItemText
+    pop {r0-r2, lr}
+    b 0x186814
 
 .global hook_SpawnFastElegyStatues
 hook_SpawnFastElegyStatues:

@@ -52,10 +52,11 @@ patch_DecoupleStartSelect:
 @ This should remove the overwriting message for when the
 @ user receives the Zora Mask.
 @ Largely untested, need to check for any UB.
-.section .patch_RemoveSOSCutesceneAfterMessage
-.global patch_RemoveSOSCutesceneAfterMessage
-patch_RemoveSOSCutesceneAfterMessage:
-    nop
+.section .patch_RemoveSOHCutesceneAfterMessage
+.global patch_RemoveSOHCutesceneAfterMessage
+patch_RemoveSOHCutesceneAfterMessage:
+    b hook_ChangeSOHToCustomText
+@nop
 
 @ There's a while loop located in the event
 @ timer that checks if we have mystery milk.
