@@ -146,8 +146,8 @@ namespace game {
     HeartContainer = 0x6f,
     PieceOfHeart = 0x70,
 
-    X71 = 0x71,
-    X72 = 0x72,
+    InvertedSongOfTime = 0x71,
+    SongOfDoubleTime = 0x72,
     X73 = 0x73,
 
     BossKey = 0x74,

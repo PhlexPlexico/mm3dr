@@ -25,8 +25,8 @@ SECTIONS{
     *(.patch_DecoupleStartSelect)
   }
 
-  .patch_RemoveMessageZoraMaskMaybeMore 0x186810 : {
-    *(.patch_RemoveMessageZoraMaskMaybeMore)
+  .patch_RemoveSOHCutesceneAfterMessage 0x186810 : {
+    *(.patch_RemoveSOHCutesceneAfterMessage)
   }
 
   .patch_RemoveMysteryMilkTimer 0x1B7A54 : {
@@ -77,15 +77,6 @@ SECTIONS{
 		*(.patch_DisableMilkTimer)
 	}
 
-  .patch_LoadExtData 0x48C760 : {
-    *(.patch_LoadExtData)
-  }
-
-  /*0x05ffc70*/ /*0x177ddc*/ /*0x5bbab8 */ /* 0x5b8b24 */
-	.patch_SaveFile_init 0x5b8b24 : {
-		*(.patch_SaveFile_init)
-	}
-
   .patch_FixSurroundSound 0x1404E8 : {
     *(.patch_FixSurroundSound)
   }
@@ -106,7 +97,7 @@ SECTIONS{
     *(.patch_ISGCrouchStabOne)
   }
 
-  .patch_RemoveMysteryMilkSoSCheck 0x1d79f8 : {
+  .patch_RemoveMysteryMilkSoSCheck 0x1D79F8 : {
     *(.patch_RemoveMysteryMilkSoSCheck)
   }
 
@@ -134,14 +125,6 @@ SECTIONS{
     *(.patch_OverrideItemID)
   }
 
-  .patch_OverrideFairyGiveItem 0x3becac : {
-    *(.patch_OverrideFairyGiveItem)
-  }
-
-  .patch_OverrideGreatFairySpawn 0x3bec84 : {
-    *(.patch_OverrideGreatFairySpawn)
-  }
-
   .patch_TwinmoldConsistentDamage 0x28E544 : {
     *(.patch_TwinmoldConsistentDamage)
   }
@@ -152,6 +135,18 @@ SECTIONS{
 
   .patch_FasterBlockMovementBack 0x2D0C0C : {
     *(.patch_FasterBlockMovementBack)
+  }
+
+  .patch_RemoveGoronMaskCheckDarmani 0x2DE788 : {
+    *(.patch_RemoveGoronMaskCheckDarmani)
+  }
+
+  .patch_OverrideFairyGiveItem 0x3becac : {
+    *(.patch_OverrideFairyGiveItem)
+  }
+
+  .patch_OverrideGreatFairySpawn 0x3bec84 : {
+    *(.patch_OverrideGreatFairySpawn)
   }
 
   .patch_SaveExtDataOnOwl 0x317004 : {
@@ -166,15 +161,24 @@ SECTIONS{
     *(.patch_AromaItemCheck)
   }
 
+  .patch_GoronMaskGiveItem 0x41DAB0 : {
+    *(.patch_GoronMaskGiveItem)
+  }
+
   .patch_ZoraMaskGiveItem 0x41DB80 : {
     *(.patch_ZoraMaskGiveItem)
   }
-  .patch_RemoveZoraMaskAppearing 0x41DB98 : {
-    *(.patch_RemoveZoraMaskAppearing)
-  }
+
+  /* .patch_RemoveSoHMaskAppearing 0x41DB98 : {
+    *(.patch_RemoveSoHMaskAppearing)
+  } */
 
   .patch_GibdoMaskGiveItem 0x41DC48 : {
     *(.patch_GibdoMaskGiveItem)
+  }
+
+  .patch_LoadExtData 0x48C760 : {
+    *(.patch_LoadExtData)
   }
 
   .patch_IncomingGetItemID 0x4B1394 : {
@@ -188,6 +192,11 @@ SECTIONS{
   .patch_DisableExistingTrigger 0x59BA14 : {
     *(.patch_DisableExistingTrigger)
   }
+
+  /*0x05ffc70*/ /*0x177ddc*/ /*0x5bbab8 */ /* 0x5b8b24 */
+	.patch_SaveFile_init 0x5b8b24 : {
+		*(.patch_SaveFile_init)
+	}
 
   .patch_ItemCloseOnSelect 0x5C19E4 : {
     *(.patch_ItemCloseOnSelect)

@@ -119,7 +119,7 @@ namespace rnd {
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_NONE,
                         (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1),  // Get Fairy Text
 
-      [0x12] = ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL, (u8)game::ItemId::X82, 0x0012, 0x00FF,
+      [0x12] = ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL, (u8)game::ItemId::None, 0x0012, 0x00FF,
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)0xFFFF,
                         (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_IceTrap, (s16)-1,
                         (s16)-1),  // Ice Trap

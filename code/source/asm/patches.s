@@ -52,10 +52,11 @@ patch_DecoupleStartSelect:
 @ This should remove the overwriting message for when the
 @ user receives the Zora Mask.
 @ Largely untested, need to check for any UB.
-.section .patch_RemoveMessageZoraMaskMaybeMore
-.global patch_RemoveMessageZoraMaskMaybeMore
-patch_RemoveMessageZoraMaskMaybeMore:
-    nop
+.section .patch_RemoveSOHCutesceneAfterMessage
+.global patch_RemoveSOHCutesceneAfterMessage
+patch_RemoveSOHCutesceneAfterMessage:
+    b hook_ChangeSOHToCustomText
+@nop
 
 @ There's a while loop located in the event
 @ timer that checks if we have mystery milk.
@@ -171,6 +172,11 @@ OverrideBomberTextID_patch:
 OverrideItemID_patch:
     b hook_OverrideItemID
 
+.section .patch_RemoveGoronMaskCheckDarmani
+.global patch_RemoveGoronMaskCheckDarmani
+patch_RemoveGoronMaskCheckDarmani:
+    b hook_DarmaniRewardCheck
+
 .section .patch_OverrideFairyGiveItem
 .global OverrideFairyItemID_patch
 OverrideFairyItemID_patch:
@@ -237,14 +243,19 @@ patch_RemoveZoraMaskCheckMikau:
 patch_AromaItemCheck:
     b hook_AromaItemCheck
 
+.section .patch_GoronMaskGiveItem
+.global patch_GoronMaskGiveItem
+patch_GoronMaskGiveItem:
+    b hook_GoronMaskGiveItem
+
 .section .patch_ZoraMaskGiveItem
 .global patch_ZoraMaskGiveItem
 patch_ZoraMaskGiveItem:
     b hook_ZoraMaskGiveItem
 
-.section .patch_RemoveZoraMaskAppearing
-.global patch_RemoveZoraMaskAppearing
-patch_RemoveZoraMaskAppearing:
+.section .patch_RemoveSoHMaskAppearing
+.global patch_RemoveSoHMaskAppearing
+patch_RemoveSoHMaskAppearing:
     nop
     
 .section .patch_GibdoMaskGiveItem

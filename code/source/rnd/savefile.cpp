@@ -47,7 +47,7 @@ namespace rnd {
     saveData.inventory.items[20] = game::ItemId::LandTitleDeed;
 
     saveData.inventory.masks[5] = game::ItemId::DekuMask;
-    saveData.inventory.masks[11] = game::ItemId::GoronMask;
+    // saveData.inventory.masks[11] = game::ItemId::GoronMask;
     // saveData.inventory.masks[17] = game::ItemId::ZoraMask;
     saveData.inventory.masks[23] = game::ItemId::FierceDeityMask;
     saveData.inventory.masks[19] = game::ItemId::StoneMask;
@@ -72,9 +72,9 @@ namespace rnd {
     saveData.inventory.stone_tower_dungeon_items.compass = 1;
     saveData.inventory.stone_tower_dungeon_items.boss_key = 1;
     saveData.inventory.woodfall_fairies = 14;
-    // saveData.player.magic_acquired = 1;  // Game does not check if value = 0, magic items still
+    saveData.player.magic_acquired = 1;  // Game does not check if value = 0, magic items still
     // work saveData.player.magic_size_type = 0; saveData.player.magic = 10;
-    // saveData.player.magic_num_upgrades = 0;
+    saveData.player.magic_num_upgrades = 0;
     saveData.equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
     saveData.inventory.item_counts[6] = 50;   // Arrows
     saveData.inventory.item_counts[11] = 40;  // Bombs
@@ -146,7 +146,7 @@ namespace rnd {
       saveData.ct_guard_allows_through_if_0x20 = 0x20;
       saveData.tatl_dialogue_snowhead_entry_0x08 = 0x08;
       saveData.pirate_leader_dialogue_0x20 = 0x20;
-      saveData.temp_event_flag_bundle1.ct_deku_in_flower_if_present = 1;
+      saveData.clock_town_temp_flags.ct_deku_in_flower_if_present = 1;
       saveData.skip_tingle_intro_dialogue_0x01 = 0x01;
 
       saveData.player_form = game::act::Player::Form::Human;
@@ -193,10 +193,10 @@ namespace rnd {
     // Tatl constant tatling skip
     saveData.cut_scene_flag_bundle.tatl_moon_tear_dialogue = 1;
     saveData.tatl_dialogue_flags2.go_south = 1;
-    saveData.tatl_dialogue_flags1.go_north = 1;
-    saveData.tatl_dialogue_flags1.go_west = 1;
-    saveData.tatl_dialogue_flags1.go_east = 1;
-    saveData.tatl_dialogue_flags1.go_to_skullkid = 1;
+    saveData.tatl_dialogue_direction_to_go.go_north = 1;
+    saveData.tatl_dialogue_direction_to_go.go_west = 1;
+    saveData.tatl_dialogue_direction_to_go.go_east = 1;
+    saveData.tatl_dialogue_direction_to_go.go_to_skullkid = 1;
     saveData.woodfall_platform_tatl_dialogue_0x02 = 0x02;
     saveData.tatl_dialogue_inside_woodfall_temple_0x80 = 0x80;
     saveData.tatl_apology_dialogue_post_Odolwa_0x80 = 0x80;
@@ -211,7 +211,7 @@ namespace rnd {
     saveData.skullkid_backstory_cutscene_0x10 = 0x10;
     saveData.cut_scene_flag_bundle.owl_statue_cut_scene = 1;
     saveData.dungeon_skip_portal_cutscene_0x3C_to_skip_all = 0x3C;
-    saveData.event_flag_bundle.skip_swimming_to_great_bay_temple_cutscene = 1;
+    saveData.turtle_flags.skip_swimming_to_great_bay_temple_cutscene = 1;
 
     // Needs to be greater than zero to skip first time song of time cutscene
     saveData.player.song_of_time_counter = 1;
@@ -225,11 +225,11 @@ namespace rnd {
     saveData.have_worn_mask_once.has_worn_zora_mask_once = 1;
     saveData.have_worn_mask_once.has_worn_deity_mask_once = 1;
     // Dungeons
-    saveData.set_fast_animation_flags.woodfall_temple_opened_at_least_once = 1;
-    saveData.set_fast_animation_flags.snowhead_temple_opened_at_least_once = 1;
-    saveData.set_fast_animation_flags.greatbay_temple_opened_at_least_once = 1;
+    saveData.opened_temple_once_flags.woodfall_temple_opened_at_least_once = 1;
+    saveData.opened_temple_once_flags.snowhead_temple_opened_at_least_once = 1;
+    saveData.opened_temple_once_flags.greatbay_temple_opened_at_least_once = 1;
     // Misc
-    saveData.set_fast_animation_flags.deku_flown_in_at_least_once = 1;
+    saveData.opened_temple_once_flags.deku_flown_in_at_least_once = 1;
   }
 
   void SaveFile_SetStartingOwlStatues() {
@@ -267,7 +267,7 @@ namespace rnd {
       saveData.bomberscode[2] = 0x01;
       saveData.bomberscode[3] = 0x01;
       saveData.bomberscode[4] = 0x01;
-      saveData.temp_event_flag_bundle1.bomber_open_hideout = 1;  // Currently gets reset by Song of time
+      saveData.clock_town_temp_flags.bomber_open_hideout = 1;  // Currently gets reset by Song of time
     }
 
     // Game uses an inventory check to determine whether you can

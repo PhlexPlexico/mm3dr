@@ -28,6 +28,7 @@ namespace rnd {
   u32 rActiveItemObjectId = 0;
   u32 rActiveItemFastChest = 0;
   u16 rStoredBomberNoteTextId = 0;
+  u16 rActiveItemSoHTextId = 0;
 
   static u8 rSatisfiedPendingFrames = 10;
 
@@ -154,6 +155,7 @@ namespace rnd {
     rActiveItemRow = itemRow;
     rActiveItemActionId = itemRow->itemId;
     rActiveItemTextId = itemRow->textId;
+    rActiveItemSoHTextId = itemRow->textId;
     rActiveItemObjectId = itemRow->objectId;
     rActiveItemGraphicId = looksLikeItemId ? ItemTable_GetItemRow(looksLikeItemId)->graphicId : itemRow->graphicId;
     rActiveItemFastChest = (u32)itemRow->chestType & 0x01;
@@ -443,6 +445,12 @@ namespace rnd {
     return false;
   }
 
+  bool ItemOverride_CheckDarmaniGivenItem() {
+    if (gExtSaveData.givenItemChecks.enGgGivenItem > 0)
+      return true;
+    return false;
+  }
+
   void ItemOverride_GetItemTextAndItemID(game::act::Player* actor) {
     if (rActiveItemRow != NULL) {
       if (rActiveItemOverride.key.type == ItemOverride_Type::OVR_CHEST) {
@@ -465,11 +473,13 @@ namespace rnd {
       u8 itemId = rActiveItemRow->itemId;
       ItemTable_CallEffect(rActiveItemRow);
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-      rnd::util::Print("%s:Player Item ID is %#04x\n", __func__, actor->get_item_id);
+      rnd::util::Print("%s:Player Item ID is %#04x\nScene is %#04x", __func__, actor->get_item_id, gctx->scene);
 #endif
-      gctx->ShowMessage(textId, actor);
+      if (gctx->scene != game::SceneId::GoronGraveyard && gctx->scene != game::SceneId::GreatBayCoast &&
+          gctx->scene != game::SceneId::MusicBoxHouse)
+        gctx->ShowMessage(textId, actor);
       // Get_Item_Handler. Don't give ice traps, since it may cause UB.
-      if (itemId != (u8)game::ItemId::X82 && itemId != (u8)game::ItemId::None) {
+      if (itemId != (u8)game::ItemId::None) {
         rnd::util::GetPointer<int(game::GlobalContext*, game::ItemId)>(0x233BEC)(gctx, (game::ItemId)itemId);
       }
       ItemOverride_AfterItemReceived();
@@ -582,6 +592,15 @@ namespace rnd {
     }
 
     return (int)currentItem;
+  }
+  void ItemOverride_SwapSoHGetItemText(game::GlobalContext* gctx, u16 textId, game::act::Actor* fromActor) {
+    // Check which text ID is coming in. If it's any mask from Song of Healing, replace it with active item text.
+    if (textId == 0x79 || textId == 0x7a || textId == 0x87 || textId == 0x78 /*|| textId == 0x50*/)
+      gctx->ShowMessage(rActiveItemSoHTextId);
+    else
+      gctx->ShowMessage(textId);
+    rActiveItemSoHTextId = 0;
+    return;
   }
   }
 }  // namespace rnd

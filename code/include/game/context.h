@@ -100,6 +100,7 @@ namespace game {
     SongOfStorms = 10,
     InvertedSongOfTime = 12,
     SongOfDoubleTime = 13,
+    ScarecrowSong = 21,
 
     InvalidDetecting = 0xfe,
     Invalid = 0xff,
