@@ -56,7 +56,6 @@ patch_DecoupleStartSelect:
 .global patch_RemoveSOHCutesceneAfterMessage
 patch_RemoveSOHCutesceneAfterMessage:
     b hook_ChangeSOHToCustomText
-@nop
 
 @ There's a while loop located in the event
 @ timer that checks if we have mystery milk.

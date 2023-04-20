@@ -28,6 +28,10 @@ SECTIONS{
   .patch_RemoveSOHCutesceneAfterMessage 0x186810 : {
     *(.patch_RemoveSOHCutesceneAfterMessage)
   }
+  /*2bec9c GOOD DREAM */
+  .patch_RemoveMeetMaskCutScene 0x2bec9c : {
+    *(.patch_RemoveMeetMaskCutScene)
+  }
 
   .patch_RemoveMysteryMilkTimer 0x1B7A54 : {
     *(.patch_RemoveMysteryMilkTimer)
@@ -161,7 +165,7 @@ SECTIONS{
     *(.patch_AromaItemCheck)
   }
 
-  .patch_HMSGiveItem 0x41D014 : {
+  .patch_HMSGiveItem 0x41D018 : {
     *(.patch_HMSGiveItem)
   }
 

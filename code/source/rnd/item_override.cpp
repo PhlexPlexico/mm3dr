@@ -476,7 +476,7 @@ namespace rnd {
       rnd::util::Print("%s:Player Item ID is %#04x\nScene is %#04x", __func__, actor->get_item_id, gctx->scene);
 #endif
       if (gctx->scene != game::SceneId::GoronGraveyard && gctx->scene != game::SceneId::GreatBayCoast &&
-          gctx->scene != game::SceneId::MusicBoxHouse)
+          gctx->scene != game::SceneId::MusicBoxHouse && gctx->scene != game::SceneId::ClockTowerInterior)
         gctx->ShowMessage(textId, actor);
       // Get_Item_Handler. Don't give ice traps, since it may cause UB.
       if (itemId != (u8)game::ItemId::None) {
@@ -587,9 +587,6 @@ namespace rnd {
     } else if (currentItem == game::ItemId::DonGeroMask && gExtSaveData.givenItemChecks.enGegGivenItem == 0) {
       return (int)0xFF;
     } else if (currentItem == game::ItemId::ZoraMask && gExtSaveData.givenItemChecks.enZogGivenItem == 0) {
-#if defined ENABLE_DEBUG || defined DEBUG_PRINT
-      rnd::util::Print("%s: Zog is still 0.\n", __func__);
-#endif
       return (int)0xFF;
     }
 
@@ -597,8 +594,10 @@ namespace rnd {
   }
   void ItemOverride_SwapSoHGetItemText(game::GlobalContext* gctx, u16 textId, game::act::Actor* fromActor) {
     // Check which text ID is coming in. If it's any mask from Song of Healing, replace it with active item text.
-    if (textId == 0x79 || textId == 0x7a || textId == 0x87 || textId == 0x78 /*|| textId == 0x50*/)
+    if (textId == 0x79 || textId == 0x7a || textId == 0x87 || textId == 0x78 /*|| textId == 0x50*/) {
       gctx->ShowMessage(rActiveItemSoHTextId);
+    }
+
     else
       gctx->ShowMessage(textId);
     rActiveItemSoHTextId = 0;
