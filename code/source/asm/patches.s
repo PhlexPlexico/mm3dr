@@ -56,7 +56,11 @@ patch_DecoupleStartSelect:
 .global patch_RemoveSOHCutesceneAfterMessage
 patch_RemoveSOHCutesceneAfterMessage:
     b hook_ChangeSOHToCustomText
-@nop
+
+.section .patch_OverrideBombersNotebook
+.global patch_OverrideBombersNotebook
+patch_OverrideBombersNotebook:
+    b hook_OverrideHMSBombers
 
 @ There's a while loop located in the event
 @ timer that checks if we have mystery milk.
@@ -242,6 +246,16 @@ patch_RemoveZoraMaskCheckMikau:
 .global patch_AromaItemCheck
 patch_AromaItemCheck:
     b hook_AromaItemCheck
+
+.section .patch_HMSGiveItem
+.global patch_HMSGiveItem
+patch_HMSGiveItem:
+    b hook_OverrideHMSDekuMask
+
+.section .patch_RemoveBombers
+.global patch_RemoveBombers
+patch_RemoveBombers:
+    nop
 
 .section .patch_GoronMaskGiveItem
 .global patch_GoronMaskGiveItem

@@ -30,7 +30,6 @@ namespace rnd {
     saveData.inventory.inventory_count_register.stick_upgrades = 2;
     saveData.inventory.inventory_count_register.nut_upgrade = 2;
     saveData.player.rupee_count = 500;
-    saveData.inventory.items[0] = game::ItemId::Ocarina;
     saveData.inventory.items[1] = game::ItemId::Arrow;
     saveData.inventory.items[2] = game::ItemId::FireArrow;
     saveData.inventory.items[3] = game::ItemId::IceArrow;
@@ -46,9 +45,10 @@ namespace rnd {
     saveData.inventory.items[15] = game::ItemId::Hookshot;
     saveData.inventory.items[20] = game::ItemId::LandTitleDeed;
 
-    saveData.inventory.masks[5] = game::ItemId::DekuMask;
-    // saveData.inventory.masks[11] = game::ItemId::GoronMask;
-    // saveData.inventory.masks[17] = game::ItemId::ZoraMask;
+    // saveData.inventory.masks[5] = game::ItemId::DekuMask;
+    // rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::DekuMask);
+    saveData.inventory.masks[11] = game::ItemId::GoronMask;
+    saveData.inventory.masks[17] = game::ItemId::ZoraMask;
     saveData.inventory.masks[23] = game::ItemId::FierceDeityMask;
     saveData.inventory.masks[19] = game::ItemId::StoneMask;
     saveData.inventory.masks[8] = game::ItemId::BunnyHood;
@@ -72,8 +72,8 @@ namespace rnd {
     saveData.inventory.stone_tower_dungeon_items.compass = 1;
     saveData.inventory.stone_tower_dungeon_items.boss_key = 1;
     saveData.inventory.woodfall_fairies = 14;
-    saveData.player.magic_acquired = 1;  // Game does not check if value = 0, magic items still
-    // work saveData.player.magic_size_type = 0; saveData.player.magic = 10;
+    saveData.player.magic_acquired = 1;   // Game does not check if value = 0, magic items still
+    saveData.player.magic_size_type = 0;  // saveData.player.magic = 10;
     saveData.player.magic_num_upgrades = 0;
     saveData.equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
     saveData.inventory.item_counts[6] = 50;   // Arrows
@@ -102,7 +102,7 @@ namespace rnd {
     saveData.inventory.collect_register.song_of_soaring = 1;
     saveData.inventory.collect_register.song_of_time = 1;
     // saveData.inventory.collect_register.oath_to_order = 1;
-    saveData.inventory.collect_register.song_of_healing = 1;
+    // saveData.inventory.collect_register.song_of_healing = 1;
 
     gSettingsContext.skipBombersMinigame = 1;
     gSettingsContext.freeScarecrow = 1;
@@ -132,9 +132,9 @@ namespace rnd {
         Currently there is no known way to get termina field to load
         in properly without ocarina in inventory.                                */
       saveData.inventory.collect_register.song_of_time = 1;  // Part of starting quest items options
-      gSettingsContext.startingOcarina = 1;
-      gSettingsContext.startingDekuMask = 1;  // start with Deku Mask, Song of Healing & Bomber's notebook always
-      saveData.inventory.collect_register.song_of_healing = 1;  // until happy mask salesman is overridden
+      rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::Ocarina);
+      // gSettingsContext.startingDekuMask = 1;  // start with Deku Mask, Song of Healing & Bomber's notebook always
+      // saveData.inventory.collect_register.song_of_healing = 1;  // until happy mask salesman is overridden
       saveData.player.owl_statue_flags.clock_town = 1;
 #ifdef ENABLE_DEBUG
       gSettingsContext.startingKokiriSword = 2;
@@ -605,8 +605,8 @@ namespace rnd {
 
     // Songs
 
-    if (gSettingsContext.startingSongOfHealing >= 0) {
-      saveData.inventory.collect_register.song_of_healing = 1;  // until happy mask salesman is overridden
+    if (gSettingsContext.startingSongOfHealing > 0) {
+      saveData.inventory.collect_register.song_of_healing = 1;
     }
 
     if (gSettingsContext.startingSongOfSoaring > 0) {

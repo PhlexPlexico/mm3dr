@@ -29,6 +29,16 @@ SECTIONS{
     *(.patch_RemoveSOHCutesceneAfterMessage)
   }
 
+  .patch_OverrideBombersNotebook 0x186ACC : {
+    *(.patch_OverrideBombersNotebook)
+  }
+
+  /*2bec9c GOOD DREAM */
+  /*  
+  .patch_RemoveMeetMaskCutScene 0x2bec9c : {
+    *(.patch_RemoveMeetMaskCutScene)
+  } */
+
   .patch_RemoveMysteryMilkTimer 0x1B7A54 : {
     *(.patch_RemoveMysteryMilkTimer)
   }
@@ -159,6 +169,10 @@ SECTIONS{
 
   .patch_AromaItemCheck 0x35091C : {
     *(.patch_AromaItemCheck)
+  }
+
+  .patch_HMSGiveItem 0x41D018 : {
+    *(.patch_HMSGiveItem)
   }
 
   .patch_GoronMaskGiveItem 0x41DAB0 : {
