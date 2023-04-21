@@ -57,6 +57,11 @@ patch_DecoupleStartSelect:
 patch_RemoveSOHCutesceneAfterMessage:
     b hook_ChangeSOHToCustomText
 
+.section .patch_OverrideBombersNotebook
+.global patch_OverrideBombersNotebook
+patch_OverrideBombersNotebook:
+    b hook_OverrideHMSBombers
+
 @ There's a while loop located in the event
 @ timer that checks if we have mystery milk.
 @ We do not wish to show this since we want to remove

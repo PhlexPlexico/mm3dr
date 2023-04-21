@@ -28,10 +28,16 @@ SECTIONS{
   .patch_RemoveSOHCutesceneAfterMessage 0x186810 : {
     *(.patch_RemoveSOHCutesceneAfterMessage)
   }
+
+  .patch_OverrideBombersNotebook 0x186ACC : {
+    *(.patch_OverrideBombersNotebook)
+  }
+
   /*2bec9c GOOD DREAM */
+  /*  
   .patch_RemoveMeetMaskCutScene 0x2bec9c : {
     *(.patch_RemoveMeetMaskCutScene)
-  }
+  } */
 
   .patch_RemoveMysteryMilkTimer 0x1B7A54 : {
     *(.patch_RemoveMysteryMilkTimer)
