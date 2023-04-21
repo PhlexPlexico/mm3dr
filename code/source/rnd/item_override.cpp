@@ -563,7 +563,7 @@ namespace rnd {
       gExtSaveData.givenItemChecks.mummyDaddyGivenItem = 1;
     } else if (incomingItemId == 0x78) {
       gExtSaveData.givenItemChecks.enOsnGivenMask = 1;
-    } else if (incomingItemId == 0x6D) {
+    } else if (incomingItemId == 0x50) {
       fromActor = gctx->GetPlayerActor();
     }
     ItemOverride_GetItem(gctx, fromActor, gctx->GetPlayerActor(), incomingItemId);
