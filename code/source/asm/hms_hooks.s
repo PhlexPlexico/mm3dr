@@ -42,10 +42,11 @@ hook_OverrideHMSBombers:
     pop {r0-r12, lr}
     beq noOverrideHMSBomber
     push {r0-r12, lr}
+    cpy r0,r5
     bl ItemOverride_GetItemTextAndItemID
     pop {r0-r12, lr}
-    b 0x186AD0
+    b 0x186AD4
 noOverrideHMSBomber:
-    orr r3,r3,r4
+    orr r1,r1,r2
     b 0x186AD0
 
