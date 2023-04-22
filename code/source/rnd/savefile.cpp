@@ -749,13 +749,14 @@ namespace rnd {
 #endif
     // TODO: BitField for event flags instead?
     // memset(&gExtSaveData.extInf, 0, sizeof(gExtSaveData.extInf));
-    memset(&gExtSaveData.givenItemChecks.raw, 0, sizeof(gExtSaveData.givenItemChecks.raw));
+    // memset(&gExtSaveData.givenItemChecks.raw, 0, sizeof(gExtSaveData.givenItemChecks.raw));
     /*memset(&gExtSaveData.aromaGivenItem, 0, sizeof(gExtSaveData.aromaGivenItem));
     memset(&gExtSaveData.enBabaGivenItem, 0, sizeof(gExtSaveData.enBabaGivenItem));
     memset(&gExtSaveData.stoneMaskReward, 0, sizeof(gExtSaveData.stoneMaskReward));
     memset(&gExtSaveData.mummyDaddyReward, 0, sizeof(gExtSaveData.mummyDaddyReward));
     memset(&gExtSaveData.enZogGivenItem, 0, sizeof(gExtSaveData.enZogGivenItem));
     memset(&gExtSaveData.darmaniReward, 0, sizeof(gExtSaveData.darmaniReward));*/
+    gExtSaveData.givenItemChecks.raw = 0;
     gExtSaveData.fairyRewards.raw = 0;
     gExtSaveData.playtimeSeconds = 0;
     // TODO: Settings options belong in ext.
