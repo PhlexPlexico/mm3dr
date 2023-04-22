@@ -404,6 +404,8 @@ namespace rnd {
       saveData.inventory.inventory_count_register.bomb_bag_upgrade = game::BombBag::BombBag40;
       saveData.inventory.items[6] = game::ItemId::Bomb;
       saveData.inventory.item_counts[11] = (gSettingsContext.startingBombBag) * 10;
+    } else {
+      saveData.inventory.inventory_count_register.bomb_bag_upgrade = game::BombBag::NoBag;
     }
 
     if (gSettingsContext.startingBombchus > 0) {
@@ -423,6 +425,8 @@ namespace rnd {
       saveData.inventory.items[1] = game::ItemId::Arrow;
       saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver50;
       saveData.inventory.item_counts[6] = (gSettingsContext.startingHerosBow) * 10;
+    } else {
+      saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::NoQuiver;
     }
 
     if (gSettingsContext.startingFireArrows) {
