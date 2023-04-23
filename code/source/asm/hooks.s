@@ -135,8 +135,14 @@ noOverrideTextID:
     cpy r0, r7
     b 0x231100
 
+
 .global hook_OverrideBomberTextID
 hook_OverrideBomberTextID:
+    push {r0}
+    sub r0,#0x600
+    cmp r0,#0x18
+    pop {r0}
+    beq noOverrideBomberTextID
     push {r1}
     ldr r1,.rStoredBomberNoteTextId
     ldr r1,[r1]
