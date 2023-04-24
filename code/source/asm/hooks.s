@@ -138,22 +138,24 @@ noOverrideTextID:
 
 .global hook_OverrideBomberTextID
 hook_OverrideBomberTextID:
-    push {r0}
-    sub r0,#0x600
-    cmp r0,#0x18
-    pop {r0}
-    beq noOverrideBomberTextID
-    push {r1}
-    ldr r1,.rStoredBomberNoteTextId
-    ldr r1,[r1]
-    cmp r1,#0x0
-    pop {r1}
-    beq noOverrideBomberTextID
-    bl ItemOverride_RemoveTextId
-    b 0x1D2768
-noOverrideBomberTextID:
     cmp r0,r0
     b 0x1D2768
+@     push {r0}
+@     sub r0,#0x600
+@     cmp r0,#0x18
+@     pop {r0}
+@     beq noOverrideBomberTextID
+@     push {r1}
+@     ldr r1,.rStoredBomberNoteTextId
+@     ldr r1,[r1]
+@     cmp r1,#0x0
+@     pop {r1}
+@     beq noOverrideBomberTextID
+@     bl ItemOverride_RemoveTextId
+@     b 0x1D2768
+@ noOverrideBomberTextID:
+@     cmp r0,r0
+@     b 0x1D2768
 
 .global hook_OverrideItemID 
 hook_OverrideItemID:
