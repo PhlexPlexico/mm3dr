@@ -404,6 +404,8 @@ namespace rnd {
       gExtSaveData.givenItemChecks.enYbGivenItem = 1;
     } else if (actorId == game::act::Id::NpcEnBaba) {
       gExtSaveData.givenItemChecks.enBabaGivenItem = 1;
+    } else if (actorId == game::act::Id::NpcEnFsn) {
+      gExtSaveData.givenItemChecks.enFsnGivenItem = 1;
     }
     return getItemId;
   }
@@ -584,6 +586,8 @@ namespace rnd {
     } else if (currentItem == game::ItemId::DonGeroMask && gExtSaveData.givenItemChecks.enGegGivenItem == 0) {
       return (int)0xFF;
     } else if (currentItem == game::ItemId::ZoraMask && gExtSaveData.givenItemChecks.enZogGivenItem == 0) {
+      return (int)0xFF;
+    } else if (currentItem == game::ItemId::LetterToMama && gExtSaveData.givenItemChecks.enBabaGivenItem == 0) {
       return (int)0xFF;
     }
 
