@@ -375,35 +375,37 @@ namespace rnd {
     if (gSettingsContext.startingConsumables) {
       saveData.inventory.items[9] = game::ItemId::DekuNuts;
       saveData.inventory.items[8] = game::ItemId::DekuStick;
-      saveData.inventory.inventory_count_register.nut_upgrade = 0;
-      saveData.inventory.inventory_count_register.stick_upgrades = 0;
+      saveData.inventory.inventory_count_register.nut_upgrade = 1;
+      saveData.inventory.inventory_count_register.stick_upgrades = 1;
+      saveData.inventory.item_counts[13] = 10;
+      saveData.inventory.item_counts[14] = 20;
     }
 
     // main inventory
     if (gSettingsContext.startingStickCapacity > 0) {
       saveData.inventory.items[8] = game::ItemId::DekuStick;
-      saveData.inventory.inventory_count_register.stick_upgrades = 0;
+      saveData.inventory.inventory_count_register.stick_upgrades = gSettingsContext.startingStickCapacity;
       saveData.inventory.item_counts[13] = (gSettingsContext.startingStickCapacity) * 10;
     }
 
     if (gSettingsContext.startingNutCapacity > 0) {
       saveData.inventory.items[9] = game::ItemId::DekuNuts;
-      saveData.inventory.inventory_count_register.nut_upgrade = 0;
+      saveData.inventory.inventory_count_register.nut_upgrade = gSettingsContext.startingNutCapacity;
       saveData.inventory.item_counts[14] = (gSettingsContext.startingNutCapacity + 1) * 10;
     }
 
     if (gSettingsContext.startingBombBag > 0) {
       saveData.inventory.inventory_count_register.bomb_bag_upgrade = game::BombBag::BombBag20;
       saveData.inventory.items[6] = game::ItemId::Bomb;
-      saveData.inventory.item_counts[11] = (gSettingsContext.startingBombBag) * 10;
+      saveData.inventory.item_counts[11] = (gSettingsContext.startingBombBag + 1) * 10;
     } else if (gSettingsContext.startingBombBag > 1) {
       saveData.inventory.inventory_count_register.bomb_bag_upgrade = game::BombBag::BombBag30;
       saveData.inventory.items[6] = game::ItemId::Bomb;
-      saveData.inventory.item_counts[11] = (gSettingsContext.startingBombBag) * 10;
+      saveData.inventory.item_counts[11] = (gSettingsContext.startingBombBag + 1) * 10;
     } else if (gSettingsContext.startingBombBag > 2) {
       saveData.inventory.inventory_count_register.bomb_bag_upgrade = game::BombBag::BombBag40;
       saveData.inventory.items[6] = game::ItemId::Bomb;
-      saveData.inventory.item_counts[11] = (gSettingsContext.startingBombBag) * 10;
+      saveData.inventory.item_counts[11] = (gSettingsContext.startingBombBag + 1) * 10;
     } else {
       saveData.inventory.inventory_count_register.bomb_bag_upgrade = game::BombBag::NoBag;
     }
@@ -416,15 +418,15 @@ namespace rnd {
     if (gSettingsContext.startingHerosBow > 0) {
       saveData.inventory.items[1] = game::ItemId::Arrow;
       saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver30;
-      saveData.inventory.item_counts[6] = (gSettingsContext.startingHerosBow) * 10;
+      saveData.inventory.item_counts[6] = (gSettingsContext.startingHerosBow + 2) * 10;
     } else if (gSettingsContext.startingHerosBow > 1) {
       saveData.inventory.items[1] = game::ItemId::Arrow;
       saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver40;
-      saveData.inventory.item_counts[6] = (gSettingsContext.startingHerosBow) * 10;
+      saveData.inventory.item_counts[6] = (gSettingsContext.startingHerosBow + 2) * 10;
     } else if (gSettingsContext.startingHerosBow > 2) {
       saveData.inventory.items[1] = game::ItemId::Arrow;
       saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver50;
-      saveData.inventory.item_counts[6] = (gSettingsContext.startingHerosBow) * 10;
+      saveData.inventory.item_counts[6] = (gSettingsContext.startingHerosBow + 2) * 10;
     } else {
       saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::NoQuiver;
     }
