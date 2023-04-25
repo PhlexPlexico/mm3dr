@@ -147,7 +147,7 @@ namespace rnd {
       saveData.tatl_dialogue_snowhead_entry_0x08 = 0x08;
       saveData.pirate_leader_dialogue_0x20 = 0x20;
       saveData.clock_town_temp_flags.ct_deku_in_flower_if_present = 1;
-      saveData.skip_tingle_intro_dialogue_0x01 = 0x01;
+      // saveData.skip_tingle_intro_dialogue_0x01 = 0x01;
 
       saveData.player_form = game::act::Player::Form::Human;
       saveData.inventory.collect_register.bombers_notebook = 1;
