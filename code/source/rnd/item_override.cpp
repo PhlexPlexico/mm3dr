@@ -589,6 +589,8 @@ namespace rnd {
       return (int)0xFF;
     } else if (currentItem == game::ItemId::LetterToMama && gExtSaveData.givenItemChecks.enBabaGivenItem == 0) {
       return (int)0xFF;
+    } else if (currentItem == game::ItemId::KeatonMask && gExtSaveData.givenItemChecks.enFsnGivenItem == 0) {
+      return (int)0xFF;
     }
 
     return (int)currentItem;
@@ -645,5 +647,12 @@ namespace rnd {
     }
     return false;
   }
+
+  u16 ItemOverride_CheckKeatonExt() {
+    if (gExtSaveData.givenItemChecks.enFsnGivenItem == 0) {
+      return 0xFF;
+    }
+  }
+
   }
 }  // namespace rnd
