@@ -653,6 +653,5 @@ namespace rnd {
       return 0xFF;
     }
   }
-
   }
 }  // namespace rnd
