@@ -147,6 +147,30 @@ SECTIONS{
     *(.patch_FasterBlockMovementBack)
   }
 
+  .patch_TingleCheckClocktownMap 0x2DABD0 : {
+    *(.patch_TingleCheckClocktownMap)
+  }
+
+  .patch_TingleCheckWoodfallMap 0x2DABE4 : {
+    *(.patch_TingleCheckWoodfallMap)
+  }
+
+  .patch_TingleCheckSnowheadMap 0x2DABF8 : {
+    *(.patch_TingleCheckSnowheadMap)
+  }
+
+  .patch_TingleCheckRomaniMap 0x2DAC0C : {
+    *(.patch_TingleCheckRomaniMap)
+  }
+
+  .patch_TingleCheckGreatBayMap 0x2DAC20 : {
+    *(.patch_TingleCheckGreatBayMap)
+  }
+
+  .patch_TingleCheckStoneTowerMap 0x2DAC34 : {
+    *(.patch_TingleCheckStoneTowerMap)
+  }
+
   .patch_RemoveGoronMaskCheckDarmani 0x2DE788 : {
     *(.patch_RemoveGoronMaskCheckDarmani)
   }
