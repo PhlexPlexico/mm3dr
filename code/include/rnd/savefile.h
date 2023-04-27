@@ -68,13 +68,13 @@ namespace rnd {
     union TingleCollectRegister {
       u8 raw;
 
-      BitField<0,1,u8> clock_town_map_get;
-      BitField<1,1,u8> woodfall_map_get;
-      BitField<2,1,u8> snowhead_map_get;
-      BitField<3,1,u8> romani_map_get;
-      BitField<4,1,u8> great_bay_map_get;
-      BitField<5,1,u8> stone_tower_map_get;
-      BitField<6,2,u8> unused;
+      BitField<0, 1, u8> clock_town_map_get;
+      BitField<1, 1, u8> woodfall_map_get;
+      BitField<2, 1, u8> snowhead_map_get;
+      BitField<3, 1, u8> romani_map_get;
+      BitField<4, 1, u8> great_bay_map_get;
+      BitField<5, 1, u8> stone_tower_map_get;
+      BitField<6, 2, u8> unused;
     };
     TingleCollectRegister tingleMaps;
     u8 chestRewarded[116][30];  // Reward table that's stored by scene and chest param/flag.

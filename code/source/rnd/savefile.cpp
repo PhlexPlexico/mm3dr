@@ -435,10 +435,9 @@ namespace rnd {
       saveData.inventory.item_counts[6] = (gSettingsContext.startingHerosBow + 2) * 10;
     } else {
       saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::NoQuiver;
-      #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-          saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver50;
-      #endif
-      
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+      saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver50;
+#endif
     }
 
     if (gSettingsContext.startingFireArrows) {

@@ -602,46 +602,46 @@ namespace rnd {
     return;
   }
 
-  bool ItemOverride_CheckTingleMaps(u16 mapId, game::GlobalContext * gctx) {
+  bool ItemOverride_CheckTingleMaps(u16 mapId, game::GlobalContext* gctx) {
     switch (mapId) {
-      case 0x1:
-        if (gExtSaveData.tingleMaps.clock_town_map_get == 0) {
-          gExtSaveData.tingleMaps.clock_town_map_get = 1;
-          return true;
-        }
-        break;
-      case 0x2:
-        if (gExtSaveData.tingleMaps.woodfall_map_get == 0) {
-          gExtSaveData.tingleMaps.woodfall_map_get = 1;
-          return true;
-        }
-        break;
-      case 0x4:
-        if (gExtSaveData.tingleMaps.snowhead_map_get == 0) {
-          gExtSaveData.tingleMaps.snowhead_map_get = 1;
-          return true;
-        }
-        break;
-      case 0x8:
-        if (gExtSaveData.tingleMaps.romani_map_get == 0) {
-          gExtSaveData.tingleMaps.romani_map_get = 1;
-          return true;
-        }
-        break;
-      case 0x10:
-        if (gExtSaveData.tingleMaps.great_bay_map_get == 0) {
-          gExtSaveData.tingleMaps.great_bay_map_get = 1;
-          return true;
-        }
-        break;
-      case 0x20:
-        if (gExtSaveData.tingleMaps.stone_tower_map_get == 0) {
-          gExtSaveData.tingleMaps.stone_tower_map_get = 1;
-          return true;
-        }
-        break;
-      default:
-        return false;
+    case 0x1:
+      if (gExtSaveData.tingleMaps.clock_town_map_get == 0) {
+        gExtSaveData.tingleMaps.clock_town_map_get = 1;
+        return true;
+      }
+      break;
+    case 0x2:
+      if (gExtSaveData.tingleMaps.woodfall_map_get == 0) {
+        gExtSaveData.tingleMaps.woodfall_map_get = 1;
+        return true;
+      }
+      break;
+    case 0x4:
+      if (gExtSaveData.tingleMaps.snowhead_map_get == 0) {
+        gExtSaveData.tingleMaps.snowhead_map_get = 1;
+        return true;
+      }
+      break;
+    case 0x8:
+      if (gExtSaveData.tingleMaps.romani_map_get == 0) {
+        gExtSaveData.tingleMaps.romani_map_get = 1;
+        return true;
+      }
+      break;
+    case 0x10:
+      if (gExtSaveData.tingleMaps.great_bay_map_get == 0) {
+        gExtSaveData.tingleMaps.great_bay_map_get = 1;
+        return true;
+      }
+      break;
+    case 0x20:
+      if (gExtSaveData.tingleMaps.stone_tower_map_get == 0) {
+        gExtSaveData.tingleMaps.stone_tower_map_get = 1;
+        return true;
+      }
+      break;
+    default:
+      return false;
     }
     return false;
   }
