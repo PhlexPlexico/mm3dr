@@ -313,6 +313,12 @@ namespace rnd {
     saveData.overworld_map_data[12] = 0x0B;
     saveData.overworld_map_data[13] = 0xFD;
     saveData.overworld_map_data[14] = 0x07;
+    gExtSaveData.tingleMaps.clock_town_map_get = 1;
+    gExtSaveData.tingleMaps.great_bay_map_get = 1;
+    gExtSaveData.tingleMaps.romani_map_get = 1;
+    gExtSaveData.tingleMaps.snowhead_map_get = 1;
+    gExtSaveData.tingleMaps.stone_tower_map_get = 1;
+    gExtSaveData.tingleMaps.woodfall_map_get = 1;
   }
 
   // Resolve the item ID for the starting bottle
@@ -429,6 +435,10 @@ namespace rnd {
       saveData.inventory.item_counts[6] = (gSettingsContext.startingHerosBow + 2) * 10;
     } else {
       saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::NoQuiver;
+      #if defined ENABLE_DEBUG || defined DEBUG_PRINT
+          saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver50;
+      #endif
+      
     }
 
     if (gSettingsContext.startingFireArrows) {
@@ -757,6 +767,7 @@ namespace rnd {
     // memset(&gExtSaveData.extInf, 0, sizeof(gExtSaveData.extInf));
     gExtSaveData.givenItemChecks.raw = 0;
     gExtSaveData.fairyRewards.raw = 0;
+    gExtSaveData.tingleMaps.raw = 0;
     gExtSaveData.playtimeSeconds = 0;
     // TODO: Settings options belong in ext.
     // memset(&gExtSaveData.scenesDiscovered, 0, sizeof(gExtSaveData.scenesDiscovered));
