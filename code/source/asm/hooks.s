@@ -138,7 +138,12 @@ noOverrideTextID:
 
 .global hook_OverrideBomberTextID
 hook_OverrideBomberTextID:
+    cmp r1, #0x5F
+    beq noBomberOverride
     cmp r0,r0
+    b 0x1D2768
+noBomberOverride:
+    cmp r1,r0
     b 0x1D2768
 @     push {r0}
 @     sub r0,#0x600
