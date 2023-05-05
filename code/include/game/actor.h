@@ -51,6 +51,8 @@ namespace game::act {
     NpcEnFsn = 0x0157,
     // Npc For Boat Photography
     NpcSwampPhotographer = 0x0158,
+    // NPC Postman
+    NpcEnPm = 0x0166,
     // Goht
     BossGoht = 0x016E,
     // [7] Owl statue

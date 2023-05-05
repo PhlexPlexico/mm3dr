@@ -406,6 +406,8 @@ namespace rnd {
       gExtSaveData.givenItemChecks.enBabaGivenItem = 1;
     } else if (actorId == game::act::Id::NpcEnFsn) {
       gExtSaveData.givenItemChecks.enFsnGivenItem = 1;
+    } else if (actorId == game::act::Id::NpcEnPm) {
+      gExtSaveData.givenItemChecks.enPmGivenItem = 1;
     }
     return getItemId;
   }
@@ -572,9 +574,9 @@ namespace rnd {
     return;
   }
 
-  void ItemOverride_RemoveTextId() {
+  /*void ItemOverride_RemoveTextId() {
     rStoredBomberNoteTextId = 0;
-  }
+  }*/
 
   int ItemOverride_CheckInventoryItemOverride(game::ItemId currentItem) {
     if (currentItem == game::ItemId::BlastMask && gExtSaveData.givenItemChecks.enBabaGivenItem == 0) {
@@ -590,6 +592,8 @@ namespace rnd {
     } else if (currentItem == game::ItemId::LetterToMama && gExtSaveData.givenItemChecks.enBabaGivenItem == 0) {
       return (int)0xFF;
     } else if (currentItem == game::ItemId::KeatonMask && gExtSaveData.givenItemChecks.enFsnGivenItem == 0) {
+      return (int)0xFF;
+    } else if (currentItem == game::ItemId::PostmanHat && gExtSaveData.givenItemChecks.enPmGivenItem == 0) {
       return (int)0xFF;
     }
 
@@ -646,12 +650,6 @@ namespace rnd {
       return false;
     }
     return false;
-  }
-
-  u16 ItemOverride_CheckKeatonExt() {
-    if (gExtSaveData.givenItemChecks.enFsnGivenItem == 0) {
-      return 0xFF;
-    }
   }
   }
 }  // namespace rnd

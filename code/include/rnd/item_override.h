@@ -433,9 +433,16 @@ namespace rnd {
   void ItemOverride_CheckStartingItem();
   void ItemOverride_Init();
   void ItemOverride_Update();
+  extern "C" bool ItemOverride_CheckAromaGivenItem();
+  extern "C" bool ItemOverride_CheckMikauGivenItem();
+  extern "C" bool ItemOverride_CheckDarmaniGivenItem();
+  extern "C" void ItemOverride_GetItemTextAndItemID(game::act::Player*);
   extern "C" void ItemOverride_GetItem(game::GlobalContext*, game::act::Actor*, game::act::Player*, s16);
   extern "C" void ItemOverride_GetFairyRewardItem(game::GlobalContext*, game::act::GreatFairy*, s16);
-  extern "C" void ItemOverride_GetItemTextAndItemID(game::act::Player*);
+  extern "C" void ItemOverride_GetSoHItem(game::GlobalContext*, game::act::Actor*, s16);
+  extern "C" int ItemOverride_CheckInventoryItemOverride(game::ItemId);
+  extern "C" void ItemOverride_SwapSoHGetItemText(game::GlobalContext*, u16, game::act::Actor*);
+  extern "C" bool ItemOverride_CheckTingleMaps(u16, game::GlobalContext*);
   extern "C" u32 rActiveItemGraphicId;
   extern "C" ItemOverride rItemOverrides[640];
   extern "C" u16 rStoredBomberNoteTextId;
