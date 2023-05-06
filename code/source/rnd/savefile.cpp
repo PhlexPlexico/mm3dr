@@ -24,16 +24,16 @@ namespace rnd {
     saveData.equipment.sword_shield.sword = game::SwordType::GildedSword;
     saveData.equipment.sword_shield.shield = game::ShieldType::MirrorShield;
     saveData.player.razor_sword_hp = 0x64;
-    saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver50;
+    // saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver50;
     saveData.inventory.inventory_count_register.bomb_bag_upgrade = game::BombBag::BombBag40;
     // saveData.inventory.inventory_count_register.wallet_upgrade = 2;
     saveData.inventory.inventory_count_register.stick_upgrades = 2;
     saveData.inventory.inventory_count_register.nut_upgrade = 2;
     saveData.player.rupee_count = 500;
-    saveData.inventory.items[1] = game::ItemId::Arrow;
-    saveData.inventory.items[2] = game::ItemId::FireArrow;
-    saveData.inventory.items[3] = game::ItemId::IceArrow;
-    saveData.inventory.items[4] = game::ItemId::LightArrow;
+    // saveData.inventory.items[1] = game::ItemId::Arrow;
+    // saveData.inventory.items[2] = game::ItemId::FireArrow;
+    // saveData.inventory.items[3] = game::ItemId::IceArrow;
+    // saveData.inventory.items[4] = game::ItemId::LightArrow;
     saveData.inventory.items[6] = game::ItemId::Bomb;
     saveData.inventory.items[7] = game::ItemId::Bombchu;
     saveData.inventory.items[8] = game::ItemId::DekuStick;
@@ -436,7 +436,8 @@ namespace rnd {
     } else {
       saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::NoQuiver;
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-      saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver50;
+      saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::NoQuiver;
+      // rnd::util::GetPointer<void(game::ItemId, int)>(0x21d440)(game::ItemId::Arrow, 0x1e);
 #endif
     }
 
