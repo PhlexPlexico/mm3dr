@@ -595,6 +595,8 @@ namespace rnd {
       return (int)0xFF;
     } else if (currentItem == game::ItemId::PostmanHat && gExtSaveData.givenItemChecks.enPmGivenItem == 0) {
       return (int)0xFF;
+    } else if (currentItem == game::ItemId::StoneMask && gExtSaveData.givenItemChecks.enStoneHeishiGivenItem == 0) {
+      return (int)0xFF;
     }
 
     return (int)currentItem;
