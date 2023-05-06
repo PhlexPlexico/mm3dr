@@ -61,10 +61,9 @@ namespace rnd {
     game::CommonData& cdata = game::GetCommonData();
     ItemOverride_Key retKey;
     retKey.all = 0;
-    #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-      rnd::util::Print("%s:Actor type is %#04x and ID is %#04x\n",\
-        __func__, (u16)actor->actor_type, actor->id);	
-    #endif
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+    rnd::util::Print("%s:Actor type is %#04x and ID is %#04x\n", __func__, (u16)actor->actor_type, actor->id);
+#endif
     if (actor->actor_type == game::act::Type::Chest) {
       // XXX: Any games like H&D or chest game to not swap?
       // Don't override WINNER purple rupee in the chest minigame scene
@@ -407,9 +406,9 @@ namespace rnd {
     } else if (actorId == game::act::Id::EnPst) {
       getItemId = incomingNegative ? -0xBA : 0xBA;
     }
-    #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-      rnd::util::Print("%s: Our get Item Id now now %#04x\n", __func__, getItemId);	
-    #endif
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+    rnd::util::Print("%s: Our get Item Id now now %#04x\n", __func__, getItemId);
+#endif
     return getItemId;
   }
 
@@ -612,9 +611,6 @@ namespace rnd {
   }
 
   bool ItemOverride_CheckTingleMaps(u16 mapId, game::GlobalContext* gctx) {
-    #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-      rnd::util::Print("%s: Map id is %#04x\n", __func__, mapId);	
-    #endif
     switch (mapId) {
     case 0x1:
       if (gExtSaveData.tingleMaps.clock_town_map_get == 0) {

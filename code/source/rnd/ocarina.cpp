@@ -63,7 +63,7 @@ namespace rnd {
       played_once = (bool)gExtSaveData.playedSosOnce;
       if (!played_once) {
         gExtSaveData.playedSosOnce = 1;
-        util::Print("\n%s: Returning false.\n", __func__);
+        util::Print("%s: Returning false.\n", __func__);
         return false;
       }
 
