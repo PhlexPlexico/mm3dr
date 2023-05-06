@@ -37,6 +37,8 @@ namespace game::act {
     ClearTag = 0x73,
     // [1] Deku Palace / Woodfall Temple moving platforms (after player lands on them)
     ObjRailLift = 0xd8,
+    // Shooting Gallery - Man
+    EnSyatekiMan = 0xC2,
     // [9] Odolwa
     BossOdolwa = 0xcb,
     // [9] Twinmold (Red/Blue)
@@ -55,6 +57,8 @@ namespace game::act {
     NpcEnPm = 0x0166,
     // Goht
     BossGoht = 0x016E,
+    // Postbox
+    EnPst = 0x182,
     // [7] Owl statue
     ObjOwlStatue = 0x01B2,
     // [4] Old Lady from Bomb Shop
