@@ -52,7 +52,8 @@ namespace rnd {
       BitField<11, 1, u16> enOsnGivenNotebook;
       BitField<12, 1, u16> enFsnGivenItem;
       BitField<13, 1, u16> enPmGivenItem;
-      BitField<14, 2, u16> unused;
+      BitField<14, 2, u16> enSshGivenItem;
+      BitField<15, 1, u16> unused;
     };
     GivenItemRegister givenItemChecks;
     union FairyCollectRegister {

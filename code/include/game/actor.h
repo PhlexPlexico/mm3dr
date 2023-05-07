@@ -35,6 +35,8 @@ namespace game::act {
     ObjElegyStatue = 0x1F,
     // Clear Tag (?)
     ClearTag = 0x73,
+    // Cursed Man Spider House
+    EnSsh = 0x90,
     // [1] Deku Palace / Woodfall Temple moving platforms (after player lands on them)
     ObjRailLift = 0xd8,
     // Shooting Gallery - Man

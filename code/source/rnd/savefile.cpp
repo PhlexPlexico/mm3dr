@@ -24,6 +24,8 @@ namespace rnd {
     saveData.equipment.sword_shield.sword = game::SwordType::GildedSword;
     saveData.equipment.sword_shield.shield = game::ShieldType::MirrorShield;
     saveData.player.razor_sword_hp = 0x64;
+    saveData.skulltulas_collected.swamp_count = 30;
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::MaskOfTruth);
     // saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver50;
     saveData.inventory.inventory_count_register.bomb_bag_upgrade = game::BombBag::BombBag40;
     // saveData.inventory.inventory_count_register.wallet_upgrade = 2;
