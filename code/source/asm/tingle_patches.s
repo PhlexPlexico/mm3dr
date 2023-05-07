@@ -35,3 +35,4 @@ patch_TingleCheckGreatBayMap:
 patch_TingleCheckStoneTowerMap:
     mov r0,#0x20
     bl hook_CheckTingle
+    beq 0x2DABA8

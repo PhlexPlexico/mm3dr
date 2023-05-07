@@ -35,8 +35,12 @@ namespace game::act {
     ObjElegyStatue = 0x1F,
     // Clear Tag (?)
     ClearTag = 0x73,
+    // Cursed Man Spider House
+    EnSsh = 0x90,
     // [1] Deku Palace / Woodfall Temple moving platforms (after player lands on them)
     ObjRailLift = 0xd8,
+    // Shooting Gallery - Man
+    EnSyatekiMan = 0xC2,
     // [9] Odolwa
     BossOdolwa = 0xcb,
     // [9] Twinmold (Red/Blue)
@@ -45,14 +49,20 @@ namespace game::act {
     BossGyorg = 0xcd,
     // [4] Kafei
     NpcKafei = 0x00F4,
+    // Deku Butler
+    EnDno = 0x0117,
     // Ice platform created using ice arrows.
     BgIcePlatform = 0x013E,
     // Npc For Curiosity Shop Owner
     NpcEnFsn = 0x0157,
     // Npc For Boat Photography
     NpcSwampPhotographer = 0x0158,
+    // NPC Postman
+    NpcEnPm = 0x0166,
     // Goht
     BossGoht = 0x016E,
+    // Postbox
+    EnPst = 0x182,
     // [7] Owl statue
     ObjOwlStatue = 0x01B2,
     // [4] Old Lady from Bomb Shop

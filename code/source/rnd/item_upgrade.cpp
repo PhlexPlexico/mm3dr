@@ -76,14 +76,14 @@ namespace rnd {
 
   GetItemID ItemUpgrade_ArrowsToRupee(game::SaveData* saveCtx, GetItemID getItemId) {
     return (saveCtx->inventory.inventory_count_register.quiver_upgrade == game::Quiver::NoQuiver) ?
-               getItemId :
-               GetItemID::GI_RUPEE_BLUE;  // Blue Rupee
+               GetItemID::GI_RUPEE_BLUE :  // Blue Rupee
+               getItemId;
   }
 
   GetItemID ItemUpgrade_BombsToRupee(game::SaveData* saveCtx, GetItemID getItemId) {
     return (saveCtx->inventory.inventory_count_register.bomb_bag_upgrade == game::BombBag::NoBag) ?
-               getItemId :
-               GetItemID::GI_RUPEE_BLUE;  // Blue Rupee
+               GetItemID::GI_RUPEE_BLUE :  // Blue Rupee
+               getItemId;
   }
 
   // TODO: Trade quest items.

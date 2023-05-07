@@ -7,7 +7,7 @@
 #include "z3d/z3DVec.h"
 
 // Increment the version number whenever the ExtSaveData structure is changed
-#define EXTSAVEDATA_VERSION 04
+#define EXTSAVEDATA_VERSION 06
 
 namespace rnd {
   void SaveFile_SkipMinorCutscenes();
@@ -36,22 +36,25 @@ namespace rnd {
     u8 playedSosOnce;
     u8 playedElegyOnce;
     union GivenItemRegister {
-      u16 raw;
+      u32 raw;
 
-      BitField<0, 1, u16> enNbGivenItem;
-      BitField<1, 1, u16> enAlGivenItem;
-      BitField<2, 1, u16> enBabaGivenItem;
-      BitField<3, 1, u16> enStoneHeishiGivenItem;
-      BitField<4, 1, u16> mummyDaddyGivenItem;
-      BitField<5, 1, u16> enGuruGuruGivenItem;
-      BitField<6, 1, u16> enYbGivenItem;
-      BitField<7, 1, u16> enGegGivenItem;
-      BitField<8, 1, u16> enZogGivenItem;
-      BitField<9, 1, u16> enGgGivenItem;
-      BitField<10, 1, u16> enOsnGivenMask;
-      BitField<11, 1, u16> enOsnGivenNotebook;
-      BitField<12, 1, u16> enFsnGivenItem;
-      BitField<13, 1, u16> unused;
+      BitField<0, 1, u32> enNbGivenItem;
+      BitField<1, 1, u32> enAlGivenItem;
+      BitField<2, 1, u32> enBabaGivenItem;
+      BitField<3, 1, u32> enStoneHeishiGivenItem;
+      BitField<4, 1, u32> mummyDaddyGivenItem;
+      BitField<5, 1, u32> enGuruGuruGivenItem;
+      BitField<6, 1, u32> enYbGivenItem;
+      BitField<7, 1, u32> enGegGivenItem;
+      BitField<8, 1, u32> enZogGivenItem;
+      BitField<9, 1, u32> enGgGivenItem;
+      BitField<10, 1, u32> enOsnGivenMask;
+      BitField<11, 1, u32> enOsnGivenNotebook;
+      BitField<12, 1, u32> enFsnGivenItem;
+      BitField<13, 1, u32> enPmGivenItem;
+      BitField<14, 2, u32> enSshGivenItem;
+      BitField<15, 1, u32> enDnoGivenItem;
+      BitField<16, 16, u32> unused;
     };
     GivenItemRegister givenItemChecks;
     union FairyCollectRegister {

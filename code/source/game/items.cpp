@@ -113,9 +113,14 @@ namespace game {
 
   void GiveItem(ItemId item_id) {
     auto* gctx = rnd::GetContext().gctx;
-    auto& items = GetCommonData().save.inventory.items;
+    // auto& items = GetCommonData().save.inventory.items;
     rnd::util::GetPointer<int(game::GlobalContext*, game::ItemId)>(0x233BEC)(gctx, item_id);
-    items[(u32)item_id] = item_id;
+    rnd::util::GetPointer<void(game::ItemId)>(0x22B14C)(item_id);
+    // items[(u32)item_id] = item_id;
+  }
+
+  void PlaceItemInItemArray(ItemId item_id) {
+    //
   }
 
   void GiveMask(ItemId item_id) {

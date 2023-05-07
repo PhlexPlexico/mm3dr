@@ -38,10 +38,10 @@ namespace rnd {
     rItemOverrides[0].key.type = ItemOverride_Type::OVR_COLLECTABLE;
     rItemOverrides[0].value.getItemId = 0x26;
     rItemOverrides[0].value.looksLikeItemId = 0x26;
-    rItemOverrides[1].key.scene = 0x6C;
+    rItemOverrides[1].key.scene = 0x1E;
     rItemOverrides[1].key.type = ItemOverride_Type::OVR_COLLECTABLE;
-    rItemOverrides[1].value.getItemId = 0x12;
-    rItemOverrides[1].value.looksLikeItemId = 0x12;
+    rItemOverrides[1].value.getItemId = 0x1E;
+    rItemOverrides[1].value.looksLikeItemId = 0x1E;
     rItemOverrides[2].key.scene = 0x12;
     rItemOverrides[2].key.type = ItemOverride_Type::OVR_COLLECTABLE;
     rItemOverrides[2].value.getItemId = 0x37;
@@ -61,6 +61,9 @@ namespace rnd {
     game::CommonData& cdata = game::GetCommonData();
     ItemOverride_Key retKey;
     retKey.all = 0;
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+    rnd::util::Print("%s:Actor type is %#04x and ID is %#04x\n", __func__, (u16)actor->actor_type, actor->id);
+#endif
     if (actor->actor_type == game::act::Type::Chest) {
       // XXX: Any games like H&D or chest game to not swap?
       // Don't override WINNER purple rupee in the chest minigame scene
@@ -72,12 +75,7 @@ namespace rnd {
       // }
       retKey.scene = scene;
       retKey.type = ItemOverride_Type::OVR_CHEST;
-      // #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-      //       util::Print("%s Our flag is actually %#06x and & 0x1F is %#06x\n", __func__,
-      //       actor->params, actor->params & 0x1F);
-      // #endif
       retKey.flag = actor->params & 0x1F;
-      return retKey;
     } else if (actor->actor_type == game::act::Type::Misc) {  // Heart pieces are misc apparently
       // Only override heart pieces and keys
       u32 collectibleType = actor->params & 0xFF;
@@ -88,23 +86,20 @@ namespace rnd {
       retKey.scene = scene;
       retKey.type = ItemOverride_Type::OVR_COLLECTABLE;
       retKey.flag = actor->overlay_info->info->flags;
-      return retKey;
     } else if (actor->id == (game::act::Id)game::ItemId::GoldSkulltula) {  // Gold Skulltula Token
       retKey.scene = (actor->params >> 8) & 0x1F;
       retKey.type = ItemOverride_Type::OVR_SKULL;
       retKey.flag = actor->params & 0xFF;
-      return retKey;
     } else if (scene == 0x14C0 && actor->id == (game::act::Id)0x0075) {  // Grotto Salesman
       retKey.scene = cdata.sub13s[8].data;
       retKey.type = ItemOverride_Type::OVR_GROTTO_SCRUB;
       retKey.flag = getItemId;
-      return retKey;
     } else {
       retKey.scene = scene;
       retKey.type = ItemOverride_Type::OVR_BASE_ITEM;
       retKey.flag = getItemId;
-      return retKey;
     }
+    return retKey;
   }
 
   ItemOverride ItemOverride_Lookup(game::act::Actor* actor, u16 scene, s16 getItemId) {
@@ -406,7 +401,18 @@ namespace rnd {
       gExtSaveData.givenItemChecks.enBabaGivenItem = 1;
     } else if (actorId == game::act::Id::NpcEnFsn) {
       gExtSaveData.givenItemChecks.enFsnGivenItem = 1;
+    } else if (actorId == game::act::Id::NpcEnPm) {
+      gExtSaveData.givenItemChecks.enPmGivenItem = 1;
+    } else if (actorId == game::act::Id::EnPst) {
+      getItemId = incomingNegative ? -0xBA : 0xBA;
+    } else if (actorId == game::act::Id::EnSsh) {
+      gExtSaveData.givenItemChecks.enSshGivenItem = 1;
+    } else if (actorId == game::act::Id::EnDno) {
+      gExtSaveData.givenItemChecks.enDnoGivenItem = 1;
     }
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+    rnd::util::Print("%s: Our get Item Id now now %#04x\n", __func__, getItemId);
+#endif
     return getItemId;
   }
 
@@ -473,7 +479,7 @@ namespace rnd {
       u8 itemId = rActiveItemRow->itemId;
       ItemTable_CallEffect(rActiveItemRow);
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-      rnd::util::Print("%s:Player Item ID is %#04x\nScene is %#04x", __func__, actor->get_item_id, gctx->scene);
+      rnd::util::Print("%s:Player Item ID is %#04x\nScene is %#04x\n", __func__, actor->get_item_id, gctx->scene);
 #endif
       // if (gctx->scene != game::SceneId::GoronGraveyard && gctx->scene != game::SceneId::GreatBayCoast &&
       //     gctx->scene != game::SceneId::MusicBoxHouse && gctx->scene != game::SceneId::ClockTowerInterior)
@@ -572,9 +578,9 @@ namespace rnd {
     return;
   }
 
-  void ItemOverride_RemoveTextId() {
+  /*void ItemOverride_RemoveTextId() {
     rStoredBomberNoteTextId = 0;
-  }
+  }*/
 
   int ItemOverride_CheckInventoryItemOverride(game::ItemId currentItem) {
     if (currentItem == game::ItemId::BlastMask && gExtSaveData.givenItemChecks.enBabaGivenItem == 0) {
@@ -590,6 +596,14 @@ namespace rnd {
     } else if (currentItem == game::ItemId::LetterToMama && gExtSaveData.givenItemChecks.enBabaGivenItem == 0) {
       return (int)0xFF;
     } else if (currentItem == game::ItemId::KeatonMask && gExtSaveData.givenItemChecks.enFsnGivenItem == 0) {
+      return (int)0xFF;
+    } else if (currentItem == game::ItemId::PostmanHat && gExtSaveData.givenItemChecks.enPmGivenItem == 0) {
+      return (int)0xFF;
+    } else if (currentItem == game::ItemId::StoneMask && gExtSaveData.givenItemChecks.enStoneHeishiGivenItem == 0) {
+      return (int)0xFF;
+    } else if (currentItem == game::ItemId::MaskOfTruth && gExtSaveData.givenItemChecks.enSshGivenItem == 0) {
+      return (int)0xFF;
+    } else if (currentItem == game::ItemId::MaskOfScents && gExtSaveData.givenItemChecks.enDnoGivenItem == 0) {
       return (int)0xFF;
     }
 
@@ -646,12 +660,6 @@ namespace rnd {
       return false;
     }
     return false;
-  }
-
-  u16 ItemOverride_CheckKeatonExt() {
-    if (gExtSaveData.givenItemChecks.enFsnGivenItem == 0) {
-      return 0xFF;
-    }
   }
   }
 }  // namespace rnd

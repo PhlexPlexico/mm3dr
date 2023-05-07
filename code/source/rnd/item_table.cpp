@@ -205,7 +205,7 @@ namespace rnd {
 
       [0x22] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::Arrow, 0x0022, 0x00BF,
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_HERO_BOW_AND_ARROW,
-                        (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_PlaceMagicArrowsInInventory, (s16)0,
+                        (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)0,
                         (s16)-1),  // Hero's Bow
 
       [0x23] =
@@ -221,16 +221,16 @@ namespace rnd {
 
       [0x25] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::FireArrow, 0x0025, 0x00121,
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_FIRE_ARROW,
-                        (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveUpgrade, (s16)3, (s16)0),  // Fire Arrow
+                        (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)3, (s16)0),  // Fire Arrow
 
       [0x26] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::IceArrow, 0x0026, 0x00121,
-                        (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_ICE_ARROW,
-                        (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveUpgrade, (s16)3, (s16)0),  // Ice Arrow
+                        (s8)0x01, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_ICE_ARROW,
+                        (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)3, (s16)0),  // Ice Arrow
 
       [0x27] =
           ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::LightArrow, 0x0027, 0x00121,
-                   (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_LIGHT_ARROW,
-                   (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_GiveUpgrade, (s16)3, (s16)0),  // Light Arrow
+                   (s8)0x02, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_LIGHT_ARROW,
+                   (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)3, (s16)0),  // Light Arrow
 
       [0x28] = ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL, (u8)game::ItemId::DekuNuts, 0x0028,
                         0x0094, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_DEKU_NUT,
