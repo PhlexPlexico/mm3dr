@@ -49,6 +49,8 @@ namespace game::act {
     BossGyorg = 0xcd,
     // [4] Kafei
     NpcKafei = 0x00F4,
+    // Deku Butler
+    EnDno = 0x0117,
     // Ice platform created using ice arrows.
     BgIcePlatform = 0x013E,
     // Npc For Curiosity Shop Owner

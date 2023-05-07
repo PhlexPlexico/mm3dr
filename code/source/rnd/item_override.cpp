@@ -407,6 +407,8 @@ namespace rnd {
       getItemId = incomingNegative ? -0xBA : 0xBA;
     } else if (actorId == game::act::Id::EnSsh) {
       gExtSaveData.givenItemChecks.enSshGivenItem = 1;
+    } else if (actorId == game::act::Id::EnDno) {
+      gExtSaveData.givenItemChecks.enDnoGivenItem = 1;
     }
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
     rnd::util::Print("%s: Our get Item Id now now %#04x\n", __func__, getItemId);
@@ -600,6 +602,8 @@ namespace rnd {
     } else if (currentItem == game::ItemId::StoneMask && gExtSaveData.givenItemChecks.enStoneHeishiGivenItem == 0) {
       return (int)0xFF;
     } else if (currentItem == game::ItemId::MaskOfTruth && gExtSaveData.givenItemChecks.enSshGivenItem == 0) {
+      return (int)0xFF;
+    } else if (currentItem == game::ItemId::MaskOfScents && gExtSaveData.givenItemChecks.enDnoGivenItem == 0) {
       return (int)0xFF;
     }
 
