@@ -231,8 +231,32 @@ SECTIONS{
     *(.patch_DisableExistingTrigger)
   }
 
+  .patch_ShorterAnimationOpen 0x5B1758 : {
+    *(.patch_ShorterAnimationOpenOne)
+  }
+
+  .patch_ShorterAnimationNewTextOne 0x5B1780 : {
+    *(.patch_ShorterAnimationOpenTwo)
+  }
+
+  .patch_ShorterAnimationNewTextTwo 0x5B1A7C : {
+    *(.patch_ShorterAnimationOpenThree)
+  }
+
+  .patch_ShorterAnimationUnk 0x5B1A80 : {
+    *(.patch_ShorterAnimationOpenFour)
+  }
+
+  .patch_ShorterAnimationMainText 0x5B1A8C : {
+    *(.patch_ShorterAnimationOpenFive)
+  }
+
+  .patch_ShorterAnimationFail 0x5B183C : {
+    *(.patch_ShorterAnimationFail)
+  }
+
   /*0x05ffc70*/ /*0x177ddc*/ /*0x5bbab8 */ /* 0x5b8b24 */
-	.patch_SaveFile_init 0x5b8b24 : {
+	.patch_SaveFile_init 0x5B8B24 : {
 		*(.patch_SaveFile_init)
 	}
 
