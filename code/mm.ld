@@ -251,6 +251,10 @@ SECTIONS{
     *(.patch_ShorterAnimationOpenFive)
   }
 
+  .patch_ShorterAnimationStateFailed 0x5B1A90 : {
+    *(.patch_ShorterAnimationOpenSix)
+  }
+
   .patch_ShorterAnimationFail 0x5B183C : {
     *(.patch_ShorterAnimationFail)
   }

@@ -437,7 +437,7 @@ namespace rnd {
       saveData.inventory.item_counts[6] = (gSettingsContext.startingHerosBow + 2) * 10;
     } else {
       saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::NoQuiver;
-#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+#ifdef ENABLE_DEBUG
       saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::NoQuiver;
       // rnd::util::GetPointer<void(game::ItemId, int)>(0x21d440)(game::ItemId::Arrow, 0x1e);
 #endif
