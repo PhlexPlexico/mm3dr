@@ -394,8 +394,9 @@ namespace rnd {
     // ARM Patch Checks
     u8 enableFastZoraSwim = 1;
     u8 enableOcarinaDiving = 1;
-	u8 enableFastElegyStatues = 0;
-	// Custom Buttons
+    u8 enableFastElegyStatues = 0;
+    
+    // Custom Buttons
     u32 customMapButton = 0;
     u32 customItemButton = 0;
     u32 customMaskButton = 0;
