@@ -396,7 +396,7 @@ namespace rnd {
     u8 enableOcarinaDiving = 1;
     u8 enableFastElegyStatues = 0;
 	
-	 //Custom Buttons
+	// Custom Buttons
     u32 customMapButton = 0;
     u32 customItemButton = 0;
     u32 customMaskButton = 0;
