@@ -29,7 +29,7 @@ namespace rnd {
   u32 rActiveItemFastChest = 0;
   u16 rStoredBomberNoteTextId = 0;
 
-  static u8 rSatisfiedPendingFrames = 10;
+  static u8 rSatisfiedPendingFrames = 0;
 
   void ItemOverride_Init(void) {
 #ifdef ENABLE_DEBUG
@@ -247,7 +247,7 @@ namespace rnd {
     default:
       rSatisfiedPendingFrames = 0;
     }
-    if (rSatisfiedPendingFrames >= 10) {
+    if (rSatisfiedPendingFrames >= 2) {
       rSatisfiedPendingFrames = 0;
       return 1;
     }
@@ -409,6 +409,8 @@ namespace rnd {
       gExtSaveData.givenItemChecks.enSshGivenItem = 1;
     } else if (actorId == game::act::Id::EnDno) {
       gExtSaveData.givenItemChecks.enDnoGivenItem = 1;
+    } else if (actorId == game::act::Id::NpcGreatFairy) {
+      gExtSaveData.givenItemChecks.bgDyYoseizo = 1;
     }
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
     rnd::util::Print("%s: Our get Item Id now now %#04x\n", __func__, getItemId);
@@ -604,6 +606,8 @@ namespace rnd {
     } else if (currentItem == game::ItemId::MaskOfTruth && gExtSaveData.givenItemChecks.enSshGivenItem == 0) {
       return (int)0xFF;
     } else if (currentItem == game::ItemId::MaskOfScents && gExtSaveData.givenItemChecks.enDnoGivenItem == 0) {
+      return (int)0xFF;
+    } else if (currentItem == game::ItemId::GreatFairyMask && gExtSaveData.givenItemChecks.bgDyYoseizo == 0) {
       return (int)0xFF;
     }
 

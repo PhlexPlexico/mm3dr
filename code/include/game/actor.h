@@ -47,6 +47,8 @@ namespace game::act {
     BossTwinmold = 0xcc,
     // [9] Gyorg
     BossGyorg = 0xcd,
+    // Great Fairy
+    NpcGreatFairy = 0xD2,
     // [4] Kafei
     NpcKafei = 0x00F4,
     // Deku Butler
