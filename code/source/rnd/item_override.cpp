@@ -226,27 +226,33 @@ namespace rnd {
       return 0;
     u32 currentAniId = player->player_util.state.id;
     switch (currentAniId) {
-    case 0x32D:  // Rolling - Human, Goron
-    case 0x11F:  // Zora Rolling
-    case 0x07A:  // FD Rolling
-    case 0x150:  // Deku idle
-    case 0x339:  // Goron idle
-    case 0x183:  // Human idle
-    case 0x2CF:  // Zora idle
-    case 0x0C2:  // FD idle
-    case 0x225:  // Walking with Sword
-    case 0x135:  // Walking - Human, Deku, Zora, Goron
-    case 0x155:  // Walking - Human, Deku, Zora, Goron
-    case 0x158:  // Walking - Human, Deku, Zora, Goron
-    case 0x0B9:  // Walking - FD
-    case 0x0DC:  // Backwalking after backflip - all forms
-    case 0x0BC:  // Sidewalking - DF
-    case 0x13D:  // Sidewalking
-      rSatisfiedPendingFrames++;
-      break;
-    default:
-      rSatisfiedPendingFrames = 0;
+      case 0x07A:  // Rolling - FD
+      case 0x0B9:  // Walking - FD
+      case 0x0BA:  // Sidewalking - FD
+      case 0x0C2:  // Idle - FD
+      case 0x0C5:  // Slow Walking - FD
+      case 0x0DC:  // Backwalking - Human, Deku, Zora, Goron, FD
+      case 0x11F:  // Rolling - Human, Zora, Goron Rolling
+      case 0x135:  // Walking - Human, Deku, Zora, Goron
+      case 0x13D:  // Sidewalking - Human, Deku, Zora, Goron
+      case 0x150:  // Idle - Deku
+      case 0x155:  // ESS Maybe - Human, Deku, Zora, Goron
+      case 0x158:  // Slow Walking - Human, Deku, Zora, Goron
+      case 0x183:  // Idle - Human
+      case 0x225:  // Walking with Weapon/Shield Drawn - Human
+      case 0x2CF:  // Idle - Zora
+      case 0x32D:  // Uncurling - Goron
+      case 0x339:  // Idle - Goron
+        rSatisfiedPendingFrames++;
+        break;
+      default:
+        rSatisfiedPendingFrames = 0;
     }
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+if (rSatisfiedPendingFrames >= 0) {
+  rnd::util::Print("%s: Current animation is %#06x\n", __func__, currentAniId);	
+}
+#endif
     if (rSatisfiedPendingFrames >= 2) {
       rSatisfiedPendingFrames = 0;
       return 1;
