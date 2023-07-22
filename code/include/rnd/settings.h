@@ -201,16 +201,16 @@ namespace rnd {
   };
 
   enum class StartingSwordSetting : u8 {
-    STARTINGSWORD_NONE,
     STARTINGSWORD_KOKIRI,
     STARTINGSWORD_RAZOR,
     STARTINGSWORD_GILDED,
+    STARTINGSWORD_NONE,
   };
 
   enum class StartingSheildSetting : u8 {
-    STARTINGSHIELD_NONE,
     STARTINGSHIELD_HERO,
     STARTINGSHIELD_MIRROR,
+    STARTINGSHIELD_NONE,
   };
 
   enum class StartingSpinSetting : u8 {
