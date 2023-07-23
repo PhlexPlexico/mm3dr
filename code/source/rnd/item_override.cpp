@@ -417,6 +417,10 @@ if (rSatisfiedPendingFrames >= 0) {
       gExtSaveData.givenItemChecks.enDnoGivenItem = 1;
     } else if (actorId == game::act::Id::NpcGreatFairy) {
       gExtSaveData.givenItemChecks.bgDyYoseizo = 1;
+    } else if (actorId == game::act::Id::EnDns) {
+      // Business scrub salesmen in grotto.
+      // Same scene as gossips so need to set item manually.
+      getItemId = incomingNegative ? -0x01 : 0x01;
     }
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
     rnd::util::Print("%s: Our get Item Id now now %#04x\n", __func__, getItemId);
