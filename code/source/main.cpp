@@ -68,10 +68,9 @@ namespace rnd {
     if (!gctx || gctx->type != game::StateType::Play)
       return;
 
-    
-    const u32 pressedButtons = gctx->pad_state.input.new_buttons.flags;
+    const u32 pressedButtons = gctx->pad_state.input.buttons.flags;
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-      rnd::util::Print("%s: Custom Item Button: %#04x\nCustom Map Button: %#04x\nCustom Mask Button: %#04x\nCustom Notebook Button: %#04x\nCustom Ingame Spoiler Button: %#04x, Pressed buttons: %#04x\n", \
+      rnd::util::Print("%s: Custom Item Button: %#04x\nCustom Map Button: %#04x\nCustom Mask Button: %#04x\nCustom Notebook Button: %#04x\nCustom Ingame Spoiler Button: %#04x\nPressed buttons: %#04x\n", \
       __func__, \
       gSettingsContext.customItemButton, \
       gSettingsContext.customMapButton, \
@@ -84,7 +83,7 @@ namespace rnd {
       game::ui::OpenScreen(game::ui::ScreenType::Masks);
     } else if (gSettingsContext.customMaskButton != 0 && pressedButtons == gSettingsContext.customItemButton) {
       game::ui::OpenScreen(game::ui::ScreenType::Items);
-    } else if (gSettingsContext.customMaskButton != 0 && pressedButtons == gSettingsContext.customNotebookButto) {
+    } else if (gSettingsContext.customMaskButton != 0 && pressedButtons == gSettingsContext.customNotebookButton) {
       if (game::GetCommonData().save.inventory.collect_register.bombers_notebook != 0)
         game::ui::OpenScreen(game::ui::ScreenType::Schedule);
       else
@@ -95,7 +94,7 @@ namespace rnd {
       game::ui::OpenScreen(game::ui::ScreenType::Map);
       gctx->pad_state.input.buttons.Clear(game::pad::Button::Select);
       gctx->pad_state.input.new_buttons.Clear(game::pad::Button::Select);
-    } else if (pressedButtons == game::pad::Button::Select || pressedButtons == game::pad::Button::Start) {
+    } else if (pressedButtons == (u32)game::pad::Button::Select || pressedButtons == (u32)game::pad::Button::Start) {
       util::Write<u8>(game::ui::GetScreen(game::ui::ScreenType::Map), 0x78E, 0);
       game::ui::OpenScreen(game::ui::ScreenType::Map);
       gctx->pad_state.input.buttons.Clear(game::pad::Button::Select);
