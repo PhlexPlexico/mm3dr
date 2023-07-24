@@ -69,6 +69,7 @@ namespace rnd {
       return;
 
     const u32 pressedButtons = gctx->pad_state.input.buttons.flags;
+    const u32 newButtons = gctx->pad_state.input.new_buttons.flags;
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
       rnd::util::Print("%s: Custom Item Button: %#04x\nCustom Map Button: %#04x\nCustom Mask Button: %#04x\nCustom Notebook Button: %#04x\nCustom Ingame Spoiler Button: %#04x\nPressed buttons: %#04x\n", \
       __func__, \
@@ -94,11 +95,11 @@ namespace rnd {
       game::ui::OpenScreen(game::ui::ScreenType::Map);
       gctx->pad_state.input.buttons.Clear(game::pad::Button::Select);
       gctx->pad_state.input.new_buttons.Clear(game::pad::Button::Select);
-    } else if (pressedButtons == (u32)game::pad::Button::Select || pressedButtons == (u32)game::pad::Button::Start) {
-      util::Write<u8>(game::ui::GetScreen(game::ui::ScreenType::Map), 0x78E, 0);
-      game::ui::OpenScreen(game::ui::ScreenType::Map);
-      gctx->pad_state.input.buttons.Clear(game::pad::Button::Select);
-      gctx->pad_state.input.new_buttons.Clear(game::pad::Button::Select);
+    } else if (newButtons == (u32)game::pad::Button::Select || newButtons == (u32)game::pad::Button::Start) {
+      if (game::GetCommonData().save.inventory.collect_register.bombers_notebook != 0)
+        game::ui::OpenScreen(game::ui::ScreenType::Schedule);
+      else
+        game::ui::OpenScreen(game::ui::ScreenType::Items);
     }
     return;
   }

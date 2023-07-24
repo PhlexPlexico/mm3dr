@@ -248,11 +248,6 @@ namespace rnd {
       default:
         rSatisfiedPendingFrames = 0;
     }
-#if defined ENABLE_DEBUG || defined DEBUG_PRINT
-if (rSatisfiedPendingFrames >= 0) {
-  rnd::util::Print("%s: Current animation is %#06x\n", __func__, currentAniId);	
-}
-#endif
     if (rSatisfiedPendingFrames >= 2) {
       rSatisfiedPendingFrames = 0;
       return 1;
