@@ -47,6 +47,8 @@ namespace game::act {
     BossTwinmold = 0xcc,
     // [9] Gyorg
     BossGyorg = 0xcd,
+    // Great Fairy
+    NpcGreatFairy = 0xD2,
     // [4] Kafei
     NpcKafei = 0x00F4,
     // Deku Butler
@@ -73,6 +75,8 @@ namespace game::act {
     NpcEnGuruGuru = 0x01D7,
     // Npc Invisible Guard
     NpcInvisibleGuard = 0x1D9,
+    // Deku Salesmen
+    EnDns = 0x01DB,
     // Npc Madame Aroma
     NpcAroma = 0x1F1,
     // [4] Rosa Sisters

@@ -29,7 +29,7 @@ namespace rnd {
   u32 rActiveItemFastChest = 0;
   u16 rStoredBomberNoteTextId = 0;
 
-  static u8 rSatisfiedPendingFrames = 10;
+  static u8 rSatisfiedPendingFrames = 0;
 
   void ItemOverride_Init(void) {
 #ifdef ENABLE_DEBUG
@@ -226,28 +226,29 @@ namespace rnd {
       return 0;
     u32 currentAniId = player->player_util.state.id;
     switch (currentAniId) {
-    case 0x32D:  // Rolling - Human, Goron
-    case 0x11F:  // Zora Rolling
-    case 0x07A:  // FD Rolling
-    case 0x150:  // Deku idle
-    case 0x339:  // Goron idle
-    case 0x183:  // Human idle
-    case 0x2CF:  // Zora idle
-    case 0x0C2:  // FD idle
-    case 0x225:  // Walking with Sword
-    case 0x135:  // Walking - Human, Deku, Zora, Goron
-    case 0x155:  // Walking - Human, Deku, Zora, Goron
-    case 0x158:  // Walking - Human, Deku, Zora, Goron
-    case 0x0B9:  // Walking - FD
-    case 0x0DC:  // Backwalking after backflip - all forms
-    case 0x0BC:  // Sidewalking - DF
-    case 0x13D:  // Sidewalking
-      rSatisfiedPendingFrames++;
-      break;
-    default:
-      rSatisfiedPendingFrames = 0;
+      case 0x07A:  // Rolling - FD
+      case 0x0B9:  // Walking - FD
+      case 0x0BA:  // Sidewalking - FD
+      case 0x0C2:  // Idle - FD
+      case 0x0C5:  // Slow Walking - FD
+      case 0x0DC:  // Backwalking - Human, Deku, Zora, Goron, FD
+      case 0x11F:  // Rolling - Human, Zora, Goron Rolling
+      case 0x135:  // Walking - Human, Deku, Zora, Goron
+      case 0x13D:  // Sidewalking - Human, Deku, Zora, Goron
+      case 0x150:  // Idle - Deku
+      case 0x155:  // ESS Maybe - Human, Deku, Zora, Goron
+      case 0x158:  // Slow Walking - Human, Deku, Zora, Goron
+      case 0x183:  // Idle - Human
+      case 0x225:  // Walking with Weapon/Shield Drawn - Human
+      case 0x2CF:  // Idle - Zora
+      case 0x32D:  // Uncurling - Goron
+      case 0x339:  // Idle - Goron
+        rSatisfiedPendingFrames++;
+        break;
+      default:
+        rSatisfiedPendingFrames = 0;
     }
-    if (rSatisfiedPendingFrames >= 10) {
+    if (rSatisfiedPendingFrames >= 2) {
       rSatisfiedPendingFrames = 0;
       return 1;
     }
@@ -409,6 +410,12 @@ namespace rnd {
       gExtSaveData.givenItemChecks.enSshGivenItem = 1;
     } else if (actorId == game::act::Id::EnDno) {
       gExtSaveData.givenItemChecks.enDnoGivenItem = 1;
+    } else if (actorId == game::act::Id::NpcGreatFairy) {
+      gExtSaveData.givenItemChecks.bgDyYoseizo = 1;
+    } else if (actorId == game::act::Id::EnDns) {
+      // Business scrub salesmen in grotto.
+      // Same scene as gossips so need to set item manually.
+      getItemId = incomingNegative ? -0x01 : 0x01;
     }
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
     rnd::util::Print("%s: Our get Item Id now now %#04x\n", __func__, getItemId);
@@ -604,6 +611,8 @@ namespace rnd {
     } else if (currentItem == game::ItemId::MaskOfTruth && gExtSaveData.givenItemChecks.enSshGivenItem == 0) {
       return (int)0xFF;
     } else if (currentItem == game::ItemId::MaskOfScents && gExtSaveData.givenItemChecks.enDnoGivenItem == 0) {
+      return (int)0xFF;
+    } else if (currentItem == game::ItemId::GreatFairyMask && gExtSaveData.givenItemChecks.bgDyYoseizo == 0) {
       return (int)0xFF;
     }
 
