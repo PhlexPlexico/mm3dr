@@ -167,7 +167,7 @@ SECTIONS{
     *(.patch_TingleCheckGreatBayMap)
   }
 
-  .patch_TingleCheckStoneTowerMap 0x2DAC34 : {
+  .patch_TingleCheckStoneTowerMap 0x2DAC30 : {
     *(.patch_TingleCheckStoneTowerMap)
   }
 

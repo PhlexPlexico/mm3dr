@@ -69,13 +69,6 @@ namespace rnd {
 
     const u32 pressedButtons = gctx->pad_state.input.buttons.flags;
     const u32 newButtons = gctx->pad_state.input.new_buttons.flags;
-#if defined ENABLE_DEBUG || defined DEBUG_PRINT
-    rnd::util::Print("%s: Custom Item Button: %#04x\nCustom Map Button: %#04x\nCustom Mask Button: %#04x\nCustom "
-                     "Notebook Button: %#04x\nCustom Ingame Spoiler Button: %#04x\nPressed buttons: %#04x\n",
-                     __func__, gSettingsContext.customItemButton, gSettingsContext.customMapButton,
-                     gSettingsContext.customMaskButton, gSettingsContext.customNotebookButton,
-                     gSettingsContext.customIngameSpoilerButton, pressedButtons);
-#endif
     if (gSettingsContext.customMaskButton != 0 && pressedButtons == gSettingsContext.customMaskButton) {
       game::ui::OpenScreen(game::ui::ScreenType::Masks);
     } else if (gSettingsContext.customMaskButton != 0 && pressedButtons == gSettingsContext.customItemButton) {
