@@ -12,6 +12,7 @@
 #include "rnd/link.h"
 #include "rnd/rheap.h"
 #include "rnd/savefile.h"
+#include "rnd/settings.h"
 #include "z3d/z3DVec.h"
 
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
@@ -60,40 +61,47 @@ namespace rnd {
       ItemOverride_Update();
     return;
   }
+
+
   void readPadInput() {
     auto* gctx = GetContext().gctx;
     if (!gctx || gctx->type != game::StateType::Play)
       return;
 
-    const bool zr = gctx->pad_state.input.buttons.IsSet(game::pad::Button::ZR);
-    const bool start = gctx->pad_state.input.new_buttons.IsSet(game::pad::Button::Start);
-    const bool select = gctx->pad_state.input.new_buttons.IsSet(game::pad::Button::Select);
-    if (!zr && select) {
+    
+    const u32 pressedButtons = gctx->pad_state.input.new_buttons.flags;
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+      rnd::util::Print("%s: Custom Item Button: %#04x\nCustom Map Button: %#04x\nCustom Mask Button: %#04x\nCustom Notebook Button: %#04x\nCustom Ingame Spoiler Button: %#04x, Pressed buttons: %#04x\n", \
+      __func__, \
+      gSettingsContext.customItemButton, \
+      gSettingsContext.customMapButton, \
+      gSettingsContext.customMaskButton, \
+      gSettingsContext.customNotebookButton, \
+      gSettingsContext.customIngameSpoilerButton, \
+      pressedButtons);	
+#endif
+    if (gSettingsContext.customMaskButton != 0 && pressedButtons == gSettingsContext.customMaskButton) {
       game::ui::OpenScreen(game::ui::ScreenType::Masks);
-      return;
-    }
-
-    if (start && !zr) {
+    } else if (gSettingsContext.customMaskButton != 0 && pressedButtons == gSettingsContext.customItemButton) {
       game::ui::OpenScreen(game::ui::ScreenType::Items);
-      return;
-    }
-
-    if (zr && start) {
+    } else if (gSettingsContext.customMaskButton != 0 && pressedButtons == gSettingsContext.customNotebookButto) {
       if (game::GetCommonData().save.inventory.collect_register.bombers_notebook != 0)
         game::ui::OpenScreen(game::ui::ScreenType::Schedule);
       else
         game::ui::OpenScreen(game::ui::ScreenType::Items);
-      return;
-    }
-
-    if (zr && select) {
+    } else if (gSettingsContext.customMaskButton != 0 && pressedButtons == gSettingsContext.customMapButton) {
       // Clear map screen type. (Needed because the screen could be in "soaring" mode.)
       util::Write<u8>(game::ui::GetScreen(game::ui::ScreenType::Map), 0x78E, 0);
       game::ui::OpenScreen(game::ui::ScreenType::Map);
       gctx->pad_state.input.buttons.Clear(game::pad::Button::Select);
       gctx->pad_state.input.new_buttons.Clear(game::pad::Button::Select);
-      return;
+    } else if (pressedButtons == game::pad::Button::Select || pressedButtons == game::pad::Button::Start) {
+      util::Write<u8>(game::ui::GetScreen(game::ui::ScreenType::Map), 0x78E, 0);
+      game::ui::OpenScreen(game::ui::ScreenType::Map);
+      gctx->pad_state.input.buttons.Clear(game::pad::Button::Select);
+      gctx->pad_state.input.new_buttons.Clear(game::pad::Button::Select);
     }
+    return;
   }
   void _start(void) {
     // Just in case something needs to be dynamically allocated...
