@@ -33,6 +33,8 @@ namespace game::act {
     DayTimer = 0xf5,
     // Elegy of Emptiness statue
     ObjElegyStatue = 0x1F,
+    //En_Gm - Gorman Bros Race
+    EnGm = 0x4D,
     // Clear Tag (?)
     ClearTag = 0x73,
     // Cursed Man Spider House
