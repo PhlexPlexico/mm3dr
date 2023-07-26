@@ -416,8 +416,8 @@ namespace rnd {
       // Business scrub salesmen in grotto.
       // Same scene as gossips so need to set item manually.
       getItemId = incomingNegative ? -0x01 : 0x01;
-    } else if (actorId == game::act::Id::EnGm) {
-      gExtSaveData.givenItemChecks.enGmGivenItem = 1;
+    } else if (actorId == game::act::Id::EnIn) {
+      gExtSaveData.givenItemChecks.enInGivenItem = 1;
     }
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
     rnd::util::Print("%s: Our get Item Id now now %#04x\n", __func__, getItemId);
@@ -616,7 +616,7 @@ namespace rnd {
       return (int)0xFF;
     } else if (currentItem == game::ItemId::GreatFairyMask && gExtSaveData.givenItemChecks.bgDyYoseizoGivenItem == 0) {
       return (int)0xFF;
-    } else if (currentItem == game::ItemId::GaroMask && gExtSaveData.givenItemChecks.enGmGivenItem == 0) {
+    } else if (currentItem == game::ItemId::GaroMask || currentItem == game::ItemId::MilkFill && gExtSaveData.givenItemChecks.enInGivenItem == 0) {
       return (int)0xFF;
     }
 
