@@ -616,7 +616,7 @@ namespace rnd {
       return (int)0xFF;
     } else if (currentItem == game::ItemId::GreatFairyMask && gExtSaveData.givenItemChecks.bgDyYoseizoGivenItem == 0) {
       return (int)0xFF;
-    } else if (currentItem == game::ItemId::GaroMask || currentItem == game::ItemId::MilkFill && gExtSaveData.givenItemChecks.enInGivenItem == 0) {
+    } else if (currentItem == game::ItemId::GaroMask && gExtSaveData.givenItemChecks.enInGivenItem == 0) {
       return (int)0xFF;
     }
 
