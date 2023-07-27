@@ -325,6 +325,31 @@ noOverrideGibdoItemID:
     bl 0x233BEC
     b 0x41DC4C
 
+.global hook_CouplesMaskGiveItem
+hook_CouplesMaskGiveItem:
+    push {r0-r12, lr}
+    cpy r0,r5
+    cpy r1,r4
+    mov r2,#0x85
+    bl ItemOverride_GetSoHItem
+    ldr r5,.rActiveItemRow_addr
+    ldr r5,[r5]
+    cmp r5,#0x0
+    pop {r0-r12, lr}
+    beq noOverrideCouplesItemID
+    push {r0-r12, lr}
+    cpy r0,r5
+    cpy r1,r4
+    bl ItemOverride_GetItemTextAndItemID
+    pop {r0-r12, lr}
+    mov r0,#0x1
+    b 0x46E230
+noOverrideCouplesItemID:
+    cpy r0,r5
+    bl 0x233BEC
+    mov r0,#0x1
+    b 0x46E230
+
 .section .loader
 .global hook_into_loader
 hook_into_loader:

@@ -215,6 +215,10 @@ SECTIONS{
     *(.patch_GibdoMaskGiveItem)
   }
 
+  .patch_CouplesMaskGiveItem 0x46E228 : {
+    *(.patch_CouplesMaskGiveItem)
+  }
+
   .patch_LoadExtData 0x48C760 : {
     *(.patch_LoadExtData)
   }
