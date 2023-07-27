@@ -582,6 +582,20 @@ namespace rnd {
       gExtSaveData.givenItemChecks.enOsnGivenMask = 1;
     } else if (incomingItemId == 0x50) {
       fromActor = gctx->GetPlayerActor();
+    } else if (incomingItemId == 0x85) {
+      
+      if (gExtSaveData.givenItemChecks.kafeiGivenItem == 0) {
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+        rnd::util::Print("%s: Called push.\n", __func__);	
+#endif
+        gExtSaveData.givenItemChecks.kafeiGivenItem = 1;
+        return;
+      } else if (gExtSaveData.givenItemChecks.kafeiGivenItem == 1) {
+        gExtSaveData.givenItemChecks.kafeiGivenItem = 2;
+        // ItemOverride_GetItem(gctx, fromActor, gctx->GetPlayerActor(), incomingItemId);
+        ItemOverride_PushPendingFairyRewardItem(gctx, static_cast<game::act::GreatFairy*>(fromActor), incomingItemId);
+      }
+      return;
     }
     ItemOverride_GetItem(gctx, fromActor, gctx->GetPlayerActor(), incomingItemId);
     return;

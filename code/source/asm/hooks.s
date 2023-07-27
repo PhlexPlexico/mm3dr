@@ -346,7 +346,7 @@ hook_CouplesMaskGiveItem:
     b 0x46E230
 noOverrideCouplesItemID:
     cpy r0,r5
-    bl 0x233BEC
+    @ bl 0x233BEC
     mov r0,#0x1
     b 0x46E230
 
