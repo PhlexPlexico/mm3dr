@@ -40,8 +40,8 @@ namespace rnd {
     rItemOverrides[0].value.looksLikeItemId = 0x26;
     rItemOverrides[1].key.scene = 0x26;
     rItemOverrides[1].key.type = ItemOverride_Type::OVR_COLLECTABLE;
-    rItemOverrides[1].value.getItemId = 0x89;
-    rItemOverrides[1].value.looksLikeItemId = 0x89;
+    rItemOverrides[1].value.getItemId = 0x26;
+    rItemOverrides[1].value.looksLikeItemId = 0x26;
     rItemOverrides[2].key.scene = 0x12;
     rItemOverrides[2].key.type = ItemOverride_Type::OVR_COLLECTABLE;
     rItemOverrides[2].value.getItemId = 0x37;
@@ -491,7 +491,7 @@ namespace rnd {
       rnd::util::Print("%s:Player Item ID is %#04x\nScene is %#04x\n", __func__, actor->get_item_id, gctx->scene);
 #endif
       // Only check if we have the ID set, that means text is displayed elsewhere.
-      if(rStoredTextId == 0)
+      if (rStoredTextId == 0)
         gctx->ShowMessage(textId, actor);
       // Get_Item_Handler. Don't give ice traps, since it may cause UB.
       if (itemId != (u8)game::ItemId::None) {
@@ -587,9 +587,9 @@ namespace rnd {
   }
 
   void ItemOverride_RemoveTextId() {
-    #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-      rnd::util::Print("%s: Clearing text.\n", __func__);	
-    #endif
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+    rnd::util::Print("%s: Clearing text.\n", __func__);
+#endif
     rStoredTextId = 0;
   }
 
@@ -626,8 +626,11 @@ namespace rnd {
   }
   void ItemOverride_SwapSoHGetItemText(game::GlobalContext* gctx, u16 textId, game::act::Actor* fromActor) {
     // Check which text ID is coming in. If it's any mask from Song of Healing, replace it with active item text.
-    if (textId == 0x79 || textId == 0x7a || textId == 0x87 || textId == 0x78 /*|| textId == 0x50*/) {
+    if (textId == 0x79 || textId == 0x7a || textId == 0x87 || textId == 0x78) {
       return;
+    } else if (textId == 0x85) {
+      gctx->ShowMessage(rStoredTextId);
+      rStoredTextId = 0;
     } else
       gctx->ShowMessage(textId);
     return;
