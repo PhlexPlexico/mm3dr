@@ -27,7 +27,7 @@ namespace rnd {
   u32 rActiveItemTextId = 0;
   u32 rActiveItemObjectId = 0;
   u32 rActiveItemFastChest = 0;
-  u16 rStoredBomberNoteTextId = 0;
+  u16 rStoredTextId = 0;
 
   static u8 rSatisfiedPendingFrames = 0;
 
@@ -411,11 +411,13 @@ namespace rnd {
     } else if (actorId == game::act::Id::EnDno) {
       gExtSaveData.givenItemChecks.enDnoGivenItem = 1;
     } else if (actorId == game::act::Id::NpcGreatFairy) {
-      gExtSaveData.givenItemChecks.bgDyYoseizo = 1;
+      gExtSaveData.givenItemChecks.bgDyYoseizoGivenItem = 1;
     } else if (actorId == game::act::Id::EnDns) {
       // Business scrub salesmen in grotto.
       // Same scene as gossips so need to set item manually.
       getItemId = incomingNegative ? -0x01 : 0x01;
+    } else if (actorId == game::act::Id::EnIn) {
+      gExtSaveData.givenItemChecks.enInGivenItem = 1;
     }
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
     rnd::util::Print("%s: Our get Item Id now now %#04x\n", __func__, getItemId);
@@ -488,9 +490,9 @@ namespace rnd {
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
       rnd::util::Print("%s:Player Item ID is %#04x\nScene is %#04x\n", __func__, actor->get_item_id, gctx->scene);
 #endif
-      // if (gctx->scene != game::SceneId::GoronGraveyard && gctx->scene != game::SceneId::GreatBayCoast &&
-      //     gctx->scene != game::SceneId::MusicBoxHouse && gctx->scene != game::SceneId::ClockTowerInterior)
-      gctx->ShowMessage(textId, actor);
+      // Only check if we have the ID set, that means text is displayed elsewhere.
+      if (rStoredTextId == 0)
+        gctx->ShowMessage(textId, actor);
       // Get_Item_Handler. Don't give ice traps, since it may cause UB.
       if (itemId != (u8)game::ItemId::None) {
         rnd::util::GetPointer<int(game::GlobalContext*, game::ItemId)>(0x233BEC)(gctx, (game::ItemId)itemId);
@@ -531,8 +533,10 @@ namespace rnd {
     }
 
     player->get_item_id = incomingNegative ? -baseItemId : baseItemId;
-    if (fromActor->actor_type != game::act::Type::Chest) {
-      rStoredBomberNoteTextId = rActiveItemRow->textId;
+    // Weird edge case with the way text and masks are handled with Couples' Mask.
+    // Set the text and apply it later in a different patch.
+    if (incomingGetItemId == 0x85) {
+      rStoredTextId = rActiveItemRow->textId;
     }
     return;
   }
@@ -540,11 +544,6 @@ namespace rnd {
   void ItemOverride_GetFairyRewardItem(game::GlobalContext* gctx, game::act::GreatFairy* fromActor,
                                        s16 incomingItemId) {
     int fairyEntrance = game::GetCommonData().sub1.entrance;
-#if defined ENABLE_DEBUG || defined DEBUG_PRINT
-    rnd::util::Print(
-        "%s: Some important info:\ngreatFairyParam: %#06x\nActor type: %#04x\nIncoming item ID: %#04x\nAnon_19: %u",
-        __func__, fairyEntrance, fromActor->actor_type, incomingItemId, gExtSaveData.fairyRewards.nct);
-#endif
     if (fairyEntrance == 0x4600 && gExtSaveData.fairyRewards.nct != 1) {
       gExtSaveData.fairyRewards.nct = 1;
       ItemOverride_PushPendingFairyRewardItem(gctx, fromActor, 0x86);
@@ -580,14 +579,19 @@ namespace rnd {
       gExtSaveData.givenItemChecks.enOsnGivenMask = 1;
     } else if (incomingItemId == 0x50) {
       fromActor = gctx->GetPlayerActor();
+    } else if (incomingItemId == 0x85) {
+      gExtSaveData.givenItemChecks.kafeiGivenItem = 1;
     }
     ItemOverride_GetItem(gctx, fromActor, gctx->GetPlayerActor(), incomingItemId);
     return;
   }
 
-  /*void ItemOverride_RemoveTextId() {
-    rStoredBomberNoteTextId = 0;
-  }*/
+  void ItemOverride_RemoveTextId() {
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+    rnd::util::Print("%s: Clearing text.\n", __func__);
+#endif
+    rStoredTextId = 0;
+  }
 
   int ItemOverride_CheckInventoryItemOverride(game::ItemId currentItem) {
     if (currentItem == game::ItemId::BlastMask && gExtSaveData.givenItemChecks.enBabaGivenItem == 0) {
@@ -612,7 +616,9 @@ namespace rnd {
       return (int)0xFF;
     } else if (currentItem == game::ItemId::MaskOfScents && gExtSaveData.givenItemChecks.enDnoGivenItem == 0) {
       return (int)0xFF;
-    } else if (currentItem == game::ItemId::GreatFairyMask && gExtSaveData.givenItemChecks.bgDyYoseizo == 0) {
+    } else if (currentItem == game::ItemId::GreatFairyMask && gExtSaveData.givenItemChecks.bgDyYoseizoGivenItem == 0) {
+      return (int)0xFF;
+    } else if (currentItem == game::ItemId::GaroMask && gExtSaveData.givenItemChecks.enInGivenItem == 0) {
       return (int)0xFF;
     }
 
@@ -620,8 +626,11 @@ namespace rnd {
   }
   void ItemOverride_SwapSoHGetItemText(game::GlobalContext* gctx, u16 textId, game::act::Actor* fromActor) {
     // Check which text ID is coming in. If it's any mask from Song of Healing, replace it with active item text.
-    if (textId == 0x79 || textId == 0x7a || textId == 0x87 || textId == 0x78 /*|| textId == 0x50*/) {
+    if (textId == 0x79 || textId == 0x7a || textId == 0x87 || textId == 0x78) {
       return;
+    } else if (textId == 0x85) {
+      gctx->ShowMessage(rStoredTextId);
+      rStoredTextId = 0;
     } else
       gctx->ShowMessage(textId);
     return;

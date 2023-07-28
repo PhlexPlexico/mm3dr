@@ -67,9 +67,9 @@ hook_CheckOcarinaDive:
 .rActiveItemGraphicId:
     .word rActiveItemGraphicId
 
-.global rStoredBomberNoteTextId
-.rStoredBomberNoteTextId:
-    .word rStoredBomberNoteTextId
+.global rStoredTextId
+.rStoredTextId:
+    .word rStoredTextId
 
 .global hook_SaveFile_Load
 hook_SaveFile_Load:
@@ -151,7 +151,7 @@ noBomberOverride:
 @     pop {r0}
 @     beq noOverrideBomberTextID
 @     push {r1}
-@     ldr r1,.rStoredBomberNoteTextId
+@     ldr r1,.rStoredTextId
 @     ldr r1,[r1]
 @     cmp r1,#0x0
 @     pop {r1}
@@ -324,6 +324,46 @@ noOverrideGibdoItemID:
     cpy r0,r5
     bl 0x233BEC
     b 0x41DC4C
+
+.global hook_CouplesMaskGiveItem
+hook_CouplesMaskGiveItem:
+    push {r0-r12, lr}
+    cpy r0,r5
+    cpy r1,r4
+    mov r2,#0x85
+    bl ItemOverride_GetSoHItem
+    ldr r5,.rActiveItemRow_addr
+    ldr r5,[r5]
+    cmp r5,#0x0
+    pop {r0-r12, lr}
+    beq noOverrideCouplesItemID
+    push {r0-r12, lr}
+    cpy r0,r5
+    cpy r1,r4
+    bl ItemOverride_GetItemTextAndItemID
+    pop {r0-r12, lr}
+    b 0x46e264
+noOverrideCouplesItemID:
+    b 0x46e22c
+
+.global hook_AdjustCouplesMaskMessage
+hook_AdjustCouplesMaskMessage:
+    push {r1}
+    ldr r1,.rStoredTextId
+    ldr r1,[r1]
+    cmp r1,#0x0
+    pop {r1}
+    beq normalText
+    ldr r1,.rStoredTextId
+    ldr r1,[r1]
+    push {r0-r12,lr}
+    bl ItemOverride_RemoveTextId
+    pop {r0-r12, lr}
+    b 0x1867C8
+normalText:
+    mov r1,#0xA2
+    b 0x1867C8
+
 
 .section .loader
 .global hook_into_loader

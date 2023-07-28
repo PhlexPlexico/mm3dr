@@ -33,6 +33,8 @@ namespace game::act {
     DayTimer = 0xf5,
     // Elegy of Emptiness statue
     ObjElegyStatue = 0x1F,
+    // En_Gm - Gorman Bros Race
+    EnIn = 0x4D,
     // Clear Tag (?)
     ClearTag = 0x73,
     // Cursed Man Spider House
@@ -64,7 +66,7 @@ namespace game::act {
     // Goht
     BossGoht = 0x016E,
     // Postbox
-    EnPst = 0x182,
+    EnPst = 0x0182,
     // [7] Owl statue
     ObjOwlStatue = 0x01B2,
     // [4] Old Lady from Bomb Shop
@@ -79,6 +81,8 @@ namespace game::act {
     EnDns = 0x01DB,
     // Npc Madame Aroma
     NpcAroma = 0x1F1,
+    // Npc Mayor Dotour
+    EnDt = 0x1FE,
     // [4] Rosa Sisters
     NpcRosaSisters = 0x020A,
     // En_Yb (Kamarao)

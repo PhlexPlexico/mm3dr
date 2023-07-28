@@ -445,7 +445,7 @@ namespace rnd {
   extern "C" bool ItemOverride_CheckTingleMaps(u16, game::GlobalContext*);
   extern "C" u32 rActiveItemGraphicId;
   extern "C" ItemOverride rItemOverrides[640];
-  extern "C" u16 rStoredBomberNoteTextId;
+  extern "C" u16 rStoredTextId;
 }  // namespace rnd
 
 #endif
