@@ -282,6 +282,11 @@ patch_GibdoMaskGiveItem:
 patch_CouplesMaskGiveItem:
     b hook_CouplesMaskGiveItem
 
+.section .patch_RemoveCouplesMaskMessage
+.global patch_RemoveCouplesMaskMessage
+patch_RemoveCouplesMaskMessage:
+    b hook_AdjustCouplesMaskMessage
+
 .section .patch_loader
 .global loader_patch
 loader_patch:

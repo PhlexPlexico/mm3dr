@@ -27,7 +27,7 @@ namespace rnd {
   u32 rActiveItemTextId = 0;
   u32 rActiveItemObjectId = 0;
   u32 rActiveItemFastChest = 0;
-  u16 rStoredBomberNoteTextId = 0;
+  u16 rStoredTextId = 0;
 
   static u8 rSatisfiedPendingFrames = 0;
 
@@ -40,8 +40,8 @@ namespace rnd {
     rItemOverrides[0].value.looksLikeItemId = 0x26;
     rItemOverrides[1].key.scene = 0x26;
     rItemOverrides[1].key.type = ItemOverride_Type::OVR_COLLECTABLE;
-    rItemOverrides[1].value.getItemId = 0x26;
-    rItemOverrides[1].value.looksLikeItemId = 0x26;
+    rItemOverrides[1].value.getItemId = 0x89;
+    rItemOverrides[1].value.looksLikeItemId = 0x89;
     rItemOverrides[2].key.scene = 0x12;
     rItemOverrides[2].key.type = ItemOverride_Type::OVR_COLLECTABLE;
     rItemOverrides[2].value.getItemId = 0x37;
@@ -490,9 +490,9 @@ namespace rnd {
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
       rnd::util::Print("%s:Player Item ID is %#04x\nScene is %#04x\n", __func__, actor->get_item_id, gctx->scene);
 #endif
-      // if (gctx->scene != game::SceneId::GoronGraveyard && gctx->scene != game::SceneId::GreatBayCoast &&
-      //     gctx->scene != game::SceneId::MusicBoxHouse && gctx->scene != game::SceneId::ClockTowerInterior)
-      gctx->ShowMessage(textId, actor);
+      // Only check if we have the ID set, that means text is displayed elsewhere.
+      if(rStoredTextId == 0)
+        gctx->ShowMessage(textId, actor);
       // Get_Item_Handler. Don't give ice traps, since it may cause UB.
       if (itemId != (u8)game::ItemId::None) {
         rnd::util::GetPointer<int(game::GlobalContext*, game::ItemId)>(0x233BEC)(gctx, (game::ItemId)itemId);
@@ -533,8 +533,10 @@ namespace rnd {
     }
 
     player->get_item_id = incomingNegative ? -baseItemId : baseItemId;
-    if (fromActor->actor_type != game::act::Type::Chest) {
-      rStoredBomberNoteTextId = rActiveItemRow->textId;
+    // Weird edge case with the way text and masks are handled with Couples' Mask.
+    // Set the text and apply it later in a different patch.
+    if (incomingGetItemId == 0x85) {
+      rStoredTextId = rActiveItemRow->textId;
     }
     return;
   }
@@ -542,11 +544,6 @@ namespace rnd {
   void ItemOverride_GetFairyRewardItem(game::GlobalContext* gctx, game::act::GreatFairy* fromActor,
                                        s16 incomingItemId) {
     int fairyEntrance = game::GetCommonData().sub1.entrance;
-#if defined ENABLE_DEBUG || defined DEBUG_PRINT
-    rnd::util::Print(
-        "%s: Some important info:\ngreatFairyParam: %#06x\nActor type: %#04x\nIncoming item ID: %#04x\nAnon_19: %u",
-        __func__, fairyEntrance, fromActor->actor_type, incomingItemId, gExtSaveData.fairyRewards.nct);
-#endif
     if (fairyEntrance == 0x4600 && gExtSaveData.fairyRewards.nct != 1) {
       gExtSaveData.fairyRewards.nct = 1;
       ItemOverride_PushPendingFairyRewardItem(gctx, fromActor, 0x86);
@@ -583,27 +580,18 @@ namespace rnd {
     } else if (incomingItemId == 0x50) {
       fromActor = gctx->GetPlayerActor();
     } else if (incomingItemId == 0x85) {
-      
-      if (gExtSaveData.givenItemChecks.kafeiGivenItem == 0) {
-#if defined ENABLE_DEBUG || defined DEBUG_PRINT
-        rnd::util::Print("%s: Called push.\n", __func__);	
-#endif
-        gExtSaveData.givenItemChecks.kafeiGivenItem = 1;
-        return;
-      } else if (gExtSaveData.givenItemChecks.kafeiGivenItem == 1) {
-        gExtSaveData.givenItemChecks.kafeiGivenItem = 2;
-        // ItemOverride_GetItem(gctx, fromActor, gctx->GetPlayerActor(), incomingItemId);
-        ItemOverride_PushPendingFairyRewardItem(gctx, static_cast<game::act::GreatFairy*>(fromActor), incomingItemId);
-      }
-      return;
+      gExtSaveData.givenItemChecks.kafeiGivenItem = 1;
     }
     ItemOverride_GetItem(gctx, fromActor, gctx->GetPlayerActor(), incomingItemId);
     return;
   }
 
-  /*void ItemOverride_RemoveTextId() {
-    rStoredBomberNoteTextId = 0;
-  }*/
+  void ItemOverride_RemoveTextId() {
+    #if defined ENABLE_DEBUG || defined DEBUG_PRINT
+      rnd::util::Print("%s: Clearing text.\n", __func__);	
+    #endif
+    rStoredTextId = 0;
+  }
 
   int ItemOverride_CheckInventoryItemOverride(game::ItemId currentItem) {
     if (currentItem == game::ItemId::BlastMask && gExtSaveData.givenItemChecks.enBabaGivenItem == 0) {
