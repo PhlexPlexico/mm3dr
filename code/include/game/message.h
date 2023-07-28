@@ -54,6 +54,7 @@ namespace game {
 
   struct MessageResText {
     /// Offset to the message text relative to the start of the file.
+    // TODO: Convert to wchar_t?
     const char* offset;
     /// Length (including null terminator)
     u32 length;
