@@ -1,3 +1,0 @@
-[submodule "code/source/lib/eigen"]
-	path = code/source/lib/eigen
-	url = https://gitlab.com/libeigen/eigen
