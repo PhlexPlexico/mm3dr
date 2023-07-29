@@ -98,6 +98,11 @@ patch_DoNotRemoveKeys:
     nop
     nop
 
+.section .patch_RemoveDekuMaskCheckSoT
+.global patch_RemoveDekuMaskCheckSoT
+patch_RemoveDekuMaskCheckSoT:
+    b 0x1D80AC
+
 @ Avoids all the check items for mystery milk so we can use items freely.
 .section .patch_RemoveMysteryMilkUsabilityCheck
 .global patch_RemoveMysteryMilkUsabilityCheck

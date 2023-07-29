@@ -51,6 +51,10 @@ SECTIONS{
     *(.patch_DoNotRemoveKeys)
   }
 
+  .patch_RemoveDekuMaskCheckSoT 0x1D8008 : {
+    *(.patch_RemoveDekuMaskCheckSoT)
+  }
+
   .patch_RemoveMysteryMilkUsabilityCheck 0x1e04d8 : {
     *(.patch_RemoveMysteryMilkUsabilityCheck)
   }
