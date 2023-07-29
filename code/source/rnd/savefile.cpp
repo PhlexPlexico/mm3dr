@@ -152,7 +152,8 @@ namespace rnd {
       // saveData.skip_tingle_intro_dialogue_0x01 = 0x01;
 
       saveData.player_form = game::act::Player::Form::Human;
-      saveData.inventory.collect_register.bombers_notebook = 1;
+      // Shuffling now works, removing the starting item with notebook.
+      // saveData.inventory.collect_register.bombers_notebook = 1;
     }
   }
 
@@ -206,7 +207,7 @@ namespace rnd {
     saveData.talt_dialogue_great_bay_temple.whirlpool_room_tatl_dialogue = 1;
 
     // tutorials
-    saveData.cut_scene_flag_bundle.map_tutorial_by_tingle = 1;
+    // saveData.cut_scene_flag_bundle.map_tutorial_by_tingle = 1;
 
     // Misc cutscenes
     saveData.meeting_happy_mask_salesman_0x01 = 0x01;
