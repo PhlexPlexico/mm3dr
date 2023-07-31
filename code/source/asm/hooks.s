@@ -5,6 +5,18 @@
 .rActiveItemTextId_addr:
     .word rActiveItemTextId
 
+.global rActiveItemRow
+.rActiveItemRow_addr:
+    .word rActiveItemRow
+
+.global rActiveItemGraphicId
+.rActiveItemGraphicId_addr:
+    .word rActiveItemGraphicId
+
+.global rStoredTextId
+.rStoredTextId_addr:
+    .word rStoredTextId
+
 .global hook_Start
 hook_Start:
     push {r0-r12, lr}
@@ -59,18 +71,6 @@ hook_CheckOcarinaDive:
     beq 0x1E1FB4
     b 0x1e1f10
 
-.global rActiveItemRow
-.rActiveItemRow_addr:
-    .word rActiveItemRow
-
-.global rActiveItemGraphicId
-.rActiveItemGraphicId:
-    .word rActiveItemGraphicId
-
-.global rStoredTextId
-.rStoredTextId:
-    .word rStoredTextId
-
 .global hook_SaveFile_Load
 hook_SaveFile_Load:
     push {r0-r12, lr}
@@ -101,7 +101,7 @@ noIgnoreValues:
 
 .global hook_OverrideDrawIndex
 hook_OverrideDrawIndex:
-    ldr r0,.rActiveItemGraphicId
+    ldr r0,.rActiveItemGraphicId_addr
     ldr r0,[r0]
     cmp r0,#0x0
     beq noOverrideGraphicId
@@ -112,12 +112,12 @@ noOverrideGraphicId:
 
 .global hook_OverrideDrawIndexSecond
 hook_OverrideDrawIndexSecond:
-    ldr r0,.rActiveItemGraphicId
+    ldr r0,.rActiveItemGraphicId_addr
     ldr r0,[r0]
     cmp r0,#0x0
-    beq noOverrideGraphicIdThird
+    beq noOverrideGraphicIdSecond
     b 0x22F47C
-noOverrideGraphicIdThird:
+noOverrideGraphicIdSecond:
     ldrsh r0, [r8,#2]
     b 0x22F478
 
@@ -145,22 +145,6 @@ hook_OverrideBomberTextID:
 noBomberOverride:
     cmp r1,r0
     b 0x1D2768
-@     push {r0}
-@     sub r0,#0x600
-@     cmp r0,#0x18
-@     pop {r0}
-@     beq noOverrideBomberTextID
-@     push {r1}
-@     ldr r1,.rStoredTextId
-@     ldr r1,[r1]
-@     cmp r1,#0x0
-@     pop {r1}
-@     beq noOverrideBomberTextID
-@     bl ItemOverride_RemoveTextId
-@     b 0x1D2768
-@ noOverrideBomberTextID:
-@     cmp r0,r0
-@     b 0x1D2768
 
 .global hook_OverrideItemID 
 hook_OverrideItemID:
@@ -349,12 +333,12 @@ noOverrideCouplesItemID:
 .global hook_AdjustCouplesMaskMessage
 hook_AdjustCouplesMaskMessage:
     push {r1}
-    ldr r1,.rStoredTextId
+    ldr r1,.rStoredTextId_addr
     ldr r1,[r1]
     cmp r1,#0x0
     pop {r1}
     beq normalText
-    ldr r1,.rStoredTextId
+    ldr r1,.rStoredTextId_addr
     ldr r1,[r1]
     push {r0-r12,lr}
     bl ItemOverride_RemoveTextId
