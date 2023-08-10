@@ -8,8 +8,8 @@
 void CustomMessage_Init(void);
 
 typedef struct {
-    char data[MAX_MSG_SIZE];
-    u16  size;
+  char data[MAX_MSG_SIZE];
+  u16 size;
 } CustomMessage;
 
 /*----- Custom Message Declarations -----*/
