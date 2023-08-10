@@ -149,7 +149,7 @@ namespace rnd {
       saveData.tatl_dialogue_snowhead_entry_0x08 = 0x08;
       saveData.pirate_leader_dialogue_0x20 = 0x20;
       saveData.clock_town_temp_flags.ct_deku_in_flower_if_present = 1;
-      // saveData.skip_tingle_intro_dialogue_0x01 = 0x01;
+      saveData.skip_tingle_intro_dialogue_0x01 = 0x01;
 
       saveData.player_form = game::act::Player::Form::Human;
       // Shuffling now works, removing the starting item with notebook.
@@ -757,15 +757,8 @@ namespace rnd {
   }
 
   void SaveFile_InitExtSaveData(u32 saveNumber) {
-#if defined ENABLE_DEBUG || defined DEBUG_PRINT
-    util::Print("%s: INITING ExtData.\n", __func__);
-#endif
     gExtSaveData.version = EXTSAVEDATA_VERSION;  // Do not change this line
     gExtSaveData.isNewFile = 1;
-#if defined ENABLE_DEBUG || defined DEBUG_PRINT
-    util::Print("%s: Size of isNewFile and version is %u and %u", __func__, sizeof(gExtSaveData.isNewFile),
-                sizeof(gExtSaveData.version));
-#endif
     // TODO: BitField for event flags instead?
     // memset(&gExtSaveData.extInf, 0, sizeof(gExtSaveData.extInf));
     gExtSaveData.givenItemChecks.raw = 0;
@@ -852,9 +845,6 @@ namespace rnd {
     path[1] = comData.save_idx + '0';
 
     extDataWriteFileDirectly(fsa, path, &gExtSaveData, 0, sizeof(gExtSaveData));
-#if defined ENABLE_DEBUG || defined DEBUG_PRINT
-    util::Print("%s: Unmounting now...\n", __func__);
-#endif
     extDataUnmount(fsa);
   }
 
