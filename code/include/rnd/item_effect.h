@@ -1,7 +1,7 @@
 #ifndef _RND_ITEM_EFFECT_H_
 #define _RND_ITEM_EFFECT_H_
 
-//#include "icetrap.h"
+// #include "icetrap.h"
 
 #include "game/common_data.h"
 #include "rnd/settings.h"
