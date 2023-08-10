@@ -90,12 +90,17 @@ hook_SaveFile_Init:
 
 .global hook_OverrideItemIdIndex
 hook_OverrideItemIdIndex:
+    push {r0}
     ldr r0,.rActiveItemGraphicId_addr
     ldr r0,[r0]
     cmp r0,#0x0
+    pop {r0}
     beq noOverrideItemIdIndex
+    ldr r0,.rActiveItemGraphicId_addr
+    ldr r0,[r0]
     bx lr
 noOverrideItemIdIndex:
+    ldrsh r0, [r0, #-6]
     bx lr
 
 @ State handler calls 0x5D for masks, check this value and ignore states where that is equal, since this function
