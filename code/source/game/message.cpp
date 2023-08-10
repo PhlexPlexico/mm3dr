@@ -7,6 +7,7 @@
  * Brought in from the Project Restoration libraries. Modified for custom messages.
  */
 #include "game/message.h"
+#include "rnd/custom_message.h"
 
 #include "common/utils.h"
 
@@ -67,8 +68,8 @@ namespace game {
       customIceMessage.flags = 0xFF0000;
       // customIceMessage.texts[0].offset = "Hmmph...  I've been made a
       // \x7f:\x00\x01\x00\x46OOL\x7f\x00:\x00\x0b\x00 of!\x7f\x00\x31";
-      customIceMessage.texts[0].offset = " \x7f:\x00\x01\x00\x46OOL!\x7f:\x00\x0b\x00\x7f\x00\x31";
-      customIceMessage.texts[0].length = 22;
+      customIceMessage.texts[0].offset = iceTrapMsg.data;
+      customIceMessage.texts[0].length = iceTrapMsg.size;
       entry = &customIceMessage;
       isCustom = true;
     } else if (id == 0x0037) {
