@@ -772,6 +772,7 @@ namespace rnd {
     gExtSaveData.fairyRewards.raw = 0;
     gExtSaveData.tingleMaps.raw = 0;
     gExtSaveData.playtimeSeconds = 0;
+    memset(&gExtSaveData.chestRewarded, 0, sizeof(gExtSaveData.chestRewarded));
     // TODO: Settings options belong in ext.
     // memset(&gExtSaveData.scenesDiscovered, 0, sizeof(gExtSaveData.scenesDiscovered));
     // memset(&gExtSaveData.entrancesDiscovered, 0, sizeof(gExtSaveData.entrancesDiscovered));

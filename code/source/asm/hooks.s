@@ -90,8 +90,13 @@ hook_SaveFile_Init:
 
 .global hook_OverrideItemIdIndex
 hook_OverrideItemIdIndex:
-    mov r0,#0x49
-    b 0x21d134
+    ldr r0,.rActiveItemGraphicId_addr
+    ldr r0,[r0]
+    cmp r0,#0x0
+    beq noOverrideItemIdIndex
+    bx lr
+noOverrideItemIdIndex:
+    bx lr
 
 @ State handler calls 0x5D for masks, check this value and ignore states where that is equal, since this function
 @ is also used by song of soaring and get_item.
@@ -129,7 +134,7 @@ noOverrideGraphicIdSecond:
 .global hook_OverrideTextID
 hook_OverrideTextID:
     push {r3}
-    ldr r3,.rActiveItemRow_addr
+    ldr r3,.rActiveItemTextId_addr
     ldr r3,[r3]
     cmp r3,#0x0
     pop {r3}

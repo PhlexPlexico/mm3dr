@@ -27,40 +27,40 @@ namespace rnd {
       [0x01] =
           ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL, (u8)game::ItemId::OneRupee, 0x00C4, 0x013F,
                    (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_GREEN_RUPEE,
-                   (rnd::upgradeFunc)ItemUpgrade_BombsToRupee, ItemEffect_None, (s16)-1,
+                   (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1,
                    (s16)-1),  // Green Rupee
 
       [0x02] = ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL, (u8)game::ItemId::FiveRupees, 0x0002,
                         0x013F, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_BLUE_RUPEE,
-                        (rnd::upgradeFunc)ItemUpgrade_BombsToRupee, ItemEffect_None, (s16)-1,
+                        (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1,
                         (s16)-1),  // Blue Rupee
       // BREAKS
       [0x03] = ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL, (u8)game::ItemId::TenRupees, 0x0003,
                         0x013F, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_RED_RUPEE,
-                        (rnd::upgradeFunc)ItemUpgrade_BombsToRupee, ItemEffect_None, (s16)-1,
+                        (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1,
                         (s16)-1),  // Ten Rupees
 
       [0x04] = ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL, (u8)game::ItemId::TwentyRupees, 0x0004,
                         0x013F, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_RED_RUPEE,
-                        (rnd::upgradeFunc)ItemUpgrade_BombsToRupee, ItemEffect_None, (s16)-1,
+                        (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1,
                         (s16)-1),  // Red Rupee
 
       [0x05] =
           ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL, (u8)game::ItemId::FiftyRupees, 0x0005,
                    0x013F, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_PURPLE_RUPEE,
-                   (rnd::upgradeFunc)ItemUpgrade_BombsToRupee, ItemEffect_None, (s16)-1,
+                   (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1,
                    (s16)-1),  // Purple Rupee
 
       [0x06] =
           ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL, (u8)game::ItemId::OneHundredRupees, 0x0006,
                    0x013F, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_SILVER_RUPEE,
-                   (rnd::upgradeFunc)ItemUpgrade_BombsToRupee, ItemEffect_None, (s16)-1,
+                   (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1,
                    (s16)-1),  // Silver Rupee
 
       [0x07] =
           ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL, (u8)game::ItemId::TwoHundredRupees, 0x0007,
                    0x013F, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_GOLD_RUPEE,
-                   (rnd::upgradeFunc)ItemUpgrade_BombsToRupee, ItemEffect_None, (s16)-1,
+                   (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1,
                    (s16)-1),  // Gold Rupee
 
       [0x08] =

@@ -40,9 +40,9 @@ namespace rnd {
     rItemOverrides[0].value.getItemId = 0x26;
     rItemOverrides[0].value.looksLikeItemId = 0x26;
     rItemOverrides[1].key.scene = 0x26;
-    rItemOverrides[1].key.type = ItemOverride_Type::OVR_CHEST;
-    rItemOverrides[1].value.getItemId = 0x26;
-    rItemOverrides[1].value.looksLikeItemId = 0x26;
+    rItemOverrides[1].key.type = ItemOverride_Type::OVR_COLLECTABLE;
+    rItemOverrides[1].value.getItemId = 0x06;
+    rItemOverrides[1].value.looksLikeItemId = 0x06;
     rItemOverrides[2].key.scene = 0x12;
     rItemOverrides[2].key.type = ItemOverride_Type::OVR_COLLECTABLE;
     rItemOverrides[2].value.getItemId = 0x37;
@@ -62,9 +62,6 @@ namespace rnd {
     game::CommonData& cdata = game::GetCommonData();
     ItemOverride_Key retKey;
     retKey.all = 0;
-// #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-//     rnd::util::Print("%s:Actor type is %#04x and ID is %#04x\n", __func__, (u16)actor->actor_type, actor->id);
-// #endif
     if (actor->actor_type == game::act::Type::Chest) {
       // XXX: Any games like H&D or chest game to not swap?
       // Don't override WINNER purple rupee in the chest minigame scene
@@ -247,6 +244,7 @@ namespace rnd {
       break;
     default:
       rSatisfiedPendingFrames = 0;
+      break;
     }
     if (rSatisfiedPendingFrames >= 2) {
       rSatisfiedPendingFrames = 0;
@@ -476,6 +474,7 @@ namespace rnd {
       u8 itemId = rActiveItemRow->itemId;
       ItemTable_CallEffect(rActiveItemRow);
       // Only check if we have the ID set, that means text is displayed elsewhere.
+      
       if (rStoredTextId == 0)
         gctx->ShowMessage(textId, actor);
       // Get_Item_Handler. Don't give ice traps, since it may cause UB.
@@ -572,9 +571,6 @@ namespace rnd {
   }
 
   void ItemOverride_RemoveTextId() {
-#if defined ENABLE_DEBUG || defined DEBUG_PRINT
-    rnd::util::Print("%s: Clearing text.\n", __func__);
-#endif
     rStoredTextId = 0;
   }
 
@@ -606,7 +602,6 @@ namespace rnd {
     } else if (currentItem == game::ItemId::GaroMask && gExtSaveData.givenItemChecks.enInGivenItem == 0) {
       return (int)0xFF;
     }
-
     return (int)currentItem;
   }
   void ItemOverride_SwapSoHGetItemText(game::GlobalContext* gctx, u16 textId, game::act::Actor* fromActor) {
