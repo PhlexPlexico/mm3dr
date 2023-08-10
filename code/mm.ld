@@ -67,6 +67,14 @@ SECTIONS{
     *(.patch_CheckCurrentInventoryOverrideItem)
   }
 
+  /* .patch_OverrideItemIDFour 0x1FBD10 : {
+    *(.patch_OverrideItemIdIndex)
+  } */
+
+  /* .patch_OverrideItemIDThree 0x1FF604 : {
+    *(.patch_OverrideItemIdIndex)
+  } */
+
   .patch_UseZoraASwimSecond 0X1FFD74 : {
     *(.patch_UseZoraASwimSecond)
   }
@@ -117,6 +125,10 @@ SECTIONS{
 
   .patch_ISGCrouchStabTwo 0x1DBEA4 : {
     *(.patch_ISGCrouchStabTwo)
+  }
+
+  .patch_OverrideItemIdIndex 0x21d124 : {
+    *(.patch_OverrideItemIdIndex)
   }
 
   .patch_RemoveRemainsStateCheck 0x22B7BC : {
