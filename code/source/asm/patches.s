@@ -151,6 +151,12 @@ patch_ISGCrouchStabTwo:
     nop
     nop
 
+.section .patch_OverrideItemIdIndex
+.global patch_OverrideItemIdIndex
+patch_OverrideItemIdIndex:
+@TODO: Branch off to hook and load addr that is needed from text ID.
+    mov r0,#0x49
+
 .section .patch_RemoveRemainsStateCheck
 .global patch_RemoveRemainsStateCheck
 patch_RemoveRemainsStateCheck:

@@ -135,6 +135,24 @@ SECTIONS{
     *(.patch_OverrideTextID)
   }
 
+  /* .patch_OverrideItemIdIndex 0x21d130 : {
+    *(.patch_OverrideItemIdIndex)
+  } */
+
+   .patch_OverrideItemIDTwo 0x21d124 : {
+    *(.patch_OverrideItemIdIndex)
+  }
+
+   /* .patch_OverrideItemIDThree 0x1ff604 : {
+    *(.patch_OverrideItemIdIndex)
+  }  
+
+  .patch_OverrideItemIDFour 0x1fbd10 : {
+    *(.patch_OverrideItemIdIndex)
+  } */
+
+  
+
   .patch_OverrideItemID 0x231108 : {
     *(.patch_OverrideItemID)
   }
