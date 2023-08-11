@@ -14,6 +14,7 @@ typedef struct {
 
 /*----- Custom Message Declarations -----*/
 extern CustomMessage iceTrapMsg;
+extern CustomMessage kokiriSwordMsg;
 /*----- Custom Message Declarations -----*/
 
 #endif

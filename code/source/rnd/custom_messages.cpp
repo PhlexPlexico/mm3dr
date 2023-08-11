@@ -2,6 +2,7 @@
 
 /*----- Custom Message Declarations -----*/
 CustomMessage iceTrapMsg;
+CustomMessage kokiriSwordMsg;
 /*----- Custom Message Declarations -----*/
 
 typedef enum {
@@ -187,6 +188,20 @@ void CustomMessage_Init(void) {
         ->col(YELLOW)
         ->text("<3")
         ->end();
+
+    builder.set(&kokiriSwordMsg)
+        ->instant()
+        ->text("You got the ")
+        ->col(MAGENTA)
+        ->text("Kokiri Sword")
+        ->col(WHITE)
+        ->text("!")
+        ->delay(20)
+        ->newline()
+        ->text("Swing it with  ")
+        ->icon(bButton)
+        ->end();
   }
+  
   init = true;
 }
