@@ -202,6 +202,6 @@ void CustomMessage_Init(void) {
         ->icon(bButton)
         ->end();
   }
-  
+
   init = true;
 }
