@@ -332,8 +332,6 @@ namespace rnd {
     u8 startingBottle7;
 
     u8 startingKokiriSword;
-    u8 startingRazorSword;
-    u8 startingGildedSword;
     u8 startingShield;
     u8 startingMagicMeter;
     u8 startingDoubleDefense;
@@ -395,6 +393,8 @@ namespace rnd {
     u8 enableFastZoraSwim = 1;
     u8 enableOcarinaDiving = 1;
     u8 enableFastElegyStatues = 0;
+    u8 maskOfTruthRequiredForGossip = 0;
+
     // Custom Buttons
     u32 customMapButton = 0;
     u32 customItemButton = 0;
