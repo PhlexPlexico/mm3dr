@@ -21,14 +21,12 @@ namespace rnd {
                      comData.save_idx, saveData.has_completed_intro);
 #endif
 #ifdef ENABLE_DEBUG
-    saveData.equipment.sword_shield.sword = game::SwordType::GildedSword;
-    saveData.equipment.sword_shield.shield = game::ShieldType::MirrorShield;
     saveData.player.razor_sword_hp = 0x64;
     saveData.skulltulas_collected.swamp_count = 30;
     rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::MaskOfTruth);
     // saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver50;
     saveData.inventory.inventory_count_register.bomb_bag_upgrade = game::BombBag::BombBag40;
-    // saveData.inventory.inventory_count_register.wallet_upgrade = 2;
+    saveData.inventory.inventory_count_register.wallet_upgrade = 2;
     saveData.inventory.inventory_count_register.stick_upgrades = 2;
     saveData.inventory.inventory_count_register.nut_upgrade = 2;
     saveData.player.rupee_count = 500;
@@ -104,7 +102,7 @@ namespace rnd {
     saveData.inventory.collect_register.song_of_soaring = 1;
     saveData.inventory.collect_register.song_of_time = 1;
     // saveData.inventory.collect_register.oath_to_order = 1;
-    // saveData.inventory.collect_register.song_of_healing = 1;
+    saveData.inventory.collect_register.song_of_healing = 1;
 
     gSettingsContext.skipBombersMinigame = 1;
     gSettingsContext.freeScarecrow = 1;
@@ -139,8 +137,8 @@ namespace rnd {
       // saveData.inventory.collect_register.song_of_healing = 1;  // until happy mask salesman is overridden
       saveData.player.owl_statue_flags.clock_town = 1;
 #ifdef ENABLE_DEBUG
-      gSettingsContext.startingKokiriSword = 2;
-      gSettingsContext.startingShield = 2;
+      gSettingsContext.startingKokiriSword = 0;
+      gSettingsContext.startingShield = 1;
 #endif
       SaveFile_SetStartingInventory();
 
@@ -507,11 +505,14 @@ namespace rnd {
       saveData.equipment.data->item_btn_b = game::ItemId::None;
     } else if (gSettingsContext.startingKokiriSword == (u8)StartingSwordSetting::STARTINGSWORD_KOKIRI) {
       equipmentData.sword_shield.sword = game::SwordType::KokiriSword;
+      saveData.equipment.data[0].item_btn_b = game::ItemId::KokiriSword;
     } else if (gSettingsContext.startingKokiriSword == (u8)StartingSwordSetting::STARTINGSWORD_RAZOR) {
       playerData.razor_sword_hp = RS_SetDurability();
       equipmentData.sword_shield.sword = game::SwordType::RazorSword;
+      saveData.equipment.data[0].item_btn_b = game::ItemId::RazorSword;
     } else if (gSettingsContext.startingKokiriSword == (u8)StartingSwordSetting::STARTINGSWORD_GILDED) {
       equipmentData.sword_shield.sword = game::SwordType::GildedSword;
+      saveData.equipment.data[0].item_btn_b = game::ItemId::GildedSword;
     }
 
     if (gSettingsContext.shuffleStartingShield) {
