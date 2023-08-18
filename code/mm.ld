@@ -211,6 +211,10 @@ SECTIONS{
     *(.patch_AromaItemCheck)
   }
 
+  .patch_CheckMoTRequirement 0x35C428 : {
+    *(.patch_CheckMoTRequirement)
+  }
+
   .patch_HMSGiveItem 0x41D018 : {
     *(.patch_HMSGiveItem)
   }

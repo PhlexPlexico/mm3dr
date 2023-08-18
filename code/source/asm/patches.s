@@ -258,6 +258,11 @@ patch_RemoveZoraMaskCheckMikau:
 patch_AromaItemCheck:
     b hook_AromaItemCheck
 
+.section .patch_CheckMoTRequirement
+.global patch_CheckMoTRequirement
+patch_CheckMoTRequirement:
+    b hook_CheckMoTSetting
+
 .section .patch_HMSGiveItem
 .global patch_HMSGiveItem
 patch_HMSGiveItem:

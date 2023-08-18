@@ -377,7 +377,7 @@ bool SetCustomMessage(u16 id, game::MessageResEntry* msgResEntry) {
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
   static u16 lastId;
   if (id && id != lastId)
-    rnd::util::Print("Message ID is %x\n", id);
+    rnd::util::Print("Message ID is %#06x\n", id);
   lastId = id;
 
   if (!declareTestMessage) {

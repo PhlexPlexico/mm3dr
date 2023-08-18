@@ -252,6 +252,11 @@ hook_AromaItemCheck:
     pop {r0-r12, lr}
     b 0x350920
 
+.global hook_CheckMoTSetting
+hook_CheckMoTSetting:
+    bl SettingsMaskOfTruthCheck
+    b 0x35C42C
+
 .global hook_GoronMaskGiveItem
 hook_GoronMaskGiveItem:
     push {r0-r12, lr}

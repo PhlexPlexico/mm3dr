@@ -92,6 +92,25 @@ namespace rnd {
   u8 SettingsEnableFastElegy(void) {
     return gSettingsContext.enableFastElegyStatues;
   }
+
+  u8 SettingsMaskOfTruthCheck(game::GlobalContext* gctx) {
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+      rnd::util::Print("%s: Checking mask of truth setting.\n", __func__);	
+#endif
+    if (gSettingsContext.maskOfTruthRequiredForGossip == 1) {
+      #if defined ENABLE_DEBUG || defined DEBUG_PRINT
+        rnd::util::Print("%s: Active mask is %#04x\n", __func__, gctx->GetPlayerActor()->active_mask_id);	
+      #endif
+      if (gctx->GetPlayerActor()->active_mask_id == game::MaskId::MaskOfTruth) {
+        return 1;
+      } else {
+        return 0;
+      }
+    } else {
+      return 1;
+    }
+    return 0;
+  }
   }
   // TODO: Change the addr
   /* typedef void (*Health_ChangeBy_proc)(GlobalContext *arg1, u32 arg2);
