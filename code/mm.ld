@@ -159,6 +159,14 @@ SECTIONS{
     *(.patch_FasterBlockMovement)
   }
 
+  .patch_DoNotRemoveSwordGaboraOne 0x2CBCB0 : {
+    *(.patch_DoNotRemoveSwordGabora)
+  }
+
+  .patch_DoNotRemoveSwordGaboraTwo 0x2CBCC0 : {
+    *(.patch_DoNotRemoveSwordGabora)
+  }
+
   .patch_FasterBlockMovementBack 0x2D0C0C : {
     *(.patch_FasterBlockMovementBack)
   }

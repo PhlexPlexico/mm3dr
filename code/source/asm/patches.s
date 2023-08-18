@@ -238,6 +238,12 @@ patch_TwinmoldConsistentDamage:
 patch_FasterBlockMovement:
     .float 50.0
 
+@ Removes sword being removed from inventory during 
+.section .patch_DoNotRemoveSwordGabora
+.global patch_DoNotRemoveSwordGabora
+patch_DoNotRemoveSwordGabora:
+    nop
+
 .section .patch_FasterBlockMovementBack
 .global patch_FasterBlockMovementBack
 patch_FasterBlockMovementBack:
