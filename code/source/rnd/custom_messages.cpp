@@ -207,7 +207,7 @@ public:
 
       case '#':  // Colour marker
         if (inCol)
-          col(DEFAULT);
+          col(QM_DEFAULT);
         else {
           // Abort if out of colours
           if (colIdx >= 8) {
@@ -273,7 +273,7 @@ public:
           rnd::util::Print("Warning formatting message, icon %i is 0x00: %s\n", iconIdx, msg.text);
 #endif
         // Majora icon is wider than all other icons
-        lineLen += (resolvedIcon == MAJORA) ? MAJORA_ICON_WIDTH : ICON_WIDTH;
+        lineLen += (resolvedIcon == MAJORA_ICON) ? MAJORA_ICON_WIDTH : ICON_WIDTH;
         icon(resolvedIcon);
         break;
 
@@ -364,14 +364,8 @@ public:
 MsgBuilder builder;
 CustomMessage customMsg;
 
-#ifdef ENABLE_DEBUG
-static bool declareTestMessage = false;
-static UnformattedMessage ptrCustomMessageEntries[1] = {0};
-volatile const u32 numCustomMessageEntries = 1;
-#else
 volatile const UnformattedMessage* ptrCustomMessageEntries = {0};
 volatile const u32 numCustomMessageEntries = {0};
-#endif
 
 bool SetCustomMessage(u16 id, game::MessageResEntry* msgResEntry) {
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
@@ -379,25 +373,6 @@ bool SetCustomMessage(u16 id, game::MessageResEntry* msgResEntry) {
   if (id && id != lastId)
     rnd::util::Print("Message ID is %#06x\n", id);
   lastId = id;
-
-  if (!declareTestMessage) {
-    ptrCustomMessageEntries[0].id = 0x0224;
-    ptrCustomMessageEntries[0].field_2 = 0xFFFF;
-    ptrCustomMessageEntries[0].field_4 = 0x3FFFFFFF;
-    ptrCustomMessageEntries[0].flags = 0xFF0000;
-    std::strcpy(ptrCustomMessageEntries[0].text,
-                "Ayo what's poppin'? It's #ya gal# Tatl $^This door's a right jerk innit. "
-                "I bet you could just #smash through# if you was moving fast enough."
-                "&%That'd show it who's $oss.");
-    packData(4, 0, ptrCustomMessageEntries[0].cols, YELLOW);
-    packData(4, 1, ptrCustomMessageEntries[0].cols, RED);
-    packData(6, 0, ptrCustomMessageEntries[0].icons, TATL);
-    packData(6, 1, ptrCustomMessageEntries[0].icons, B_BUTTON);
-    packData(6, 0, ptrCustomMessageEntries[0].delays, 20);
-    ptrCustomMessageEntries[0].sfxAndFlags = 0x0000;
-
-    declareTestMessage = true;
-  }
 #endif
 
   UnformattedMessage customMsgData;

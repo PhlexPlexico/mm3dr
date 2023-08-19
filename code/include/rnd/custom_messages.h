@@ -71,22 +71,22 @@ typedef enum {
   FIRST_PERSON,
   ZL_BUTTON,
   ZR_BUTTON,
-  MAJORA,
+  MAJORA_ICON,
 } iconType;
 
 typedef enum {
-  WHITE,
-  RED,
-  GREEN,
-  BLUE,
-  YELLOW,
-  CYAN,
-  MAGENTA,
-  GREY,
-  ORANGE,
-  DARK_GREY,
-  BLACK,
-  DEFAULT,
+  QM_WHITE,
+  QM_RED,
+  QM_GREEN,
+  QM_BLUE,
+  QM_YELLOW,
+  QM_CYAN,
+  QM_MAGENTA,
+  QM_GREY,
+  QM_ORANGE,
+  QM_DARK_GREY,
+  QM_BLACK,
+  QM_DEFAULT,
 } colType;
 
 #endif
