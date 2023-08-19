@@ -811,7 +811,7 @@ namespace game {
     if (cdata.save.anonymous_13 & 2)
       return false;
 
-    if (cdata.save.anonymous_138 & 0x20)
+    if (cdata.save.gossip_stone_give_heartpiece_bitflag & 0x20)
       return false;
 
     if (cdata.save.anonymous_130 & 8)

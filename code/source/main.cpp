@@ -6,7 +6,6 @@
 #include "game/sound.h"
 #include "game/states/state.h"
 #include "game/ui.h"
-#include "rnd/custom_message.h"
 #include "rnd/extdata.h"
 #include "rnd/icetrap.h"
 #include "rnd/item_override.h"
@@ -29,7 +28,6 @@ namespace rnd {
 
     rHeap_Init();
     ItemOverride_Init();
-    CustomMessage_Init();
     // SaveFile_LoadExtSaveData(1);
     //  TODO: Maybe make this an option?
     link::FixSpeedIssues();

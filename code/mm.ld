@@ -159,6 +159,14 @@ SECTIONS{
     *(.patch_FasterBlockMovement)
   }
 
+  .patch_DoNotRemoveSwordGaboraOne 0x2CBCB0 : {
+    *(.patch_DoNotRemoveSwordGabora)
+  }
+
+  .patch_DoNotRemoveSwordGaboraTwo 0x2CBCC0 : {
+    *(.patch_DoNotRemoveSwordGabora)
+  }
+
   .patch_FasterBlockMovementBack 0x2D0C0C : {
     *(.patch_FasterBlockMovementBack)
   }
@@ -209,6 +217,10 @@ SECTIONS{
 
   .patch_AromaItemCheck 0x35091C : {
     *(.patch_AromaItemCheck)
+  }
+
+  .patch_CheckMoTRequirement 0x35C428 : {
+    *(.patch_CheckMoTRequirement)
   }
 
   .patch_HMSGiveItem 0x41D018 : {

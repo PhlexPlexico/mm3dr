@@ -455,7 +455,7 @@ namespace game {
     char anonymous_122;
     u8 anju_0x10_if_obtained_small_key;
     char anonymous_124;
-    char anonymous_125;
+    char grotto_stones_bitflag;
     char anonymous_126;
     u8 removes_scarecrow_from_shop_0x08;
     char anonymous_128;  // Possibly more Cutscene flags
@@ -478,7 +478,7 @@ namespace game {
     TatlDialogueFlags tatl_dialogue_direction_to_go;
     u8 mikau_pushed_to_shore_0x10;
     char anonymous_137;
-    char anonymous_138;
+    char gossip_stone_give_heartpiece_bitflag;
     u8 mikau_dialogue_flags_0x03;
     char anonymous_140;
     char anonymous_141;
