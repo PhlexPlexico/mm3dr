@@ -3,14 +3,44 @@
 .arm
 .text
 
+.global hook_ZoraInWaterFastSwim
+hook_ZoraInWaterFastSwim:
+  push {r0-r12, lr}
+  bl SettingsEnabledFastSwim
+  cmp r0, #0x0
+  pop {r0-r12, lr}
+  beq useDefaultBehaviour
+  bl SwitchToZoraFastSwim
+  b 0x1F0C7C
+useDefaultBehaviour:
+  bl 0x220EA0
+  b 0x1F0C7C
+
+.global hook_FifthZoraSwimCheck
+hook_FifthZoraSwimCheck:
+  push {r0-r12, lr}
+  bl SettingsEnabledFastSwim
+  cmp r0, #0x0
+  pop {r0-r12, lr}
+  beq fastSwimDisabledTwo
+  blne ShouldUseZoraFastSwim
+  cmp r0,#1
+  b 0x1FFA94
+fastSwimDisabledTwo:
+  ldr r1,[r10,#0x9cc]
+  b 0x1FFA88
+
 .global hook_UseZoraASwimSecond
 hook_UseZoraASwimSecond:
   push {r0-r12, lr}
   bl SettingsEnabledFastSwim
   cmp r0, #0x0
-  blne ShouldUseZoraFastSwim
   pop {r0-r12, lr}
-  cmpeq r0,#0x0
+  beq fastSwimDisabled
+  blne ShouldUseZoraFastSwim
+  cmp r0,#1
+  b 0x1FFD84
+fastSwimDisabled:
   ldr r1,[r10,#0x9cc]
   b 0x1FFD78
 
@@ -35,6 +65,20 @@ hook_UseZoraASwimFirst:
   ldr r0,[r0,r4]
   b 0x220F00
   
+.global hook_FourthZoraSwimCheck
+hook_FourthZoraSwimCheck:
+  push {r0-r12, lr}
+  bl SettingsEnabledFastSwim
+  cmp r0, #0x0
+  pop {r0-r12, lr}
+  beq useNormalZoraFourth
+  cmp r0, #1
+  @ Basically calling a nop for 0x220F30
+  b 0x220F34
+useNormalZoraFourth:
+  ldr r0, [r0, #8]
+  bx lr
+
 .global hook_FirstZoraSwimCheck
 hook_FirstZoraSwimCheck:
   push {r0-r12, lr}
