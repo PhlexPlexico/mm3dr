@@ -1,5 +1,14 @@
 #include "rnd/link.h"
 
+/**
+ * @file link.cpp
+ * @author leoetlino (https://github.com/leoetlino/)
+ * @brief
+ * @date 2021-09-15
+ *
+ * Brought in from the Project Restoration libraries. Edited to adjust for the randomizer.
+ */
+
 namespace rnd::link {
 
   extern "C" bool ShouldUseZoraFastSwim() {
@@ -37,5 +46,21 @@ namespace rnd::link {
     giant_param.run_accel = 100;
     giant_param.walk_speed = 350;
   }
+
+  void HandleFastOcarina(game::GlobalContext* gctx) {
+  // If the Tatl prompt is visible, do not enable the ocarina D-Pad button.
+  if (game::ui::GetCommonLayouts().hud->tatl_state != game::ui::TatlHudState::Hidden)
+    return;
+
+  if (!game::HasOcarina())
+    return;
+
+  if (auto* player = gctx->GetPlayerActor();
+      player && gctx->hud_state.item_btn_opacity[4] == 0xFF &&
+      player->controller_info.state->input.new_buttons.IsSet(game::pad::Button::Right)) {
+    player->action_type = game::act::Player::ActionType::OcarinaOrTransformation;
+    player->action = game::Action::Ocarina;
+  }
+}
 
 }  // namespace rnd::link

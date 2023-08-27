@@ -45,6 +45,7 @@ namespace rnd {
   char* fake_heap_end;
   extern void (*__init_array_start[])(void) __attribute__((weak));
   extern void (*__init_array_end[])(void) __attribute__((weak));
+
   void calc(game::State* state) {
     Context& context = GetContext();
     context.gctx = nullptr;
@@ -57,8 +58,11 @@ namespace rnd {
       return;
     context.gctx = static_cast<game::GlobalContext*>(state);
 
-    if (context.gctx->GetPlayerActor())
+    if (context.gctx->GetPlayerActor()) {
       ItemOverride_Update();
+      link::HandleFastOcarina(context.gctx);
+    }
+      
     return;
   }
 
