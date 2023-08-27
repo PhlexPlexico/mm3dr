@@ -95,8 +95,8 @@ SECTIONS{
     *(.patch_UseZoraASwimFirst)
   }
 
-  .patch_SixthZoraSwimCheck 0x220F00 : {
-   *(.patch_SixthZoraSwimCheck) 
+  .patch_SwimStartupPatch 0x220F00 : {
+   *(.patch_SwimStartupPatch) 
   }
 
   .patch_FourthZoraSwimCheck 0x220F2C : {

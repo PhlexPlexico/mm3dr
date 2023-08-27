@@ -65,6 +65,21 @@ hook_UseZoraASwimFirst:
   ldr r0,[r0,r4]
   b 0x220F00
   
+.global hook_SwimStartupPatch
+hook_SwimStartupPatch:
+  push {r0-r12, lr}
+  bl SettingsEnabledFastSwim
+  cmp r0, #0x0
+  blne ShouldUseZoraFastSwim
+  cmp r0,#0x0
+  pop {r0-r12, lr}
+  @if we are disabled choose default.
+  beq defaultStartup
+  bl 0x220F0C
+  bx lr
+defaultStartup:
+  b 0x220F2C
+
 .global hook_FourthZoraSwimCheck
 hook_FourthZoraSwimCheck:
   push {r0-r12, lr}

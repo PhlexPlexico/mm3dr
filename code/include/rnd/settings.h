@@ -390,7 +390,7 @@ namespace rnd {
     game::PlayerData::OwlStatues startingOwlStatues;
 
     // ARM Patch Checks
-    u8 enableFastZoraSwim = 1;
+    u8 enableFastZoraSwim = 0;
     u8 enableOcarinaDiving = 1;
     u8 enableFastElegyStatues = 0;
     u8 maskOfTruthRequiredForGossip = 0;
