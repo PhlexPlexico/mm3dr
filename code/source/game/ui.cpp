@@ -73,4 +73,8 @@ namespace game::ui {
     return ctx.active_screen == GetScreen(screen) && !ctx.new_screen;
   }
 
+  CommonLayouts& GetCommonLayouts() {
+    return *rnd::util::GetPointer<CommonLayouts>(0x6B7B8C);
+  }
+
 }  // namespace game::ui
