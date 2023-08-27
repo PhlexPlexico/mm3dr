@@ -10,7 +10,7 @@
 namespace rnd::link {
   void FixSpeedIssues();
   void HandleFastOcarina(game::GlobalContext*);
-  
+
 }  // namespace rnd::link
 
 #endif
