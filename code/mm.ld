@@ -47,7 +47,7 @@ SECTIONS{
   *(.patch_AttemptKeepChestsClosed)
   } */
 
-  .patch_DoNotRemoveKeys 0x1c9b94 : {
+  .patch_DoNotRemoveKeys 0x1C9B94 : {
     *(.patch_DoNotRemoveKeys)
   }
 
@@ -55,7 +55,7 @@ SECTIONS{
     *(.patch_RemoveDekuMaskCheckSoT)
   }
 
-  .patch_RemoveMysteryMilkUsabilityCheck 0x1e04d8 : {
+  .patch_RemoveMysteryMilkUsabilityCheck 0x1E04D8 : {
     *(.patch_RemoveMysteryMilkUsabilityCheck)
   }
 
@@ -199,11 +199,11 @@ SECTIONS{
     *(.patch_RemoveGoronMaskCheckDarmani)
   }
 
-  .patch_OverrideFairyGiveItem 0x3becac : {
+  .patch_OverrideFairyGiveItem 0x3BECAC : {
     *(.patch_OverrideFairyGiveItem)
   }
 
-  .patch_OverrideGreatFairySpawn 0x3bec84 : {
+  .patch_OverrideGreatFairySpawn 0x3BEC84 : {
     *(.patch_OverrideGreatFairySpawn)
   }
 
@@ -211,7 +211,11 @@ SECTIONS{
     *(.patch_SaveExtDataOnOwl)
   }
 
-  .patch_RemoveZoraMaskCheckMikau 0x32bbb8 : {
+  .patch_IceArrowsAnywhere 0x31874C : {
+    *(.patch_IceArrowsAnywhere)
+  }
+
+  .patch_RemoveZoraMaskCheckMikau 0x32BBB8 : {
     *(.patch_RemoveZoraMaskCheckMikau)
   }
 
@@ -243,7 +247,7 @@ SECTIONS{
     *(.patch_GibdoMaskGiveItem)
   }
   /*0x46E228*/
-  .patch_RemoveCouplesMaskMessage 0x1867c4 : {
+  .patch_RemoveCouplesMaskMessage 0x1867C4 : {
     *(.patch_RemoveCouplesMaskMessage)
   }
 

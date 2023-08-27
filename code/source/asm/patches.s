@@ -254,6 +254,12 @@ patch_FasterBlockMovementBack:
 patch_SaveExtDataOnOwl:
     b hook_OwlExtDataSave
 
+@ nop a bne statement to allow ice arrows to be used on any water surface.
+.section .patch_IceArrowsAnywhere
+.global patch_IceArrowsAnywhere
+patch_IceArrowsAnywhere:
+    nop
+
 .section .patch_RemoveZoraMaskCheckMikau
 .global patch_RemoveZoraMaskCheckMikau
 patch_RemoveZoraMaskCheckMikau:
