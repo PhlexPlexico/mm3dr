@@ -48,19 +48,19 @@ namespace rnd::link {
   }
 
   void HandleFastOcarina(game::GlobalContext* gctx) {
-  // If the Tatl prompt is visible, do not enable the ocarina D-Pad button.
-  if (game::ui::GetCommonLayouts().hud->tatl_state != game::ui::TatlHudState::Hidden)
-    return;
+    // If the Tatl prompt is visible, do not enable the ocarina D-Pad button.
+    if (game::ui::GetCommonLayouts().hud->tatl_state != game::ui::TatlHudState::Hidden)
+      return;
 
-  if (!game::HasOcarina())
-    return;
+    if (!game::HasOcarina())
+      return;
 
-  if (auto* player = gctx->GetPlayerActor();
-      player && gctx->hud_state.item_btn_opacity[4] == 0xFF &&
-      player->controller_info.state->input.new_buttons.IsSet(game::pad::Button::Right)) {
-    player->action_type = game::act::Player::ActionType::OcarinaOrTransformation;
-    player->action = game::Action::Ocarina;
+    if (auto* player = gctx->GetPlayerActor();
+        player && gctx->hud_state.item_btn_opacity[4] == 0xFF &&
+        player->controller_info.state->input.new_buttons.IsSet(game::pad::Button::Right)) {
+      player->action_type = game::act::Player::ActionType::OcarinaOrTransformation;
+      player->action = game::Action::Ocarina;
+    }
   }
-}
 
 }  // namespace rnd::link

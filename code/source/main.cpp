@@ -62,7 +62,7 @@ namespace rnd {
       ItemOverride_Update();
       link::HandleFastOcarina(context.gctx);
     }
-      
+
     return;
   }
 
