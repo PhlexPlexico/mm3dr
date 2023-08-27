@@ -10,8 +10,8 @@
  */
 
 namespace rnd::link {
-
-  extern "C" bool ShouldUseZoraFastSwim() {
+  extern "C" {
+  bool ShouldUseZoraFastSwim() {
     const auto& input = GetContext().gctx->pad_state.input;
 
     if (!input.buttons.IsSet(game::pad::Button::A))
@@ -20,8 +20,8 @@ namespace rnd::link {
     rnd::util::Print("%s: Our current fast swim is %u and we are in fast swim.\n", __func__,
                      GetContext().use_fast_swim);
 #endif
-    // Toggle fast swim with D-Pad Up/Down or ZL
-    if (input.new_buttons.IsOneSet(game::pad::Button::Up, game::pad::Button::Down, game::pad::Button::ZL)) {
+    // Toggle fast swim with D-Pad Up or ZL
+    if (input.new_buttons.IsOneSet(game::pad::Button::Up, game::pad::Button::ZL)) {
       GetContext().use_fast_swim ^= true;
     }
 
@@ -32,6 +32,14 @@ namespace rnd::link {
       return false;
 
     return GetContext().use_fast_swim;
+  }
+
+  bool SwitchToZoraFastSwim(game::GlobalContext* gctx, game::act::Player* player, bool check_magic) {
+    const auto do_switch = util::GetPointer<decltype(SwitchToZoraFastSwim)>(0x220EA0);
+    return (player->zora_swim_a_press_duration >= 7 ||
+            player->flags1.IsSet(game::act::Player::Flag1::IsUsingZoraBarrier)) &&
+           do_switch(gctx, player, check_magic);
+  }
   }
 
   void FixSpeedIssues() {

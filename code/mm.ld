@@ -63,6 +63,10 @@ SECTIONS{
     *(.patch_SpawnFastElegyStatues)
   }
 
+  .patch_ZoraInWaterFastSwim 0x1F0C78 : {
+    *(.patch_ZoraInWaterFastSwim)
+  }
+
   .patch_CheckCurrentInventoryOverrideItem 0x1F3D6C : {
     *(.patch_CheckCurrentInventoryOverrideItem)
   }
@@ -75,7 +79,11 @@ SECTIONS{
     *(.patch_OverrideItemIdIndex)
   } */
 
-  .patch_UseZoraASwimSecond 0X1FFD74 : {
+  .patch_FifthZoraSwimCheck 0x1FFA84 : {
+    *(.patch_FifthZoraSwimCheck)
+  }
+
+  .patch_UseZoraASwimSecond 0x1FFD74 : {
     *(.patch_UseZoraASwimSecond)
   }
 
@@ -85,6 +93,14 @@ SECTIONS{
 
   .patch_UseZoraASwimFirst 0x220EFC : {
     *(.patch_UseZoraASwimFirst)
+  }
+
+  .patch_SixthZoraSwimCheck 0x220F00 : {
+   *(.patch_SixthZoraSwimCheck) 
+  }
+
+  .patch_FourthZoraSwimCheck 0x220F2C : {
+    *(.patch_FourthZoraSwimCheck)
   }
 
   .patch_FirstZoraSwimCheck 0x220F60 : {
