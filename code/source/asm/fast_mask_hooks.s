@@ -11,7 +11,10 @@ hook_DoNotForceMaskChange:
   @ act as nop for the strbne.
   b 0x1DB320
 defaultForceMaskChange:
+  push {r0-r12, lr}
+  bl ZoraMaskCheck
   cmp r0, #0xFF
+  pop {r0-r12,lr}
   b 0x1DB318
 
 

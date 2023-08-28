@@ -136,6 +136,14 @@ namespace rnd::link {
 
     return;
   }
+
+  // Weird bug fix for checking if we have the zora mask, but not have completed the extDataCheck
+  // for fast mask changes and ensuring that default behaviour works as intended.
+  u8 ZoraMaskCheck() {
+    // This should be safe? Shouldn't hopefully cause crashes... If not please look here first!
+    game::SaveData& saveData = game::GetCommonData().save;
+    return static_cast<u8>(saveData.inventory.masks[17]);
+  }
   }
 
 }  // namespace rnd::link

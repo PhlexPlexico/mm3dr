@@ -394,7 +394,7 @@ namespace rnd {
     u8 enableOcarinaDiving;
     u8 enableFastElegyStatues;
     u8 maskOfTruthRequiredForGossip;
-    u8 enableFastMaskTransform = 1;
+    u8 enableFastMaskTransform;
 
     // Custom Buttons
     u32 customMapButton = 0;
