@@ -85,6 +85,7 @@ namespace rnd::link {
            do_switch(gctx, player, check_magic);
   }
 
+  // This patch is all taken care of in ASM now. No need to loop into the main Calc function.
   void HandleFastTransform() {
     const game::GlobalContext* gctx = GetContext().gctx;
 
@@ -102,19 +103,39 @@ namespace rnd::link {
       return;
 
     if (player->active_mask_id == game::MaskId::GiantMask) {
-      util::Print("%s: wearing Giant's Mask, skipping", __func__);
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+      util::Print("%s: wearing Giant's Mask, skipping\n", __func__);
+#endif
       return;
     }
 
     if (!game::HasMask(it->required_mask)) {
-      util::Print("%s: player does not have the %s Mask, skipping", __func__, it->name);
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+      util::Print("%s: player does not have the %s Mask, skipping\n", __func__, it->name);
+#endif
+
       return;
     }
 
     if (!game::CanUseItem(it->required_mask)) {
-      util::Print("%s: CanUseItem returned false, skipping", __func__);
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+      util::Print("%s: CanUseItem returned false, skipping\n", __func__);
+#endif
       return;
     }
+
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+    util::Print("%s: transforming (%s)\n", __func__, it->name);
+#endif
+
+    player->action = it->action;
+    player->action_type = game::act::Player::ActionType::OcarinaOrTransformation;
+    // Store the transform action in case the transformation cannot be done immediately.
+    // This allows the Mask Storage technique to work with the fast transform shortcuts as well.
+    player->transform_mask_action = it->action;
+
+    return;
+  }
   }
 
-  }  // namespace rnd::link
+}  // namespace rnd::link

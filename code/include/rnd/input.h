@@ -1,3 +1,6 @@
+#ifndef _RND_INPUT_H
+#define _RND_INPUT_H
+
 #include "hid.h"
 #include "z3d/z3DVec.h"
 
@@ -17,3 +20,5 @@ u32 Input_Wait(void);
 #define real_hid (*(hid_mem_t*)real_hid_addr)
 
 extern InputContext rInputCtx;
+
+#endif

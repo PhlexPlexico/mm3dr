@@ -55,12 +55,32 @@ SECTIONS{
     *(.patch_RemoveDekuMaskCheckSoT)
   }
 
+  .patch_DoNotForceMaskChange 0x1DB31C : {
+    *(.patch_DoNotForceMaskChange)
+  }
+
+  .patch_HandleFastMaskTransforms 0x1DB744 : {
+    *(.patch_HandleFastMaskTransforms)
+  }
+
   .patch_RemoveMysteryMilkUsabilityCheck 0x1E04D8 : {
     *(.patch_RemoveMysteryMilkUsabilityCheck)
   }
 
+  .patch_ByPassMaskEquipmentChecks 0x1E770C : {
+    *(.patch_ByPassMaskEquipmentChecks)
+  }
+
   .patch_SpawnFastElegyStatues 0x1E9FB8 : {
     *(.patch_SpawnFastElegyStatues)
+  }
+
+  .patch_FastTransformCutsceneSkipBtns 0x1EB660 : {
+    *(.patch_FastTransformCutsceneSkipBtns)
+  }
+
+  .patch_ByPassMoreMaskEquipmentChecks 0x1EDFB4 : {
+    *(.patch_ByPassMoreMaskEquipmentChecks)
   }
 
   .patch_ZoraInWaterFastSwim 0x1F0C78 : {
@@ -78,6 +98,10 @@ SECTIONS{
   /* .patch_OverrideItemIDThree 0x1FF604 : {
     *(.patch_OverrideItemIdIndex)
   } */
+
+  .patch_RemoveGoronRollChecksWithoutMask 0x1F78CC : {
+    *(.patch_RemoveGoronRollChecksWithoutMask)
+  }
 
   .patch_FifthZoraSwimCheck 0x1FFA84 : {
     *(.patch_FifthZoraSwimCheck)

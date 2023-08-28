@@ -71,6 +71,14 @@ hook_CheckOcarinaDive:
     beq 0x1E1FB4
     b 0x1e1f10
 
+.global hook_HandleFastMaskTransforms
+hook_HandleFastMaskTransforms:
+    push {r0-r12, lr}
+    bl HandleFastTransform
+    pop {r0-r12, lr}
+    mov r5,#0x0
+    bx lr
+
 .global hook_SaveFile_Load
 hook_SaveFile_Load:
     push {r0-r12, lr}
