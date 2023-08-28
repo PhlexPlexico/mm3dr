@@ -81,7 +81,6 @@ namespace rnd {
   // ARM patch settings.
   extern "C" {
   u8 SettingsEnabledFastSwim(void) {
-    // util::Print("%s: Our value is currently %u\n", gSettingsContext.enableFastZoraSwim);
     return gSettingsContext.enableFastZoraSwim;
   }
 

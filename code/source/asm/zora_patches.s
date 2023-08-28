@@ -20,15 +20,10 @@ patch_UseZoraASwimSecond:
 patch_ThirdZoraSwimCheck:
     bl hook_ThirdZoraSwimCheck
 
-.section .patch_UseZoraASwimFirst
-.global patch_UseZoraASwimFirst
-patch_UseZoraASwimFirst:
-    bl hook_UseZoraASwimFirst
-
-.section .patch_SixthZoraSwimCheck
-.global patch_SixthZoraSwimCheck
-patch_SixthZoraSwimCheck:
-    b 0x220F0C
+.section .patch_ChangeTriggerAandRToA
+.global patch_ChangeTriggerAandRToA
+patch_ChangeTriggerAandRToA:
+    bl hook_ChangeTriggerAandRToA
 
 .section .patch_FourthZoraSwimCheck
 .global patch_FourthZoraSwimCheck

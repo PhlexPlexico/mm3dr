@@ -22,14 +22,17 @@ hook_FifthZoraSwimCheck:
   bl SettingsEnabledFastSwim
   cmp r0, #0x0
   pop {r0-r12, lr}
-  beq fastSwimDisabledTwo
-  blne ShouldUseZoraFastSwim
-  cmp r0,#1
-  b 0x1FFA94
-fastSwimDisabledTwo:
+  bne doFifthFastSwim
   ldr r1,[r10,#0x9cc]
   b 0x1FFA88
-
+doFifthFastSwim:
+  bl ShouldUseZoraFastSwim
+  cmp r0,#1
+  b 0x1FFA94
+  
+@ This is causing some UB with holding R.
+@ Regular game allows us to hold R and will stop
+@ boost movement where this enables it to go continuously.
 .global hook_UseZoraASwimSecond
 hook_UseZoraASwimSecond:
   push {r0-r12, lr}
@@ -44,40 +47,48 @@ fastSwimDisabled:
   ldr r1,[r10,#0x9cc]
   b 0x1FFD78
 
+@ This is the animation to do with the startup flip.
 .global hook_ThirdZoraSwimCheck
 hook_ThirdZoraSwimCheck:
   push {r0-r12, lr}
   bl SettingsEnabledFastSwim
   cmp r0, #0x0
   pop {r0-r12, lr}
-  bne runZoraPatch 
+  bne doThirdFastSwim
   cmp r0,#0x0
+  bx lr
+doThirdFastSwim:
+  bl runZoraPatch 
   b 0x1FFDC0
 
-.global hook_UseZoraASwimFirst
-hook_UseZoraASwimFirst:
+.global hook_ChangeTriggerAandRToA
+hook_ChangeTriggerAandRToA:
   push {r0-r12, lr}
   bl SettingsEnabledFastSwim
   cmp r0, #0x0
-  blne ShouldUseZoraFastSwim
   pop {r0-r12, lr}
+  beq triggerIsDefault
+  bl ShouldUseZoraFastSwim
+  cmp r0, #0x0
+  b 0x220F2C
+triggerIsDefault:
   cmp r2,#0x0
-  ldr r0,[r0,r4]
+  ldr r0, [r0, r4]
   b 0x220F00
-  
+
 .global hook_FourthZoraSwimCheck
 hook_FourthZoraSwimCheck:
   push {r0-r12, lr}
   bl SettingsEnabledFastSwim
   cmp r0, #0x0
   pop {r0-r12, lr}
-  beq useNormalZoraFourth
+  bne doFourthFastSwim
+  ldr r0, [r0, #8]
+  b 0x220F30
+doFourthFastSwim:
   cmp r0, #1
   @ Basically calling a nop for 0x220F30
   b 0x220F34
-useNormalZoraFourth:
-  ldr r0, [r0, #8]
-  bx lr
 
 .global hook_FirstZoraSwimCheck
 hook_FirstZoraSwimCheck:
@@ -85,9 +96,12 @@ hook_FirstZoraSwimCheck:
   bl SettingsEnabledFastSwim
   cmp r0, #0x0
   pop {r0-r12, lr}
-  bne runZoraPatch
+  bne doFirstFastSwim
   cmp r2,#0x0
   mov r0,#0x1
+  b 0x220F64
+doFirstFastSwim:
+  bl runZoraPatch
   b 0x220F64
 
 .global hook_SecondZoraSwimCheck
@@ -96,8 +110,12 @@ hook_SecondZoraSwimCheck:
   bl SettingsEnabledFastSwim
   cmp r0, #0x0
   pop {r0-r12, lr}
-  bne runZoraPatch
-  b 0x2210E4
+  bne doSecondFastSwim
+  ldrb r0, [r10, #0x3F]
+  b 0x2210E0
+doSecondFastSwim:
+  bl runZoraPatch
+  b 0x2210E0
 
 runZoraPatch:
   smlatteq r0, r3, r0, sl

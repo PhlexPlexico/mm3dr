@@ -91,12 +91,8 @@ SECTIONS{
     *(.patch_ThirdZoraSwimCheck)
   }
 
-  .patch_UseZoraASwimFirst 0x220EFC : {
-    *(.patch_UseZoraASwimFirst)
-  }
-
-  .patch_SixthZoraSwimCheck 0x220F00 : {
-   *(.patch_SixthZoraSwimCheck) 
+  .patch_ChangeTriggerAandRToA 0x220EFC : {
+    *(.patch_ChangeTriggerAandRToA)
   }
 
   .patch_FourthZoraSwimCheck 0x220F2C : {
