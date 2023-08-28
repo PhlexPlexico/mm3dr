@@ -1,6 +1,4 @@
-
-
-#include "input.h"
+#include "rnd/input.h"
 #include "hid.h"
 #include "utils.h"
 #include "z3d/z3DVec.h"

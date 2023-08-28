@@ -5,16 +5,6 @@
 patch_DecoupleZlZr:
     b 0x0116718
 
-.section .patch_SpawnFastElegyStatues
-.global patch_SpawnFastElegyStatues
-patch_SpawnFastElegyStatues: 
-    b hook_SpawnFastElegyStatues
-
-.section .patch_CheckCurrentInventoryOverrideItem
-.global patch_CheckCurrentInventoryOverrideItem
-patch_CheckCurrentInventoryOverrideItem:
-    b hook_CheckCurrentInventory
-
 .section .patch_startHeap
 .global patch_startHeap
 patch_startHeap:
@@ -108,6 +98,16 @@ patch_RemoveDekuMaskCheckSoT:
 .global patch_RemoveMysteryMilkUsabilityCheck
 patch_RemoveMysteryMilkUsabilityCheck:
     nop
+
+.section .patch_SpawnFastElegyStatues
+.global patch_SpawnFastElegyStatues
+patch_SpawnFastElegyStatues: 
+    b hook_SpawnFastElegyStatues
+
+.section .patch_CheckCurrentInventoryOverrideItem
+.global patch_CheckCurrentInventoryOverrideItem
+patch_CheckCurrentInventoryOverrideItem:
+    b hook_CheckCurrentInventory
 
 .section .patch_DisableMilkTimer
 .global patch_DisableMilkTimer
