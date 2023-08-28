@@ -95,10 +95,6 @@ SECTIONS{
     *(.patch_ChangeTriggerAandRToA)
   }
 
-  .patch_SwimStartupPatch 0x220F00 : {
-   *(.patch_SwimStartupPatch) 
-  }
-
   .patch_FourthZoraSwimCheck 0x220F2C : {
     *(.patch_FourthZoraSwimCheck)
   }

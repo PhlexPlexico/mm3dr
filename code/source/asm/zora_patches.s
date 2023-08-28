@@ -25,11 +25,6 @@ patch_ThirdZoraSwimCheck:
 patch_ChangeTriggerAandRToA:
     bl hook_ChangeTriggerAandRToA
 
-.section .patch_SwimStartupPatch
-.global patch_SwimStartupPatch
-patch_SwimStartupPatch:
-    bl hook_SwimStartupPatch
-
 .section .patch_FourthZoraSwimCheck
 .global patch_FourthZoraSwimCheck
 patch_FourthZoraSwimCheck:

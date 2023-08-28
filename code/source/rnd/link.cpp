@@ -16,12 +16,8 @@ namespace rnd::link {
 
     if (!input.buttons.IsSet(game::pad::Button::A))
       return false;
-#if defined ENABLE_DEBUG || defined DEBUG_PRINT
-    rnd::util::Print("%s: Our current fast swim is %u and we are in fast swim.\n", __func__,
-                     GetContext().use_fast_swim);
-#endif
-    // Toggle fast swim with D-Pad Up or ZL
-    if (input.new_buttons.IsOneSet(game::pad::Button::Up, game::pad::Button::ZL)) {
+    // Toggle fast swim with D-Pad Up, Down or ZL
+    if (input.new_buttons.IsOneSet(game::pad::Button::Up, game::pad::Button::Down, game::pad::Button::ZL)) {
       GetContext().use_fast_swim ^= true;
     }
 
