@@ -390,10 +390,11 @@ namespace rnd {
     game::PlayerData::OwlStatues startingOwlStatues;
 
     // ARM Patch Checks
-    u8 enableFastZoraSwim = 1;
-    u8 enableOcarinaDiving = 1;
-    u8 enableFastElegyStatues = 0;
-    u8 maskOfTruthRequiredForGossip = 0;
+    u8 enableFastZoraSwim;
+    u8 enableOcarinaDiving;
+    u8 enableFastElegyStatues;
+    u8 maskOfTruthRequiredForGossip;
+    u8 enableFastMaskTransform = 1;
 
     // Custom Buttons
     u32 customMapButton = 0;

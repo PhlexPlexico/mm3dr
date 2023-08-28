@@ -55,7 +55,7 @@ SECTIONS{
     *(.patch_RemoveDekuMaskCheckSoT)
   }
 
-  .patch_DoNotForceMaskChange 0x1DB31C : {
+  .patch_DoNotForceMaskChange 0x1DB314 : {
     *(.patch_DoNotForceMaskChange)
   }
 
@@ -79,9 +79,9 @@ SECTIONS{
     *(.patch_FastTransformCutsceneSkipBtns)
   }
 
-  .patch_ByPassMoreMaskEquipmentChecks 0x1EDFB4 : {
-    *(.patch_ByPassMoreMaskEquipmentChecks)
-  }
+  .patch_BypassFirstPersonModeChecks 0x1EDFB4 : {
+    *(.patch_BypassFirstPersonModeChecks)
+  } 
 
   .patch_ZoraInWaterFastSwim 0x1F0C78 : {
     *(.patch_ZoraInWaterFastSwim)

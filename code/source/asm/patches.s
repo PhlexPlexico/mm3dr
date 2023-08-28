@@ -93,51 +93,21 @@ patch_DoNotRemoveKeys:
 patch_RemoveDekuMaskCheckSoT:
     b 0x1D80AC
 
-.section .patch_DoNotForceMaskChange
-.global patch_DoNotForceMaskChange
-patch_DoNotForceMaskChange:
-    nop
-
-.section .patch_HandleFastMaskTransforms
-.global patch_HandleFastMaskTransforms
-patch_HandleFastMaskTransforms:
-    bl hook_HandleFastMaskTransforms
-
 @ Avoids all the check items for mystery milk so we can use items freely.
 .section .patch_RemoveMysteryMilkUsabilityCheck
 .global patch_RemoveMysteryMilkUsabilityCheck
 patch_RemoveMysteryMilkUsabilityCheck:
     nop
 
-.section .patch_ByPassMaskEquipmentChecks
-.global patch_ByPassMaskEquipmentChecks
-patch_ByPassMaskEquipmentChecks:
-    b 0x1E7768
-
 .section .patch_SpawnFastElegyStatues
 .global patch_SpawnFastElegyStatues
 patch_SpawnFastElegyStatues: 
     b hook_SpawnFastElegyStatues
 
-.section .patch_FastTransformCutsceneSkipBtns
-.global patch_FastTransformCutsceneSkipBtns
-patch_FastTransformCutsceneSkipBtns:
-    .word 0xCF3
-
-.section .patch_ByPassMoreMaskEquipmentChecks
-.global patch_ByPassMoreMaskEquipmentChecks
-patch_ByPassMoreMaskEquipmentChecks:
-    b 0x1EE0A8
-
 .section .patch_CheckCurrentInventoryOverrideItem
 .global patch_CheckCurrentInventoryOverrideItem
 patch_CheckCurrentInventoryOverrideItem:
     b hook_CheckCurrentInventory
-
-.section .patch_RemoveGoronRollChecksWithoutMask
-.global patch_RemoveGoronRollChecksWithoutMask
-patch_RemoveGoronRollChecksWithoutMask:
-    b 0x1F7A1C
 
 .section .patch_DisableMilkTimer
 .global patch_DisableMilkTimer
