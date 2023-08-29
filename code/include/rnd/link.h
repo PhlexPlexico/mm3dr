@@ -6,6 +6,7 @@
 #include "game/pad.h"
 #include "game/ui.h"
 #include "game/ui/layouts/play_hud.h"
+#include "rnd/settings.h"
 
 namespace rnd::link {
   void FixSpeedIssues();

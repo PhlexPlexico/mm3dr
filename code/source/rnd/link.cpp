@@ -24,6 +24,9 @@ namespace rnd::link {
   }
 
   void HandleFastOcarina(game::GlobalContext* gctx) {
+    if (gSettingsContext.enableFastOcarina == 0) {
+      return;
+    }
     // If the Tatl prompt is visible, do not enable the ocarina D-Pad button.
     if (game::ui::GetCommonLayouts().hud->tatl_state != game::ui::TatlHudState::Hidden)
       return;
