@@ -61,6 +61,7 @@ namespace rnd {
     if (context.gctx->GetPlayerActor()) {
       ItemOverride_Update();
       link::HandleFastOcarina(context.gctx);
+      link::HandleFastArrowSwitch(context.gctx->GetPlayerActor());
       // May need this for further button presses and checks if we're swimming or not.
       if (context.gctx->GetPlayerActor()->flags1.IsSet(game::act::Player::Flag1::InWater) &&
           !context.gctx->GetPlayerActor()->flags_94.IsSet(game::act::Actor::Flag94::Grounded)) {

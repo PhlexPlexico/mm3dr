@@ -21,7 +21,7 @@ patch_BypassMaskEquipmentChecks:
 .section .patch_FastTransformCutsceneSkipBtns
 .global patch_FastTransformCutsceneSkipBtns
 patch_FastTransformCutsceneSkipBtns:
-    .word 0xC03
+    .word 0xCF3
 
 .section .patch_BypassFirstPersonModeChecks
 .global patch_BypassFirstPersonModeChecks

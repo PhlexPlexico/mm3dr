@@ -61,6 +61,143 @@ namespace rnd::link {
     };
   }  // namespace
 
+  struct FastArrowState {
+    std::optional<game::Action> override_action;
+    /// The item button slot that was used with the override_action.
+    std::optional<u8> item_btn_slot;
+    int magic_cost_update_timer = -1;
+  };
+
+  static FastArrowState s_fast_arrow_state{};
+
+  struct ArrowTypeInfo {
+    const char* name;
+    int magic_cost;
+    game::ItemId required_item;
+  };
+
+  static constexpr ArrowTypeInfo s_arrow_types[] = {
+      {"Arrow", 0, game::ItemId::Arrow},
+      {"Fire Arrow", 4, game::ItemId::FireArrow},
+      {"Ice Arrow", 4, game::ItemId::IceArrow},
+      {"Light Arrow", 8, game::ItemId::LightArrow},
+  };
+
+  static void SpawnArrowActor(game::GlobalContext* gctx, game::act::Player* player) {
+    game::CommonData& cdata = game::GetCommonData();
+
+    const auto info = player->GetArrowInfo(gctx);
+    if (!info.can_use) {
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+      util::Print("%s: cannot use arrow\n", __func__);
+#endif
+      return;
+    }
+
+    u16 param = info.actor_param;
+    int type = int(param) - 2;
+    if (type < 0 || size_t(type) > std::size(s_arrow_types))
+      return;
+
+    if (cdata.save.player.magic < s_arrow_types[type].magic_cost) {
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+      util::Print("%s: not enough magic for %s (%d < %d) -- falling back to normal arrow\n", __func__,
+                  s_arrow_types[type].name, cdata.save.player.magic, s_arrow_types[type].magic_cost);
+#endif
+      type = 0;
+      param = 2;
+    }
+
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+    util::Print("%s: spawning %s (param=%u)\n", __func__, s_arrow_types[type].name, param);
+#endif
+
+    auto* arrow = gctx->SpawnActor(player, game::act::Id::Arrow, 0, player->angle.y, 0, param, player->pos.pos);
+    player->projectile_actor = arrow;
+    cdata.magic_cost = 0;
+    // For some reason, updating the magic cost immediately doesn't work,
+    // so delay the update by 2 frames.
+    if (type != 0)
+      s_fast_arrow_state.magic_cost_update_timer = 2;
+  }
+
+  void HandleFastArrowSwitch(game::act::Player* player) {
+    if (gSettingsContext.enableFastArrowSwap == 0) {
+      return;
+    }
+    game::CommonData& cdata = game::GetCommonData();
+    game::GlobalContext* gctx = GetContext().gctx;
+
+    // Reset the override action if the player is not using a bow.
+    constexpr u8 first = u8(game::Action::Arrow);
+    constexpr u8 last = u8(game::Action::LightArrow);
+    const bool is_using = player->action_type == game::act::Player::ActionType::Type3 || player->projectile_actor;
+    if (first > u8(player->current_action) || u8(player->current_action) > last || !is_using) {
+      s_fast_arrow_state = {};
+      return;
+    }
+
+    if (s_fast_arrow_state.item_btn_slot != player->item_btn_slot) {
+      // The player switched to a different item button slot.
+      // Reset the action override and any other internal state.
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+      util::Print("%s: detected item button slot change, resetting.\n", __func__);
+#endif
+      s_fast_arrow_state = {};
+    }
+
+    s_fast_arrow_state.item_btn_slot = player->item_btn_slot;
+
+    if (s_fast_arrow_state.magic_cost_update_timer > 0)
+      --s_fast_arrow_state.magic_cost_update_timer;
+
+    if (s_fast_arrow_state.override_action && s_fast_arrow_state.magic_cost_update_timer == 0) {
+      const u8 type = u8(*s_fast_arrow_state.override_action) - first;
+      game::act::PlayerUpdateMagicCost(gctx, s_arrow_types[type].magic_cost, 0,
+                                       game::act::AllowExistingMagicUsage::Yes);
+      s_fast_arrow_state.magic_cost_update_timer = -1;
+    }
+
+    if (!s_fast_arrow_state.override_action) {
+      s_fast_arrow_state.override_action = player->current_action;
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+      util::Print("%s: override_action is now %u\n", __func__, u8(*s_fast_arrow_state.override_action));
+#endif
+    }
+
+    if (gctx->pad_state.input.new_buttons.IsSet(game::pad::Button::Up)) {
+      int idx = u8(*s_fast_arrow_state.override_action) - first;
+
+      auto can_use_arrow = [&cdata](int idx) {
+        return game::HasItem(s_arrow_types[idx].required_item) &&
+               cdata.save.player.magic >= s_arrow_types[idx].magic_cost &&
+               game::CanUseItem(s_arrow_types[idx].required_item);
+      };
+
+      // Ensure we don't enter an infinite loop if no other arrow type can be used.
+      if (!can_use_arrow(idx))
+        return;
+
+      do {
+        idx = (idx + 1) % std::size(s_arrow_types);
+      } while (!can_use_arrow(idx));
+
+      s_fast_arrow_state.override_action = static_cast<game::Action>(idx + first);
+      player->current_action = player->action = *s_fast_arrow_state.override_action;
+      cdata.save.equipment.data[0].item_btns[player->item_btn_slot] = s_arrow_types[idx].required_item;
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+      util::Print("%s: override_action is now %u (%s)\n", __func__, u8(*s_fast_arrow_state.override_action),
+                  s_arrow_types[idx].name);
+#endif
+
+      if (player->projectile_actor) {
+        player->projectile_actor->Free();
+        player->projectile_actor = nullptr;
+        SpawnArrowActor(gctx, player);
+      }
+    }
+  }
+
   extern "C" {
   bool ShouldUseZoraFastSwim() {
     const auto& input = GetContext().gctx->pad_state.input;

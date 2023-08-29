@@ -1,6 +1,7 @@
 #ifndef _RND_LINK_
 #define _RND_LINK_
 
+#include <optional>
 #include "common/advanced_context.h"
 #include "game/common_data.h"
 #include "game/pad.h"
@@ -11,6 +12,7 @@
 namespace rnd::link {
   void FixSpeedIssues();
   void HandleFastOcarina(game::GlobalContext*);
+  void HandleFastArrowSwitch(game::act::Player*);
 
 }  // namespace rnd::link
 
