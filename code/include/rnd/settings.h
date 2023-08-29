@@ -395,6 +395,8 @@ namespace rnd {
     u8 enableFastElegyStatues;
     u8 maskOfTruthRequiredForGossip;
     u8 enableFastMaskTransform;
+    u8 enableFastOcarina;
+    u8 enableFastArrowSwap;
 
     // Custom Buttons
     u32 customMapButton = 0;

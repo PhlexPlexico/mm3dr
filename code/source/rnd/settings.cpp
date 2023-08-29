@@ -106,7 +106,18 @@ namespace rnd {
   }
 
   u8 SettingsFastMaskCheck() {
-    return gSettingsContext.enableFastMaskTransform;
+    // Maybe check here to see if in first person?
+    game::act::Player* player = rnd::GetContext().gctx->GetPlayerActor();
+    // If we're disabled then just run the default return.
+    if (gSettingsContext.enableFastArrowSwap == 0) { 
+      return gSettingsContext.enableFastMaskTransform;
+    } else if (gSettingsContext.enableFastMaskTransform && player->flags1.IsSet(game::act::Player::Flag1::FirstPersonMode) &&
+        (player->held_item >= game::ItemId::Arrow && player->held_item <= game::ItemId::LightArrow)) {
+      return 0x00;
+    } else {
+      return gSettingsContext.enableFastMaskTransform;
+    }
+      
   }
   }
   // TODO: Change the addr
