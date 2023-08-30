@@ -39,6 +39,10 @@ SECTIONS{
     *(.patch_RemoveMeetMaskCutScene)
   } */
 
+  .patch_OverrideCutsceneNextEntrance 0x1B1834 : {
+    *(.patch_OverrideCutsceneNextEntrance)
+  }
+
   .patch_RemoveMysteryMilkTimer 0x1B7A54 : {
     *(.patch_RemoveMysteryMilkTimer)
   }

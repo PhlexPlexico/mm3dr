@@ -32,6 +32,18 @@ hook_MainLoop:
     ldr r1, [r0,#0x138]
     b 0x0106770
 
+.global hook_OverrideCutsceneNextEntrance
+hook_OverrideCutsceneNextEntrance:
+    push {r0-r12, lr}
+    bl SceneEntranceOverride
+    cmp r0,#0x1
+    pop {r0-r12, lr}
+    bne doNotOverrideCutscene
+    bx lr
+doNotOverrideCutscene:
+    bl 0x22A7F8
+    b 0x1B1838
+
 .global hook_ChangeSOHToCustomText
 hook_ChangeSOHToCustomText:
     push {r0-r2, lr}

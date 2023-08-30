@@ -45,7 +45,9 @@ namespace rnd {
   char* fake_heap_end;
   extern void (*__init_array_start[])(void) __attribute__((weak));
   extern void (*__init_array_end[])(void) __attribute__((weak));
-
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+  static bool titlePlayed = false;
+#endif
   void calc(game::State* state) {
     Context& context = GetContext();
     context.gctx = nullptr;
@@ -54,8 +56,24 @@ namespace rnd {
       Init(context);
     }
 
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+    if (state->type == game::StateType::FileSelect) {
+      if (!titlePlayed) {
+        game::sound::ControlStream(game::sound::StreamPlayer::DEFAULT_PLAYER, 1, 1);
+        game::sound::PlayStream(game::sound::StreamId::NA_BGM_MUJURA_2, game::sound::StreamPlayer::DEFAULT_PLAYER);
+        titlePlayed = true;
+      }
+       
+        return;
+      }
+      else if (state->type != game::StateType::Play)
+        return;
+#else
     if (state->type != game::StateType::Play)
-      return;
+        return;
+#endif
+    
+    
     context.gctx = static_cast<game::GlobalContext*>(state);
 
     if (context.gctx->GetPlayerActor()) {
