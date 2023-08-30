@@ -610,7 +610,7 @@ namespace rnd {
     } else if (textId == 0x85) {
       gctx->ShowMessage(rStoredTextId);
       rStoredTextId = 0;
-    } else if(textId == 0x1FBC) { 
+    } else if (textId == 0x1FBC) {
       game::CommonData& cdata = game::GetCommonData();
       gctx->next_entrance = 0xc060;
       cdata.sub13s[0].entrance_index = 0xc060;
