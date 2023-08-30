@@ -389,7 +389,7 @@ namespace rnd {
     u32 startingUpgrades;
     game::PlayerData::OwlStatues startingOwlStatues;
 
-    // ARM Patch Checks
+    // ARM Patch Checks / Restoration Checks
     u8 enableFastZoraSwim;
     u8 enableOcarinaDiving;
     u8 enableFastElegyStatues;
@@ -397,6 +397,12 @@ namespace rnd {
     u8 enableFastMaskTransform;
     u8 enableFastOcarina;
     u8 enableFastArrowSwap;
+
+
+    // Cutscene Skips
+    u8 skipHMSCutscenes;
+    u8 skipMikauCutscene;
+
 
     // Custom Buttons
     u32 customMapButton = 0;

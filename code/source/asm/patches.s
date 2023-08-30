@@ -52,6 +52,11 @@ patch_RemoveSOHCutesceneAfterMessage:
 patch_OverrideBombersNotebook:
     b hook_OverrideHMSBombers
 
+.section .patch_OverrideCutsceneNextEntrance
+.global patch_OverrideCutsceneNextEntrance
+patch_OverrideCutsceneNextEntrance:
+    bl hook_OverrideCutsceneNextEntrance
+
 @ There's a while loop located in the event
 @ timer that checks if we have mystery milk.
 @ We do not wish to show this since we want to remove
