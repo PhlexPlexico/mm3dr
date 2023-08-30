@@ -63,17 +63,15 @@ namespace rnd {
         game::sound::PlayStream(game::sound::StreamId::NA_BGM_MUJURA_2, game::sound::StreamPlayer::DEFAULT_PLAYER);
         titlePlayed = true;
       }
-       
-        return;
-      }
-      else if (state->type != game::StateType::Play)
-        return;
+
+      return;
+    } else if (state->type != game::StateType::Play)
+      return;
 #else
     if (state->type != game::StateType::Play)
-        return;
+      return;
 #endif
-    
-    
+
     context.gctx = static_cast<game::GlobalContext*>(state);
 
     if (context.gctx->GetPlayerActor()) {

@@ -398,11 +398,9 @@ namespace rnd {
     u8 enableFastOcarina;
     u8 enableFastArrowSwap;
 
-
     // Cutscene Skips
     u8 skipHMSCutscenes;
     u8 skipMikauCutscene;
-
 
     // Custom Buttons
     u32 customMapButton = 0;

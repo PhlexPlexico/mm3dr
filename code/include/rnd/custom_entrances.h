@@ -15,6 +15,6 @@ extern "C" {
 
 namespace rnd {
   extern "C" bool SceneEntranceOverride();
-} // namespace rnd
+}  // namespace rnd
 
 #endif
