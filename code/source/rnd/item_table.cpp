@@ -391,9 +391,10 @@ namespace rnd {
                         (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_Wallet, ItemEffect_None, (s16)-1,
                         (s16)-1),  // Progressive Wallet
 
-      [0x49] = ITEM_ROW(0xFF, ChestType::WOODEN_SMALL, 0xFF, 0xFF, 0x000A4, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF,
-                        (s8)0xFF, 0x000A4, (rnd::upgradeFunc)ItemUpgrade_Magic, ItemEffect_GiveProgressiveMagic, (s16)-1,
-                        (s16)-1),  // Progressive Magic
+      [0x49] =
+          ITEM_ROW(0xFF, ChestType::WOODEN_SMALL, 0xFF, 0xFF, 0x000A4, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF,
+                   0x000A4, (rnd::upgradeFunc)ItemUpgrade_Magic, ItemEffect_GiveProgressiveMagic, (s16)-1,
+                   (s16)-1),  // Progressive Magic
 
       [0x4A] =
           ITEM_ROW(0xFF, ChestType::WOODEN_SMALL, 0xFF, 0xFF, 0x001FA, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF,
