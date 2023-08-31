@@ -7,7 +7,7 @@
 #include "z3d/z3DVec.h"
 
 // Increment the version number whenever the ExtSaveData structure is changed
-#define EXTSAVEDATA_VERSION 06
+#define EXTSAVEDATA_VERSION 07
 
 namespace rnd {
   void SaveFile_SkipMinorCutscenes();
@@ -57,9 +57,12 @@ namespace rnd {
       BitField<16, 1, u32> bgDyYoseizoGivenItem;
       BitField<17, 1, u32> enInGivenItem;
       BitField<18, 1, u32> kafeiGivenItem;
-      BitField<19, 1, u32> enHgGivenItem;
+      BitField<19, 1, u32> enHgoGivenItem;
       BitField<20, 1, u32> enTrtGivenItem;
-      BitField<21, 11, u32> unused;
+      BitField<21, 1, u32> enHsGivenItem;
+      BitField<22, 1, u32> enMaYtoGivenItem;
+      BitField<23, 1, u32> enOskGivenItem;
+      BitField<24, 8, u32> unused;
     };
     GivenItemRegister givenItemChecks;
     union FairyCollectRegister {

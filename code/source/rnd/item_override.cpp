@@ -41,8 +41,8 @@ namespace rnd {
     rItemOverrides[0].value.looksLikeItemId = 0x26;
     rItemOverrides[1].key.scene = 0x26;
     rItemOverrides[1].key.type = ItemOverride_Type::OVR_COLLECTABLE;
-    rItemOverrides[1].value.getItemId = 0x06;
-    rItemOverrides[1].value.looksLikeItemId = 0x06;
+    rItemOverrides[1].value.getItemId = 0x5B;
+    rItemOverrides[1].value.looksLikeItemId = 0x5B;
     rItemOverrides[2].key.scene = 0x12;
     rItemOverrides[2].key.type = ItemOverride_Type::OVR_COLLECTABLE;
     rItemOverrides[2].value.getItemId = 0x37;
@@ -416,6 +416,12 @@ namespace rnd {
       getItemId = incomingNegative ? -0x01 : 0x01;
     } else if (actorId == game::act::Id::EnIn) {
       gExtSaveData.givenItemChecks.enInGivenItem = 1;
+    } else if (actorId == game::act::Id::EnHs) {
+      gExtSaveData.givenItemChecks.enHsGivenItem = 1;
+    } else if (actorId == game::act::Id::EnHgo) {
+      gExtSaveData.givenItemChecks.enHgoGivenItem = 1;
+    } else if (getItemId == static_cast<s16>(rnd::GetItemID::GI_MASK_CAPTAINS_HAT)) {
+      gExtSaveData.givenItemChecks.enOskGivenItem = 1;
     }
 
     return getItemId;
@@ -601,6 +607,14 @@ namespace rnd {
     } else if (currentItem == game::ItemId::GaroMask && gExtSaveData.givenItemChecks.enInGivenItem == 0) {
       return (int)0xFF;
     } else if (currentItem == game::ItemId::PictographBox && gExtSaveData.givenItemChecks.enTrtGivenItem == 0) {
+      return (int)0xFF;
+    } else if (currentItem == game::ItemId::BunnyHood && gExtSaveData.givenItemChecks.enHsGivenItem == 0) {
+      return (int)0xFF;
+    } else if (currentItem == game::ItemId::GibdoMask && gExtSaveData.givenItemChecks.enHgoGivenItem == 0) {
+      return (int)0xFF;
+    } else if (currentItem == game::ItemId::RomaniMask && gExtSaveData.givenItemChecks.enMaYtoGivenItem == 0) {
+      return (int)0xFF;
+    } else if (currentItem == game::ItemId::CaptainHat && gExtSaveData.givenItemChecks.enOskGivenItem == 0) {
       return (int)0xFF;
     }
     return (int)currentItem;

@@ -37,6 +37,8 @@ namespace game::act {
     EnIn = 0x4D,
     // Clear Tag (?)
     ClearTag = 0x73,
+    // En_Hs - Grog The Chicken Man
+    EnHs = 0x76,
     // Cursed Man Spider House
     EnSsh = 0x90,
     // [1] Deku Palace / Woodfall Temple moving platforms (after player lands on them)
@@ -67,6 +69,8 @@ namespace game::act {
     BossGoht = 0x016E,
     // Postbox
     EnPst = 0x0182,
+    // Cremia
+    EnMaYto = 0x01AF,
     // [7] Owl statue
     ObjOwlStatue = 0x01B2,
     // [4] Old Lady from Bomb Shop
@@ -77,6 +81,8 @@ namespace game::act {
     NpcEnGuruGuru = 0x01D7,
     // Npc Invisible Guard
     NpcInvisibleGuard = 0x1D9,
+    // Pamela's Father Gibdo Mode
+    EnHgo = 0x1DF,
     // Deku Salesmen
     EnDns = 0x01DB,
     // Npc Madame Aroma
