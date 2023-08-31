@@ -99,14 +99,14 @@ namespace rnd {
     const u32 newButtons = gctx->pad_state.input.new_buttons.flags;
     if (gSettingsContext.customMaskButton != 0 && pressedButtons == gSettingsContext.customMaskButton) {
       game::ui::OpenScreen(game::ui::ScreenType::Masks);
-    } else if (gSettingsContext.customMaskButton != 0 && pressedButtons == gSettingsContext.customItemButton) {
+    } else if (gSettingsContext.customItemButton != 0 && pressedButtons == gSettingsContext.customItemButton) {
       game::ui::OpenScreen(game::ui::ScreenType::Items);
-    } else if (gSettingsContext.customMaskButton != 0 && pressedButtons == gSettingsContext.customNotebookButton) {
+    } else if (gSettingsContext.customNotebookButton != 0 && pressedButtons == gSettingsContext.customNotebookButton) {
       if (game::GetCommonData().save.inventory.collect_register.bombers_notebook != 0)
         game::ui::OpenScreen(game::ui::ScreenType::Schedule);
       else
         game::ui::OpenScreen(game::ui::ScreenType::Items);
-    } else if (gSettingsContext.customMaskButton != 0 && pressedButtons == gSettingsContext.customMapButton) {
+    } else if (gSettingsContext.customMapButton != 0 && pressedButtons == gSettingsContext.customMapButton) {
       // Clear map screen type. (Needed because the screen could be in "soaring" mode.)
       util::Write<u8>(game::ui::GetScreen(game::ui::ScreenType::Map), 0x78E, 0);
       game::ui::OpenScreen(game::ui::ScreenType::Map);

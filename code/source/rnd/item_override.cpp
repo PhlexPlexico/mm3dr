@@ -600,6 +600,8 @@ namespace rnd {
       return (int)0xFF;
     } else if (currentItem == game::ItemId::GaroMask && gExtSaveData.givenItemChecks.enInGivenItem == 0) {
       return (int)0xFF;
+    } else if (currentItem == game::ItemId::PictographBox && gExtSaveData.givenItemChecks.enTrtGivenItem == 0) {
+      return (int)0xFF;
     }
     return (int)currentItem;
   }
