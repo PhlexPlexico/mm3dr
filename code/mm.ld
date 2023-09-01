@@ -239,6 +239,14 @@ SECTIONS{
     *(.patch_RemoveGoronMaskCheckDarmani)
   }
 
+  .patch_OverrideQuiverArcheryTown 0x3E50E4 : {
+    *(.patch_OverrideQuiverArchery)
+  }
+
+  .patch_OverrideQuiverArcherySwamp 0x3EA2B0 : {
+    *(.patch_OverrideQuiverArchery)
+  }
+
   .patch_OverrideFairyGiveItem 0x3BECAC : {
     *(.patch_OverrideFairyGiveItem)
   }
@@ -261,6 +269,10 @@ SECTIONS{
 
   .patch_AromaItemCheck 0x35091C : {
     *(.patch_AromaItemCheck)
+  }
+
+  .patch_OverrideWalletSpiderHouse 0x3E50B4 : {
+    *(.patch_OverrideWalletSpiderHouse)
   }
 
   .patch_CheckMoTRequirement 0x35C428 : {
@@ -289,6 +301,10 @@ SECTIONS{
   /*0x46E228*/
   .patch_RemoveCouplesMaskMessage 0x1867C4 : {
     *(.patch_RemoveCouplesMaskMessage)
+  }
+
+  .patch_OverrideBankerWalletReward 0x459044 : {
+    *(.patch_OverrideBankerWalletReward)
   }
 
   .patch_CouplesMaskGiveItem 0x46E228 : {

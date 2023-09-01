@@ -264,6 +264,14 @@ hook_AromaItemCheck:
     pop {r0-r12, lr}
     b 0x350920
 
+.global hook_OverrideWalletCheckSpiderHouse
+hook_OverrideWalletCheckSpiderHouse:
+    push {r0-r12, lr}
+    bl ItemOverride_CheckBankerExtData
+    pop {r0-r12, lr}
+    cmp r0,#0x2
+    bx lr
+
 .global hook_CheckMoTSetting
 hook_CheckMoTSetting:
     bl SettingsMaskOfTruthCheck
@@ -379,7 +387,6 @@ hook_AdjustCouplesMaskMessage:
 normalText:
     mov r1,#0xA2
     b 0x1867C8
-
 
 .section .loader
 .global hook_into_loader

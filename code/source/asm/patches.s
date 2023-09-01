@@ -197,6 +197,11 @@ OverrideItemID_patch:
 patch_RemoveGoronMaskCheckDarmani:
     b hook_DarmaniRewardCheck
 
+.section .patch_OverrideQuiverArchery
+.global patch_OverrideQuiverArchery
+patch_OverrideQuiverArchery:
+    mov r2,#0x47
+
 .section .patch_OverrideFairyGiveItem
 .global OverrideFairyItemID_patch
 OverrideFairyItemID_patch:
@@ -275,6 +280,12 @@ patch_RemoveZoraMaskCheckMikau:
 patch_AromaItemCheck:
     b hook_AromaItemCheck
 
+.section .patch_OverrideWalletSpiderHouse
+.global patch_OverrideWalletSpiderHouse
+patch_OverrideWalletSpiderHouse:
+@Override to use the progressive wallet instead.
+    mov r2,#0x49
+
 .section .patch_CheckMoTRequirement
 .global patch_CheckMoTRequirement
 patch_CheckMoTRequirement:
@@ -319,6 +330,12 @@ patch_CouplesMaskGiveItem:
 .global patch_RemoveCouplesMaskMessage
 patch_RemoveCouplesMaskMessage:
     b hook_AdjustCouplesMaskMessage
+
+.section .patch_OverrideBankerWalletReward
+.global patch_OverrideBankerWalletReward
+patch_OverrideBankerWalletReward:
+@Override to use the progressive wallet instead.
+    mov r2,#0x48
 
 .section .patch_loader
 .global loader_patch
