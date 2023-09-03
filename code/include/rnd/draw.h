@@ -25,8 +25,11 @@
  *         or requiring that modified versions of such material be marked in
  *         reasonable ways as different from the original version.
  */
+extern "C" {
 #include <3ds/gfx.h>
 #include <3ds/types.h>
+}
+
 
 #define FB_BOTTOM_VRAM_ADDR ((void*)0x1F48F000)  // cached
 #define FB_BOTTOM_VRAM_PA 0x1848F000
@@ -96,29 +99,29 @@ typedef enum {
     ICONS_COUNT
 } Draw_IconType;
 
-//void Draw_Lock(void);
-//void Draw_Unlock(void);
+void Draw_Lock(void);
+void Draw_Unlock(void);
 
-//void Draw_DrawIcon(u32 posX, u32 posY, u32 color, Draw_IconType icon);
-//void Draw_DrawRect(u32 posX, u32 posY, u32 width, u32 height, u32 color);
-//void Draw_DrawCharacter(u32 posX, u32 posY, u32 color, char character);
-//u32 Draw_DrawString(u32 posX, u32 posY, u32 color, const char* string);
-//u32 Draw_DrawString_Small(u32 posX, u32 posY, u32 color, const char* string);
-//u32 Draw_DrawFormattedString(u32 posX, u32 posY, u32 color, const char* fmt, ...);
-//u32 Draw_DrawFormattedString_Small(u32 posX, u32 posY, u32 color, const char* fmt, ...);
+void Draw_DrawIcon(u32 posX, u32 posY, u32 color, Draw_IconType icon);
+void Draw_DrawRect(u32 posX, u32 posY, u32 width, u32 height, u32 color);
+void Draw_DrawCharacter(u32 posX, u32 posY, u32 color, char character);
+u32 Draw_DrawString(u32 posX, u32 posY, u32 color, const char* string);
+u32 Draw_DrawString_Small(u32 posX, u32 posY, u32 color, const char* string);
+u32 Draw_DrawFormattedString(u32 posX, u32 posY, u32 color, const char* fmt, ...);
+u32 Draw_DrawFormattedString_Small(u32 posX, u32 posY, u32 color, const char* fmt, ...);
 
-//void Draw_DrawCharacterTop(u32 posX, u32 posY, u32 color, char character);
-//u32 Draw_DrawStringTop(u32 posX, u32 posY, u32 color, const char* string);
-//u32 Draw_DrawFormattedStringTop(u32 posX, u32 posY, u32 color, const char* fmt, ...);
+void Draw_DrawCharacterTop(u32 posX, u32 posY, u32 color, char character);
+u32 Draw_DrawStringTop(u32 posX, u32 posY, u32 color, const char* string);
+u32 Draw_DrawFormattedStringTop(u32 posX, u32 posY, u32 color, const char* fmt, ...);
 
-//void Draw_FillFramebuffer(u32 value);
-//void Draw_ClearFramebuffer(void);
-//void Draw_SetupFramebuffer(void);
-//void Draw_FillBackBuffer(void);
-//void Draw_ClearBackbuffer(void);
-//void Draw_CopyBackBuffer(void);
-//void Draw_FlushFramebuffer(void);
-//void Draw_FlushFramebufferTop(void);
+void Draw_FillFramebuffer(u32 value);
+void Draw_ClearFramebuffer(void);
+void Draw_SetupFramebuffer(void);
+void Draw_FillBackBuffer(void);
+void Draw_ClearBackbuffer(void);
+void Draw_CopyBackBuffer(void);
+void Draw_FlushFramebuffer(void);
+void Draw_FlushFramebufferTop(void);
 
 struct FramebufferAddress {
   u8* a;

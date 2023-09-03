@@ -25,6 +25,14 @@ SECTIONS{
     *(.patch_DecoupleStartSelect)
   }
 
+  .patch_SleepQueryCallback 0x124DF0 : {
+		*(.patch_SleepQueryCallback)
+	}
+
+  .patch_Gfx_Update 0x1376DC : {
+    *(.patch_Gfx_Update)
+  }
+
   .patch_RemoveSOHCutesceneAfterMessage 0x186810 : {
     *(.patch_RemoveSOHCutesceneAfterMessage)
   }
@@ -366,10 +374,6 @@ SECTIONS{
 
   .patch_HandleOcarinaHooks 0x604D8C : {
     *(.patch_HandleOcarinaHooks)
-  }
-
-  .patch_Gfx_Update 0x310254 : {
-    *(.patch_Gfx_Update)
   }
 
   . = 0x61CD8C;

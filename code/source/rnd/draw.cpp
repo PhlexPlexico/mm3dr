@@ -25,14 +25,18 @@
  *         reasonable ways as different from the original version.
  */
 
-#include "../include/draw.h"
+#include "rnd/draw.h"
 #include "utils.h"
-#include "3ds/svc.h"
-#include "3ds/synchronization.h"
+
 #include "fonts/ascii_font.h"
 #include "fonts/ascii_font_small.h"
-#include "../include/rnd/custom_messages.h"
+#include "rnd/custom_messages.h"
 #include <string.h>
+
+extern "C" {
+#include <3ds/svc.h>
+#include <3ds/synchronization.h>
+}
 
 static u8* FRAMEBUFFER[6];
 static u8 backBufferBtm[FB_BOTTOM_SIZE];
