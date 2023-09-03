@@ -5,6 +5,15 @@
 
 namespace rnd {
   SpoilerData gSpoilerData = {0};
+  SpoilerDataLocs gSpoilerDataLocs[SPOILER_LOCDATS] = {0};
+
+  SpoilerItemLocation* SpoilerData_ItemLoc(u16 itemIndex) {
+    return &gSpoilerDataLocs[itemIndex / SPOILER_ITEMS_MAX].ItemLocations[itemIndex % SPOILER_ITEMS_MAX];
+  }
+
+  char* SpoilerData_StringData(u16 itemIndex) {
+    return gSpoilerDataLocs[itemIndex / SPOILER_ITEMS_MAX].StringData;
+  }
 
   char* SpoilerData_GetItemLocationString(u16 itemIndex) {
     return &gSpoilerData.StringData[gSpoilerData.ItemLocations[itemIndex].LocationStrOffset];
@@ -20,27 +29,21 @@ namespace rnd {
   }
 
   u8 SpoilerData_ChestCheck(SpoilerItemLocation itemLoc) {
-    // TODO: Implement Chest Checking. No need to use bits as we have
-    // builtin BitField classes.
-    // Reference:
-    // https://github.com/gamestabled/OoT3D_Randomizer/blob/e53be23c14090b15c6c39e08933ca7af54f747f7/code/src/spoiler_data.c#L25-L32
-    return 0;
+    game::GlobalContext* gctx = rnd::GetContext().gctx;
+    if (u8(gctx->scene) == itemLoc.LocationScene){
+      return (gctx->actors.GetList(game::act::Type::Chest).first->params & (1 << itemLoc.LocationFlag)) != 0;
+    } else {
+      return (gctx->scene_archive.actor_id);
+    }
   }
 
   u8 SpoilerData_CollectableCheck(SpoilerItemLocation itemLoc) {
-    // TODO: Implement Collectable Checking. no need to use bits as we have
-    // builtin BitField classes.
-    // Reference:
-    // https://github.com/gamestabled/OoT3D_Randomizer/blob/e53be23c14090b15c6c39e08933ca7af54f747f7/code/src/spoiler_data.c#L34-L41
-    return 0;
+     
+    return -1;
   }
 
   // Shop checks, will need to be decomped, most likely in common_data.h.
   u8 SpoilerData_ItemGetInfCheck(u8 slot) {
-    // TODO: Reimplement GetInfCheck. no need to use bits as we have
-    // builtin BitField classes.
-    // Reference:
-    // https://github.com/gamestabled/OoT3D_Randomizer/blob/e53be23c14090b15c6c39e08933ca7af54f747f7/code/src/spoiler_data.c#L43-L49
     return -1;
   }
 

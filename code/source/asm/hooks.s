@@ -380,6 +380,33 @@ normalText:
     mov r1,#0xA2
     b 0x1867C8
 
+<<<<<<< Updated upstream
+=======
+.global hook Gfx_Update
+hook_Gfx_Update:
+    push {r0-r12, lr}
+    bl Gfx_Update
+    pop {r0-r12, lr}
+    pop {r4-r8, pc}
+
+.global hook_Gfx_SleepQueryCallback
+hook_Gfx_SleepQueryCallback:
+    push {r0-r12, lr}
+    bl Gfx_SleepQueryCallback
+    pop {r0-r12, lr}
+    add r0,r0,#0x9C
+    b 0x3FD6C8
+
+.global hook_Gfx_AwakeCallback
+hook_Gfx_AwakeCallback
+    push {r0-r12, lr}
+    bl Gfx_AwakeCallback
+    pop {r0-r12, lr}
+    add r0,r0,#0x9C
+    b 0x3FD440
+
+
+>>>>>>> Stashed changes
 .section .loader
 .global hook_into_loader
 hook_into_loader:
