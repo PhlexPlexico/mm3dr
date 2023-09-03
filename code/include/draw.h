@@ -42,32 +42,83 @@
 #define SPACING_Y 11
 #define SPACING_X 6
 
+#define SPACING_SMALL_Y 9
+#define SPACING_SMALL_X 6
 #define RGB8(r, g, b) (((b)&0xFF) | (((g)&0xFF) << 8) | (((r)&0xFF) << 16))
 
-#define COLOR_TITLE RGB8(0x33, 0x33, 0xFF)
-#define COLOR_WHITE RGB8(0xFF, 0xFF, 0xFF)
-#define COLOR_RED RGB8(0xFF, 0x00, 0x00)
-#define COLOR_GREEN RGB8(0x00, 0xFF, 0x00)
-#define COLOR_BLACK RGB8(0x00, 0x00, 0x00)
+#define COLOR_TITLE         RGB8(0x33, 0x33, 0xFF)
+#define COLOR_WHITE         RGB8(0xFF, 0xFF, 0xFF)
+#define COLOR_RED           RGB8(0xFF, 0x00, 0x00)
+#define COLOR_GREEN         RGB8(0x00, 0xFF, 0x00)
+#define COLOR_BLUE          RGB8(0x56, 0xB4, 0xE9)
+#define COLOR_ORANGE        RGB8(0xE6, 0x9F, 0x00)
+#define COLOR_YELLOW        RGB8(0xF0, 0xE4, 0x42)
+#define COLOR_PINK          RGB8(0xCC, 0x79, 0xA7)
+#define COLOR_BLACK         RGB8(0x00, 0x00, 0x00)
+#define COLOR_DARK_GRAY     RGB8(0x29, 0x29, 0x29)
+#define COLOR_LIGHT_GRAY    RGB8(0x71, 0x71, 0x71)
 
 #define DRAW_MAX_FORMATTED_STRING_SIZE 512
 
-void Draw_Lock(void);
-void Draw_Unlock(void);
+typedef enum {
+    DISPLAY_0    = 0x400,
+    DISPLAY_1    = 0x401,
+    DISPLAY_BOTH = 0x402,
+    DISPLAY0_EXT = 0x410,
+} Draw_Display;
 
-void Draw_DrawCharacter(u32 posX, u32 posY, u32 color, char character);
-u32 Draw_DrawString(u32 posX, u32 posY, u32 color, const char* string);
-u32 Draw_DrawFormattedString(u32 posX, u32 posY, u32 color, const char* fmt, ...);
+typedef enum {
+    ICON_SMALL_KEY,
+    ICON_BOSS_KEY,
+    ICON_TRIFORCE,
+    ICON_FOOL,
+    ICON_CHECK,
+    ICON_NO,
+    ICON_VANILLA,
+    ICON_MASTER_QUEST,
+    ICON_MAP,
+    ICON_COMPASS,
+    ICON_BUTTON_R,
+    ICON_BUTTON_R_WIDE_1,
+    ICON_BUTTON_R_WIDE_2,
+    ICON_BUTTON_L,
+    ICON_BUTTON_L_WIDE_1,
+    ICON_BUTTON_L_WIDE_2,
+    ICON_BUTTON_A,
+    ICON_BUTTON_B,
+    ICON_BUTTON_X,
+    ICON_BUTTON_Y,
+    ICON_BUTTON_DPAD,
+    ICON_BUTTON_FACE,
+    ICON_BUTTON_FACEH,
+    ICON_BUTTON_FACEV,
+    ICON_BUTTON_JOYSTICK,
+    ICONS_COUNT
+} Draw_IconType;
 
-void Draw_DrawCharacterTop(u32 posX, u32 posY, u32 color, char character);
-u32 Draw_DrawStringTop(u32 posX, u32 posY, u32 color, const char* string);
-u32 Draw_DrawFormattedStringTop(u32 posX, u32 posY, u32 color, const char* fmt, ...);
+//void Draw_Lock(void);
+//void Draw_Unlock(void);
 
-void Draw_FillFramebuffer(u32 value);
-void Draw_ClearFramebuffer(void);
-void Draw_SetupFramebuffer(void);
-void Draw_FlushFramebuffer(void);
-void Draw_FlushFramebufferTop(void);
+//void Draw_DrawIcon(u32 posX, u32 posY, u32 color, Draw_IconType icon);
+//void Draw_DrawRect(u32 posX, u32 posY, u32 width, u32 height, u32 color);
+//void Draw_DrawCharacter(u32 posX, u32 posY, u32 color, char character);
+//u32 Draw_DrawString(u32 posX, u32 posY, u32 color, const char* string);
+//u32 Draw_DrawString_Small(u32 posX, u32 posY, u32 color, const char* string);
+//u32 Draw_DrawFormattedString(u32 posX, u32 posY, u32 color, const char* fmt, ...);
+//u32 Draw_DrawFormattedString_Small(u32 posX, u32 posY, u32 color, const char* fmt, ...);
+
+//void Draw_DrawCharacterTop(u32 posX, u32 posY, u32 color, char character);
+//u32 Draw_DrawStringTop(u32 posX, u32 posY, u32 color, const char* string);
+//u32 Draw_DrawFormattedStringTop(u32 posX, u32 posY, u32 color, const char* fmt, ...);
+
+//void Draw_FillFramebuffer(u32 value);
+//void Draw_ClearFramebuffer(void);
+//void Draw_SetupFramebuffer(void);
+//void Draw_FillBackBuffer(void);
+//void Draw_ClearBackbuffer(void);
+//void Draw_CopyBackBuffer(void);
+//void Draw_FlushFramebuffer(void);
+//void Draw_FlushFramebufferTop(void);
 
 struct FramebufferAddress {
   u8* a;
@@ -98,3 +149,4 @@ struct Graphics {
   Framebuffer top2;
   Framebuffer bottom;
 };
+

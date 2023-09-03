@@ -3,6 +3,7 @@
 
 #include "z3d/z3DVec.h"
 
+#define SPOILER_LOCDATS 2
 #define SPOILER_SPHERES_MAX 50
 #define SPOILER_ITEMS_MAX 512
 #define SPOILER_STRING_DATA_SIZE 16384
@@ -29,9 +30,7 @@ namespace rnd {
   // Location groups for checks, used to group the checks by logical location
   typedef enum {
     GROUP_NO_GROUP,
-    GROUP_STARTING_ITEM,
     GROUP_DEKU_PALACE,
-    GROUP_EAST_CLOCK_TOWN,
     GROUP_DUNGEON_WOODFALL_TEMPLE,
     GROUP_DUNGEON_SNOWHEAD_TEMPLE,
     GROUP_E_CLOCK_TOWN,
@@ -74,6 +73,18 @@ namespace rnd {
     // Grottos are all 0x3E
   } SpoilerCollectionCheckGroup;
 
+  typedef enum {
+    COLLECTTYPE_NORMAL,
+    COLLECTTYPE_REPEATABLE,
+    COLLECTTYPE_NEVER,
+  } SpoilerItemCollectType;
+
+  typedef enum {
+    REVEALTYPE_NORMAL,
+    REVEALTYPE_SCENE,
+    REVEALTYPE_ALWAYS,
+  } SpoilerItemRevealType;
+
   typedef struct {
     u16 LocationStrOffset;
     u16 ItemStrOffset;
@@ -81,6 +92,8 @@ namespace rnd {
     u8 LocationScene;
     u8 LocationFlag;
     SpoilerCollectionCheckGroup Group;
+    SpoilerItemCollectType CollectType;
+    SpoilerItemRevealType RevealType;
   } SpoilerItemLocation;
 
   typedef struct {
@@ -99,7 +112,15 @@ namespace rnd {
     u16 GroupOffsets[SPOILER_COLLECTION_GROUP_COUNT];
   } SpoilerData;
 
+  typedef struct {
+    SpoilerItemLocation ItemLocations[SPOILER_ITEMS_MAX];
+    char StringData[SPOILER_STRING_DATA_SIZE];
+  } SpoilerDataLocs;
+
   extern "C" SpoilerData gSpoilerData;
+
+  SpoilerItemLocation* SpoilerData_ItemLoc(u16 itemIndex);
+  char* SpoilerData_StringData(u16 itemIndex);
 
   char* SpoilerData_GetItemLocationString(u16 itemIndex);
   char* SpoilerData_GetItemNameString(u16 itemIndex);
@@ -115,6 +136,7 @@ namespace rnd {
   u8 SpoilerData_ScrubCheck(SpoilerItemLocation itemLoc);
   u8 SpoilerData_ShopItemCheck(SpoilerItemLocation itemLoc);
   u8 SpoilerData_MagicBeansCheck(SpoilerItemLocation itemLoc);
+  u8 SpoilerData_GetIsItemLocationRevealed(u16 itemIndex);
 }  // namespace rnd
 
 #endif  // _RND_SPOILER_DATA_H_
