@@ -241,8 +241,22 @@ namespace rnd {
     SHUFFLEKOKIRISWORD_VANILLA,
     SHUFFLEKOKIRISWROD_ANYWHERE,
   };
+
+  typedef enum {
+    DUNGEON_NEITHER,
+    DUNGEON_BARREN,
+    DUNGEON_WOTH,
+  } DungeonInfo;
+
+  typedef enum {
+    PLAY_ON_CONSOLE,
+    PLAY_ON_CITRA,
+  } PlayOption;
+
   typedef struct {
     u8 hashIndexes[5];
+
+    u8 playOption;
 
     u8 logic;
     u8 locationsReachable;
@@ -282,6 +296,7 @@ namespace rnd {
     u8 gossipStoneHints;
     u8 chestAnimations;
     u8 chestSize;
+    u8 compassesShowWotH;
     u8 generateSpoilerLog;
     u8 ingameSpoilers;
     u8 menuOpeningButton;
