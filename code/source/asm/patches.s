@@ -335,3 +335,18 @@ patch_RemoveCouplesMaskMessage:
 .global loader_patch
 loader_patch:
     b hook_into_loader
+
+.section .patch_Gfx_Update
+.global Gfx_Update_patch
+Gfx_Update_patch:
+    b hook_Gfx_Update
+
+.section .patch_SleepQueryCallback
+.global SleepQueryCallback_patch
+SleepQueryCallback_patch:  
+    b hook_Gfx_SleepQueryCallback
+
+.section .patch_AwakeCallback
+.global AwakeCallback_patch
+AwakeCallback_patch:
+    b hook_Gfx_AwakeCallback

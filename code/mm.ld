@@ -368,6 +368,10 @@ SECTIONS{
     *(.patch_HandleOcarinaHooks)
   }
 
+  .patch_Gfx_Update 0x310254 : {
+    *(.patch_Gfx_Update)
+  }
+
   . = 0x61CD8C;
 	/* Addr already 4 byte aligned! */
 	/* . = ALIGN(4); */
