@@ -27,6 +27,7 @@ namespace rnd {
   bool SaveFile_IsValidSettingsHealth(void);
   void SaveFile_InitExtSaveData(u32 fileBaseIndex);
   void SaveFile_LoadExtSaveData(u32 saveNumber);
+  u8 SaveFile_GetIsSceneDiscovered(u8 sceneNum);
   extern "C" void SaveFile_SaveExtSaveData();
 
   typedef struct {
