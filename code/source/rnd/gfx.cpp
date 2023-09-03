@@ -1,21 +1,6 @@
-#include "rnd/rheap.h"
-#include "rnd/custom_models.h"
-#include "rnd/title_screen.h"
-#include "rnd/settings.h"
-#include "rnd/spoiler_data.h"
-#include "rnd/savefile.h"
-#include "dungeon.cpp"
-#include "hid.h"
-#include "input.h"
-#include "draw.cpp"
+#include "rnd/gfx.h"
 
-extern "C" {
-    #include <3ds/svc.h>
-}
 namespace rnd {
-u32 pressed;
-bool handledInput;
-
 static u8 GfxInit        = 0;
 static u32 closingButton = 0;
 static u8 currentSphere  = 0;
@@ -25,77 +10,99 @@ static s16 allItemsScroll   = 0;
 static s16 groupItemsScroll = 0;
 static s8 currentItemGroup  = 1;
 
-//static s16 allEntranceScroll   = 0;
-//static s16 groupEntranceScroll = 0;
-//static s8 currentEntranceGroup = 1;
-//static u8 destListToggle       = 0;
-
 static s32 curMenuIdx     = 0;
 static bool showingLegend = false;
 static u64 lastTick       = 0;
 static u64 ticksElapsed   = 0;
 static bool isAsleep      = false;
-
 DungeonInfo rDungeonInfoData[10];
-#define TICKS_PER_SEC 268123480
-#define MAX_TICK_DELTA (TICKS_PER_SEC * 3)
 
+extern u32 pressed;
+extern bool handledInput;
+const char* spoilerCollectionGroupNames[] = {
+    "All Item Locations", 
+    "Deku Palace",
+    "Woodfall Temple",
+    "Snowhead Temple",
+    "East Clock Town",
+    "Goron Village",
+    "Great Bay Coast",
+    "Ikana Canyon",
+    "Ikana Graveyard",
+    "Laundry Pool",
+    "Milk Road",
+    "Mountain Village",
+    "North Clock Town",
+    "Path to Snowhead",
+    "Pinnacle Rock",
+    "Road to Ikana",
+    "Road to Southern Swamp",
+    "Romani Ranch",
+    "South Clock Town",
+    "Snowhead",
+    "Southern Swamp",
+    "StockPotInn",
+    "Stone Tower",
+    "Termina Field",
+    "Twin Islands",
+    "West Clock Town",
+    "Woodfall",
+    "Zora Cape",
+    "Zora Hall",
+    "Greay Bay Temple",
+    "Stone Tower Temple",
+    "Pirate Fortress",
+    "Beneath the Well",
+    "Ikana Castle",
+    "Secret Shrine",
+    "The Moon",
+    "Swamp Skulltula House",
+    "Ocean Skulltula House",
+};
 
-#define UP_ARROW_CHR 24
-#define DOWN_ARROW_CHR 25
-#define LEFT_ARROW_CHR 27
-#define RIGHT_ARROW_CHR 26
-#define H_DOUBLE_ARROW_CHR 29
-#define UP_SOLID_ARROW_CHR 30
-#define DOWN_SOLID_ARROW_CHR 31
-
-#define MAX_ENTRY_LINES 9
-#define SCROLL_BAR_THICKNESS 2
-#define SCROLL_BAR_MIN_THUMB_SIZE 4
-#define COLOR_WARN RGB8(0xD1, 0xDF, 0x3C)
-#define COLOR_SCROLL_BAR_BG RGB8(0x58, 0x58, 0x58)
-
-#define COLOR_ICON_BOSS_KEY RGB8(0x20, 0xF9, 0x25)
-#define COLOR_ICON_MAP RGB8(0xF9, 0x97, 0xFF)
-#define COLOR_ICON_COMPASS RGB8(0x20, 0x3A, 0xF9)
-#define COLOR_ICON_WOTH RGB8(0xFF, 0xF8, 0x2D)
-#define COLOR_ICON_FOOL RGB8(0xFF, 0x2D, 0x4B)
-
-#define COLOR_BUTTON_A RGB8(0xFF, 0x49, 0x3E)
-#define COLOR_BUTTON_B RGB8(0xFD, 0xDD, 0x68)
-#define COLOR_BUTTON_X RGB8(0x32, 0x7D, 0xFE)
-#define COLOR_BUTTON_Y RGB8(0x00, 0xD0, 0x98)
-game::SaveData& saveData = game::GetCommonData().save;
-
-typedef enum {
-    PAGE_SEEDHASH,
-    PAGE_DUNGEONITEMS,
-    PAGE_SPHERES,
-    PAGE_ITEMTRACKER_ALL,
-    PAGE_ITEMTRACKER_GROUPS,
-    PAGE_ENTRANCETRACKER_ALL,
-    PAGE_ENTRANCETRACKER_GROUPS,
-    PAGE_OPTIONS,
-} GfxPage;
-
-//static u32 entranceTypeToColor[] = { COLOR_YELLOW, COLOR_GREEN, COLOR_BLUE, COLOR_ORANGE, COLOR_PINK };
-
-void Gfx_SleepQueryCallback(void) {
-    ticksElapsed = 0;
-    isAsleep     = true;
-}
-
-void Gfx_AwakeCallback(void) {
-    ticksElapsed = 0;
-    lastTick     = svcGetSystemTick();
-    isAsleep     = false;
-}
-
-//static bool IsEntranceDiscovered(s16 index) {
-//    //toDo
-//}
+static s8 spoilerGroupDungeonIds[] = {
+    -1,
+    -1,
+    GROUP_DUNGEON_WOODFALL_TEMPLE,
+    GROUP_DUNGEON_SNOWHEAD_TEMPLE,
+    -1,
+    -1,
+    -1,
+    -1,
+    -1,
+    -1,
+    -1,
+    -1,
+    -1,
+    -1,
+    -1,
+    -1,
+    -1,
+    -1,
+    -1,
+    -1,
+    -1,
+    -1,
+    -1,
+    -1,
+    -1,
+    -1,
+    -1,
+    -1,
+    -1,
+    GROUP_DUNGEON_GREAT_BAY,
+    GROUP_DUNGEON_STONE_TOWER,
+    GROUP_DUNGEON_PIRATE_FORTRESS,
+    GROUP_DUNGEON_BENEATH_THE_WELL,
+    GROUP_DUNGEON_IKANA_CASTLE,
+    GROUP_DUNGEON_SECRET_SHRINE,
+    GROUP_DUNGEON_THE_MOON,
+    GROUP_SWAMP_SKULLTULA_HOUSE,
+    GROUP_OCEAN_SKULLTULA_HOUSE,
+};
 
 static bool IsDungeonDiscovered(s8 dungeonId) {
+  game::SaveData& saveData = game::GetCommonData().save;
     if (dungeonId == DUNGEON_THE_MOON ) {return false;}
 
     u8 idToModeKnown [] = {0, 1, 2, 3, 4, 5, 6, 7, 8};
@@ -198,17 +205,7 @@ static void Gfx_DrawButtonPrompts(void) {
             Draw_DrawString(offsetX, textY, COLOR_TITLE, nextStr);
             offsetX += (strlen(nextStr) + 1) * SPACING_X;
         }
-        /*if (curMenuIdx == PAGE_ENTRANCETRACKER_ALL || curMenuIdx == PAGE_ENTRANCETRACKER_GROUPS) {
-            Draw_DrawIcon(offsetX, promptY, COLOR_BUTTON_X, ICON_BUTTON_X);
-            offsetX += buttonSpacing;
-            nextStr = destListToggle ? "To" : "From";
-            Draw_DrawString(offsetX, textY, COLOR_TITLE, nextStr);
-        }*/
-    }/* else if (curMenuIdx == PAGE_OPTIONS) {
-        Draw_DrawIcon(offsetX, promptY, COLOR_WHITE, ICON_BUTTON_DPAD);
-        offsetX += buttonSpacing;
-        Draw_DrawString(offsetX, textY, COLOR_TITLE, "Select / change options");
-    }*/
+    }
 }
 
 static void Gfx_UpdatePlayTime(void) {
@@ -251,7 +248,7 @@ static void Gfx_DrawSeedHash(void) {
 
 static void Gfx_DrawDungeonItems(void) {
     static const u8 spacingY = 13;
-
+  game::SaveData& saveData = game::GetCommonData().save;
     if (showingLegend) {
         u8 offsetY = 0;
 
@@ -510,116 +507,6 @@ static void Gfx_DrawItemTracker(void) {
     Gfx_DrawScrollBar(SCREEN_BOT_WIDTH - 3, listTopY, SCREEN_BOT_HEIGHT - 40 - listTopY, *itemScroll, itemCount,
                       MAX_ENTRY_LINES);
 }
-/*
-static void Gfx_DrawEntranceTracker(void) {
-    if (!ViewingGroups() && showingLegend) {
-        Draw_DrawString(10, 16, COLOR_TITLE, "Entrance Color Legend");
-
-        static const u8 squareWidth = 9;
-        u16 offsetY                 = 2;
-        Draw_DrawRect(10, 16 + SPACING_Y * offsetY, squareWidth, squareWidth, COLOR_YELLOW);
-        Draw_DrawString(10 + SPACING_X * 2, 16 + SPACING_Y * offsetY++, COLOR_WHITE, "Spawns/Warp Songs/Owls");
-        Draw_DrawRect(10, 16 + SPACING_Y * offsetY, squareWidth, squareWidth, COLOR_GREEN);
-        Draw_DrawString(10 + SPACING_X * 2, 16 + SPACING_Y * offsetY++, COLOR_WHITE, "Overworld");
-        Draw_DrawRect(10, 16 + SPACING_Y * offsetY, squareWidth, squareWidth, COLOR_BLUE);
-        Draw_DrawString(10 + SPACING_X * 2, 16 + SPACING_Y * offsetY++, COLOR_WHITE, "Interior");
-        Draw_DrawRect(10, 16 + SPACING_Y * offsetY, squareWidth, squareWidth, COLOR_ORANGE);
-        Draw_DrawString(10 + SPACING_X * 2, 16 + SPACING_Y * offsetY++, COLOR_WHITE, "Grotto");
-        Draw_DrawRect(10, 16 + SPACING_Y * offsetY, squareWidth, squareWidth, COLOR_PINK);
-        Draw_DrawString(10 + SPACING_X * 2, 16 + SPACING_Y * offsetY++, COLOR_WHITE, "Dungeon");
-        return;
-    }
-
-    EntranceOverride* entranceList = destListToggle ? destList : rEntranceOverrides;
-
-    u16 entranceCount = ViewingGroups()
-                            ? gEntranceTrackingData.GroupEntranceCounts[destListToggle][currentEntranceGroup]
-                            : gEntranceTrackingData.EntranceCount;
-    u16 startIndex    = ViewingGroups() ? gEntranceTrackingData.GroupOffsets[destListToggle][currentEntranceGroup] : 0;
-    s16* entranceScroll = ViewingGroups() ? &groupEntranceScroll : &allEntranceScroll;
-
-    if (entranceCount > 0) {
-        // Gather up discovered entrances to calculate how far along this group is
-        u16 discoveredEntrs = 0;
-        for (u32 i = 0; i < entranceCount; ++i) {
-            u32 locIndex = i + startIndex;
-            if (IsEntranceDiscovered(entranceList[locIndex].index)) {
-                ++discoveredEntrs;
-            }
-        }
-        float groupPercent = ((float)discoveredEntrs / (float)entranceCount) * 100.0f;
-        Draw_DrawFormattedString(SCREEN_BOT_WIDTH - 10 - (SPACING_X * 6), 16,
-                                 discoveredEntrs == entranceCount ? COLOR_GREEN : COLOR_WHITE, "%5.1f%%", groupPercent);
-    }
-
-    u16 firstEntr = *entranceScroll + 1;
-    u16 lastEntr  = *entranceScroll + MAX_ENTRY_LINES;
-    if (lastEntr > entranceCount) {
-        lastEntr = entranceCount;
-    }
-    Draw_DrawFormattedString(10, 16, COLOR_TITLE, "%s - (%d - %d) / %d",
-                             spoilerEntranceGroupNames[ViewingGroups() ? currentEntranceGroup : 0], firstEntr, lastEntr,
-                             entranceCount);
-
-    u16 listTopY = 32;
-    for (u32 entrance = 0; entrance < MAX_ENTRY_LINES; ++entrance) {
-        u32 locIndex = entrance + startIndex + *entranceScroll;
-        if (entrance >= entranceCount) {
-            break;
-        }
-
-        u32 locPosY  = listTopY + ((SPACING_SMALL_Y + 1) * entrance * 2);
-        u32 entrPosY = locPosY + SPACING_SMALL_Y;
-
-        bool isDiscovered = IsEntranceDiscovered(entranceList[locIndex].index);
-
-        const EntranceData* original = GetEntranceData(entranceList[locIndex].index);
-        const EntranceData* override = GetEntranceData(entranceList[locIndex].override);
-
-        u32 origSrcColor = isDiscovered ? entranceTypeToColor[original->type] : COLOR_WHITE;
-        u32 origDstColor = isDiscovered ? entranceTypeToColor[original->type] : COLOR_WHITE;
-        u32 rplcSrcColor = isDiscovered ? entranceTypeToColor[override->type] : COLOR_WHITE;
-        u32 rplcDstColor = isDiscovered ? entranceTypeToColor[override->type] : COLOR_WHITE;
-
-        u8 showOriginal = gSettingsContext.ingameSpoilers || isDiscovered ||
-                          (!destListToggle || original->srcGroup == ENTRANCE_GROUP_ONE_WAY);
-        u8 showOverride = gSettingsContext.ingameSpoilers || isDiscovered ||
-                          (destListToggle && original->srcGroup != ENTRANCE_GROUP_ONE_WAY);
-
-        const char* unknown = "???";
-
-        const char* origSrcName = showOriginal ? original->source : unknown;
-        const char* origDstName = showOriginal ? original->destination : unknown;
-        const char* rplcSrcName = showOverride ? override->source : unknown;
-        const char* rplcDstName = showOverride ? override->destination : unknown;
-
-        u16 offsetX = 0;
-        Draw_DrawFormattedString_Small(10, locPosY, origSrcColor, "%s", origSrcName);
-        offsetX += strlen(origSrcName) + 1;
-        // Don't show original destinations for one way entrances
-        if (original->srcGroup != ENTRANCE_GROUP_ONE_WAY) {
-            Draw_DrawFormattedString_Small(10 + offsetX * SPACING_SMALL_X, locPosY, COLOR_WHITE, "to");
-            offsetX += strlen("to") + 1;
-            Draw_DrawFormattedString_Small(10 + offsetX * SPACING_SMALL_X, locPosY, origDstColor, "%s", origDstName);
-            offsetX += strlen(origDstName) + 1;
-        }
-        Draw_DrawFormattedString_Small(10 + offsetX * SPACING_SMALL_X, locPosY, COLOR_WHITE, "%c", RIGHT_ARROW_CHR);
-
-        offsetX = 2;
-        Draw_DrawFormattedString_Small(10 + offsetX * SPACING_SMALL_X, entrPosY, rplcDstColor, "%s", rplcDstName);
-        // Don't show the replacement source area if the area only has one entrance, or if the entrance
-        // is one-way
-        if (!showOverride || (showOverride && (!override->oneExit && override->srcGroup != ENTRANCE_GROUP_ONE_WAY))) {
-            offsetX += strlen(rplcDstName) + 1;
-            Draw_DrawFormattedString_Small(10 + offsetX * SPACING_SMALL_X, entrPosY, COLOR_WHITE, "from");
-            offsetX += strlen("from") + 1;
-            Draw_DrawFormattedString_Small(10 + offsetX * SPACING_SMALL_X, entrPosY, rplcSrcColor, "%s", rplcSrcName);
-        }
-    }
-
-    Gfx_DrawScrollBar(SCREEN_BOT_WIDTH - 3, listTopY, SCREEN_BOT_HEIGHT - 40 - listTopY, *entranceScroll, entranceCount,
-                      MAX_ENTRY_LINES);
-}*/
 
 static void (*menu_draw_funcs[])(void) = {
     // Make sure these line up with the GfxPage enum above
@@ -647,7 +534,7 @@ static void Gfx_DrawHeader() {
 
     for (u32 i = 0; i < tabsCount; i++) {
         bool isAvailable = menu_draw_funcs[i] != NULL;
-        bool isCurrent   = curMenuIdx == i;
+        bool isCurrent   = static_cast<u32>(curMenuIdx) == i;
         u32 tabX         = (u32)(i * tabWidthPlusSpace);
         Draw_DrawRect(tabXStart + tabX, isCurrent ? tabYStart : tabYStart + 2,
                       i == tabsCount - 1 ? totalTabsWidth - tabX : (tabWidthPlusSpace - 1),
@@ -758,58 +645,7 @@ static void Gfx_ShowMenu(void) {
                 PrevItemGroup();
                 handledInput = true;
             }
-        } /*else if (curMenuIdx == PAGE_ENTRANCETRACKER_ALL && gEntranceTrackingData.EntranceCount > 0) {
-            // Entrances list
-            if (pressed & BUTTON_A) {
-                showingLegend = !showingLegend;
-                handledInput  = true;
-            } else if (!showingLegend) {
-                u16 entranceCount = gEntranceTrackingData.EntranceCount;
-                if (pressed & (BUTTON_DOWN | CPAD_DOWN)) {
-                    allEntranceScroll = Gfx_Scroll(allEntranceScroll, MAX_ENTRY_LINES, entranceCount);
-                    handledInput      = true;
-                } else if (pressed & (BUTTON_UP | CPAD_UP)) {
-                    allEntranceScroll = Gfx_Scroll(allEntranceScroll, -MAX_ENTRY_LINES, entranceCount);
-                    handledInput      = true;
-                } else if (pressed & (BUTTON_RIGHT | CPAD_RIGHT)) {
-                    allEntranceScroll = Gfx_Scroll(allEntranceScroll, MAX_ENTRY_LINES * 10, entranceCount);
-                    handledInput      = true;
-                } else if (pressed & (BUTTON_LEFT | CPAD_LEFT)) {
-                    allEntranceScroll = Gfx_Scroll(allEntranceScroll, -MAX_ENTRY_LINES * 10, entranceCount);
-                    handledInput      = true;
-                } else if (pressed & BUTTON_X) {
-                    destListToggle = !destListToggle;
-                    handledInput   = true;
-                }
-            }
-        } else if (curMenuIdx == PAGE_ENTRANCETRACKER_GROUPS && gEntranceTrackingData.EntranceCount > 0) {
-            // Grouped Entrances list
-            u16 entranceCount = gEntranceTrackingData.GroupEntranceCounts[destListToggle][currentEntranceGroup];
-            if (pressed & (BUTTON_DOWN | CPAD_DOWN)) {
-                groupEntranceScroll = Gfx_Scroll(groupEntranceScroll, 1, entranceCount);
-                handledInput        = true;
-            } else if (pressed & (BUTTON_UP | CPAD_UP)) {
-                groupEntranceScroll = Gfx_Scroll(groupEntranceScroll, -1, entranceCount);
-                handledInput        = true;
-            } else if (pressed & (BUTTON_RIGHT | CPAD_RIGHT)) {
-                groupEntranceScroll = Gfx_Scroll(groupEntranceScroll, MAX_ENTRY_LINES, entranceCount);
-                handledInput        = true;
-            } else if (pressed & (BUTTON_LEFT | CPAD_LEFT)) {
-                groupEntranceScroll = Gfx_Scroll(groupEntranceScroll, -MAX_ENTRY_LINES, entranceCount);
-                handledInput        = true;
-            } else if (pressed & BUTTON_A) {
-                NextEntranceGroup();
-                handledInput = true;
-            } else if (pressed & BUTTON_Y) {
-                PrevEntranceGroup();
-                handledInput = true;
-            } else if (pressed & BUTTON_X) {
-                destListToggle = !destListToggle;
-                handledInput   = true;
-            }
-        } else if (curMenuIdx == PAGE_OPTIONS) {
-            Gfx_OptionsUpdate();
-        }*/
+        }
 
         if (!handledInput) {
             if (pressed & closingButton) {
@@ -824,7 +660,7 @@ static void Gfx_ShowMenu(void) {
                 showingLegend = false;
                 do {
                     curMenuIdx++;
-                    if (curMenuIdx >= ARR_SIZE(menu_draw_funcs)) {
+                    if (static_cast<u32>(curMenuIdx) >= ARR_SIZE(menu_draw_funcs)) {
                         curMenuIdx = 0;
                     }
                 } while (menu_draw_funcs[curMenuIdx] == NULL);
@@ -861,91 +697,6 @@ static void Gfx_ShowMenu(void) {
 
     } while (true);
 }
-/*
-static void Gfx_ShowMultiplayerSyncMenu(void) {
-    Draw_ClearFramebuffer();
-    if (gSettingsContext.playOption == PLAY_ON_CONSOLE) {
-        Draw_FlushFramebuffer();
-    }
-
-    do {
-        // End the loop if the system has gone to sleep, so the game can properly respond
-        if (isAsleep) {
-            break;
-        }
-
-        Draw_ClearBackbuffer();
-
-        Multiplayer_Update(0);
-
-        u8 offsetY              = 1;
-        const char* titleString = mp_foundSyncer ? "Syncing..." : "Looking for syncer...";
-        Draw_DrawString(SCREEN_BOT_WIDTH / 2 - (strlen(titleString) / 2) * SPACING_X, 16 + SPACING_Y * offsetY++,
-                        COLOR_WHITE, titleString);
-
-        if (mp_foundSyncer) {
-            offsetY++;
-            static const char* syncPacketNames[] = { "Base Sync",          "Save Scene Flags 1", "Save Scene Flags 2",
-                                                     "Save Scene Flags 3", "Save Scene Flags 4", "Entrance Data" };
-            static const u8 squareSize           = 9;
-            for (size_t i = 0; i < ARRAY_SIZE(mp_completeSyncs); i++) {
-                Draw_DrawRect(10, 16 + SPACING_Y * offsetY, squareSize, squareSize, COLOR_WHITE);
-                Draw_DrawRect(11, 17 + SPACING_Y * offsetY, squareSize - 2, squareSize - 2,
-                              mp_completeSyncs[i] ? COLOR_GREEN : COLOR_BLACK);
-                Draw_DrawString(10 + SPACING_X * 2, 16 + SPACING_Y * offsetY++, COLOR_WHITE, syncPacketNames[i]);
-            }
-            if (Multiplayer_GetNeededPacketsMask() != 0) {
-                Multiplayer_Send_FullSyncRequest(Multiplayer_GetNeededPacketsMask());
-            } else {
-                // Syncing is done!
-                offsetY++;
-                const char* msgString = "Done!";
-                Draw_DrawString(SCREEN_BOT_WIDTH / 2 - (strlen(msgString) / 2) * SPACING_X, 16 + SPACING_Y * offsetY,
-                                COLOR_WHITE, msgString);
-                Draw_CopyBackBuffer();
-                svcSleepThread(1000 * 1000 * 1000LL);
-
-                Draw_ClearBackbuffer();
-                Draw_CopyBackBuffer();
-                if (gSettingsContext.playOption == PLAY_ON_CONSOLE) {
-                    Draw_FlushFramebuffer();
-                }
-                mp_isSyncing     = false;
-                mSaveContextInit = true;
-                break;
-            }
-        } else {
-            Multiplayer_Send_FullSyncRequest(0); // Send 0 to only ask for ping, to reduce chance of packet loss
-            static u8 syncerSearchTimer = 0;
-            // Look for a syncer for 5 seconds
-            if (syncerSearchTimer >= 5) {
-                Draw_ClearBackbuffer();
-                const char* msgString = "No syncer found.";
-                Draw_DrawString(SCREEN_BOT_WIDTH / 2 - (strlen(msgString) / 2) * SPACING_X, 10 + SPACING_Y * offsetY,
-                                COLOR_WHITE, msgString);
-                Draw_CopyBackBuffer();
-                svcSleepThread(1000 * 1000 * 1000LL);
-
-                Draw_ClearBackbuffer();
-                Draw_CopyBackBuffer();
-                if (gSettingsContext.playOption == PLAY_ON_CONSOLE) {
-                    Draw_FlushFramebuffer();
-                }
-                mp_isSyncing = false;
-                break;
-            }
-            syncerSearchTimer++;
-        }
-
-        Draw_CopyBackBuffer();
-        if (gSettingsContext.playOption == PLAY_ON_CONSOLE) {
-            Draw_FlushFramebuffer();
-        }
-
-        svcSleepThread(1000 * 1000 * 1000LL);
-
-    } while (true);
-}*/
 
 void Gfx_Init(void) {
     Draw_SetupFramebuffer();
@@ -974,27 +725,18 @@ void Gfx_Init(void) {
         menu_draw_funcs[PAGE_ITEMTRACKER_ALL]    = NULL;
         menu_draw_funcs[PAGE_ITEMTRACKER_GROUPS] = NULL;
     }
-    //InitEntranceTrackingData();
-    //if (gEntranceTrackingData.EntranceCount == 0) {
-    //    menu_draw_funcs[PAGE_ENTRANCETRACKER_ALL]    = NULL;
-    //    menu_draw_funcs[PAGE_ENTRANCETRACKER_GROUPS] = NULL;
-    //}
 
     // Call these to go to the first non-empty group page
     if (gSpoilerData.ItemLocationsCount > 0 && gSpoilerData.GroupItemCounts[currentItemGroup] == 0) {
         NextItemGroup();
     }
-    //if (gEntranceTrackingData.EntranceCount > 0 &&
-    //    gEntranceTrackingData.GroupEntranceCounts[destListToggle][currentEntranceGroup] == 0) {
-    //    NextEntranceGroup();
-    //}
 
     //InitOptions();
 
     GfxInit = 1;
 }
 
-static u8 openingButton(void) {
+static u8 openingButton() {
     return ((gSettingsContext.menuOpeningButton == 0 && rInputCtx.cur.d_up) ||
             (gSettingsContext.menuOpeningButton == 1 && rInputCtx.cur.strt) ||
             (gSettingsContext.menuOpeningButton == 2 && rInputCtx.cur.sel) ||
@@ -1006,15 +748,12 @@ static u8 openingButton(void) {
             );
 }
 
-void Gfx_Update(void) {
+extern "C" {
+void Gfx_Update() {
     if (!GfxInit) {
         Gfx_Init();
         lastTick = svcGetSystemTick();
     }
-
-    //if (mp_isSyncing) {
-    //    Gfx_ShowMultiplayerSyncMenu();
-    //}
 
     // The update is called here so it works while in different game modes (title screen, file select, boss challenge,
     // credits, MQ unlock)
@@ -1022,9 +761,6 @@ void Gfx_Update(void) {
     static u64 elapsedTicksM = 0;
     elapsedTicksM += svcGetSystemTick() - lastTickM;
     if (elapsedTicksM >= TICKS_PER_SEC) {
-        //if (!IsInGame()) {
-        //    Multiplayer_Update(0);
-        //}
         elapsedTicksM = 0;
     }
     lastTickM = svcGetSystemTick();
@@ -1042,4 +778,18 @@ void Gfx_Update(void) {
     }
 }
 
-} //namespace rnd
+void Gfx_SleepQueryCallback() {
+    ticksElapsed = 0;
+    isAsleep     = true;
+}
+
+void Gfx_AwakeCallback() {
+    ticksElapsed = 0;
+    lastTick     = svcGetSystemTick();
+    isAsleep     = false;
+}
+
+
+}
+
+} // namespace rnd

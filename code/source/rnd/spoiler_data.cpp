@@ -160,4 +160,21 @@ namespace rnd {
     return 0;
   }
 
+  
+u8 SpoilerData_GetIsItemLocationRevealed(u16 itemIndex) {
+    if (gSettingsContext.ingameSpoilers) {
+        return 1;
+    }
+
+    SpoilerItemLocation* itemLoc = SpoilerData_ItemLoc(itemIndex);
+
+    if (itemLoc->RevealType == REVEALTYPE_ALWAYS) {
+        return 1;
+    } else if (itemLoc->RevealType == REVEALTYPE_NORMAL) {
+        return 0;
+    }
+
+    return SaveFile_GetIsSceneDiscovered(itemLoc->LocationScene);
+}
+
 }  // namespace rnd
