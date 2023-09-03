@@ -828,6 +828,19 @@ namespace rnd {
     extDataUnmount(fsa);
     extDataClose(fileHandle);
   }
+
+  u8 SaveFile_GetIsSceneDiscovered(u8 sceneNum) {
+    // TODO: ENSURE THE SCENES ARE CHECKED WITH
+    // OUR BITFLAGS. NOT USING <<.
+    /*u32 numBits = sizeof(u32) * 8;
+    u32 idx     = sceneNum / numBits;
+    if (idx < SAVEFILE_SCENES_DISCOVERED_IDX_COUNT) {
+        u32 bit = 1 << (sceneNum - (idx * numBits));
+        return (gExtSaveData.scenesDiscovered[idx] & bit) != 0;
+    }*/
+    return 0;
+  }
+
   extern "C" void SaveFile_SaveExtSaveData() {
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
     rnd::util::Print("%s: Saving extdata.\n", __func__);
