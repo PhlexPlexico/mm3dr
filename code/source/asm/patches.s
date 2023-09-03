@@ -39,6 +39,16 @@ patch_MainLoop:
 patch_DecoupleStartSelect:
     nop
 
+.section .patch_SleepQueryCallback
+.global SleepQueryCallback_patch
+SleepQueryCallback_patch:  
+    b hook_Gfx_SleepQueryCallback
+
+.section .patch_Gfx_Update
+.global Gfx_Update_patch
+Gfx_Update_patch:
+    b hook_Gfx_Update
+
 @ This should remove the overwriting message for when the
 @ user receives the Zora Mask.
 @ Largely untested, need to check for any UB.
@@ -51,6 +61,7 @@ patch_RemoveSOHCutesceneAfterMessage:
 .global patch_OverrideBombersNotebook
 patch_OverrideBombersNotebook:
     b hook_OverrideHMSBombers
+
 
 .section .patch_OverrideCutsceneNextEntrance
 .global patch_OverrideCutsceneNextEntrance
@@ -341,16 +352,6 @@ patch_OverrideBankerWalletReward:
 .global loader_patch
 loader_patch:
     b hook_into_loader
-
-.section .patch_Gfx_Update
-.global Gfx_Update_patch
-Gfx_Update_patch:
-    b hook_Gfx_Update
-
-.section .patch_SleepQueryCallback
-.global SleepQueryCallback_patch
-SleepQueryCallback_patch:  
-    b hook_Gfx_SleepQueryCallback
 
 .section .patch_AwakeCallback
 .global AwakeCallback_patch
