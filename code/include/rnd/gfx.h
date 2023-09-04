@@ -17,8 +17,6 @@ extern "C" {
 }
 
 namespace rnd {
-extern "C" u32 pressed;
-extern "C" bool handledInput;
 #define TICKS_PER_SEC 268123480
 #define MAX_TICK_DELTA (TICKS_PER_SEC * 3)
 
