@@ -785,12 +785,14 @@ namespace rnd {
 
   extern "C" {
   void Gfx_Update() {
-    Context& context = GetContext();
     if (!GfxInit) {
       Gfx_Init();
       lastTick = svcGetSystemTick();
     }
 
+    game::GlobalContext* gctx = GetContext().gctx;
+    if (!gctx)
+      return;
     // The update is called here so it works while in different game modes (title screen, file select, boss challenge,
     // credits, MQ unlock)
     static u64 lastTickM = 0;
@@ -802,11 +804,11 @@ namespace rnd {
     lastTickM = svcGetSystemTick();
 
     Gfx_UpdatePlayTime();
-
-    if (!isAsleep && openingButton() && context.has_initialised) {  //&& IsInGame()
-    #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-        rnd::util::Print("%s: Attempting to show menu.\n", __func__);	
-    #endif
+    
+    if (!isAsleep && openingButton()) {  //&& context.has_initialised
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+        rnd::util::Print("%s: Attempting to show menu. Are we asleep? %u openingButtons is %u\n", __func__, isAsleep, openingButton());	
+#endif
       Gfx_ShowMenu();
       // Check again as it's possible the system was put to sleep while the menu was open
       if (!isAsleep) {
