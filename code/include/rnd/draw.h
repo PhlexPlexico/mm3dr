@@ -62,6 +62,9 @@ extern "C" {
 
 #define DRAW_MAX_FORMATTED_STRING_SIZE 512
 
+#define ICON_WIDTH 8
+#define ICON_HEIGHT 8
+
 typedef enum {
   DISPLAY_0 = 0x400,
   DISPLAY_1 = 0x401,

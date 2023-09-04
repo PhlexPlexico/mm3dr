@@ -42,16 +42,6 @@ static u8* FRAMEBUFFER[6];
 static u8 backBufferBtm[FB_BOTTOM_SIZE];
 static u32 frontBufferIdx_btm = 0;
 
-#define ICON_WIDTH 8
-#define ICON_HEIGHT 8
-
-#define Z3D_TOP_SCREEN_LEFT_1 0x14313890
-#define Z3D_TOP_SCREEN_LEFT_2 0x14359DA0
-#define Z3D_TOP_SCREEN_RIGHT_1 0x14410AD0
-#define Z3D_TOP_SCREEN_RIGHT_2 0x14456FE0
-#define Z3D_BOTTOM_SCREEN_1 0x143A02B0
-#define Z3D_BOTTOM_SCREEN_2 0x143D86C0
-
 void Draw_PreSwapBuffers(Draw_Display display) {
   if (display == DISPLAY_1 || display == DISPLAY_BOTH) {
     frontBufferIdx_btm++;
@@ -330,12 +320,13 @@ void Draw_ClearFramebuffer(void) {
 }
 
 void Draw_SetupFramebuffer(void) {
-  FRAMEBUFFER[0] = (u8*)Z3D_BOTTOM_SCREEN_1;
-  FRAMEBUFFER[1] = (u8*)Z3D_BOTTOM_SCREEN_2;
-  FRAMEBUFFER[2] = (u8*)Z3D_TOP_SCREEN_LEFT_1;
-  FRAMEBUFFER[3] = (u8*)Z3D_TOP_SCREEN_LEFT_2;
-  FRAMEBUFFER[4] = (u8*)Z3D_TOP_SCREEN_RIGHT_1;
-  FRAMEBUFFER[5] = (u8*)Z3D_TOP_SCREEN_RIGHT_2;
+  Graphics* graphics = *rnd::util::GetPointer<Graphics*>(0x6a3a4c);
+  FRAMEBUFFER[0] = graphics->bottom.display_buffers[0];
+  FRAMEBUFFER[1] = graphics->bottom.display_buffers[1];
+  FRAMEBUFFER[2] = graphics->top1.display_buffers[0];
+  FRAMEBUFFER[3] = graphics->top1.display_buffers[1];
+  FRAMEBUFFER[4] = graphics->top2.display_buffers[0];
+  FRAMEBUFFER[5] = graphics->top2.display_buffers[1];
 }
 
 void Draw_FillBackbuffer(u32 value) {
