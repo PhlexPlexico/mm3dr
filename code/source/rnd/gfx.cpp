@@ -550,8 +550,8 @@ namespace rnd {
       Gfx_DrawItemTracker,  // All
       Gfx_DrawItemTracker,  // Groups
                             // Gfx_DrawEntranceTracker, // All
-      // Gfx_DrawEntranceTracker, // Groups
-      // Gfx_DrawOptions,
+                            // Gfx_DrawEntranceTracker, // Groups
+                            // Gfx_DrawOptions,
   };
 
   static void Gfx_DrawHeader() {
@@ -785,6 +785,7 @@ namespace rnd {
 
   extern "C" {
   void Gfx_Update() {
+    Context& context = GetContext();
     if (!GfxInit) {
       Gfx_Init();
       lastTick = svcGetSystemTick();
@@ -802,7 +803,10 @@ namespace rnd {
 
     Gfx_UpdatePlayTime();
 
-    if (!isAsleep && openingButton()) {  //&& IsInGame()
+    if (!isAsleep && openingButton() && context.has_initialised) {  //&& IsInGame()
+    #if defined ENABLE_DEBUG || defined DEBUG_PRINT
+        rnd::util::Print("%s: Attempting to show menu.\n", __func__);	
+    #endif
       Gfx_ShowMenu();
       // Check again as it's possible the system was put to sleep while the menu was open
       if (!isAsleep) {
