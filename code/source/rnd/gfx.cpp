@@ -714,7 +714,6 @@ namespace rnd {
       }
 
       // Keep updating while in the in-game menu
-      // Multiplayer_Update(0);
 
       Draw_ClearBackbuffer();
 
@@ -789,10 +788,6 @@ namespace rnd {
       Gfx_Init();
       lastTick = svcGetSystemTick();
     }
-
-    game::GlobalContext* gctx = GetContext().gctx;
-    if (!gctx)
-      return;
     // The update is called here so it works while in different game modes (title screen, file select, boss challenge,
     // credits, MQ unlock)
     static u64 lastTickM = 0;
@@ -807,7 +802,7 @@ namespace rnd {
     
     if (!isAsleep && openingButton()) {  //&& context.has_initialised
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-        rnd::util::Print("%s: Attempting to show menu. Are we asleep? %u openingButtons is %u\n", __func__, isAsleep, openingButton());	
+        rnd::util::Print("%s: Attempting to show menu. Are we asleep? %u openingButtons is %u.\n", __func__, isAsleep, openingButton());	
 #endif
       Gfx_ShowMenu();
       // Check again as it's possible the system was put to sleep while the menu was open
