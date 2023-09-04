@@ -1,10 +1,10 @@
 #ifndef _RND_GFX_H_
 #define _RND_GFX_H_
 
-#include "rnd/draw.h"
-#include "hid.h"
 #include "common/types.h"
+#include "hid.h"
 #include "rnd/custom_models.h"
+#include "rnd/draw.h"
 #include "rnd/dungeon.h"
 #include "rnd/input.h"
 #include "rnd/rheap.h"
@@ -13,13 +13,12 @@
 #include "rnd/spoiler_data.h"
 #include "rnd/title_screen.h"
 extern "C" {
-    #include <3ds/svc.h>
+#include <3ds/svc.h>
 }
 
 namespace rnd {
 #define TICKS_PER_SEC 268123480
 #define MAX_TICK_DELTA (TICKS_PER_SEC * 3)
-
 
 #define UP_ARROW_CHR 24
 #define DOWN_ARROW_CHR 25
@@ -46,7 +45,7 @@ namespace rnd {
 #define COLOR_BUTTON_X RGB8(0x32, 0x7D, 0xFE)
 #define COLOR_BUTTON_Y RGB8(0x00, 0xD0, 0x98)
 
-typedef enum {
+  typedef enum {
     PAGE_SEEDHASH,
     PAGE_DUNGEONITEMS,
     PAGE_SPHERES,
@@ -55,15 +54,14 @@ typedef enum {
     PAGE_ENTRANCETRACKER_ALL,
     PAGE_ENTRANCETRACKER_GROUPS,
     PAGE_OPTIONS,
-} GfxPage;
+  } GfxPage;
 
+  void Gfx_Init(void);
+  static u8 openingButton();
+  extern "C" void Gfx_Update();
+  extern "C" void Gfx_SleepQueryCallback();
+  extern "C" void Gfx_AwakeCallback();
 
-void Gfx_Init(void);
-static u8 openingButton();
-extern "C" void Gfx_Update();
-extern "C" void Gfx_SleepQueryCallback();
-extern "C" void Gfx_AwakeCallback(); 
+}  // namespace rnd
 
-}
-
-#endif //_RND_GFX_H_
+#endif  //_RND_GFX_H_

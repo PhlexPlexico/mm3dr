@@ -30,7 +30,6 @@ extern "C" {
 #include <3ds/types.h>
 }
 
-
 #define FB_BOTTOM_VRAM_ADDR ((void*)0x1F48F000)  // cached
 #define FB_BOTTOM_VRAM_PA 0x1848F000
 #define FB_BOTTOM_SIZE (320 * 240 * 3)
@@ -49,54 +48,54 @@ extern "C" {
 #define SPACING_SMALL_X 6
 #define RGB8(r, g, b) (((b)&0xFF) | (((g)&0xFF) << 8) | (((r)&0xFF) << 16))
 
-#define COLOR_TITLE         RGB8(0x33, 0x33, 0xFF)
-#define COLOR_WHITE         RGB8(0xFF, 0xFF, 0xFF)
-#define COLOR_RED           RGB8(0xFF, 0x00, 0x00)
-#define COLOR_GREEN         RGB8(0x00, 0xFF, 0x00)
-#define COLOR_BLUE          RGB8(0x56, 0xB4, 0xE9)
-#define COLOR_ORANGE        RGB8(0xE6, 0x9F, 0x00)
-#define COLOR_YELLOW        RGB8(0xF0, 0xE4, 0x42)
-#define COLOR_PINK          RGB8(0xCC, 0x79, 0xA7)
-#define COLOR_BLACK         RGB8(0x00, 0x00, 0x00)
-#define COLOR_DARK_GRAY     RGB8(0x29, 0x29, 0x29)
-#define COLOR_LIGHT_GRAY    RGB8(0x71, 0x71, 0x71)
+#define COLOR_TITLE RGB8(0x33, 0x33, 0xFF)
+#define COLOR_WHITE RGB8(0xFF, 0xFF, 0xFF)
+#define COLOR_RED RGB8(0xFF, 0x00, 0x00)
+#define COLOR_GREEN RGB8(0x00, 0xFF, 0x00)
+#define COLOR_BLUE RGB8(0x56, 0xB4, 0xE9)
+#define COLOR_ORANGE RGB8(0xE6, 0x9F, 0x00)
+#define COLOR_YELLOW RGB8(0xF0, 0xE4, 0x42)
+#define COLOR_PINK RGB8(0xCC, 0x79, 0xA7)
+#define COLOR_BLACK RGB8(0x00, 0x00, 0x00)
+#define COLOR_DARK_GRAY RGB8(0x29, 0x29, 0x29)
+#define COLOR_LIGHT_GRAY RGB8(0x71, 0x71, 0x71)
 
 #define DRAW_MAX_FORMATTED_STRING_SIZE 512
 
 typedef enum {
-    DISPLAY_0    = 0x400,
-    DISPLAY_1    = 0x401,
-    DISPLAY_BOTH = 0x402,
-    DISPLAY0_EXT = 0x410,
+  DISPLAY_0 = 0x400,
+  DISPLAY_1 = 0x401,
+  DISPLAY_BOTH = 0x402,
+  DISPLAY0_EXT = 0x410,
 } Draw_Display;
 
 typedef enum {
-    ICON_SMALL_KEY,
-    ICON_BOSS_KEY,
-    ICON_TRIFORCE,
-    ICON_FOOL,
-    ICON_CHECK,
-    ICON_NO,
-    ICON_VANILLA,
-    ICON_MASTER_QUEST,
-    ICON_MAP,
-    ICON_COMPASS,
-    ICON_BUTTON_R,
-    ICON_BUTTON_R_WIDE_1,
-    ICON_BUTTON_R_WIDE_2,
-    ICON_BUTTON_L,
-    ICON_BUTTON_L_WIDE_1,
-    ICON_BUTTON_L_WIDE_2,
-    ICON_BUTTON_A,
-    ICON_BUTTON_B,
-    ICON_BUTTON_X,
-    ICON_BUTTON_Y,
-    ICON_BUTTON_DPAD,
-    ICON_BUTTON_FACE,
-    ICON_BUTTON_FACEH,
-    ICON_BUTTON_FACEV,
-    ICON_BUTTON_JOYSTICK,
-    ICONS_COUNT
+  ICON_SMALL_KEY,
+  ICON_BOSS_KEY,
+  ICON_TRIFORCE,
+  ICON_FOOL,
+  ICON_CHECK,
+  ICON_NO,
+  ICON_VANILLA,
+  ICON_MASTER_QUEST,
+  ICON_MAP,
+  ICON_COMPASS,
+  ICON_BUTTON_R,
+  ICON_BUTTON_R_WIDE_1,
+  ICON_BUTTON_R_WIDE_2,
+  ICON_BUTTON_L,
+  ICON_BUTTON_L_WIDE_1,
+  ICON_BUTTON_L_WIDE_2,
+  ICON_BUTTON_A,
+  ICON_BUTTON_B,
+  ICON_BUTTON_X,
+  ICON_BUTTON_Y,
+  ICON_BUTTON_DPAD,
+  ICON_BUTTON_FACE,
+  ICON_BUTTON_FACEH,
+  ICON_BUTTON_FACEV,
+  ICON_BUTTON_JOYSTICK,
+  ICONS_COUNT
 } Draw_IconType;
 
 void Draw_Lock(void);
@@ -152,4 +151,3 @@ struct Graphics {
   Framebuffer top2;
   Framebuffer bottom;
 };
-

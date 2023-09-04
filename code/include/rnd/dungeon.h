@@ -7,7 +7,7 @@
 #include "rnd/spoiler_data.h"
 //#include "rnd/draw.h"
 extern "C" {
-    #include <3ds/svc.h>
+#include <3ds/svc.h>
 }
 
 #define WOODFALL_KEY_COUNT 1
@@ -17,12 +17,12 @@ extern "C" {
 
 namespace rnd {
 
-typedef struct {
+  typedef struct {
     u16 spoilerIndex;
     u8 keyAmount;
-} KeyData;
+  } KeyData;
 
-typedef enum {
+  typedef enum {
     DUNGEON_WOODFALL = 0,
     DUNGEON_SNOWHEAD,
     DUNGEON_GREAT_BAY,
@@ -34,24 +34,23 @@ typedef enum {
     DUNGEON_THE_MOON,
     DUNGEON_SWAMP_SKULLTULA_HOUSE,
     DUNGEON_OCEAN_SKULLTULA_HOUSE,
-} DungeonId;
+  } DungeonId;
 
-extern const char DungeonNames[][25];
+  extern const char DungeonNames[][25];
 
-static const char* const smallKeyStringWoodfall  = "Woodfall Temple Small Key";
-static const char* const smallKeyStringSnowhead  = "Snowhead Temple Small Key";
-static const char* const smallKeyStringGreatBay  = "Great Bay Temple Small Key";
-static const char* const smallKeyStringStone     = "Stone Tower Temple Small Key";
+  static const char* const smallKeyStringWoodfall = "Woodfall Temple Small Key";
+  static const char* const smallKeyStringSnowhead = "Snowhead Temple Small Key";
+  static const char* const smallKeyStringGreatBay = "Great Bay Temple Small Key";
+  static const char* const smallKeyStringStone = "Stone Tower Temple Small Key";
 
-static const char* const keyRingStringWoodfall  = "Woodfall Temple Key Ring";
-static const char* const keyRingStringSnowhead  = "Snowhead Temple Key Ring";
-static const char* const keyRingStringGreatBay  = "Great Bay Temple Key Ring";
-static const char* const keyRingStringStone     = "Stone Tower Temple Key Ring";
+  static const char* const keyRingStringWoodfall = "Woodfall Temple Key Ring";
+  static const char* const keyRingStringSnowhead = "Snowhead Temple Key Ring";
+  static const char* const keyRingStringGreatBay = "Great Bay Temple Key Ring";
+  static const char* const keyRingStringStone = "Stone Tower Temple Key Ring";
 
+  u8 Dungeon_KeyAmount(u32);
+  u8 Dungeon_FoundSmallKeys(u32);
 
-u8 Dungeon_KeyAmount(u32);
-u8 Dungeon_FoundSmallKeys(u32);
-
-} // namespace rnd
+}  // namespace rnd
 
 #endif
