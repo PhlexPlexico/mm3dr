@@ -17,8 +17,8 @@ static u64 ticksElapsed   = 0;
 static bool isAsleep      = false;
 DungeonInfo rDungeonInfoData[10];
 
-extern "C" u32 pressed;
-extern "C" bool handledInput;
+u32 pressed;
+bool handledInput;
 const char* spoilerCollectionGroupNames[] = {
     "All Item Locations", 
     "Deku Palace",
