@@ -22,5 +22,5 @@ u32 Input_Wait(void);
 
 extern "C" InputContext rInputCtx;
 
-#endif
 } // namespace rnd
+#endif
