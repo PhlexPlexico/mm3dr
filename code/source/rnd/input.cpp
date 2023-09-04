@@ -2,22 +2,22 @@
 #include "hid.h"
 #include "utils.h"
 #include "z3d/z3DVec.h"
-
+#include "common/debug.h"
 extern "C" {
 #include <3ds/svc.h>
 }
-
+namespace rnd {
 u32 GetCurrentPadState(void) {
   u32 hid_shared_mem = *(u32*)(0x007b2d34);
   return *(volatile u32*)(hid_shared_mem + 0x1C);
 }
 #define HID_PAD (GetCurrentPadState())
 
-InputContext rInputCtx;
+InputContext rInputCtx = {};
 
 // Needed for menus external to the game for spoiler logs.
-void Input_Update(void) {
-  rInputCtx.cur.val = real_hid.pad.pads[real_hid.pad.index].curr.val;
+void Input_Update() {
+  rInputCtx.cur.val = real_hid->pad.pads[real_hid->pad.index].curr.val;
   rInputCtx.pressed.val = (rInputCtx.cur.val) & (~rInputCtx.old.val);
   rInputCtx.up.val = (~rInputCtx.cur.val) & (rInputCtx.old.val);
   rInputCtx.old.val = rInputCtx.cur.val;
@@ -25,7 +25,7 @@ void Input_Update(void) {
 
 u32 buttonCheck(u32 key) {
   for (u32 i = 0x26000; i > 0; i--) {
-    if (key != real_hid.pad.pads[real_hid.pad.index].curr.val)
+    if (key != real_hid->pad.pads[real_hid->pad.index].curr.val)
       return 0;
   }
   return 1;
@@ -81,3 +81,4 @@ u32 Input_WaitWithTimeout(u32 msec, u32 closingButton) {
 u32 Input_Wait(void) {
   return Input_WaitWithTimeout(0, 0);
 }
+} // namespace rnd

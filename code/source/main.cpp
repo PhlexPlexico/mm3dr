@@ -8,6 +8,7 @@
 #include "game/ui.h"
 #include "rnd/extdata.h"
 #include "rnd/icetrap.h"
+#include "rnd/input.h"
 #include "rnd/item_override.h"
 #include "rnd/link.h"
 #include "rnd/rheap.h"
@@ -73,7 +74,7 @@ namespace rnd {
 #endif
 
     context.gctx = static_cast<game::GlobalContext*>(state);
-
+    Input_Update();
     if (context.gctx->GetPlayerActor()) {
       ItemOverride_Update();
       link::HandleFastOcarina(context.gctx);
