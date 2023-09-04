@@ -25,6 +25,10 @@ SECTIONS{
     *(.patch_DecoupleStartSelect)
   }
 
+  .patch_AwakeCallback 0x124DE8 : {
+		*(.patch_AwakeCallback)
+	}
+
   .patch_SleepQueryCallback 0x124DF0 : {
 		*(.patch_SleepQueryCallback)
 	}

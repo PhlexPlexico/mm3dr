@@ -39,6 +39,14 @@ hook_Gfx_Update:
     pop {r0-r12, lr}
     pop {r4-r8, pc}
 
+.global hook_Gfx_AwakeCallback
+hook_Gfx_AwakeCallback:
+    push {r0-r12, lr}
+    bl Gfx_AwakeCallback
+    pop {r0-r12, lr}
+    add r0,r0,#0xC
+    b 0x124DEC
+
 .global hook_Gfx_SleepQueryCallback
 hook_Gfx_SleepQueryCallback:
     push {r0-r12, lr}
@@ -46,14 +54,6 @@ hook_Gfx_SleepQueryCallback:
     pop {r0-r12, lr}
     add r0,r0,#0x9C
     b 0x124DF4
-
-.global hook_Gfx_AwakeCallback
-hook_Gfx_AwakeCallback:
-    push {r0-r12, lr}
-    bl Gfx_AwakeCallback
-    pop {r0-r12, lr}
-    add r0,r0,#0x9C
-    b 0x3FD440
 
 .global hook_OverrideCutsceneNextEntrance
 hook_OverrideCutsceneNextEntrance:

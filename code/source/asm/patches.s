@@ -39,6 +39,11 @@ patch_MainLoop:
 patch_DecoupleStartSelect:
     nop
 
+.section .patch_AwakeCallback
+.global AwakeCallback_patch
+AwakeCallback_patch:
+    b hook_Gfx_AwakeCallback
+
 .section .patch_SleepQueryCallback
 .global SleepQueryCallback_patch
 SleepQueryCallback_patch:  
@@ -351,8 +356,3 @@ patch_RemoveCouplesMaskMessage:
 .global loader_patch
 loader_patch:
     b hook_into_loader
-
-.section .patch_AwakeCallback
-.global AwakeCallback_patch
-AwakeCallback_patch:
-    b hook_Gfx_AwakeCallback
