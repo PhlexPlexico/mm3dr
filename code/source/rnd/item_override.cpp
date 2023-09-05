@@ -504,7 +504,8 @@ namespace rnd {
   void ItemOverride_GetItemTextAndItemID(game::act::Player* actor) {
     if (rActiveItemRow != NULL) {
       if (rActiveItemOverride.key.type == ItemOverride_Type::OVR_CHEST) {
-        if (rActiveItemRow->itemId < 0x28 || rActiveItemRow->itemId > 0x30) {
+        // Check and see if we have trade items or repeatable bottles and add to the array.
+        if (rActiveItemRow->itemId < 0x28 || (rActiveItemRow->itemId > 0x30 && rActiveItemRow->itemId < 0x9f)) {
           gExtSaveData.chestRewarded[rActiveItemOverride.key.scene][rActiveItemOverride.key.flag] = 1;
         }
       }
