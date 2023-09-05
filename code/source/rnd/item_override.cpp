@@ -452,32 +452,32 @@ namespace rnd {
   void ItemOverride_RevealMapBasedOnId(u8 getItemMapId) {
     game::SaveData& saveData = game::GetCommonData().save;
     switch (getItemMapId) {
-      case 0xB4:
-        saveData.overworld_map_get_flags_0x3F_for_all = saveData.overworld_map_get_flags_0x3F_for_all | 1;
-        saveData.anonymous_162 = saveData.anonymous_162 | 3;
-        break;
-      case 0xB5:
-        saveData.overworld_map_get_flags_0x3F_for_all = saveData.overworld_map_get_flags_0x3F_for_all | 2;
-        saveData.anonymous_162 = saveData.anonymous_162 | 0x1C;
-        break;
-      case 0xB6:
-        saveData.overworld_map_get_flags_0x3F_for_all = saveData.overworld_map_get_flags_0x3F_for_all | 4;
-        saveData.anonymous_162 = saveData.anonymous_162 | 0xE0;
-        break;
-      case 0xB7:
-        saveData.overworld_map_get_flags_0x3F_for_all = saveData.overworld_map_get_flags_0x3F_for_all | 8;
-        saveData.anonymous_162 = saveData.anonymous_162 | 0x100;
-        break;
-      case 0xB8:
-        saveData.overworld_map_get_flags_0x3F_for_all = saveData.overworld_map_get_flags_0x3F_for_all | 0x10;
-        saveData.anonymous_162 = saveData.anonymous_162 | 0x1E00;
-        break;
-      case 0xB9:
-        saveData.overworld_map_get_flags_0x3F_for_all = saveData.overworld_map_get_flags_0x3F_for_all | 0x20;
-        saveData.anonymous_162 = saveData.anonymous_162 | 0x6000;
-        break;
-      default:
-        break;
+    case 0xB4:
+      saveData.overworld_map_get_flags_0x3F_for_all = saveData.overworld_map_get_flags_0x3F_for_all | 1;
+      saveData.anonymous_162 = saveData.anonymous_162 | 3;
+      break;
+    case 0xB5:
+      saveData.overworld_map_get_flags_0x3F_for_all = saveData.overworld_map_get_flags_0x3F_for_all | 2;
+      saveData.anonymous_162 = saveData.anonymous_162 | 0x1C;
+      break;
+    case 0xB6:
+      saveData.overworld_map_get_flags_0x3F_for_all = saveData.overworld_map_get_flags_0x3F_for_all | 4;
+      saveData.anonymous_162 = saveData.anonymous_162 | 0xE0;
+      break;
+    case 0xB7:
+      saveData.overworld_map_get_flags_0x3F_for_all = saveData.overworld_map_get_flags_0x3F_for_all | 8;
+      saveData.anonymous_162 = saveData.anonymous_162 | 0x100;
+      break;
+    case 0xB8:
+      saveData.overworld_map_get_flags_0x3F_for_all = saveData.overworld_map_get_flags_0x3F_for_all | 0x10;
+      saveData.anonymous_162 = saveData.anonymous_162 | 0x1E00;
+      break;
+    case 0xB9:
+      saveData.overworld_map_get_flags_0x3F_for_all = saveData.overworld_map_get_flags_0x3F_for_all | 0x20;
+      saveData.anonymous_162 = saveData.anonymous_162 | 0x6000;
+      break;
+    default:
+      break;
     }
     return;
   }

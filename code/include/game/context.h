@@ -293,7 +293,7 @@ namespace game {
     int item_cost;
     int another_item_cost_maybe;
     u8 gap_8390[62];
-    u16 field_83CE;   // frame counter for notebook?
+    u16 field_83CE;  // frame counter for notebook?
     u8 field_83CD;
     u8 gap_83D0[10];
     u32 field_83DE;  // Checks during song
