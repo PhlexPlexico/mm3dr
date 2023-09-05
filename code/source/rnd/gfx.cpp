@@ -592,12 +592,10 @@ namespace rnd {
 
   static void Gfx_ShowMenu(void) {
     pressed = 0;
-
     Draw_ClearFramebuffer();
     if (gSettingsContext.playOption == PLAY_ON_CONSOLE) {
       Draw_FlushFramebuffer();
     }
-
     do {
       // End the loop if the system has gone to sleep, so the game can properly respond
       if (isAsleep) {
@@ -714,8 +712,8 @@ namespace rnd {
       }
 
       // Keep updating while in the in-game menu
-
       Draw_ClearBackbuffer();
+      Draw_ClearFramebuffer();
 
       // Continue counting up play time while in the in-game menu
       Gfx_UpdatePlayTime();
@@ -727,7 +725,6 @@ namespace rnd {
       if (gSettingsContext.playOption == PLAY_ON_CONSOLE) {
         Draw_FlushFramebuffer();
       }
-
       pressed = Input_WaitWithTimeout(1000, closingButton);
 
     } while (true);
@@ -799,10 +796,11 @@ namespace rnd {
     lastTickM = svcGetSystemTick();
 
     Gfx_UpdatePlayTime();
-    
+
     if (!isAsleep && openingButton()) {  //&& context.has_initialised
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-        rnd::util::Print("%s: Attempting to show menu. Are we asleep? %u openingButtons is %u.\n", __func__, isAsleep, openingButton());	
+      rnd::util::Print("%s: Attempting to show menu. Are we asleep? %u openingButtons is %u.\n", __func__, isAsleep,
+                       openingButton());
 #endif
       Gfx_ShowMenu();
       // Check again as it's possible the system was put to sleep while the menu was open

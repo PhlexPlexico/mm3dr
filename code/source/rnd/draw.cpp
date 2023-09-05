@@ -312,7 +312,11 @@ u32 Draw_DrawFormattedStringTop(u32 posX, u32 posY, u32 color, const char* fmt, 
 }
 
 void Draw_FillFramebuffer(u32 value) {
-  memset(FRAMEBUFFER[frontBufferIdx_btm], value, FB_BOTTOM_SIZE);
+  // Odd little thing - we need to set both bottom buffers or else
+  // we run into a small issue with the menu not actually drawing.
+  // memset(FRAMEBUFFER[frontBufferIdx_btm], value, FB_BOTTOM_SIZE);
+  memset(FRAMEBUFFER[0], value, FB_BOTTOM_SIZE);
+  memset(FRAMEBUFFER[1], value, FB_BOTTOM_SIZE);
 }
 
 void Draw_ClearFramebuffer(void) {
@@ -338,7 +342,11 @@ void Draw_ClearBackbuffer(void) {
 }
 
 void Draw_CopyBackBuffer(void) {
-  memcpy(FRAMEBUFFER[frontBufferIdx_btm], backBufferBtm, FB_BOTTOM_SIZE);
+  // Odd little thing - we need to set both bottom buffers or else
+  // we run into a small issue with the menu not actually drawing.
+  // memcpy(FRAMEBUFFER[frontBufferIdx_btm], backBufferBtm, FB_BOTTOM_SIZE);
+  memcpy(FRAMEBUFFER[1], backBufferBtm, FB_BOTTOM_SIZE);
+  memcpy(FRAMEBUFFER[0], backBufferBtm, FB_BOTTOM_SIZE);
 }
 
 void Draw_FlushFramebuffer(void) {
