@@ -289,7 +289,10 @@ namespace game {
     act::Actor* messageActor;
     u16 field_8380;
     u16 field_8382;
-    u8 gap_8384[74];  // ocaeffSpawned in here.
+    u8 gap_8384[4];  // ocaeffSpawned in here.
+    int item_cost;
+    int another_item_cost_maybe;
+    u8 gap_8390[62];
     u16 field_83CE;   // frame counter for notebook?
     u8 field_83CD;
     u8 gap_83D0[10];
@@ -459,6 +462,7 @@ namespace game {
   static_assert(offsetof(GlobalContext, ocarina_song) == 0x836A);
   static_assert(offsetof(GlobalContext, hide_hud) == 0x825E);
   static_assert(offsetof(GlobalContext, field_836E) == 0x836E);
+  static_assert(offsetof(GlobalContext, gap_8390) == 0x8390);
   static_assert(offsetof(GlobalContext, field_C4C8) == 0xC4C8);
   static_assert(offsetof(GlobalContext, field_83CE) == 0x83CE);
   static_assert(offsetof(GlobalContext, gap_8384) == 0x8384);

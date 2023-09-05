@@ -23,6 +23,7 @@ namespace rnd {
 #ifdef ENABLE_DEBUG
     saveData.player.razor_sword_hp = 0x64;
     saveData.skulltulas_collected.swamp_count = 30;
+    saveData.anonymous_162 = saveData.anonymous_162 | 0x6000;
     rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::MaskOfTruth);
     rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::PictographBox);
     // saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver50;

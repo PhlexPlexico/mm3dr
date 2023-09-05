@@ -449,6 +449,39 @@ namespace rnd {
     return;
   }
 
+  void ItemOverride_RevealMapBasedOnId(u8 getItemMapId) {
+    game::SaveData& saveData = game::GetCommonData().save;
+    switch (getItemMapId) {
+      case 0xB4:
+        saveData.overworld_map_get_flags_0x3F_for_all = saveData.overworld_map_get_flags_0x3F_for_all | 1;
+        saveData.anonymous_162 = saveData.anonymous_162 | 3;
+        break;
+      case 0xB5:
+        saveData.overworld_map_get_flags_0x3F_for_all = saveData.overworld_map_get_flags_0x3F_for_all | 2;
+        saveData.anonymous_162 = saveData.anonymous_162 | 0x1C;
+        break;
+      case 0xB6:
+        saveData.overworld_map_get_flags_0x3F_for_all = saveData.overworld_map_get_flags_0x3F_for_all | 4;
+        saveData.anonymous_162 = saveData.anonymous_162 | 0xE0;
+        break;
+      case 0xB7:
+        saveData.overworld_map_get_flags_0x3F_for_all = saveData.overworld_map_get_flags_0x3F_for_all | 8;
+        saveData.anonymous_162 = saveData.anonymous_162 | 0x100;
+        break;
+      case 0xB8:
+        saveData.overworld_map_get_flags_0x3F_for_all = saveData.overworld_map_get_flags_0x3F_for_all | 0x10;
+        saveData.anonymous_162 = saveData.anonymous_162 | 0x1E00;
+        break;
+      case 0xB9:
+        saveData.overworld_map_get_flags_0x3F_for_all = saveData.overworld_map_get_flags_0x3F_for_all | 0x20;
+        saveData.anonymous_162 = saveData.anonymous_162 | 0x6000;
+        break;
+      default:
+        break;
+    }
+    return;
+  }
+
   extern "C" {
   bool ItemOverride_CheckAromaGivenItem() {
     if (gExtSaveData.givenItemChecks.enAlGivenItem > 0)
@@ -485,6 +518,9 @@ namespace rnd {
       // Get_Item_Handler. Don't give ice traps, since it may cause UB.
       if (itemId != (u8)game::ItemId::None) {
         rnd::util::GetPointer<int(game::GlobalContext*, game::ItemId)>(0x233BEC)(gctx, (game::ItemId)itemId);
+        // Since the regular get item handler does not take care of this situation, we need to do it manually.
+        if (rActiveItemOverride.value.getItemId > 0xB3 && rActiveItemOverride.value.getItemId < 0xBA)
+          ItemOverride_RevealMapBasedOnId(rActiveItemOverride.value.getItemId);
       }
       ItemOverride_AfterItemReceived();
     }
