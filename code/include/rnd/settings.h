@@ -401,6 +401,7 @@ namespace rnd {
     // Cutscene Skips
     u8 skipHMSCutscenes;
     u8 skipMikauCutscene;
+    u8 skipDarmaniCutscene;
 
     // Custom Buttons
     u32 customMapButton = 0;

@@ -12,7 +12,11 @@ namespace rnd {
       gctx->next_entrance = 0x6890;
       cdata.sub13s[0].entrance_index = 0x6890;
       didWarp = true;
-    } else if (gctx->next_entrance == 0x1c19 && gSettingsContext.skipHMSCutscenes) {
+    } else if (gctx->next_entrance == 0x1C05 && gSettingsContext.skipDarmaniCutscene) {
+      gctx->next_entrance = 0x9610;
+      cdata.sub13s[0].entrance_index = 0x9610;
+      didWarp = true;
+    } else if (gctx->next_entrance == 0x1C19 && gSettingsContext.skipHMSCutscenes) {
       gctx->next_entrance = 0xc060;
       cdata.sub13s[0].entrance_index = 0xc060;
       didWarp = true;
