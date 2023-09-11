@@ -338,7 +338,7 @@ namespace rnd {
       Draw_DrawString(24, yPos, COLOR_WHITE, DungeonNames[dungeonId]);
 
       // Small Keys
-      if (dungeonId >= DUNGEON_STONE_TOWER) {
+      if (dungeonId <= DUNGEON_STONE_TOWER) {
         u8 keysHave = 0;
         if ((dungeonId = DUNGEON_WOODFALL)) {
           keysHave = saveData.inventory.woodfall_temple_keys;
@@ -370,11 +370,11 @@ namespace rnd {
       }
 
       // Boss Key
-      if ((dungeonId >= DUNGEON_STONE_TOWER)) {
+      if ((dungeonId <= DUNGEON_STONE_TOWER)) {
         Draw_DrawIcon(240, yPos, hasBossKey ? COLOR_ICON_BOSS_KEY : COLOR_DARK_GRAY, ICON_BOSS_KEY);
       }
 
-      if (dungeonId <= DUNGEON_PIRATE_FORTRESS) {
+      if (dungeonId >= DUNGEON_PIRATE_FORTRESS) {
         // Map and Compassz
         Draw_DrawIcon(260, yPos, hasMap ? COLOR_ICON_MAP : COLOR_DARK_GRAY, ICON_MAP);
         Draw_DrawIcon(280, yPos, hasCompass ? COLOR_ICON_COMPASS : COLOR_DARK_GRAY, ICON_COMPASS);
