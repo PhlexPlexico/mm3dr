@@ -271,12 +271,12 @@ SECTIONS{
     *(.patch_AromaItemCheck)
   }
 
-  .patch_OverrideWalletSpiderHouse 0x3E50B4 : {
-    *(.patch_OverrideWalletSpiderHouse)
-  }
-
   .patch_CheckMoTRequirement 0x35C428 : {
     *(.patch_CheckMoTRequirement)
+  }
+
+  .patch_OverrideWalletSpiderHouse 0x3BF2A8 : {
+    *(.patch_OverrideProgessiveWallet)
   }
 
   .patch_HMSGiveItem 0x41D018 : {
@@ -304,7 +304,7 @@ SECTIONS{
   }
 
   .patch_OverrideBankerWalletReward 0x459044 : {
-    *(.patch_OverrideBankerWalletReward)
+    *(.patch_OverrideProgessiveWallet)
   }
 
   .patch_CouplesMaskGiveItem 0x46E228 : {

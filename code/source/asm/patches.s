@@ -280,11 +280,11 @@ patch_RemoveZoraMaskCheckMikau:
 patch_AromaItemCheck:
     b hook_AromaItemCheck
 
-.section .patch_OverrideWalletSpiderHouse
-.global patch_OverrideWalletSpiderHouse
-patch_OverrideWalletSpiderHouse:
+.section .patch_OverrideProgessiveWallet
+.global patch_OverrideProgessiveWallet
+patch_OverrideProgessiveWallet:
 @Override to use the progressive wallet instead.
-    mov r2,#0x49
+    mov r2,#0x48
 
 .section .patch_CheckMoTRequirement
 .global patch_CheckMoTRequirement
@@ -330,12 +330,6 @@ patch_CouplesMaskGiveItem:
 .global patch_RemoveCouplesMaskMessage
 patch_RemoveCouplesMaskMessage:
     b hook_AdjustCouplesMaskMessage
-
-.section .patch_OverrideBankerWalletReward
-.global patch_OverrideBankerWalletReward
-patch_OverrideBankerWalletReward:
-@Override to use the progressive wallet instead.
-    mov r2,#0x48
 
 .section .patch_loader
 .global loader_patch
