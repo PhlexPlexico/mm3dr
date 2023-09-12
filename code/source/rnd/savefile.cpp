@@ -3,7 +3,6 @@ extern "C" {
 }
 #include <string.h>
 #include "rnd/item_effect.h"
-#include "rnd/razor_sword.h"
 #include "rnd/savefile.h"
 #include "rnd/settings.h"
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
@@ -508,7 +507,6 @@ namespace rnd {
       equipmentData.sword_shield.sword = game::SwordType::KokiriSword;
       saveData.equipment.data[0].item_btn_b = game::ItemId::KokiriSword;
     } else if (gSettingsContext.startingKokiriSword == (u8)StartingSwordSetting::STARTINGSWORD_RAZOR) {
-      playerData.razor_sword_hp = RS_SetDurability();
       equipmentData.sword_shield.sword = game::SwordType::RazorSword;
       saveData.equipment.data[0].item_btn_b = game::ItemId::RazorSword;
     } else if (gSettingsContext.startingKokiriSword == (u8)StartingSwordSetting::STARTINGSWORD_GILDED) {

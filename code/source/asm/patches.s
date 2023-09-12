@@ -156,6 +156,11 @@ patch_ISGCrouchStabTwo:
     nop
     nop
 
+.section .patch_RemoveRazordSwordHealth
+.global patch_RemoveRazordSwordHealth
+patch_RemoveRazordSwordHealth:
+    nop
+
 .section .patch_OverrideItemIdIndex
 .global patch_OverrideItemIdIndex
 patch_OverrideItemIdIndex:

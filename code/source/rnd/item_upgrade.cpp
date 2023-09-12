@@ -1,6 +1,5 @@
 #include "rnd/item_upgrade.h"
 #include "rnd/item_override.h"
-#include "rnd/razor_sword.h"
 
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
 #include "common/debug.h"
@@ -63,9 +62,8 @@ namespace rnd {
   GetItemID ItemUpgrade_Sword(game::SaveData* saveCtx, GetItemID GetItemId) {
     switch (saveCtx->equipment.sword_shield.sword) {
     case game::SwordType::NoSword:
-      return GetItemID::GI_SWORD_KOKIRI_STOLEN;  // Stolen sword?
+      return GetItemID::GI_KOKIRI_SWORD;  // Stolen sword?
     case game::SwordType::KokiriSword:
-      RS_SetDurability();
       return GetItemID::GI_RAZOR_SWORD;  // Razor sword
     case game::SwordType::RazorSword:
       return GetItemID::GI_GILDED_SWORD;  // Gilded sword

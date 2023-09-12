@@ -162,13 +162,6 @@ namespace rnd {
     ICETRAPS_ONSLAUGHT,
   };
 
-  enum class RSDURABILITYSetting : u8 {
-    RSDURABILITY_VANILLA,
-    RSDURABILITY_RANDOMRISK,
-    RSDURABILITY_RANDOMSAFE,
-    RSDURABILITY_INF,
-  };
-
   enum class StartingBottleSetting : u8 {
     STARTINGBOTTLE_NONE,
     STARTINGBOTTLE_EMPTY_BOTTLE = 0x12,
@@ -286,8 +279,6 @@ namespace rnd {
     u8 ingameSpoilers;
     u8 menuOpeningButton;
     u8 randomTrapDmg;
-
-    u8 rsDurability;
 
     u8 itemPoolValue;
     u8 iceTrapValue;

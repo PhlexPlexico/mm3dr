@@ -167,6 +167,18 @@ SECTIONS{
     *(.patch_ISGCrouchStabTwo)
   }
 
+  .patch_RemoveRSHealthOne 0x20826C : {
+    *(.patch_RemoveRazordSwordHealth)
+  }
+
+  .patch_RemoveRSHealthTwo 0x20843C : {
+    *(.patch_RemoveRazordSwordHealth)
+  }
+
+  .patch_RemoveRSHealthThree 0x235800 : {
+    *(.patch_RemoveRazordSwordHealth)
+  }
+
   .patch_OverrideItemIdIndex 0x21d124 : {
     *(.patch_OverrideItemIdIndex)
   }
