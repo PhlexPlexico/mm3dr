@@ -3,6 +3,7 @@
 
 #include "rnd/savefile.h"
 #include "z3d/z3DVec.h"
+#include "rnd/item_override.h"
 
 #define SPOILER_LOCDATS 2
 #define SPOILER_SPHERES_MAX 50
@@ -31,34 +32,31 @@ namespace rnd {
   // Location groups for checks, used to group the checks by logical location
   typedef enum {
     GROUP_NO_GROUP,
-    GROUP_DEKU_PALACE,
-    GROUP_DUNGEON_WOODFALL_TEMPLE,
-    GROUP_DUNGEON_SNOWHEAD_TEMPLE,
-    GROUP_E_CLOCK_TOWN,
-    GROUP_GORON_VILLAGE,
-    GROUP_GREAT_BAY_COAST,
-    GROUP_IKANA_CANYON,
-    GROUP_IKANA_GRAVEYARD,
-    GROUP_LAUNDRY_POOL,
-    GROUP_MILK_ROAD,
-    GROUP_MOUNTAIN_VILLAGE,
-    GROUP_N_CLOCK_TOWN,
-    GROUP_PATH_SNOWHEAD,
-    GROUP_PINNACLE_ROCK,
-    GROUP_ROAD_IKANA,
-    GROUP_ROAD_SWAMP,
-    GROUP_ROMANI_RANCH,
     GROUP_S_CLOCK_TOWN,
-    GROUP_SNOWHEAD,
-    GROUP_SOUTHERN_SWAMP,
+    GROUP_LAUNDRY_POOL,
+    GROUP_E_CLOCK_TOWN,
     GROUP_STOCKPOTINN,
-    GROUP_STONE_TOWER,
-    GROUP_TERMINA_FIELD,
-    GROUP_TWIN_ISLANDS,
     GROUP_W_CLOCK_TOWN,
+    GROUP_N_CLOCK_TOWN,
+    GROUP_TERMINA_FIELD,
+    GROUP_SOUTHERN_SWAMP,
+    GROUP_DEKU_PALACE,
     GROUP_WOODFALL,
+    GROUP_SNOWHEAD,
+    GROUP_MOUNTAIN_VILLAGE,
+    GROUP_TWIN_ISLANDS,
+    GROUP_GORON_VILLAGE,
+    GROUP_MILK_ROAD,
+    GROUP_ROMANI_RANCH,
+    GROUP_GREAT_BAY_COAST,
+    GROUP_PINNACLE_ROCK,
     GROUP_ZORA_CAPE,
     GROUP_ZORA_HALL,
+    GROUP_IKANA_CANYON,
+    GROUP_IKANA_GRAVEYARD,
+    GROUP_STONE_TOWER,
+    GROUP_DUNGEON_WOODFALL_TEMPLE,
+    GROUP_DUNGEON_SNOWHEAD_TEMPLE,
     GROUP_DUNGEON_GREAT_BAY,
     GROUP_DUNGEON_STONE_TOWER,
     GROUP_DUNGEON_PIRATE_FORTRESS,
@@ -95,6 +93,7 @@ namespace rnd {
     SpoilerCollectionCheckGroup Group;
     SpoilerItemCollectType CollectType;
     SpoilerItemRevealType RevealType;
+    ItemOverride_Type OverrideType;
   } SpoilerItemLocation;
 
   typedef struct {
@@ -138,6 +137,7 @@ namespace rnd {
   u8 SpoilerData_ShopItemCheck(SpoilerItemLocation itemLoc);
   u8 SpoilerData_MagicBeansCheck(SpoilerItemLocation itemLoc);
   u8 SpoilerData_GetIsItemLocationRevealed(u16 itemIndex);
+  u8 SpoilerLog_UpdateIngameLog(ItemOverride_Type type, u8 scene, u8 flag);
 }  // namespace rnd
 
 #endif  // _RND_SPOILER_DATA_H_

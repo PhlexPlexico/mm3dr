@@ -2,6 +2,7 @@
 #include "game/common_data.h"
 #include "rnd/settings.h"
 #include "z3d/z3DVec.h"
+#include "rnd/item_override.h"
 
 namespace rnd {
   SpoilerData gSpoilerData = {0};
@@ -29,12 +30,32 @@ namespace rnd {
   }
 
   u8 SpoilerData_ChestCheck(SpoilerItemLocation itemLoc) {
-    game::GlobalContext* gctx = rnd::GetContext().gctx;
-    if (u8(gctx->scene) == itemLoc.LocationScene) {
-      return (gctx->actors.GetList(game::act::Type::Chest).first->params & (1 << itemLoc.LocationFlag)) != 0;
-    } else {
-      return (gctx->scene_archive.actor_id);
+    return -1;
+  }
+
+  u8 SpoilerLog_UpdateIngameLog(ItemOverride_Type type, u8 scene, u8 flag)
+  {
+    SpoilerData currentCheck = {0};
+    for(int i=0; i < gSpoilerData.ItemLocationsCount; i++)
+    {
+      if (gSpoilerData.ItemLocations[i].LocationScene == scene)
+      {
+        if (gSpoilerData.ItemLocations[i].OverrideType == type)
+        {
+          if (gSpoilerData.ItemLocations[i].LocationFlag == flag)
+          {
+            //reveal the check
+            return -1;
+          }
+        }
+      }
     }
+    /*
+    for (gSpoilerData.ItemLocations->OverrideType == type && gSpoilerData.ItemLocations->LocationScene == scene && gSpoilerData.ItemLocations->LocationFlag == flag)
+    {
+     //maybe do it this way? 
+     return -1;
+    }*/
   }
 
   u8 SpoilerData_CollectableCheck(SpoilerItemLocation itemLoc) {
