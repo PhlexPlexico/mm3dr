@@ -5,6 +5,7 @@
 #include "rnd/item_table.h"
 #include "rnd/rheap.h"
 #include "rnd/savefile.h"
+#include "rnd/spoiler_data.h"
 
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
 #include "common/debug.h"
@@ -278,6 +279,7 @@ namespace rnd {
       return;
     }
     ItemOverride_AfterKeyReceived(key);
+    SpoilerLog_UpdateIngameLog(key.type, key.scene, key.flag);
     ItemOverride_Clear();
   }
 
