@@ -364,7 +364,7 @@ public:
 MsgBuilder builder;
 CustomMessage customMsg;
 
-volatile const UnformattedMessage* ptrCustomMessageEntries = {0};
+volatile const UnformattedMessage rCustomMessages[512] = {0};
 volatile const u32 numCustomMessageEntries = {0};
 
 bool SetCustomMessage(u16 id, game::MessageResEntry* msgResEntry) {
@@ -381,7 +381,7 @@ bool SetCustomMessage(u16 id, game::MessageResEntry* msgResEntry) {
   while (start <= end) {
     current = (start + end) / 2;
     // Compiler isn't happy with assigning volatile const to not so reference/dereference to get data
-    customMsgData = *(UnformattedMessage*)&ptrCustomMessageEntries[current];
+    customMsgData = *(UnformattedMessage*)&rCustomMessages[current];
     if (customMsgData.id < id)
       start = current + 1;
     else if (customMsgData.id > id)
