@@ -53,3 +53,16 @@ ips += b'EOF'
 
 with open("basecode.ips", 'wb') as patchFile:
     patchFile.write(ips)
+
+# Write basecode1.1ips as well.
+# Ignore first 5 bytes since we don't need P A T C H
+ips = ips[5:]
+rawDeltaBytes = b''
+with open("deltapatch.ips", "rb") as f:
+    # Ignore last 3 bytes that are E O F 
+    rawDeltaBytes = f.read()
+rawDeltaBytes = rawDeltaBytes[:-3]
+rawDeltaBytes += ips
+
+with open("basecode1.1.ips", "wb") as newPatchFile:
+  newPatchFile.write(rawDeltaBytes)
