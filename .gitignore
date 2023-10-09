@@ -22,7 +22,7 @@ oldcode/loader/build
 *.smdh
 *.pyc
 *.ips
-!basecode1.1.ips
+!deltapatch.ips
 *.zar
 source/patch_symbols.hpp
 .DS_Store
