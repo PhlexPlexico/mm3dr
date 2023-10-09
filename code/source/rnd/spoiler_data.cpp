@@ -35,7 +35,7 @@ namespace rnd {
 
   u8 SpoilerLog_UpdateIngameLog(ItemOverride_Type type, u8 scene, u8 flag)
   {
-    SpoilerData currentCheck = {0};
+    // SpoilerData currentCheck = {0};
     for(int i=0; i < gSpoilerData.ItemLocationsCount; i++)
     {
       if (gSpoilerData.ItemLocations[i].LocationScene == scene)
@@ -56,6 +56,7 @@ namespace rnd {
      //maybe do it this way? 
      return -1;
     }*/
+    return -1;
   }
 
   u8 SpoilerData_CollectableCheck(SpoilerItemLocation itemLoc) {

@@ -131,6 +131,14 @@ SECTIONS{
     *(.patch_ThirdZoraSwimCheck)
   }
 
+  .patch_CheckMagicForZoraFastSwim 0x1FFDE8 : {
+    *(.patch_CheckMagicForZoraFastSwim)
+  }
+
+  .patch_ZoraBarrierCheckMagicAcquired 0x207230 : {
+    *(.patch_ZoraBarrierCheckMagicAcquired)
+  }
+
   .patch_ChangeTriggerAandRToA 0x220EFC : {
     *(.patch_ChangeTriggerAandRToA)
   }

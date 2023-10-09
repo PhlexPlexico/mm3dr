@@ -20,6 +20,16 @@ patch_UseZoraASwimSecond:
 patch_ThirdZoraSwimCheck:
     bl hook_ThirdZoraSwimCheck
 
+.section .patch_CheckMagicForZoraFastSwim
+.global patch_CheckMagicForZoraFastSwim
+patch_CheckMagicForZoraFastSwim:
+    bl hook_CheckMagicForZoraFastSwim
+
+.section .patch_ZoraBarrierCheckMagicAcquired
+.global patch_ZoraBarrierCheckMagicAcquired
+patch_ZoraCheckMagicAcquired:
+    bl hook_ZoraBarrierCheckMagicAcquired
+
 .section .patch_ChangeTriggerAandRToA
 .global patch_ChangeTriggerAandRToA
 patch_ChangeTriggerAandRToA:

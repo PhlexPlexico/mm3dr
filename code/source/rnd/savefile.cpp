@@ -73,7 +73,7 @@ namespace rnd {
     saveData.inventory.stone_tower_dungeon_items.compass = 1;
     saveData.inventory.stone_tower_dungeon_items.boss_key = 1;
     saveData.inventory.woodfall_fairies = 14;
-    saveData.player.magic_acquired = 1;   // Game does not check if value = 0, magic items still
+    // saveData.player.magic_acquired = 1;   // Game does not check if value = 0, magic items still
     saveData.player.magic_size_type = 0;  // saveData.player.magic = 10;
     saveData.player.magic_num_upgrades = 0;
     saveData.equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;

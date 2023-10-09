@@ -225,6 +225,13 @@ namespace rnd::link {
            do_switch(gctx, player, check_magic);
   }
 
+  bool CheckIfMagicAcquired() {
+    const game::CommonData& cdata = game::GetCommonData();
+    if (cdata.save.player.magic_acquired == 0)
+      return 0;
+    else return 1;
+  }
+
   // This patch is all taken care of in ASM now. No need to loop into the main Calc function.
   void HandleFastTransform() {
     const game::GlobalContext* gctx = GetContext().gctx;
