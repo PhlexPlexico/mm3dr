@@ -1,8 +1,8 @@
 #include "rnd/spoiler_data.h"
 #include "game/common_data.h"
+#include "rnd/item_override.h"
 #include "rnd/settings.h"
 #include "z3d/z3DVec.h"
-#include "rnd/item_override.h"
 
 namespace rnd {
   SpoilerData gSpoilerData = {0};
@@ -33,27 +33,23 @@ namespace rnd {
     return -1;
   }
 
-  u8 SpoilerLog_UpdateIngameLog(ItemOverride_Type type, u8 scene, u8 flag)
-  {
+  u8 SpoilerLog_UpdateIngameLog(ItemOverride_Type type, u8 scene, u8 flag) {
     // SpoilerData currentCheck = {0};
-    for(int i=0; i < gSpoilerData.ItemLocationsCount; i++)
-    {
-      if (gSpoilerData.ItemLocations[i].LocationScene == scene)
-      {
-        if (gSpoilerData.ItemLocations[i].OverrideType == type)
-        {
-          if (gSpoilerData.ItemLocations[i].LocationFlag == flag)
-          {
-            //reveal the check
+    for (int i = 0; i < gSpoilerData.ItemLocationsCount; i++) {
+      if (gSpoilerData.ItemLocations[i].LocationScene == scene) {
+        if (gSpoilerData.ItemLocations[i].OverrideType == type) {
+          if (gSpoilerData.ItemLocations[i].LocationFlag == flag) {
+            // reveal the check
             return -1;
           }
         }
       }
     }
     /*
-    for (gSpoilerData.ItemLocations->OverrideType == type && gSpoilerData.ItemLocations->LocationScene == scene && gSpoilerData.ItemLocations->LocationFlag == flag)
+    for (gSpoilerData.ItemLocations->OverrideType == type && gSpoilerData.ItemLocations->LocationScene == scene &&
+    gSpoilerData.ItemLocations->LocationFlag == flag)
     {
-     //maybe do it this way? 
+     //maybe do it this way?
      return -1;
     }*/
     return -1;

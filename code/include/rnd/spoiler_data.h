@@ -1,9 +1,9 @@
 #ifndef _RND_SPOILER_DATA_H_
 #define _RND_SPOILER_DATA_H_
 
+#include "rnd/item_override.h"
 #include "rnd/savefile.h"
 #include "z3d/z3DVec.h"
-#include "rnd/item_override.h"
 
 #define SPOILER_LOCDATS 2
 #define SPOILER_SPHERES_MAX 50
