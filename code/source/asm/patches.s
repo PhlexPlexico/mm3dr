@@ -307,6 +307,12 @@ patch_OverrideProgessiveWallet:
 @Override to use the progressive wallet instead.
     mov r2,#0x48
 
+.section .patch_OverrideProgessiveWalletTwo
+.global patch_OverrideProgessiveWalletTwo
+patch_OverrideProgessiveWalletTwo:
+@Override to use the progressive wallet instead.
+    mov r2,#0x48
+
 .section .patch_CheckMoTRequirement
 .global patch_CheckMoTRequirement
 patch_CheckMoTRequirement:

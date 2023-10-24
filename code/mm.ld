@@ -336,7 +336,7 @@ SECTIONS{
   }
 
   .patch_OverrideBankerWalletReward 0x459044 : {
-    *(.patch_OverrideProgessiveWallet)
+    *(.patch_OverrideProgessiveWalletTwo)
   }
 
   .patch_CouplesMaskGiveItem 0x46E228 : {
