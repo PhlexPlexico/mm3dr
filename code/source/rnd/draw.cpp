@@ -26,6 +26,7 @@
  */
 
 #include "rnd/draw.h"
+#include "rnd/icons.h"
 #include "utils.h"
 
 #include <string.h>
@@ -84,9 +85,10 @@ void Draw_DrawIcon(u32 posX, u32 posY, u32 color, Draw_IconType icon) {
   if (posY + sizeY > SCREEN_BOT_HEIGHT) {
     sizeY = SCREEN_BOT_HEIGHT - posY;
   }
-  // const u8 sizeXMinusOne = ICON_WIDTH - 1;
+  
+  const u8 sizeXMinusOne = ICON_WIDTH - 1;
 
-  /* const unsigned char* glyph = rIcons[icon];
+  const unsigned char* glyph = rIcons[icon];
 
    for (s32 y = 0; y < sizeY; y++) {
        const unsigned char glyphRow = glyph[y];
@@ -101,7 +103,7 @@ void Draw_DrawIcon(u32 posX, u32 posY, u32 color, Draw_IconType icon) {
            backBufferBtm[screenPos + 1] = (pixelColor >> 8) & 0xFF;
            backBufferBtm[screenPos + 2] = (pixelColor >> 16) & 0xFF;
        }
-   }*/
+   }
 }
 
 void Draw_DrawRect(u32 posX, u32 posY, u32 width, u32 height, u32 color) {
