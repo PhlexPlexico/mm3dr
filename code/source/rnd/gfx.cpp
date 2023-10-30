@@ -730,14 +730,8 @@ namespace rnd {
   }
 
   static u8 openingButton() {
-    return ((gSettingsContext.menuOpeningButton == 0 && rInputCtx.cur.d_up) ||
-            (gSettingsContext.menuOpeningButton == 1 && rInputCtx.cur.strt) ||
-            (gSettingsContext.menuOpeningButton == 2 && rInputCtx.cur.sel) ||
-            (gSettingsContext.menuOpeningButton == 3 && rInputCtx.cur.strt + rInputCtx.cur.sel) ||
-            (gSettingsContext.menuOpeningButton == 4 && rInputCtx.cur.l + rInputCtx.cur.strt) ||
-            (gSettingsContext.menuOpeningButton == 5 && rInputCtx.cur.l + rInputCtx.cur.sel) ||
-            (gSettingsContext.menuOpeningButton == 6 && rInputCtx.cur.r + rInputCtx.cur.strt) ||
-            (gSettingsContext.menuOpeningButton == 7 && rInputCtx.cur.r + rInputCtx.cur.sel));
+    return (gSettingsContext.customIngameSpoilerButton != 0 
+      && rInputCtx.cur.val == gSettingsContext.customIngameSpoilerButton);
   }
 
   extern "C" {
