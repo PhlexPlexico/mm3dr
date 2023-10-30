@@ -730,8 +730,8 @@ namespace rnd {
   }
 
   static u8 openingButton() {
-    return (gSettingsContext.customIngameSpoilerButton != 0 
-      && rInputCtx.cur.val == gSettingsContext.customIngameSpoilerButton);
+    return (gSettingsContext.customIngameSpoilerButton != 0 &&
+            rInputCtx.cur.val == gSettingsContext.customIngameSpoilerButton);
   }
 
   extern "C" {

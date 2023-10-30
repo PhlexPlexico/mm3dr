@@ -85,25 +85,25 @@ void Draw_DrawIcon(u32 posX, u32 posY, u32 color, Draw_IconType icon) {
   if (posY + sizeY > SCREEN_BOT_HEIGHT) {
     sizeY = SCREEN_BOT_HEIGHT - posY;
   }
-  
+
   const u8 sizeXMinusOne = ICON_WIDTH - 1;
 
   const unsigned char* glyph = rIcons[icon];
 
-   for (s32 y = 0; y < sizeY; y++) {
-       const unsigned char glyphRow = glyph[y];
-       const u32 screenPosY         = (posX * SCREEN_BOT_HEIGHT) + (SCREEN_BOT_HEIGHT - y - posY - 1);
+  for (s32 y = 0; y < sizeY; y++) {
+    const unsigned char glyphRow = glyph[y];
+    const u32 screenPosY = (posX * SCREEN_BOT_HEIGHT) + (SCREEN_BOT_HEIGHT - y - posY - 1);
 
-       for (s32 x = 0; x < sizeX; x++) {
-           const u32 shift      = sizeXMinusOne - x;
-           const u32 screenPos  = (screenPosY + x * SCREEN_BOT_HEIGHT) * 3;
-           const u32 pixelColor = ((glyphRow >> shift) & 1) ? color : COLOR_BLACK;
+    for (s32 x = 0; x < sizeX; x++) {
+      const u32 shift = sizeXMinusOne - x;
+      const u32 screenPos = (screenPosY + x * SCREEN_BOT_HEIGHT) * 3;
+      const u32 pixelColor = ((glyphRow >> shift) & 1) ? color : COLOR_BLACK;
 
-           backBufferBtm[screenPos]     = (pixelColor)&0xFF;
-           backBufferBtm[screenPos + 1] = (pixelColor >> 8) & 0xFF;
-           backBufferBtm[screenPos + 2] = (pixelColor >> 16) & 0xFF;
-       }
-   }
+      backBufferBtm[screenPos] = (pixelColor)&0xFF;
+      backBufferBtm[screenPos + 1] = (pixelColor >> 8) & 0xFF;
+      backBufferBtm[screenPos + 2] = (pixelColor >> 16) & 0xFF;
+    }
+  }
 }
 
 void Draw_DrawRect(u32 posX, u32 posY, u32 width, u32 height, u32 color) {
