@@ -194,6 +194,10 @@ public:
     if (msg.sfxAndFlags & INSTANT_FLAG)
       instant();
 
+    // Tingle Map Choices. Add 3 choices, 2 for maps and 1 for no thanks.
+    if (msg.id >= 0x1D11 && msg.id <= 0x1D16)
+      addCom(0x2F, 3);
+        
     while (++idx < MAX_UNFORMATTED_SIZE && msg.text[idx]) {
       resolvedChar = msg.text[idx];
 
@@ -357,7 +361,10 @@ public:
     if (inCol)
       rnd::util::Print("Warning formatting message, colour not closed: %s\n", msg.text);
 #endif
-    end();
+  if (msg.id >= 0x1D11 && msg.id <= 0x1D16)
+      addCom(0x00);
+  else
+      end();
   }
 };
 
