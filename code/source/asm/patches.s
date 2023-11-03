@@ -109,6 +109,21 @@ patch_DoNotRemoveKeys:
     nop
     nop
 
+@ NOP out the bit of code that checks your sword and gives it back if it 
+@ is not a razor sword. This should prevent us from ever getting Kokiri sword on 
+@ cycle reset.
+.section .patch_DoNotGiveSwordBackOnReset
+.global patch_DoNotGiveSwordBackOnReset
+patch_DoNotGiveSwordBackOnReset:
+    nop
+    nop
+    nop
+
+.section .patch_RemoveItemBUsabilityOnReset
+.global patch_RemoveItemBUsabilityOnReset
+patch_RemoveItemBUsabilityOnReset:
+    nop
+
 .section .patch_RemoveDekuMaskCheckSoT
 .global patch_RemoveDekuMaskCheckSoT
 patch_RemoveDekuMaskCheckSoT:

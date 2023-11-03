@@ -138,7 +138,7 @@ namespace rnd {
       saveData.player.owl_statue_flags.clock_town = 1;
 #ifdef ENABLE_DEBUG
       gSettingsContext.startingKokiriSword = 0;
-      gSettingsContext.startingShield = 1;
+      gSettingsContext.startingShield = 0;
 #endif
       SaveFile_SetStartingInventory();
 
@@ -345,6 +345,7 @@ namespace rnd {
   void SaveFile_SetStartingInventory(void) {
     game::PlayerData& playerData = game::GetCommonData().save.player;
     game::EquipmentData& equipmentData = game::GetCommonData().save.equipment;
+    game::SaveData& saveBackupData = game::GetCommonData().save_backup;
     game::SaveData& saveData = game::GetCommonData().save;
     // give maps and compasses
     if (gSettingsContext.mapsAndCompasses == (u8)MapsAndCompassesSetting::MAPSANDCOMPASSES_ANY_DUNGEON) {
@@ -523,6 +524,11 @@ namespace rnd {
     } else if (gSettingsContext.startingShield == (u8)StartingSheildSetting::STARTINGSHIELD_MIRROR) {
       equipmentData.sword_shield.shield = game::ShieldType::MirrorShield;
     }
+    #if defined ENABLE_DEBUG || defined DEBUG_PRINT
+      equipmentData.sword_shield.sword = game::SwordType::NoSword;
+      saveData.equipment.data->item_btn_b = game::ItemId::None;
+      saveBackupData.equipment.data->item_btn_b = game::ItemId::None;
+    #endif
 
     // Masks
 
