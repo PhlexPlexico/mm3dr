@@ -524,11 +524,6 @@ namespace rnd {
     } else if (gSettingsContext.startingShield == (u8)StartingSheildSetting::STARTINGSHIELD_MIRROR) {
       equipmentData.sword_shield.shield = game::ShieldType::MirrorShield;
     }
-    #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-      equipmentData.sword_shield.sword = game::SwordType::NoSword;
-      saveData.equipment.data->item_btn_b = game::ItemId::None;
-      saveBackupData.equipment.data->item_btn_b = game::ItemId::None;
-    #endif
 
     // Masks
 
