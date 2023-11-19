@@ -25,6 +25,18 @@ SECTIONS{
     *(.patch_DecoupleStartSelect)
   }
 
+  .patch_AwakeCallback 0x124DE8 : {
+		*(.patch_AwakeCallback)
+	}
+
+  .patch_SleepQueryCallback 0x124DF0 : {
+		*(.patch_SleepQueryCallback)
+	}
+
+  .patch_Gfx_Update 0x1376DC : {
+    *(.patch_Gfx_Update)
+  }
+
   .patch_RemoveSOHCutesceneAfterMessage 0x186810 : {
     *(.patch_RemoveSOHCutesceneAfterMessage)
   }
@@ -53,6 +65,14 @@ SECTIONS{
 
   .patch_DoNotRemoveKeys 0x1C9B94 : {
     *(.patch_DoNotRemoveKeys)
+  }
+
+  .patch_DoNotGiveSwordBackOnReset 0x1C98FC : {
+    *(.patch_DoNotGiveSwordBackOnReset)
+  }
+
+  .patch_RemoveItemBUsabilityOnReset 0x1C99F4 : {
+    *(.patch_RemoveItemBUsabilityOnReset)
   }
 
   .patch_RemoveDekuMaskCheckSoT 0x1D8008 : {
@@ -117,6 +137,14 @@ SECTIONS{
 
   .patch_ThirdZoraSwimCheck 0x1FFDBC : {
     *(.patch_ThirdZoraSwimCheck)
+  }
+
+  .patch_CheckMagicForZoraFastSwim 0x1FFDE8 : {
+    *(.patch_CheckMagicForZoraFastSwim)
+  }
+
+  .patch_ZoraBarrierCheckMagicAcquired 0x207230 : {
+    *(.patch_ZoraBarrierCheckMagicAcquired)
   }
 
   .patch_ChangeTriggerAandRToA 0x220EFC : {
@@ -316,7 +344,7 @@ SECTIONS{
   }
 
   .patch_OverrideBankerWalletReward 0x459044 : {
-    *(.patch_OverrideProgessiveWallet)
+    *(.patch_OverrideProgessiveWalletTwo)
   }
 
   .patch_CouplesMaskGiveItem 0x46E228 : {
@@ -396,7 +424,6 @@ SECTIONS{
         *(.data)
         *(.bss)
         *(COMMON)
-		rCustomMessages = . ;
         __text_end  = . ;
   }
 }

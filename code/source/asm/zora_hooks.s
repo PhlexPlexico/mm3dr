@@ -2,6 +2,7 @@
 @ https://github.com/leoetlino/project-restoration/blob/181ecbf6e806fc10c8d1f8b2d74489b0bd7f5e67/hooks/rst_zora_swim.hks
 .arm
 .text
+.syntax unified
 
 .global hook_ZoraInWaterFastSwim
 hook_ZoraInWaterFastSwim:
@@ -60,6 +61,28 @@ hook_ThirdZoraSwimCheck:
 doThirdFastSwim:
   bl runZoraPatch 
   b 0x1FFDC0
+
+.global hook_CheckMagicForZoraFastSwim
+hook_CheckMagicForZoraFastSwim:
+  beq 0x200010
+  push {r0}
+  bl CheckIfMagicAcquired
+  cmp r0, #0x0
+  pop {r0}
+  beq 0x200010
+  @cmp r0,#0x0
+  b 0x1FFDEC
+
+.global hook_ZoraBarrierCheckMagicAcquired
+hook_ZoraBarrierCheckMagicAcquired:
+  beq 0x2072B4
+  push {r0}
+  bl CheckIfMagicAcquired
+  cmp r0, #0x0
+  pop {r0}
+  beq 0x2072B4
+  cmp r1, #0x0
+  b 0x207234
 
 .global hook_ChangeTriggerAandRToA
 hook_ChangeTriggerAandRToA:

@@ -8,6 +8,7 @@
 #include "game/ui.h"
 #include "rnd/extdata.h"
 #include "rnd/icetrap.h"
+#include "rnd/input.h"
 #include "rnd/item_override.h"
 #include "rnd/link.h"
 #include "rnd/rheap.h"
@@ -73,7 +74,7 @@ namespace rnd {
 #endif
 
     context.gctx = static_cast<game::GlobalContext*>(state);
-
+    Input_Update();
     if (context.gctx->GetPlayerActor()) {
       ItemOverride_Update();
       link::HandleFastOcarina(context.gctx);
@@ -112,7 +113,8 @@ namespace rnd {
       game::ui::OpenScreen(game::ui::ScreenType::Map);
       gctx->pad_state.input.buttons.Clear(game::pad::Button::Select);
       gctx->pad_state.input.new_buttons.Clear(game::pad::Button::Select);
-    } else if (newButtons == (u32)game::pad::Button::Select || newButtons == (u32)game::pad::Button::Start) {
+    } else if ((gSettingsContext.customIngameSpoilerButton != 4 && newButtons == (u32)game::pad::Button::Select) ||
+               (gSettingsContext.customIngameSpoilerButton != 8 && newButtons == (u32)game::pad::Button::Start)) {
       if (game::GetCommonData().save.inventory.collect_register.bombers_notebook != 0)
         game::ui::OpenScreen(game::ui::ScreenType::Schedule);
       else

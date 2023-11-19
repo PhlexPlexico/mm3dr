@@ -194,6 +194,10 @@ public:
     if (msg.sfxAndFlags & INSTANT_FLAG)
       instant();
 
+    // Tingle Map Choices. Add 3 choices, 2 for maps and 1 for no thanks.
+    if (msg.id >= 0x1D11 && msg.id <= 0x1D16)
+      addCom(0x2F, 3);
+
     while (++idx < MAX_UNFORMATTED_SIZE && msg.text[idx]) {
       resolvedChar = msg.text[idx];
 
@@ -357,14 +361,17 @@ public:
     if (inCol)
       rnd::util::Print("Warning formatting message, colour not closed: %s\n", msg.text);
 #endif
-    end();
+    if (msg.id >= 0x1D11 && msg.id <= 0x1D16)
+      addCom(0x00);
+    else
+      end();
   }
 };
 
 MsgBuilder builder;
 CustomMessage customMsg;
 
-volatile const UnformattedMessage* ptrCustomMessageEntries = {0};
+volatile const UnformattedMessage rCustomMessages[512] = {0};
 volatile const u32 numCustomMessageEntries = {0};
 
 bool SetCustomMessage(u16 id, game::MessageResEntry* msgResEntry) {
@@ -381,7 +388,7 @@ bool SetCustomMessage(u16 id, game::MessageResEntry* msgResEntry) {
   while (start <= end) {
     current = (start + end) / 2;
     // Compiler isn't happy with assigning volatile const to not so reference/dereference to get data
-    customMsgData = *(UnformattedMessage*)&ptrCustomMessageEntries[current];
+    customMsgData = *(UnformattedMessage*)&rCustomMessages[current];
     if (customMsgData.id < id)
       start = current + 1;
     else if (customMsgData.id > id)

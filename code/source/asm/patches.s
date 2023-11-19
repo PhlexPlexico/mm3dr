@@ -39,6 +39,21 @@ patch_MainLoop:
 patch_DecoupleStartSelect:
     nop
 
+.section .patch_AwakeCallback
+.global AwakeCallback_patch
+AwakeCallback_patch:
+    b hook_Gfx_AwakeCallback
+
+.section .patch_SleepQueryCallback
+.global SleepQueryCallback_patch
+SleepQueryCallback_patch:  
+    b hook_Gfx_SleepQueryCallback
+
+.section .patch_Gfx_Update
+.global Gfx_Update_patch
+Gfx_Update_patch:
+    b hook_Gfx_Update
+
 @ This should remove the overwriting message for when the
 @ user receives the Zora Mask.
 @ Largely untested, need to check for any UB.
@@ -51,6 +66,7 @@ patch_RemoveSOHCutesceneAfterMessage:
 .global patch_OverrideBombersNotebook
 patch_OverrideBombersNotebook:
     b hook_OverrideHMSBombers
+
 
 .section .patch_OverrideCutsceneNextEntrance
 .global patch_OverrideCutsceneNextEntrance
@@ -91,6 +107,21 @@ patch_DoNotRemoveKeys:
     nop
     nop
     nop
+    nop
+
+@ NOP out the bit of code that checks your sword and gives it back if it 
+@ is not a razor sword. This should prevent us from ever getting Kokiri sword on 
+@ cycle reset.
+.section .patch_DoNotGiveSwordBackOnReset
+.global patch_DoNotGiveSwordBackOnReset
+patch_DoNotGiveSwordBackOnReset:
+    nop
+    nop
+    nop
+
+.section .patch_RemoveItemBUsabilityOnReset
+.global patch_RemoveItemBUsabilityOnReset
+patch_RemoveItemBUsabilityOnReset:
     nop
 
 .section .patch_RemoveDekuMaskCheckSoT
@@ -288,6 +319,12 @@ patch_AromaItemCheck:
 .section .patch_OverrideProgessiveWallet
 .global patch_OverrideProgessiveWallet
 patch_OverrideProgessiveWallet:
+@Override to use the progressive wallet instead.
+    mov r2,#0x48
+
+.section .patch_OverrideProgessiveWalletTwo
+.global patch_OverrideProgessiveWalletTwo
+patch_OverrideProgessiveWalletTwo:
 @Override to use the progressive wallet instead.
     mov r2,#0x48
 

@@ -61,23 +61,18 @@ namespace rnd {
   }
 
   void ItemEffect_GiveSmallKey(game::CommonData* comData, s16 dungeonId, s16 arg2) {
-    s8 keys;
     switch (dungeonId) {
     case 0:
-      keys = comData->save.inventory.woodfall_temple_keys < 0 ? 0 : comData->save.inventory.woodfall_temple_keys;
-      comData->save.inventory.woodfall_temple_keys = keys + 1;
+      comData->save.inventory.woodfall_temple_keys = comData->save.inventory.woodfall_temple_keys + 1;
       break;
     case 1:
-      keys = comData->save.inventory.snowhead_temple_keys < 0 ? 0 : comData->save.inventory.snowhead_temple_keys;
-      comData->save.inventory.snowhead_temple_keys = keys + 1;
+      comData->save.inventory.snowhead_temple_keys = comData->save.inventory.snowhead_temple_keys + 1;
       break;
     case 2:
-      keys = comData->save.inventory.great_bay_temple_keys < 0 ? 0 : comData->save.inventory.great_bay_temple_keys;
-      comData->save.inventory.great_bay_temple_keys = keys + 1;
+      comData->save.inventory.great_bay_temple_keys = comData->save.inventory.great_bay_temple_keys + 1;
       break;
     case 3:
-      keys = comData->save.inventory.stone_tower_temple_keys < 0 ? 0 : comData->save.inventory.stone_tower_temple_keys;
-      comData->save.inventory.stone_tower_temple_keys = keys + 1;
+      comData->save.inventory.stone_tower_temple_keys = comData->save.inventory.stone_tower_temple_keys + 1;
       break;
     default:
       break;
@@ -209,6 +204,8 @@ namespace rnd {
         comData->save.inventory.items[(u32)game::ItemId::DekuNuts] = game::ItemId::DekuNuts;
         comData->save.inventory.item_counts[14] += 10;
         break;
+      default:
+        break;
       }
     } else {
       switch (arg2) {
@@ -225,6 +222,8 @@ namespace rnd {
       case 7:
         comData->save.inventory.items[(u32)game::ItemId::DekuNuts] = game::ItemId::DekuNuts;
         comData->save.inventory.item_counts[14] = (10 + 10 * arg1);
+        break;
+      default:
         break;
       }
     }
@@ -259,6 +258,8 @@ namespace rnd {
       break;
     case 3:
       comData->save.inventory.collect_register.twinmolds_remains = 1;
+      break;
+    default:
       break;
     }
   }
@@ -297,6 +298,8 @@ namespace rnd {
       else if (mask == 3)
         comData->save.inventory.stone_tower_dungeon_items.map = 1;
       break;
+    default:
+      break;
     }
   }
 
@@ -326,6 +329,8 @@ namespace rnd {
       break;
     case 3:
       comData->save.inventory.collect_register.twinmolds_remains = 1;
+      break;
+    default:
       break;
     }
     // Make this call as we need to update field_11 in Sub1 CommonData.

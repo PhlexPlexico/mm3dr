@@ -73,7 +73,7 @@ namespace rnd {
     saveData.inventory.stone_tower_dungeon_items.compass = 1;
     saveData.inventory.stone_tower_dungeon_items.boss_key = 1;
     saveData.inventory.woodfall_fairies = 14;
-    saveData.player.magic_acquired = 1;   // Game does not check if value = 0, magic items still
+    // saveData.player.magic_acquired = 1;   // Game does not check if value = 0, magic items still
     saveData.player.magic_size_type = 0;  // saveData.player.magic = 10;
     saveData.player.magic_num_upgrades = 0;
     saveData.equipment.data[3].item_btns[0] = game::ItemId::DekuNuts;
@@ -138,7 +138,7 @@ namespace rnd {
       saveData.player.owl_statue_flags.clock_town = 1;
 #ifdef ENABLE_DEBUG
       gSettingsContext.startingKokiriSword = 0;
-      gSettingsContext.startingShield = 1;
+      gSettingsContext.startingShield = 0;
 #endif
       SaveFile_SetStartingInventory();
 
@@ -345,6 +345,7 @@ namespace rnd {
   void SaveFile_SetStartingInventory(void) {
     game::PlayerData& playerData = game::GetCommonData().save.player;
     game::EquipmentData& equipmentData = game::GetCommonData().save.equipment;
+    game::SaveData& saveBackupData = game::GetCommonData().save_backup;
     game::SaveData& saveData = game::GetCommonData().save;
     // give maps and compasses
     if (gSettingsContext.mapsAndCompasses == (u8)MapsAndCompassesSetting::MAPSANDCOMPASSES_ANY_DUNGEON) {
@@ -828,6 +829,19 @@ namespace rnd {
     extDataUnmount(fsa);
     extDataClose(fileHandle);
   }
+
+  u8 SaveFile_GetIsSceneDiscovered(u8 sceneNum) {
+    // TODO: ENSURE THE SCENES ARE CHECKED WITH
+    // OUR BITFLAGS. NOT USING <<.
+    /*u32 numBits = sizeof(u32) * 8;
+    u32 idx     = sceneNum / numBits;
+    if (idx < SAVEFILE_SCENES_DISCOVERED_IDX_COUNT) {
+        u32 bit = 1 << (sceneNum - (idx * numBits));
+        return (gExtSaveData.scenesDiscovered[idx] & bit) != 0;
+    }*/
+    return 0;
+  }
+
   extern "C" void SaveFile_SaveExtSaveData() {
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
     rnd::util::Print("%s: Saving extdata.\n", __func__);
