@@ -145,6 +145,11 @@ patch_SpawnFastElegyStatues:
 patch_CheckCurrentInventoryOverrideItem:
     b hook_CheckCurrentInventory
 
+.section .patch_CheckDungeonItems
+.global patch_CheckDungeonItems
+patch_CheckDungeonItems:
+    bl hook_CheckDungeonItems
+
 .section .patch_DisableMilkTimer
 .global patch_DisableMilkTimer
 patch_DisableMilkTimer:

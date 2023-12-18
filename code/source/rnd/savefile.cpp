@@ -46,7 +46,7 @@ namespace rnd {
     saveData.inventory.items[15] = game::ItemId::Hookshot;
     saveData.inventory.items[20] = game::ItemId::LandTitleDeed;
 
-    // saveData.inventory.masks[5] = game::ItemId::DekuMask;
+    saveData.inventory.masks[5] = game::ItemId::DekuMask;
     // rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::DekuMask);
     saveData.inventory.masks[11] = game::ItemId::GoronMask;
     saveData.inventory.masks[17] = game::ItemId::ZoraMask;
@@ -345,7 +345,7 @@ namespace rnd {
   void SaveFile_SetStartingInventory(void) {
     game::PlayerData& playerData = game::GetCommonData().save.player;
     game::EquipmentData& equipmentData = game::GetCommonData().save.equipment;
-    game::SaveData& saveBackupData = game::GetCommonData().save_backup;
+    // game::SaveData& saveBackupData = game::GetCommonData().save_backup;
     game::SaveData& saveData = game::GetCommonData().save;
     // give maps and compasses
     if (gSettingsContext.mapsAndCompasses == (u8)MapsAndCompassesSetting::MAPSANDCOMPASSES_ANY_DUNGEON) {

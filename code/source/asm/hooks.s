@@ -17,6 +17,10 @@
 .rStoredTextId_addr:
     .word rStoredTextId
 
+.global rCustomDungeonItemRetrieved
+.rCustomDungeonItemRetrieved_addr:
+    .word rCustomDungeonItemRetrieved
+
 .global hook_Start
 hook_Start:
     push {r0-r12, lr}
@@ -105,6 +109,16 @@ hook_CheckOcarinaDive:
     tst r0,#0x1
     beq 0x1E1FB4
     b 0x1e1f10
+
+.global hook_CheckDungeonItems
+hook_CheckDungeonItems:
+    push {r0-r12, lr}
+    ldr r1,.rCustomDungeonItemRetrieved_addr
+    ldr r1,[r1]
+    cmp r1,#0x1
+    pop {r0-r12, lr}
+    bne 0x233F60
+    bx lr
 
 .global hook_SaveFile_Load
 hook_SaveFile_Load:

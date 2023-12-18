@@ -30,6 +30,7 @@ namespace rnd {
   u32 rActiveItemObjectId = 0;
   u32 rActiveItemFastChest = 0;
   u16 rStoredTextId = 0;
+  u16 rCustomDungeonItemRetrieved = 0;
 
   static u8 rSatisfiedPendingFrames = 0;
 
@@ -42,8 +43,8 @@ namespace rnd {
     rItemOverrides[0].value.looksLikeItemId = 0x26;
     rItemOverrides[1].key.scene = 0x26;
     rItemOverrides[1].key.type = ItemOverride_Type::OVR_COLLECTABLE;
-    rItemOverrides[1].value.getItemId = 0x5B;
-    rItemOverrides[1].value.looksLikeItemId = 0x5B;
+    rItemOverrides[1].value.getItemId = 0x77;
+    rItemOverrides[1].value.looksLikeItemId = 0x77;
     rItemOverrides[2].key.scene = 0x12;
     rItemOverrides[2].key.type = ItemOverride_Type::OVR_COLLECTABLE;
     rItemOverrides[2].value.getItemId = 0x37;
@@ -160,6 +161,7 @@ namespace rnd {
     rActiveItemObjectId = 0;
     rActiveItemGraphicId = 0;
     rActiveItemFastChest = 0;
+    rCustomDungeonItemRetrieved = 0;
   }
 
   static void ItemOverride_PushPendingOverride(ItemOverride override) {
