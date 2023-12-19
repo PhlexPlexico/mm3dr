@@ -163,9 +163,9 @@ SECTIONS{
     *(.patch_SecondZoraSwimCheck)
   }
 
-  .patch_CheckDungeonItems 0x233E0C : {
+  /* .patch_CheckDungeonItems 0x233E0C : {
     *(.patch_CheckDungeonItems)
-  }
+  } */
 
 	.patch_DisableMilkTimer 0x234BFC : {
 		*(.patch_DisableMilkTimer)
