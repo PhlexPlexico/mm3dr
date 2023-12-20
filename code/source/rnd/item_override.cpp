@@ -16,7 +16,7 @@ extern "C" {
 
 namespace rnd {
   static s32 rItemOverrides_Count = 0;
-  static s16 storedActorId = 0;
+  static game::act::Id storedActorId = game::act::Id::Player;
   ItemOverride rItemOverrides[640] = {0};
   static game::act::Actor* rDummyActor = NULL;
   static ItemOverride rPendingOverrideQueue[3] = {0};
@@ -163,7 +163,7 @@ namespace rnd {
     rActiveItemGraphicId = 0;
     rActiveItemFastChest = 0;
     rCustomDungeonItemRetrieved = 0;
-    storedActorId = 0;
+    storedActorId = game::act::Id::Player;
   }
 
   static void ItemOverride_PushPendingOverride(ItemOverride override) {
@@ -402,6 +402,8 @@ namespace rnd {
       getItemId = incomingNegative ? -0x01 : 0x01;
     } else if (getItemId == static_cast<s16>(rnd::GetItemID::GI_MASK_CAPTAINS_HAT)) {
       gExtSaveData.givenItemChecks.enOskGivenItem = 1;
+    } else if (storedActorId == game::act::Id::EnPst) {
+      getItemId = incomingNegative ? -0xBA : 0xBA;
     }
 
     return getItemId;
@@ -424,8 +426,6 @@ namespace rnd {
       gExtSaveData.givenItemChecks.enFsnGivenItem = 1;
     } else if (storedActorId == game::act::Id::NpcEnPm) {
       gExtSaveData.givenItemChecks.enPmGivenItem = 1;
-    } else if (storedActorId == game::act::Id::EnPst) {
-      getItemId = incomingNegative ? -0xBA : 0xBA;
     } else if (storedActorId == game::act::Id::EnSsh) {
       gExtSaveData.givenItemChecks.enSshGivenItem = 1;
     } else if (storedActorId == game::act::Id::EnDno) {
@@ -662,10 +662,6 @@ namespace rnd {
       return (int)0xFF;
     } else if (currentItem == game::ItemId::BunnyHood && gExtSaveData.givenItemChecks.enHsGivenItem == 0) {
       return (int)0xFF;
-    } else if (currentItem == game::ItemId::BunnyHood && gExtSaveData.givenItemChecks.enHsGivenItem == 1) {
-#if defined ENABLE_DEBUG || defined DEBUG_PRINT
-      rnd::util::Print("%s: Our enHsValue is one?\n", __func__);
-#endif
     } else if (currentItem == game::ItemId::GibdoMask && gExtSaveData.givenItemChecks.enHgoGivenItem == 0) {
       return (int)0xFF;
     } else if (currentItem == game::ItemId::RomaniMask && gExtSaveData.givenItemChecks.enMaYtoGivenItem == 0) {
