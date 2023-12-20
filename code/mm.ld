@@ -235,9 +235,9 @@ SECTIONS{
     *(.patch_OverrideItemID)
   }
 
-  .patch_TwinmoldConsistentDamage 0x28E544 : {
+  /* .patch_TwinmoldConsistentDamage 0x28E544 : {
     *(.patch_TwinmoldConsistentDamage)
-  }
+  } */
 
   .patch_FasterBlockMovement 0x2AC634 : {
     *(.patch_FasterBlockMovement)
