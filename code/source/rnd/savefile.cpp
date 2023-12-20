@@ -42,12 +42,12 @@ namespace rnd {
     saveData.inventory.items[10] = game::ItemId::MagicBean;
     saveData.inventory.items[12] = game::ItemId::PowderKeg;
     // saveData.inventory.items[13] = game::ItemId::PictographBox;
-    saveData.inventory.items[14] = game::ItemId::LensOfTruth;
+    // saveData.inventory.items[14] = game::ItemId::LensOfTruth;
     saveData.inventory.items[15] = game::ItemId::Hookshot;
     saveData.inventory.items[20] = game::ItemId::LandTitleDeed;
 
     saveData.inventory.masks[5] = game::ItemId::DekuMask;
-    // rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::DekuMask);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::BremenMask);
     saveData.inventory.masks[11] = game::ItemId::GoronMask;
     saveData.inventory.masks[17] = game::ItemId::ZoraMask;
     saveData.inventory.masks[23] = game::ItemId::FierceDeityMask;

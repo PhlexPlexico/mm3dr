@@ -117,7 +117,8 @@ hook_CheckDungeonItems:
     ldr r1,[r1]
     cmp r1,#0x1
     pop {r0-r12, lr}
-    bne 0x233F60
+    beq 0x233F60
+    ldrh r2, [r2, #82]
     bx lr
 
 .global hook_SaveFile_Load
@@ -127,6 +128,14 @@ hook_SaveFile_Load:
     pop {r0-r12, lr}
     str r5,[r1,#0x61C]
     b 0x48C764
+
+.global hook_FixGrogFishingPass
+hook_FixGrogFishingPass:
+    push {r0-r12, lr}
+    bl ItemOverride_SetGrogExtData
+    pop {r0-r12, lr}
+    cmp r0,#0x39
+    bx lr
 
 .global hook_SaveFile_Init
 hook_SaveFile_Init:

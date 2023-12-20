@@ -43,8 +43,8 @@ namespace rnd {
     rItemOverrides[0].value.looksLikeItemId = 0x26;
     rItemOverrides[1].key.scene = 0x26;
     rItemOverrides[1].key.type = ItemOverride_Type::OVR_COLLECTABLE;
-    rItemOverrides[1].value.getItemId = 0x77;
-    rItemOverrides[1].value.looksLikeItemId = 0x77;
+    rItemOverrides[1].value.getItemId = 0x42;
+    rItemOverrides[1].value.looksLikeItemId = 0x42;
     rItemOverrides[2].key.scene = 0x12;
     rItemOverrides[2].key.type = ItemOverride_Type::OVR_COLLECTABLE;
     rItemOverrides[2].value.getItemId = 0x37;
@@ -420,9 +420,14 @@ namespace rnd {
       getItemId = incomingNegative ? -0x01 : 0x01;
     } else if (actorId == game::act::Id::EnIn) {
       gExtSaveData.givenItemChecks.enInGivenItem = 1;
-    } else if (actorId == game::act::Id::EnHs) {
-      gExtSaveData.givenItemChecks.enHsGivenItem = 1;
-    } else if (actorId == game::act::Id::EnHgo) {
+    } /*else if (actorId == game::act::Id::EnHs) {
+      // This has some weird side effects for when the item is given. Need to override in a different function I
+    suppose.
+      // See below for actual function where we set 1. This is now hooked after the item check to ensure we get the
+    bunny hood.
+      // gExtSaveData.givenItemChecks.enHsGivenItem = 1;
+    }*/
+    else if (actorId == game::act::Id::EnHgo) {
       gExtSaveData.givenItemChecks.enHgoGivenItem = 1;
     } else if (getItemId == static_cast<s16>(rnd::GetItemID::GI_MASK_CAPTAINS_HAT)) {
       gExtSaveData.givenItemChecks.enOskGivenItem = 1;
@@ -651,6 +656,10 @@ namespace rnd {
       return (int)0xFF;
     } else if (currentItem == game::ItemId::BunnyHood && gExtSaveData.givenItemChecks.enHsGivenItem == 0) {
       return (int)0xFF;
+    } else if (currentItem == game::ItemId::BunnyHood && gExtSaveData.givenItemChecks.enHsGivenItem == 1) {
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+      rnd::util::Print("%s: Our enHsValue is one?\n", __func__);
+#endif
     } else if (currentItem == game::ItemId::GibdoMask && gExtSaveData.givenItemChecks.enHgoGivenItem == 0) {
       return (int)0xFF;
     } else if (currentItem == game::ItemId::RomaniMask && gExtSaveData.givenItemChecks.enMaYtoGivenItem == 0) {
@@ -714,6 +723,11 @@ namespace rnd {
       return false;
     }
     return false;
+  }
+
+  void ItemOverride_SetGrogExtData() {
+    gExtSaveData.givenItemChecks.enHsGivenItem = 1;
+    return;
   }
   }
 }  // namespace rnd

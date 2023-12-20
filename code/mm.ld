@@ -163,9 +163,9 @@ SECTIONS{
     *(.patch_SecondZoraSwimCheck)
   }
 
-  /* .patch_CheckDungeonItems 0x233E0C : {
+  .patch_CheckDungeonItems 0x233F30 : {
     *(.patch_CheckDungeonItems)
-  } */
+  }
 
 	.patch_DisableMilkTimer 0x234BFC : {
 		*(.patch_DisableMilkTimer)
@@ -361,6 +361,10 @@ SECTIONS{
 
   .patch_IncomingGetItemID 0x4B1394 : {
     *(.patch_IncomingGetItemID)
+  }
+
+  .patch_FixGrogFishingPass 0x58465C : {
+    *(.patch_FixGrogFishingPass)
   }
 
   .patch_ReadGamePad 0x59BA10 : {

@@ -1213,10 +1213,6 @@ namespace rnd {
 
   void ItemTable_CallEffect(ItemRow* itemRow) {
     game::CommonData& commonData = game::GetCommonData();
-#if defined ENABLE_DEBUG || defined DEBUG_PRINT
-    rnd::util::Print("%s: Item ID is %u\n rCustomDungeonItemRetrieved is %u", __func__, itemRow->itemId,
-                     rCustomDungeonItemRetrieved);
-#endif
     if (itemRow->itemId > 0x73 && itemRow->itemId < 0x79) {
       rCustomDungeonItemRetrieved = 1;
     }

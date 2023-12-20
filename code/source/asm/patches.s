@@ -160,6 +160,11 @@ patch_DisableMilkTimer:
 patch_LoadExtData:
     bl hook_SaveFile_Load
 
+.section .patch_FixGrogFishingPass
+.global patch_FixGrogFishingPass
+patch_FixGrogFishingPass:
+    bl hook_FixGrogFishingPass
+
 .section .patch_SaveFile_init
 .global patch_SaveFile_init
 patch_SaveFile_init:
