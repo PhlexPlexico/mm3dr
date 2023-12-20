@@ -434,6 +434,7 @@ namespace rnd {
   void ItemOverride_Init();
   void ItemOverride_Update();
   void ItemOverride_RevealMapBasedOnId(u8);
+  void SetExtData(void);
   extern "C" bool ItemOverride_CheckAromaGivenItem();
   extern "C" bool ItemOverride_CheckMikauGivenItem();
   extern "C" bool ItemOverride_CheckDarmaniGivenItem();

@@ -16,6 +16,7 @@ extern "C" {
 
 namespace rnd {
   static s32 rItemOverrides_Count = 0;
+  static s16 storedActorId = 0;
   ItemOverride rItemOverrides[640] = {0};
   static game::act::Actor* rDummyActor = NULL;
   static ItemOverride rPendingOverrideQueue[3] = {0};
@@ -162,6 +163,7 @@ namespace rnd {
     rActiveItemGraphicId = 0;
     rActiveItemFastChest = 0;
     rCustomDungeonItemRetrieved = 0;
+    storedActorId = 0;
   }
 
   static void ItemOverride_PushPendingOverride(ItemOverride override) {
@@ -280,6 +282,7 @@ namespace rnd {
     if (key.all == 0) {
       return;
     }
+    SetExtData();
     ItemOverride_AfterKeyReceived(key);
     SpoilerLog_UpdateIngameLog(key.type, key.scene, key.flag);
     ItemOverride_Clear();
@@ -379,12 +382,10 @@ namespace rnd {
 
   s16 ItemOverride_CheckNpc(game::act::Id actorId, s16 originalGetItemId, s32 incomingNegative) {
     s16 getItemId = incomingNegative ? -originalGetItemId : originalGetItemId;
-    // TODO: Granny Override here - check actor scene, and check gExtData.
     if (actorId == game::act::Id::NpcEnNb) {
       if (gExtSaveData.givenItemChecks.enNbGivenItem > 0) {
         getItemId = incomingNegative ? -0xBA : 0xBA;
       }
-      gExtSaveData.givenItemChecks.enNbGivenItem = 1;
     } else if (actorId == game::act::Id::NpcEnBjt) {
       getItemId = incomingNegative ? -0x01 : 0x01;
     } else if (actorId == game::act::Id::NpcSwampPhotographer) {
@@ -393,47 +394,51 @@ namespace rnd {
       if (gExtSaveData.givenItemChecks.enStoneHeishiGivenItem > 0) {
         getItemId = incomingNegative ? -0xBA : 0xBA;
       }
-      gExtSaveData.givenItemChecks.enStoneHeishiGivenItem = 1;
-    } else if (actorId == game::act::Id::NpcAroma) {
-      gExtSaveData.givenItemChecks.enAlGivenItem = 1;
-    } else if (actorId == game::act::Id::NpcEnGuruGuru) {
-      gExtSaveData.givenItemChecks.enGuruGuruGivenItem = 1;
-    } else if (actorId == game::act::Id::NpcEnYb) {
-      gExtSaveData.givenItemChecks.enYbGivenItem = 1;
-    } else if (actorId == game::act::Id::NpcEnBaba) {
-      gExtSaveData.givenItemChecks.enBabaGivenItem = 1;
-    } else if (actorId == game::act::Id::NpcEnFsn) {
-      gExtSaveData.givenItemChecks.enFsnGivenItem = 1;
-    } else if (actorId == game::act::Id::NpcEnPm) {
-      gExtSaveData.givenItemChecks.enPmGivenItem = 1;
     } else if (actorId == game::act::Id::EnPst) {
       getItemId = incomingNegative ? -0xBA : 0xBA;
-    } else if (actorId == game::act::Id::EnSsh) {
-      gExtSaveData.givenItemChecks.enSshGivenItem = 1;
-    } else if (actorId == game::act::Id::EnDno) {
-      gExtSaveData.givenItemChecks.enDnoGivenItem = 1;
-    } else if (actorId == game::act::Id::NpcGreatFairy) {
-      gExtSaveData.givenItemChecks.bgDyYoseizoGivenItem = 1;
     } else if (actorId == game::act::Id::EnDns) {
       // Business scrub salesmen in grotto.
       // Same scene as gossips so need to set item manually.
       getItemId = incomingNegative ? -0x01 : 0x01;
-    } else if (actorId == game::act::Id::EnIn) {
-      gExtSaveData.givenItemChecks.enInGivenItem = 1;
-    } /*else if (actorId == game::act::Id::EnHs) {
-      // This has some weird side effects for when the item is given. Need to override in a different function I
-    suppose.
-      // See below for actual function where we set 1. This is now hooked after the item check to ensure we get the
-    bunny hood.
-      // gExtSaveData.givenItemChecks.enHsGivenItem = 1;
-    }*/
-    else if (actorId == game::act::Id::EnHgo) {
-      gExtSaveData.givenItemChecks.enHgoGivenItem = 1;
     } else if (getItemId == static_cast<s16>(rnd::GetItemID::GI_MASK_CAPTAINS_HAT)) {
       gExtSaveData.givenItemChecks.enOskGivenItem = 1;
     }
 
     return getItemId;
+  }
+
+  void SetExtData() {
+    if (storedActorId == game::act::Id::NpcEnNb) {
+      gExtSaveData.givenItemChecks.enNbGivenItem = 1;
+    } else if (storedActorId == game::act::Id::NpcInvisibleGuard) {
+      gExtSaveData.givenItemChecks.enStoneHeishiGivenItem = 1;
+    } else if (storedActorId == game::act::Id::NpcAroma) {
+      gExtSaveData.givenItemChecks.enAlGivenItem = 1;
+    } else if (storedActorId == game::act::Id::NpcEnGuruGuru) {
+      gExtSaveData.givenItemChecks.enGuruGuruGivenItem = 1;
+    } else if (storedActorId == game::act::Id::NpcEnYb) {
+      gExtSaveData.givenItemChecks.enYbGivenItem = 1;
+    } else if (storedActorId == game::act::Id::NpcEnBaba) {
+      gExtSaveData.givenItemChecks.enBabaGivenItem = 1;
+    } else if (storedActorId == game::act::Id::NpcEnFsn) {
+      gExtSaveData.givenItemChecks.enFsnGivenItem = 1;
+    } else if (storedActorId == game::act::Id::NpcEnPm) {
+      gExtSaveData.givenItemChecks.enPmGivenItem = 1;
+    } else if (storedActorId == game::act::Id::EnPst) {
+      getItemId = incomingNegative ? -0xBA : 0xBA;
+    } else if (storedActorId == game::act::Id::EnSsh) {
+      gExtSaveData.givenItemChecks.enSshGivenItem = 1;
+    } else if (storedActorId == game::act::Id::EnDno) {
+      gExtSaveData.givenItemChecks.enDnoGivenItem = 1;
+    } else if (storedActorId == game::act::Id::NpcGreatFairy) {
+      gExtSaveData.givenItemChecks.bgDyYoseizoGivenItem = 1;
+    } else if (storedActorId == game::act::Id::EnIn) {
+      gExtSaveData.givenItemChecks.enInGivenItem = 1;
+    } else if (storedActorId == game::act::Id::EnHs) {
+      gExtSaveData.givenItemChecks.enHsGivenItem = 1;
+    } else if (storedActorId == game::act::Id::EnHgo) {
+      gExtSaveData.givenItemChecks.enHgoGivenItem = 1;
+    }
   }
 
   void ItemOverride_PushPendingFairyRewardItem(game::GlobalContext* gctx, game::act::GreatFairy* fromActor,
@@ -545,6 +550,7 @@ namespace rnd {
       //       rnd::util::Print("%s: Our actor ID is %#06x\n", __func__, fromActor->id);
       // #endif
       s16 getItemId = ItemOverride_CheckNpc(fromActor->id, incomingGetItemId, incomingNegative);
+      storedActorId = fromActor->id;
       override = ItemOverride_Lookup(fromActor, (u16)gctx->scene, getItemId);
     }
     if (override.key.all == 0) {

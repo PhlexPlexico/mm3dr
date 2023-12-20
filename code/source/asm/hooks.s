@@ -129,14 +129,6 @@ hook_SaveFile_Load:
     str r5,[r1,#0x61C]
     b 0x48C764
 
-.global hook_FixGrogFishingPass
-hook_FixGrogFishingPass:
-    push {r0-r12, lr}
-    bl ItemOverride_SetGrogExtData
-    pop {r0-r12, lr}
-    cmp r0,#0x39
-    bx lr
-
 .global hook_SaveFile_Init
 hook_SaveFile_Init:
     push {r0-r12, lr}

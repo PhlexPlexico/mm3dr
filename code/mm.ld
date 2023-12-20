@@ -363,10 +363,6 @@ SECTIONS{
     *(.patch_IncomingGetItemID)
   }
 
-  .patch_FixGrogFishingPass 0x58465C : {
-    *(.patch_FixGrogFishingPass)
-  }
-
   .patch_ReadGamePad 0x59BA10 : {
     *(.patch_ReadGamePad)
   }
