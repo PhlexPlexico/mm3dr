@@ -117,7 +117,7 @@ hook_CheckDungeonItems:
     ldr r1,[r1]
     cmp r1,#0x1
     pop {r0-r12, lr}
-    beq 0x233F60
+    beq 0x233F64
     ldrh r2, [r2, #82]
     bx lr
 
@@ -128,7 +128,7 @@ hook_CheckDungeonSmallKeys:
     ldr r1,[r1]
     cmp r1,#0x1
     pop {r0-r12, lr}
-    beq 0x233F60
+    beq 0x233F64
     ldrh r0, [r2, #0x52]
     bx lr
 
