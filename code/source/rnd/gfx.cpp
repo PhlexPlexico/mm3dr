@@ -337,7 +337,6 @@ namespace rnd {
 
       // Map and Compasses
       if (dungeonId <= DUNGEON_STONE_TOWER) {
-        
         Draw_DrawIcon(260, yPos, hasMap ? COLOR_ICON_MAP : COLOR_DARK_GRAY, ICON_MAP);
         Draw_DrawIcon(280, yPos, hasCompass ? COLOR_ICON_COMPASS : COLOR_DARK_GRAY, ICON_COMPASS);
 
