@@ -10,7 +10,7 @@ namespace rnd {
   }
 
   GetItemID ItemUpgrade_BombBag(game::SaveData* saveCtx, GetItemID GetItemId) {
-    switch (saveCtx->inventory.inventory_count_register.bomb_bag_upgrade) {
+    switch (saveCtx->inventory.inventory_count_register.bomb_bag_upgrade.Value()) {
     case game::BombBag::NoBag:
       return GetItemID::GI_BOMB_BAG_20;  // Bomb Bag
     case game::BombBag::BombBag20:
@@ -21,7 +21,7 @@ namespace rnd {
   }
 
   GetItemID ItemUpgrade_Quiver(game::SaveData* saveCtx, GetItemID GetItemId) {
-    switch (saveCtx->inventory.inventory_count_register.quiver_upgrade) {
+    switch (saveCtx->inventory.inventory_count_register.quiver_upgrade.Value()) {
     case game::Quiver::NoQuiver:
       return GetItemID::GI_HEROS_BOW;  // Bow
     case game::Quiver::Quiver30:
@@ -32,7 +32,7 @@ namespace rnd {
   }
 
   GetItemID ItemUpgrade_Wallet(game::SaveData* saveCtx, GetItemID GetItemId) {
-    switch (saveCtx->inventory.inventory_count_register.wallet_upgrade) {
+    switch (saveCtx->inventory.inventory_count_register.wallet_upgrade.Value()) {
     case 0:
       return GetItemID::GI_ADULT_WALLET;  // Adult's Wallet
     case 1:
@@ -79,7 +79,7 @@ namespace rnd {
   }
 
   GetItemID ItemUpgrade_BombsToRupee(game::SaveData* saveCtx, GetItemID getItemId) {
-    return (saveCtx->inventory.inventory_count_register.bomb_bag_upgrade == game::BombBag::NoBag) ?
+    return (saveCtx->inventory.inventory_count_register.bomb_bag_upgrade.Value() == game::BombBag::NoBag) ?
                GetItemID::GI_RUPEE_BLUE :  // Blue Rupee
                getItemId;
   }

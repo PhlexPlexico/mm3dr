@@ -150,6 +150,11 @@ patch_CheckCurrentInventoryOverrideItem:
 patch_CheckDungeonItems:
     bl hook_CheckDungeonItems
 
+.section .patch_CheckDungeonSmallKeys
+.global patch_CheckDungeonSmallKeys
+patch_CheckDungeonSmallKeys:
+    bl hook_CheckDungeonSmallKeys
+
 .section .patch_DisableMilkTimer
 .global patch_DisableMilkTimer
 patch_DisableMilkTimer:

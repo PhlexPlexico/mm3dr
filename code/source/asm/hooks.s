@@ -121,6 +121,17 @@ hook_CheckDungeonItems:
     ldrh r2, [r2, #82]
     bx lr
 
+.global hook_CheckDungeonSmallKeys
+hook_CheckDungeonSmallKeys:
+    push {r0-r12, lr}
+    ldr r1,.rCustomDungeonItemRetrieved_addr
+    ldr r1,[r1]
+    cmp r1,#0x1
+    pop {r0-r12, lr}
+    beq 0x233F60
+    ldrh r0, [r2, #0x52]
+    bx lr
+
 .global hook_SaveFile_Load
 hook_SaveFile_Load:
     push {r0-r12, lr}

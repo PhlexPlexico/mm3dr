@@ -140,6 +140,7 @@ namespace rnd {
     u16 resolvedGetItemId = ItemTable_ResolveUpgrades(override.value.getItemId);
 
     ItemRow* itemRow = ItemTable_GetItemRow(resolvedGetItemId);
+    // XXX: Maybe create function for progressive items so that the item drawn is correct?
     u8 looksLikeItemId = override.value.looksLikeItemId;
 
     if (override.value.getItemId == 0x12) {  // Ice trap

@@ -257,43 +257,43 @@ namespace rnd {
     u8 yPos = 30;
     for (u32 dungeonId = 0; dungeonId <= DUNGEON_STONE_TOWER; ++dungeonId) {
       bool hasBossKey = 0;
-      if ((dungeonId = DUNGEON_WOODFALL)) {
+      if ((dungeonId == DUNGEON_WOODFALL)) {
         hasBossKey = saveData.inventory.woodfall_dungeon_items.boss_key.Value();
       }
-      if ((dungeonId = DUNGEON_SNOWHEAD)) {
+      if ((dungeonId == DUNGEON_SNOWHEAD)) {
         hasBossKey = saveData.inventory.snowhead_dungeon_items.boss_key.Value();
       }
-      if ((dungeonId = DUNGEON_GREAT_BAY)) {
+      if ((dungeonId == DUNGEON_GREAT_BAY)) {
         hasBossKey = saveData.inventory.great_bay_dungeon_items.boss_key.Value();
       }
-      if ((dungeonId = DUNGEON_STONE_TOWER)) {
+      if ((dungeonId == DUNGEON_STONE_TOWER)) {
         hasBossKey = saveData.inventory.stone_tower_dungeon_items.boss_key.Value();
       }
       bool hasCompass = 0;
-      if ((dungeonId = DUNGEON_WOODFALL)) {
-        hasBossKey = saveData.inventory.woodfall_dungeon_items.compass.Value();
+      if ((dungeonId == DUNGEON_WOODFALL)) {
+        hasCompass = saveData.inventory.woodfall_dungeon_items.compass.Value();
       }
-      if ((dungeonId = DUNGEON_SNOWHEAD)) {
-        hasBossKey = saveData.inventory.snowhead_dungeon_items.compass.Value();
+      if ((dungeonId == DUNGEON_SNOWHEAD)) {
+        hasCompass = saveData.inventory.snowhead_dungeon_items.compass.Value();
       }
-      if ((dungeonId = DUNGEON_GREAT_BAY)) {
-        hasBossKey = saveData.inventory.great_bay_dungeon_items.compass.Value();
+      if ((dungeonId == DUNGEON_GREAT_BAY)) {
+        hasCompass = saveData.inventory.great_bay_dungeon_items.compass.Value();
       }
-      if ((dungeonId = DUNGEON_STONE_TOWER)) {
-        hasBossKey = saveData.inventory.stone_tower_dungeon_items.compass.Value();
+      if ((dungeonId == DUNGEON_STONE_TOWER)) {
+        hasCompass = saveData.inventory.stone_tower_dungeon_items.compass.Value();
       }
       bool hasMap = 0;
-      if ((dungeonId = DUNGEON_WOODFALL)) {
-        hasBossKey = saveData.inventory.woodfall_dungeon_items.map.Value();
+      if ((dungeonId == DUNGEON_WOODFALL)) {
+        hasMap = saveData.inventory.woodfall_dungeon_items.map.Value();
       }
-      if ((dungeonId = DUNGEON_SNOWHEAD)) {
-        hasBossKey = saveData.inventory.snowhead_dungeon_items.map.Value();
+      if ((dungeonId == DUNGEON_SNOWHEAD)) {
+        hasMap = saveData.inventory.snowhead_dungeon_items.map.Value();
       }
-      if ((dungeonId = DUNGEON_GREAT_BAY)) {
-        hasBossKey = saveData.inventory.great_bay_dungeon_items.map.Value();
+      if ((dungeonId == DUNGEON_GREAT_BAY)) {
+        hasMap = saveData.inventory.great_bay_dungeon_items.map.Value();
       }
-      if ((dungeonId = DUNGEON_STONE_TOWER)) {
-        hasBossKey = saveData.inventory.stone_tower_dungeon_items.map.Value();
+      if ((dungeonId == DUNGEON_STONE_TOWER)) {
+        hasMap = saveData.inventory.stone_tower_dungeon_items.map.Value();
       }
 
       Draw_DrawString(24, yPos, COLOR_WHITE, DungeonNames[dungeonId]);
@@ -301,17 +301,17 @@ namespace rnd {
       // Small Keys
       if (dungeonId <= DUNGEON_STONE_TOWER) {
         u8 keysHave = 0;
-        if ((dungeonId = DUNGEON_WOODFALL)) {
-          keysHave = saveData.inventory.woodfall_temple_keys;
+        if ((dungeonId == DUNGEON_WOODFALL)) {
+          keysHave = saveData.inventory.woodfall_temple_keys == 255 ? 0 : saveData.inventory.woodfall_temple_keys;
         }
-        if ((dungeonId = DUNGEON_SNOWHEAD)) {
-          keysHave = saveData.inventory.snowhead_temple_keys;
+        if ((dungeonId == DUNGEON_SNOWHEAD)) {
+          keysHave = saveData.inventory.snowhead_temple_keys == 255 ? 0 : saveData.inventory.snowhead_temple_keys;
         }
-        if ((dungeonId = DUNGEON_GREAT_BAY)) {
-          keysHave = saveData.inventory.great_bay_temple_keys;
+        if ((dungeonId == DUNGEON_GREAT_BAY)) {
+          keysHave = saveData.inventory.great_bay_temple_keys == 255 ? 0 : saveData.inventory.great_bay_temple_keys;
         }
-        if ((dungeonId = DUNGEON_STONE_TOWER)) {
-          keysHave = saveData.inventory.stone_tower_temple_keys;
+        if ((dungeonId == DUNGEON_STONE_TOWER)) {
+          keysHave = saveData.inventory.stone_tower_temple_keys == 255 ? 0 : saveData.inventory.stone_tower_temple_keys;
         }
         Draw_DrawFormattedString(208, yPos, keysHave > 0 ? COLOR_WHITE : COLOR_DARK_GRAY, "%d", keysHave);
         Draw_DrawString(214, yPos, COLOR_WHITE, "/");
@@ -335,8 +335,9 @@ namespace rnd {
         Draw_DrawIcon(240, yPos, hasBossKey ? COLOR_ICON_BOSS_KEY : COLOR_DARK_GRAY, ICON_BOSS_KEY);
       }
 
-      if (dungeonId >= DUNGEON_PIRATE_FORTRESS) {
-        // Map and Compassz
+      // Map and Compasses
+      if (dungeonId <= DUNGEON_STONE_TOWER) {
+        
         Draw_DrawIcon(260, yPos, hasMap ? COLOR_ICON_MAP : COLOR_DARK_GRAY, ICON_MAP);
         Draw_DrawIcon(280, yPos, hasCompass ? COLOR_ICON_COMPASS : COLOR_DARK_GRAY, ICON_COMPASS);
 

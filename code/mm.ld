@@ -167,6 +167,10 @@ SECTIONS{
     *(.patch_CheckDungeonItems)
   }
 
+  .patch_CheckDungeonSmallKeys 0x233F4C : {
+    *(.patch_CheckDungeonSmallKeys)
+  }
+
 	.patch_DisableMilkTimer 0x234BFC : {
 		*(.patch_DisableMilkTimer)
 	}
