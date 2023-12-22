@@ -248,6 +248,11 @@ patch_RemoveGoronMaskCheckDarmani:
 patch_OverrideQuiverArchery:
     mov r2,#0x47
 
+.section .patch_OverrideQuiverArcheryTwo
+.global patch_OverrideQuiverArcheryTwo
+patch_OverrideQuiverArcheryTwo:
+    mov r2,#0x47
+
 .section .patch_OverrideFairyGiveItem
 .global OverrideFairyItemID_patch
 OverrideFairyItemID_patch:

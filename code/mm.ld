@@ -292,7 +292,7 @@ SECTIONS{
   }
 
   .patch_OverrideQuiverArcherySwamp 0x3EA2B0 : {
-    *(.patch_OverrideQuiverArchery)
+    *(.patch_OverrideQuiverArcheryTwo)
   }
 
   .patch_OverrideFairyGiveItem 0x3BECAC : {
