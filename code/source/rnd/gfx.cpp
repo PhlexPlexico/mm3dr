@@ -25,7 +25,7 @@ namespace rnd {
       "Woodfall",           "Snowhead",         "Mountain Village",   "Twin Islands",          "Goron Village",
       "Milk Road",          "Romani Ranch",     "Great Bay Coast",    "Pinnacle Rock",         "Zora Cape",
       "Zora Hall",          "Ikana Canyon",     "Ikana Graveyard",    "Stone Tower",           "Woodfall Temple",
-      "Snowhead Temple",    "Greay Bay Temple", "Stone Tower Temple", "Pirate Fortress",       "Beneath the Well",
+      "Snowhead Temple",    "Great Bay Temple", "Stone Tower Temple", "Pirate Fortress",       "Beneath the Well",
       "Ikana Castle",       "Secret Shrine",    "The Moon",           "Swamp Skulltula House", "Ocean Skulltula House",
   };
 
