@@ -382,11 +382,9 @@ namespace rnd {
         if (SpoilerData_GetIsItemLocationCollected(itemIndex)) {
           if (SpoilerData_CollectType(itemIndex) == COLLECTTYPE_REPEATABLE) {
             color = COLOR_BLUE;
-          } 
-          else if (SpoilerData_CollectType(itemIndex) == COLLECTTYPE_NEVER) {
+          } else if (SpoilerData_CollectType(itemIndex) == COLLECTTYPE_NEVER) {
             color = COLOR_ORANGE;
-          }
-          else {
+          } else {
             color = COLOR_GREEN;
           }
         }
@@ -483,20 +481,17 @@ namespace rnd {
       bool canShowGroup = isCollected || CanShowSpoilerGroup(SpoilerCollectionCheckGroup(itemGroupIndex));
 
       u32 color = COLOR_WHITE;
-      
+
       if (isCollected) {
         if (SpoilerData_CollectType(locIndex) == COLLECTTYPE_REPEATABLE) {
-            color = COLOR_BLUE;
-          } 
-          else if (SpoilerData_CollectType(locIndex) == COLLECTTYPE_NEVER) {
-            color = COLOR_ORANGE;
-          }
-          else {
-            color = COLOR_GREEN;
-          }
+          color = COLOR_BLUE;
+        } else if (SpoilerData_CollectType(locIndex) == COLLECTTYPE_NEVER) {
+          color = COLOR_ORANGE;
+        } else {
+          color = COLOR_GREEN;
+        }
       }
 
-      
       bool itemRevealed = canShowGroup && (isCollected || SpoilerData_GetIsItemLocationRevealed(locIndex));
 
       if (canShowGroup) {

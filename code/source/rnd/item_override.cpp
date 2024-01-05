@@ -287,7 +287,7 @@ namespace rnd {
     ItemOverride_AfterKeyReceived(key);
     SpoilerLog_UpdateIngameLog(key.type, key.scene, key.flag);
     //#if ENABLE_DEBUG || DEBUG_PRINT
-    //rnd::util::Print(
+    // rnd::util::Print(
     //         "%s: Our key values:\nKey Type %#04x\nKey Scene: %#04x\nKey Flag: %#06x\n",
     //         key.type, key.scene, key.flag);
     //#endif
