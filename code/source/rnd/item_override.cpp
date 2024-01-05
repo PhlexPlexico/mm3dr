@@ -286,6 +286,11 @@ namespace rnd {
     SetExtData();
     ItemOverride_AfterKeyReceived(key);
     SpoilerLog_UpdateIngameLog(key.type, key.scene, key.flag);
+    //#if ENABLE_DEBUG || DEBUG_PRINT
+    //rnd::util::Print(
+    //         "%s: Our key values:\nKey Type %#04x\nKey Scene: %#04x\nKey Flag: %#06x\n",
+    //         key.type, key.scene, key.flag);
+    //#endif
     ItemOverride_Clear();
   }
 
@@ -439,6 +444,8 @@ namespace rnd {
       gExtSaveData.givenItemChecks.enHsGivenItem = 1;
     } else if (storedActorId == game::act::Id::EnHgo) {
       gExtSaveData.givenItemChecks.enHgoGivenItem = 1;
+    } else if (storedActorId == game::act::Id::EnTru) {
+      gExtSaveData.givenItemChecks.enTruGivenItem = 1;
     }
   }
 
@@ -704,7 +711,7 @@ namespace rnd {
       return (int)0xFF;
     } else if (currentItem == game::ItemId::GaroMask && gExtSaveData.givenItemChecks.enInGivenItem == 0) {
       return (int)0xFF;
-    } else if (currentItem == game::ItemId::PictographBox && gExtSaveData.givenItemChecks.enTrtGivenItem == 0) {
+    } else if (currentItem == game::ItemId::PictographBox && gExtSaveData.givenItemChecks.enTruGivenItem == 0) {
       return (int)0xFF;
     } else if (currentItem == game::ItemId::BunnyHood && gExtSaveData.givenItemChecks.enHsGivenItem == 0) {
       return (int)0xFF;

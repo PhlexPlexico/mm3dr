@@ -11,6 +11,10 @@ namespace rnd {
   SpoilerItemLocation* SpoilerData_ItemLoc(u16 itemIndex) {
     return &gSpoilerDataLocs[itemIndex / SPOILER_ITEMS_MAX].ItemLocations[itemIndex % SPOILER_ITEMS_MAX];
   }
+  
+  SpoilerItemCollectType SpoilerData_CollectType(u16 itemIndex) {
+    return gSpoilerData.ItemLocations[itemIndex].CollectType;
+  }
 
   char* SpoilerData_StringData(u16 itemIndex) {
     return gSpoilerDataLocs[itemIndex / SPOILER_ITEMS_MAX].StringData;
@@ -36,22 +40,10 @@ namespace rnd {
   u8 SpoilerLog_UpdateIngameLog(ItemOverride_Type type, u8 scene, u8 flag) {
     // SpoilerData currentCheck = {0};
     for (int i = 0; i < gSpoilerData.ItemLocationsCount; i++) {
-      if (gSpoilerData.ItemLocations[i].LocationScene == scene) {
-        if (gSpoilerData.ItemLocations[i].OverrideType == type) {
-          if (gSpoilerData.ItemLocations[i].LocationFlag == flag) {
-            // reveal the check
-            return -1;
-          }
-        }
+      if (gSpoilerData.ItemLocations[i].LocationScene == scene && gSpoilerData.ItemLocations[i].OverrideType == type && gSpoilerData.ItemLocations[i].LocationFlag == flag) {
+        gSpoilerData.ItemLocations[i].Collected = true;
       }
     }
-    /*
-    for (gSpoilerData.ItemLocations->OverrideType == type && gSpoilerData.ItemLocations->LocationScene == scene &&
-    gSpoilerData.ItemLocations->LocationFlag == flag)
-    {
-     //maybe do it this way?
-     return -1;
-    }*/
     return -1;
   }
 
@@ -127,6 +119,19 @@ namespace rnd {
     }
 
     SpoilerItemLocation itemLoc = gSpoilerData.ItemLocations[itemIndex];
+    if (itemLoc.Collected == true){
+      return 1;
+    }
+    if (itemLoc.CollectionCheckType == SPOILER_CHK_ALWAYS_COLLECTED)
+    {
+      return 1;
+    }
+    if (itemLoc.CollectionCheckType == SPOILER_CHK_NONE)
+    {
+      return 0;
+    }
+    return 0;
+    /*
     // game::SaveData &gSaveContext = game::GetCommonData().save;
     switch (itemLoc.CollectionCheckType) {
     case SPOILER_CHK_NONE: {  // Not ever 'collectable' (Ganon, or any item that didn't have a type
@@ -149,6 +154,10 @@ namespace rnd {
     }
     case SPOILER_CHK_OCEAN_SKULLTULA: {  // Ocean skulltula
       // gSaveContext.skulltulas_collected.ocean_count
+      return -1;
+    }
+    case SPOILER_CHK_STRAY_FAIRY: {
+      // gSaveContext.strayfairies_collected
       return -1;
     }
     case SPOILER_CHK_ITEM_GET_INF: {  // Check a flag set in item_get_inf
@@ -183,6 +192,7 @@ namespace rnd {
     }
     }
     return 0;
+    */
   }
 
   u8 SpoilerData_GetIsItemLocationRevealed(u16 itemIndex) {

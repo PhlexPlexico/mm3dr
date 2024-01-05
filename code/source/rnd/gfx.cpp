@@ -380,11 +380,15 @@ namespace rnd {
         u16 itemIndex = gSpoilerData.SphereItemLocations[sphereItemLocOffset + locIndex];
         u32 color = COLOR_WHITE;
         if (SpoilerData_GetIsItemLocationCollected(itemIndex)) {
-          color = COLOR_GREEN;
-        } else if (SpoilerData_ItemLoc(itemIndex)->CollectType == COLLECTTYPE_REPEATABLE) {
-          color = COLOR_BLUE;
-        } else if (SpoilerData_ItemLoc(itemIndex)->CollectType == COLLECTTYPE_NEVER) {
-          color = COLOR_ORANGE;
+          if (SpoilerData_CollectType(itemIndex) == COLLECTTYPE_REPEATABLE) {
+            color = COLOR_BLUE;
+          } 
+          else if (SpoilerData_CollectType(itemIndex) == COLLECTTYPE_NEVER) {
+            color = COLOR_ORANGE;
+          }
+          else {
+            color = COLOR_GREEN;
+          }
         }
         Draw_DrawString_Small(10, locPosY, color, SpoilerData_GetItemLocationString(itemIndex));
         Draw_DrawString_Small(10 + (SPACING_SMALL_X * 2), itemPosY, color, SpoilerData_GetItemNameString(itemIndex));
@@ -479,16 +483,20 @@ namespace rnd {
       bool canShowGroup = isCollected || CanShowSpoilerGroup(SpoilerCollectionCheckGroup(itemGroupIndex));
 
       u32 color = COLOR_WHITE;
+      
       if (isCollected) {
-        color = COLOR_GREEN;
-      } else if (canShowGroup) {
-        if (SpoilerData_ItemLoc(locIndex)->CollectType == COLLECTTYPE_REPEATABLE &&
-            SpoilerData_GetIsItemLocationRevealed(locIndex)) {
-          color = COLOR_BLUE;
-        } else if (SpoilerData_ItemLoc(locIndex)->CollectType == COLLECTTYPE_NEVER) {
-          color = COLOR_ORANGE;
-        }
+        if (SpoilerData_CollectType(locIndex) == COLLECTTYPE_REPEATABLE) {
+            color = COLOR_BLUE;
+          } 
+          else if (SpoilerData_CollectType(locIndex) == COLLECTTYPE_NEVER) {
+            color = COLOR_ORANGE;
+          }
+          else {
+            color = COLOR_GREEN;
+          }
       }
+
+      
       bool itemRevealed = canShowGroup && (isCollected || SpoilerData_GetIsItemLocationRevealed(locIndex));
 
       if (canShowGroup) {

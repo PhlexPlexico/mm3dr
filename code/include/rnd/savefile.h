@@ -59,7 +59,7 @@ namespace rnd {
       BitField<17, 1, u32> enInGivenItem;
       BitField<18, 1, u32> kafeiGivenItem;
       BitField<19, 1, u32> enHgoGivenItem;
-      BitField<20, 1, u32> enTrtGivenItem;
+      BitField<20, 1, u32> enTruGivenItem;
       BitField<21, 1, u32> enHsGivenItem;
       BitField<22, 1, u32> enMaYtoGivenItem;
       BitField<23, 1, u32> enOskGivenItem;

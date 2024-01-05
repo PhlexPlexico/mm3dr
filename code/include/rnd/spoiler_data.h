@@ -94,6 +94,7 @@ namespace rnd {
     SpoilerItemCollectType CollectType;
     SpoilerItemRevealType RevealType;
     ItemOverride_Type OverrideType;
+    bool Collected;
   } SpoilerItemLocation;
 
   typedef struct {
@@ -121,6 +122,7 @@ namespace rnd {
 
   SpoilerItemLocation* SpoilerData_ItemLoc(u16 itemIndex);
   char* SpoilerData_StringData(u16 itemIndex);
+  SpoilerItemCollectType SpoilerData_CollectType(u16 itemIndex);
 
   char* SpoilerData_GetItemLocationString(u16 itemIndex);
   char* SpoilerData_GetItemNameString(u16 itemIndex);

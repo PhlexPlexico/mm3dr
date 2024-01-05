@@ -55,6 +55,8 @@ namespace game::act {
     NpcGreatFairy = 0x00D2,
     // [4] Kafei
     NpcKafei = 0x00F4,
+    // Koume (Boat Lady)
+    EnTru = 0x0102,
     // Banker
     EnGinkoMan = 0x010F,
     // Deku Butler
