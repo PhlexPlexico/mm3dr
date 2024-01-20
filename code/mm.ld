@@ -208,11 +208,11 @@ SECTIONS{
   }
 
   .patch_RemoveRSHealthTwo 0x20843C : {
-    *(.patch_RemoveRazordSwordHealth)
+    *(.patch_RemoveRazordSwordHealthTwo)
   }
 
   .patch_RemoveRSHealthThree 0x235800 : {
-    *(.patch_RemoveRazordSwordHealth)
+    *(.patch_RemoveRazordSwordHealthThree)
   }
 
   .patch_OverrideItemIdIndex 0x21d124 : {
