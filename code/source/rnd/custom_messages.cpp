@@ -185,6 +185,7 @@ public:
     u16 delayIdx = 0, delayIdxAtLastSpace = 0;
     u16 sizeAtLastSpace = 0, resolvedChar = 0, lineLen = 0;
     bool inCol = false, inColAtLastSpace = false;
+    bool lineWrap = true;
     u16 sfx = msg.sfxAndFlags & 0x3FFF;
     u8 resolvedCol = 0, resolvedIcon = 0, resolvedDelay = 0;
     *size = 0;
@@ -195,8 +196,11 @@ public:
       instant();
 
     // Tingle Map Choices. Add 3 choices, 2 for maps and 1 for no thanks.
-    if (msg.id >= 0x1D11 && msg.id <= 0x1D16)
+    if (msg.id >= 0x1D11 && msg.id <= 0x1D16) {
       addCom(0x2F, 3);
+      // Disable line wrap to ensure text lines up with options
+      lineWrap = false;
+    }
 
     while (++idx < MAX_UNFORMATTED_SIZE && msg.text[idx]) {
       resolvedChar = msg.text[idx];
@@ -337,7 +341,7 @@ public:
 
       // Replace last space with newline if necessary
       // If no space available use start of last item with width
-      if (lineLen > LINE_WIDTH) {
+      if (lineWrap && lineLen > LINE_WIDTH) {
         if (lastSpaceIdx) {
           idx = lastSpaceIdx;
           colIdx = colIdxAtLastSpace;
