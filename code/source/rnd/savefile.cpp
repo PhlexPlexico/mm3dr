@@ -46,7 +46,7 @@ namespace rnd {
     saveData.inventory.items[15] = game::ItemId::Hookshot;
     saveData.inventory.items[20] = game::ItemId::LandTitleDeed;
 
-    saveData.inventory.masks[5] = game::ItemId::DekuMask;
+    // saveData.inventory.masks[5] = game::ItemId::DekuMask;
     rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::BremenMask);
     saveData.inventory.masks[11] = game::ItemId::GoronMask;
     saveData.inventory.masks[17] = game::ItemId::ZoraMask;
@@ -105,7 +105,7 @@ namespace rnd {
     // saveData.inventory.collect_register.oath_to_order = 1;
     saveData.inventory.collect_register.song_of_healing = 1;
 
-    gSettingsContext.skipBombersMinigame = 1;
+    gSettingsContext.skipBombersMinigame = 0;
     gSettingsContext.freeScarecrow = 1;
     saveData.activate_dungeon_skip_portal_0xF0_for_all = 0xF0;
 
@@ -137,7 +137,7 @@ namespace rnd {
       // saveData.inventory.collect_register.song_of_healing = 1;  // until happy mask salesman is overridden
       saveData.player.owl_statue_flags.clock_town = 1;
 #ifdef ENABLE_DEBUG
-      gSettingsContext.startingKokiriSword = 0;
+      gSettingsContext.startingKokiriSword = 3;
       gSettingsContext.startingShield = 0;
 #endif
       SaveFile_SetStartingInventory();
@@ -509,7 +509,7 @@ namespace rnd {
     }
     if (gSettingsContext.startingKokiriSword == (u8)StartingSwordSetting::STARTINGSWORD_NONE) {
       equipmentData.sword_shield.sword = game::SwordType::NoSword;
-      saveData.equipment.data->item_btn_b = game::ItemId::None;
+      saveData.equipment.data[0].item_btn_b = game::ItemId::None;
     } else if (gSettingsContext.startingKokiriSword == (u8)StartingSwordSetting::STARTINGSWORD_KOKIRI) {
       equipmentData.sword_shield.sword = game::SwordType::KokiriSword;
       saveData.equipment.data[0].item_btn_b = game::ItemId::KokiriSword;

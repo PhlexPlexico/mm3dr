@@ -67,12 +67,16 @@ SECTIONS{
     *(.patch_DoNotRemoveKeys)
   }
 
-  .patch_DoNotGiveSwordBackOnReset 0x1C98FC : {
+  .patch_DoNotGiveSwordBackOnReset 0x1C98DC : {
     *(.patch_DoNotGiveSwordBackOnReset)
   }
 
   .patch_RemoveItemBUsabilityOnReset 0x1C99F4 : {
     *(.patch_RemoveItemBUsabilityOnReset)
+  }
+
+  .patch_RemoveSwordFlagsOnReset 0x1C9900 : {
+    *(.patch_RemoveSwordFlagsOnReset)
   }
 
   .patch_RemoveDekuMaskCheckSoT 0x1D8008 : {

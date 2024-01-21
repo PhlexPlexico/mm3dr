@@ -292,6 +292,27 @@ namespace rnd::link {
     game::SaveData& saveData = game::GetCommonData().save;
     return static_cast<u8>(saveData.inventory.masks[17]);
   }
+
+  void SongOfTimeSwordPlacement() {
+    game::SaveData& saveData = game::GetCommonData().save;
+    // TODO: Is the settings context getting saved?
+    if (gSettingsContext.startingKokiriSword == (u8)StartingSwordSetting::STARTINGSWORD_NONE && saveData.equipment.sword_shield.sword == game::SwordType::NoSword) {
+          return;
+    }
+      
+    #if defined ENABLE_DEBUG || defined DEBUG_PRINT
+      rnd::util::Print("%s: Sword is %u and starting sword is %u\n", __func__, saveData.equipment.sword_shield.sword, gSettingsContext.startingKokiriSword);	
+    #endif
+    // Check sword/shield flag to see what sword to give back. Once we do that, set the form[0] of player
+    // equipment to that sword and return.
+    if (saveData.equipment.sword_shield.sword == game::SwordType::KokiriSword) {
+      saveData.equipment.data[0].item_btn_b = game::ItemId::KokiriSword;
+    } else if (saveData.equipment.sword_shield.sword == game::SwordType::RazorSword) {
+      saveData.equipment.data[0].item_btn_b = game::ItemId::RazorSword;
+    }
+      return;
+  }
+  
   }
 
 }  // namespace rnd::link
