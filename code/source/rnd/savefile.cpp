@@ -46,7 +46,7 @@ namespace rnd {
     saveData.inventory.items[15] = game::ItemId::Hookshot;
     saveData.inventory.items[20] = game::ItemId::LandTitleDeed;
 
-    // saveData.inventory.masks[5] = game::ItemId::DekuMask;
+    saveData.inventory.masks[5] = game::ItemId::DekuMask;
     rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::BremenMask);
     saveData.inventory.masks[11] = game::ItemId::GoronMask;
     saveData.inventory.masks[17] = game::ItemId::ZoraMask;
@@ -105,7 +105,7 @@ namespace rnd {
     // saveData.inventory.collect_register.oath_to_order = 1;
     saveData.inventory.collect_register.song_of_healing = 1;
 
-    gSettingsContext.skipBombersMinigame = 0;
+    gSettingsContext.skipBombersMinigame = 1;
     gSettingsContext.freeScarecrow = 1;
     saveData.activate_dungeon_skip_portal_0xF0_for_all = 0xF0;
 
@@ -264,10 +264,10 @@ namespace rnd {
     if (gSettingsContext.skipBombersMinigame) {
       // Not sure if bombers code is used elsewhere in the game's code
       saveData.bomberscode[0] = 0x01;
-      saveData.bomberscode[1] = 0x01;
-      saveData.bomberscode[2] = 0x01;
-      saveData.bomberscode[3] = 0x01;
-      saveData.bomberscode[4] = 0x01;
+      saveData.bomberscode[1] = 0x02;
+      saveData.bomberscode[2] = 0x03;
+      saveData.bomberscode[3] = 0x04;
+      saveData.bomberscode[4] = 0x05;
       saveData.clock_town_temp_flags.bomber_open_hideout = 1;  // Currently gets reset by Song of time
     }
 
