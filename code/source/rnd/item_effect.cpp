@@ -41,10 +41,12 @@ namespace rnd {
     }
     comData->save.player.razor_sword_hp = 100;                                 // Set to 100 hits. Maybe randomize?
     comData->save.equipment.sword_shield.sword = game::SwordType::RazorSword;  // Set sword to razor.
+    comData->save.equipment.data[0].item_btn_b = game::ItemId::RazorSword;
   }
 
   void ItemEffect_GiveGildedSword(game::CommonData* comData, s16 arg1, s16 arg2) {
     comData->save.equipment.sword_shield.sword = game::SwordType::GildedSword;  // Set sword to gilded.
+    comData->save.equipment.data[0].item_btn_b = game::ItemId::GildedSword;
   }
 
   void ItemEffect_GiveBottle(game::CommonData* comData, s16 bottleItemId, s16 arg2) {

@@ -137,7 +137,7 @@ namespace rnd {
       // saveData.inventory.collect_register.song_of_healing = 1;  // until happy mask salesman is overridden
       saveData.player.owl_statue_flags.clock_town = 1;
 #ifdef ENABLE_DEBUG
-      gSettingsContext.startingKokiriSword = 3;
+      gSettingsContext.startingKokiriSword = 0;
       gSettingsContext.startingShield = 0;
 #endif
       SaveFile_SetStartingInventory();

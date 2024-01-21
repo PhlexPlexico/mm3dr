@@ -167,6 +167,10 @@ SECTIONS{
     *(.patch_SecondZoraSwimCheck)
   }
 
+  .patch_ForceSwordUpgradeOnHuman 0x233D88 : {
+    *(.patch_ForceSwordUpgradeOnHuman)
+  }
+
   .patch_CheckDungeonItems 0x233F30 : {
     *(.patch_CheckDungeonItems)
   }
