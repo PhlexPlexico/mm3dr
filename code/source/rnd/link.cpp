@@ -305,10 +305,12 @@ namespace rnd::link {
     #endif
     // Check sword/shield flag to see what sword to give back. Once we do that, set the form[0] of player
     // equipment to that sword and return.
-    if (saveData.equipment.sword_shield.sword == game::SwordType::KokiriSword) {
+    if (saveData.equipment.sword_shield.sword == game::SwordType::NoSword && gSettingsContext.startingKokiriSword == (u8)StartingSwordSetting::STARTINGSWORD_KOKIRI) {
       saveData.equipment.data[0].item_btn_b = game::ItemId::KokiriSword;
-    } else if (saveData.equipment.sword_shield.sword == game::SwordType::RazorSword) {
+      saveData.equipment.sword_shield.sword = game::SwordType::KokiriSword;
+    } else if (saveData.equipment.sword_shield.sword == game::SwordType::NoSword && gSettingsContext.startingKokiriSword == (u8)StartingSwordSetting::STARTINGSWORD_RAZOR) {
       saveData.equipment.data[0].item_btn_b = game::ItemId::RazorSword;
+      saveData.equipment.sword_shield.sword = game::SwordType::RazorSword;
     }
       return;
   }
