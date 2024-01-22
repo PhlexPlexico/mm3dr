@@ -8,6 +8,7 @@
 
 // Increment the version number whenever the ExtSaveData structure is changed
 #define EXTSAVEDATA_VERSION 07
+#define SAVEFILE_SCENES_DISCOVERED_IDX_COUNT 4
 
 namespace rnd {
   void SaveFile_SkipMinorCutscenes();
@@ -26,6 +27,7 @@ namespace rnd {
   void SaveFile_ResetItemSlotsIfMatchesID(u8 itemSlot);
   bool SaveFile_IsValidSettingsHealth(void);
   void SaveFile_InitExtSaveData(u32 fileBaseIndex);
+  void SaveFile_SetSceneDiscovered(u16 sceneNum);
   void SaveFile_LoadExtSaveData(u32 saveNumber);
   u8 SaveFile_GetIsSceneDiscovered(u8 sceneNum);
   extern "C" void SaveFile_SaveExtSaveData();
@@ -89,6 +91,7 @@ namespace rnd {
       BitField<6, 2, u8> unused;
     };
     TingleCollectRegister tingleMaps;
+    u32 scenesDiscovered[SAVEFILE_SCENES_DISCOVERED_IDX_COUNT];
     u8 chestRewarded[116][30];  // Reward table that's stored by scene and chest param/flag.
   } ExtSaveData;
 

@@ -256,6 +256,11 @@ OverrideBomberTextID_patch:
 OverrideItemID_patch:
     b hook_OverrideItemID
 
+.section .patch_EnteringLocation
+.global patch_EnteringLocation
+patch_EnteringLocation:
+    bl hook_EnteringLocation
+
 .section .patch_RemoveGoronMaskCheckDarmani
 .global patch_RemoveGoronMaskCheckDarmani
 patch_RemoveGoronMaskCheckDarmani:

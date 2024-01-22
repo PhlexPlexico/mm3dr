@@ -247,6 +247,10 @@ SECTIONS{
     *(.patch_OverrideItemID)
   }
 
+  .patch_EnteringLocation 0x23aa54 : {
+    *(.patch_EnteringLocation)
+  }
+
   /* .patch_TwinmoldConsistentDamage 0x28E544 : {
     *(.patch_TwinmoldConsistentDamage)
   } */

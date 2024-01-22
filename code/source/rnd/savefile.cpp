@@ -773,6 +773,7 @@ namespace rnd {
     gExtSaveData.tingleMaps.raw = 0;
     gExtSaveData.playtimeSeconds = 0;
     memset(&gExtSaveData.chestRewarded, 0, sizeof(gExtSaveData.chestRewarded));
+    memset(&gExtSaveData.scenesDiscovered, 0, sizeof(gExtSaveData.scenesDiscovered));
     // TODO: Settings options belong in ext.
     // memset(&gExtSaveData.scenesDiscovered, 0, sizeof(gExtSaveData.scenesDiscovered));
     // memset(&gExtSaveData.entrancesDiscovered, 0, sizeof(gExtSaveData.entrancesDiscovered));
@@ -783,6 +784,30 @@ namespace rnd {
     // gExtSaveData.option_IgnoreMaskReaction = gSettingsContext.ignoreMaskReaction;
     // gExtSaveData.option_SkipSongReplays    = gSettingsContext.skipSongReplays;
   }
+
+  u8 SaveFile_GetIsSceneDiscovered(u8 sceneNum) {
+    u32 numBits = sizeof(u32) * 8;
+    u32 idx     = sceneNum / numBits;
+    if (idx < SAVEFILE_SCENES_DISCOVERED_IDX_COUNT) {
+        u32 bit = 1 << (sceneNum - (idx * numBits));
+        return (gExtSaveData.scenesDiscovered[idx] & bit) != 0;
+    }
+    return 0;
+}
+
+void SaveFile_SetSceneDiscovered(u16 sceneNum) {
+    if (SaveFile_GetIsSceneDiscovered(sceneNum)) {
+        return;
+    }
+
+    u16 numBits = sizeof(u32) * 8;
+    u32 idx     = sceneNum / numBits;
+    if (idx < SAVEFILE_SCENES_DISCOVERED_IDX_COUNT) {
+        u32 sceneBit = 1 << (sceneNum - (idx * numBits));
+        gExtSaveData.scenesDiscovered[idx] |= sceneBit;
+    }
+}
+
 
   extern "C" void SaveFile_LoadExtSaveData() {
     char path[] = "/0.bin";
@@ -834,18 +859,6 @@ namespace rnd {
 
     extDataUnmount(fsa);
     extDataClose(fileHandle);
-  }
-
-  u8 SaveFile_GetIsSceneDiscovered(u8 sceneNum) {
-    // TODO: ENSURE THE SCENES ARE CHECKED WITH
-    // OUR BITFLAGS. NOT USING <<.
-    /*u32 numBits = sizeof(u32) * 8;
-    u32 idx     = sceneNum / numBits;
-    if (idx < SAVEFILE_SCENES_DISCOVERED_IDX_COUNT) {
-        u32 bit = 1 << (sceneNum - (idx * numBits));
-        return (gExtSaveData.scenesDiscovered[idx] & bit) != 0;
-    }*/
-    return 0;
   }
 
   extern "C" void SaveFile_SaveExtSaveData() {

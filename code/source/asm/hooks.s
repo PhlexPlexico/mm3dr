@@ -254,6 +254,13 @@ noOverrideItemID:
     cpy r0,r7
     b 0x23110C
 
+.global hook_EnteringLocation
+hook_EnteringLocation:
+    push {r0-r12, lr}
+    bl Entrance_EnteredLocation
+    pop {r0-r12, lr}
+    cpy r9,r0
+    bx lr
 
 .global hook_DarmaniRewardCheck
 hook_DarmaniRewardCheck:
