@@ -774,6 +774,7 @@ namespace rnd {
     gExtSaveData.playtimeSeconds = 0;
     memset(&gExtSaveData.chestRewarded, 0, sizeof(gExtSaveData.chestRewarded));
     memset(&gExtSaveData.scenesDiscovered, 0, sizeof(gExtSaveData.scenesDiscovered));
+    memset(&gExtSaveData.itemCollected, 0, sizeof(gExtSaveData.itemCollected));
     // TODO: Settings options belong in ext.
     // memset(&gExtSaveData.scenesDiscovered, 0, sizeof(gExtSaveData.scenesDiscovered));
     // memset(&gExtSaveData.entrancesDiscovered, 0, sizeof(gExtSaveData.entrancesDiscovered));
@@ -787,27 +788,26 @@ namespace rnd {
 
   u8 SaveFile_GetIsSceneDiscovered(u8 sceneNum) {
     u32 numBits = sizeof(u32) * 8;
-    u32 idx     = sceneNum / numBits;
+    u32 idx = sceneNum / numBits;
     if (idx < SAVEFILE_SCENES_DISCOVERED_IDX_COUNT) {
-        u32 bit = 1 << (sceneNum - (idx * numBits));
-        return (gExtSaveData.scenesDiscovered[idx] & bit) != 0;
+      u32 bit = 1 << (sceneNum - (idx * numBits));
+      return (gExtSaveData.scenesDiscovered[idx] & bit) != 0;
     }
     return 0;
-}
+  }
 
-void SaveFile_SetSceneDiscovered(u16 sceneNum) {
+  void SaveFile_SetSceneDiscovered(u16 sceneNum) {
     if (SaveFile_GetIsSceneDiscovered(sceneNum)) {
-        return;
+      return;
     }
 
     u16 numBits = sizeof(u32) * 8;
-    u32 idx     = sceneNum / numBits;
+    u32 idx = sceneNum / numBits;
     if (idx < SAVEFILE_SCENES_DISCOVERED_IDX_COUNT) {
-        u32 sceneBit = 1 << (sceneNum - (idx * numBits));
-        gExtSaveData.scenesDiscovered[idx] |= sceneBit;
+      u32 sceneBit = 1 << (sceneNum - (idx * numBits));
+      gExtSaveData.scenesDiscovered[idx] |= sceneBit;
     }
-}
-
+  }
 
   extern "C" void SaveFile_LoadExtSaveData() {
     char path[] = "/0.bin";
