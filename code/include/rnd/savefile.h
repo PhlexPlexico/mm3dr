@@ -7,8 +7,9 @@
 #include "z3d/z3DVec.h"
 
 // Increment the version number whenever the ExtSaveData structure is changed
-#define EXTSAVEDATA_VERSION 07
+#define EXTSAVEDATA_VERSION 8
 #define SAVEFILE_SCENES_DISCOVERED_IDX_COUNT 4
+#define SAVEFILE_SPOILER_ITEM_MAX 512
 
 namespace rnd {
   void SaveFile_SkipMinorCutscenes();
@@ -92,6 +93,7 @@ namespace rnd {
     };
     TingleCollectRegister tingleMaps;
     u32 scenesDiscovered[SAVEFILE_SCENES_DISCOVERED_IDX_COUNT];
+    u8 itemCollected[SAVEFILE_SPOILER_ITEM_MAX];
     u8 chestRewarded[116][30];  // Reward table that's stored by scene and chest param/flag.
   } ExtSaveData;
 

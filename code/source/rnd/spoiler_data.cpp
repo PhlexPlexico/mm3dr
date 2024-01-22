@@ -43,6 +43,8 @@ namespace rnd {
       if (gSpoilerData.ItemLocations[i].LocationScene == scene && gSpoilerData.ItemLocations[i].OverrideType == type &&
           gSpoilerData.ItemLocations[i].LocationFlag == flag) {
         gSpoilerData.ItemLocations[i].Collected = true;
+        // Since it's not saved here, we need to return
+        gExtSaveData.itemCollected[i] = 1;
       }
     }
     return -1;
@@ -121,6 +123,8 @@ namespace rnd {
 
     SpoilerItemLocation itemLoc = gSpoilerData.ItemLocations[itemIndex];
     if (itemLoc.Collected == true) {
+      return 1;
+    } else if (gExtSaveData.itemCollected[itemIndex] == 1) {
       return 1;
     }
     if (itemLoc.CollectionCheckType == SPOILER_CHK_ALWAYS_COLLECTED) {
