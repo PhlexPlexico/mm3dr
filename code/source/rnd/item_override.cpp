@@ -42,10 +42,10 @@ namespace rnd {
     rItemOverrides[0].key.type = ItemOverride_Type::OVR_COLLECTABLE;
     rItemOverrides[0].value.getItemId = 0x26;
     rItemOverrides[0].value.looksLikeItemId = 0x26;
-    rItemOverrides[1].key.scene = 0x38;
+    rItemOverrides[1].key.scene = 0x6F;
     rItemOverrides[1].key.type = ItemOverride_Type::OVR_COLLECTABLE;
-    rItemOverrides[1].value.getItemId = 0x38;
-    rItemOverrides[1].value.looksLikeItemId = 0x38;
+    rItemOverrides[1].value.getItemId = 0xB6;
+    rItemOverrides[1].value.looksLikeItemId = 0xB6;
     rItemOverrides[2].key.scene = 0x12;
     rItemOverrides[2].key.type = ItemOverride_Type::OVR_COLLECTABLE;
     rItemOverrides[2].value.getItemId = 0x37;
@@ -475,73 +475,28 @@ namespace rnd {
     game::SaveData& saveData = game::GetCommonData().save;
     switch (getItemMapId) {
     case 0xB4:
-      saveData.overworld_map_data[1] = 0x30;
-      saveData.overworld_map_data[2] = 0xA6;
-      saveData.overworld_map_data[3] = 0x52;
-      saveData.overworld_map_data[4] = 0x01;
-      saveData.overworld_map_data[5] = 0x62;
-      saveData.overworld_map_data[6] = 0x11;
-      saveData.overworld_map_data[7] = 0x02;
-      saveData.overworld_map_data[8] = 0x08;
-      saveData.overworld_map_data[10] = 0x18;
-      saveData.overworld_map_data[12] = 0x0A;
-      saveData.overworld_map_data[13] = 0xF1;
-      saveData.overworld_map_data[14] = 0x01;
+      rnd::util::GetPointer<void(u8)>(0x548260)(0x0);
       saveData.overworld_map_get_flags_0x3F_for_all = saveData.overworld_map_get_flags_0x3F_for_all | 1;
-      saveData.anonymous_162 = saveData.anonymous_162 | 3;
       break;
     case 0xB5:
-      saveData.overworld_map_data[0] = 0x01;
-      saveData.overworld_map_data[1] = 0x04;
-      saveData.overworld_map_data[4] = 0x90;
-      saveData.overworld_map_data[5] = 0x08;
-      saveData.overworld_map_data[7] = 0x40;
-      saveData.overworld_map_data[8] = 0x61;
-      saveData.overworld_map_data[10] = 0x84;
-      saveData.overworld_map_data[14] = 0x02;
+      rnd::util::GetPointer<void(u8)>(0x548260)(0x1);
       saveData.overworld_map_get_flags_0x3F_for_all = saveData.overworld_map_get_flags_0x3F_for_all | 2;
-      saveData.anonymous_162 = saveData.anonymous_162 | 0x1C;
       break;
     case 0xB6:
-      saveData.overworld_map_data[5] = 0x10;
-      saveData.overworld_map_data[6] = 0x04;
-      saveData.overworld_map_data[7] = 0x20;
-      saveData.overworld_map_data[9] = 0x61;
-      saveData.overworld_map_data[10] = 0x01;
-      saveData.overworld_map_data[11] = 0x7C;
-      saveData.overworld_map_data[13] = 0x08;
       saveData.overworld_map_get_flags_0x3F_for_all = saveData.overworld_map_get_flags_0x3F_for_all | 4;
-      saveData.anonymous_162 = saveData.anonymous_162 | 0xE0;
+      rnd::util::GetPointer<void(u8)>(0x548260)(0x2);
       break;
     case 0xB7:
-      saveData.overworld_map_data[2] += 0x01;
-      saveData.overworld_map_data[4] += 0x04;
-      saveData.overworld_map_data[6] += 0x20;
-      saveData.overworld_map_data[8] += 0x06;
-      saveData.overworld_map_data[13] += 0x04;
       saveData.overworld_map_get_flags_0x3F_for_all = saveData.overworld_map_get_flags_0x3F_for_all | 8;
-      saveData.anonymous_162 = saveData.anonymous_162 | 0x100;
+      rnd::util::GetPointer<void(u8)>(0x548260)(0x3);
       break;
     case 0xB8:
-      saveData.overworld_map_data[2] += 0x10;
-      saveData.overworld_map_data[4] += 0x28;
-      saveData.overworld_map_data[5] += 0x81;
-      saveData.overworld_map_data[6] += 0x88;
-      saveData.overworld_map_data[7] += 0x19;
-      saveData.overworld_map_data[9] += 0x14;
-      saveData.overworld_map_data[14] += 0x04;
       saveData.overworld_map_get_flags_0x3F_for_all = saveData.overworld_map_get_flags_0x3F_for_all | 0x10;
-      saveData.anonymous_162 = saveData.anonymous_162 | 0x1E00;
+      rnd::util::GetPointer<void(u8)>(0x548260)(0x4);
       break;
     case 0xB9:
-      saveData.overworld_map_data[2] += 0x08;
-      saveData.overworld_map_data[3] += 0x20;
-      saveData.overworld_map_data[9] += 0x88;
-      saveData.overworld_map_data[10] += 0x62;
-      saveData.overworld_map_data[11] += 0x03;
-      saveData.overworld_map_data[12] += 0x01;
       saveData.overworld_map_get_flags_0x3F_for_all = saveData.overworld_map_get_flags_0x3F_for_all | 0x20;
-      saveData.anonymous_162 = saveData.anonymous_162 | 0x6000;
+      rnd::util::GetPointer<void(u8)>(0x548260)(0x5);
       break;
     default:
       break;
