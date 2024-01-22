@@ -19,6 +19,15 @@ patch_FixSurroundSound:
     nop
     nop
 
+@ nop gctx->field_22f8 from being potentially nulled. Disables stray fairy respawn and doors locking.
+.section .patch_DoNotResetPermFlags
+.global patch_DoNotResetPermFlags
+patch_DoNotResetPermFlags:
+    nop
+    nop
+    nop
+    nop
+
 .section .patch_OcarinaDive
 .global patch_OcarinaDive
 patch_OcarinaDive:

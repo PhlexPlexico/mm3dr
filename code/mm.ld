@@ -187,6 +187,10 @@ SECTIONS{
     *(.patch_FixSurroundSound)
   }
 
+  .patch_DoNotResetPermFlags 0x1C9348 : {
+    *(.patch_DoNotResetPermFlags)
+  }
+
   .patch_OcarinaDive 0x1E1F0C : {
     *(.patch_OcarinaDive)
   }
