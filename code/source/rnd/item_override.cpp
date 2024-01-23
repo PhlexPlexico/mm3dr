@@ -528,7 +528,10 @@ namespace rnd {
       if (rActiveItemOverride.key.type == ItemOverride_Type::OVR_CHEST) {
         // Check and see if we have trade items or repeatable bottles and add to the array.
         if (rActiveItemRow->itemId < 0x28 || (rActiveItemRow->itemId > 0x30 && rActiveItemRow->itemId < 0x9f)) {
-          gExtSaveData.chestRewarded[rActiveItemOverride.key.scene][rActiveItemOverride.key.flag] = 1;
+          // XXX: Hacky fix but maybe we need to redo how we track chests. Mark Giant's Mask Chest
+          // to be repeatably obtainable since we're not extending this array to 126 in the second dimension.
+          if (rActiveItemOverride.key.flag < 0x20)
+            gExtSaveData.chestRewarded[rActiveItemOverride.key.scene][rActiveItemOverride.key.flag] = 1;
         }
       }
       game::GlobalContext* gctx = rnd::GetContext().gctx;
@@ -566,7 +569,7 @@ namespace rnd {
       ItemOverride_Clear();
       player->get_item_id = incomingGetItemId;
       return;
-    } else if (gExtSaveData.chestRewarded[override.key.scene][override.key.flag] == 1) {
+    } else if (override.key.type == ItemOverride_Type::OVR_CHEST && gExtSaveData.chestRewarded[override.key.scene][override.key.flag] == 1) {
       // Override was already given, use base game's item code
       ItemOverride_Clear();
       player->get_item_id = -(s16)GetItemID::GI_RUPEE_BLUE;
