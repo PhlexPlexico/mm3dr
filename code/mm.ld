@@ -383,6 +383,10 @@ SECTIONS{
     *(.patch_IncomingGetItemID)
   }
 
+  .patch_RemoveJimWhenExitingHideout 0x4B6964 : {
+    *(.patch_RemoveJimWhenExitingHideout)
+  }
+
   .patch_ReadGamePad 0x59BA10 : {
     *(.patch_ReadGamePad)
   }

@@ -420,6 +420,11 @@ patch_CouplesMaskGiveItem:
 patch_RemoveCouplesMaskMessage:
     b hook_AdjustCouplesMaskMessage
 
+.section .patch_RemoveJimWhenExitingHideout
+.global RemoveJimWhenExitingHideout_patch
+RemoveJimWhenExitingHideout_patch:
+    cmp r0,r0
+
 .section .patch_loader
 .global loader_patch
 loader_patch:
