@@ -401,24 +401,22 @@ namespace rnd {
         getItemId = incomingNegative ? -0xBA : 0xBA;
       }
     } else if (actorId == game::act::Id::EnPst) {
-      getItemId = incomingNegative ? -0xBA : 0xBA;
+      if (gExtSaveData.givenItemChecks.enPstGivenItem == 0)
+        getItemId = incomingNegative ? -0xBA : 0xBA;
+      else
+        getItemId = 0x01;
     } else if (actorId == game::act::Id::EnDns) {
       // Business scrub salesmen in grotto.
       // Same scene as gossips so need to set item manually.
       getItemId = incomingNegative ? -0x01 : 0x01;
     } else if (getItemId == static_cast<s16>(rnd::GetItemID::GI_MASK_CAPTAINS_HAT)) {
       gExtSaveData.givenItemChecks.enOskGivenItem = 1;
-    } else if (storedActorId == game::act::Id::EnPst) {
-      getItemId = incomingNegative ? -0xBA : 0xBA;
     }
 
     return getItemId;
   }
 
   void SetExtData() {
-#if defined ENABLE_DEBUG || defined DEBUG_PRINT
-    rnd::util::Print("%s: Settomg extdata for actor %#04x\n", __func__, storedActorId);
-#endif
     if (storedActorId == game::act::Id::NpcEnNb) {
       gExtSaveData.givenItemChecks.enNbGivenItem = 1;
     } else if (storedActorId == game::act::Id::NpcInvisibleGuard) {
@@ -430,9 +428,6 @@ namespace rnd {
     } else if (storedActorId == game::act::Id::NpcEnYb) {
       gExtSaveData.givenItemChecks.enYbGivenItem = 1;
     } else if (storedActorId == game::act::Id::NpcEnBaba) {
-#if defined ENABLE_DEBUG || defined DEBUG_PRINT
-      rnd::util::Print("%s: GAVE EN BABA A TALKING TO, NO MORE ITEMS.\n", __func__);
-#endif
       gExtSaveData.givenItemChecks.enBabaGivenItem = 1;
     } else if (storedActorId == game::act::Id::NpcEnFsn) {
       gExtSaveData.givenItemChecks.enFsnGivenItem = 1;
@@ -452,6 +447,8 @@ namespace rnd {
       gExtSaveData.givenItemChecks.enHgoGivenItem = 1;
     } else if (storedActorId == game::act::Id::EnTru) {
       gExtSaveData.givenItemChecks.enTruGivenItem = 1;
+    } else if (storedActorId == game::act::Id::EnPst) {
+      gExtSaveData.givenItemChecks.enPstGivenItem = 1;
     }
   }
 
