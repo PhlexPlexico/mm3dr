@@ -416,6 +416,9 @@ namespace rnd {
   }
 
   void SetExtData() {
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+    rnd::util::Print("%s: Settomg extdata for actor %#04x\n", __func__, storedActorId);
+#endif
     if (storedActorId == game::act::Id::NpcEnNb) {
       gExtSaveData.givenItemChecks.enNbGivenItem = 1;
     } else if (storedActorId == game::act::Id::NpcInvisibleGuard) {
@@ -427,6 +430,9 @@ namespace rnd {
     } else if (storedActorId == game::act::Id::NpcEnYb) {
       gExtSaveData.givenItemChecks.enYbGivenItem = 1;
     } else if (storedActorId == game::act::Id::NpcEnBaba) {
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+      rnd::util::Print("%s: GAVE EN BABA A TALKING TO, NO MORE ITEMS.\n", __func__);
+#endif
       gExtSaveData.givenItemChecks.enBabaGivenItem = 1;
     } else if (storedActorId == game::act::Id::NpcEnFsn) {
       gExtSaveData.givenItemChecks.enFsnGivenItem = 1;
@@ -642,47 +648,68 @@ namespace rnd {
   void ItemOverride_RemoveTextId() {
     rStoredTextId = 0;
   }
-
+  // clang-format off
   int ItemOverride_CheckInventoryItemOverride(game::ItemId currentItem) {
-    if (currentItem == game::ItemId::BlastMask && gExtSaveData.givenItemChecks.enBabaGivenItem == 0) {
-      return (int)0xFF;
-    } else if (currentItem == game::ItemId::BremenMask && gExtSaveData.givenItemChecks.enGuruGuruGivenItem == 0) {
-      return (int)0xFF;
-    } else if (currentItem == game::ItemId::KamaroMask && gExtSaveData.givenItemChecks.enYbGivenItem == 0) {
-      return (int)0xFF;
-    } else if (currentItem == game::ItemId::DonGeroMask && gExtSaveData.givenItemChecks.enGegGivenItem == 0) {
-      return (int)0xFF;
-    } else if (currentItem == game::ItemId::ZoraMask && gExtSaveData.givenItemChecks.enZogGivenItem == 0) {
-      return (int)0xFF;
-    } else if (currentItem == game::ItemId::LetterToMama && gExtSaveData.givenItemChecks.enBabaGivenItem == 0) {
-      return (int)0xFF;
-    } else if (currentItem == game::ItemId::KeatonMask && gExtSaveData.givenItemChecks.enFsnGivenItem == 0) {
-      return (int)0xFF;
-    } else if (currentItem == game::ItemId::PostmanHat && gExtSaveData.givenItemChecks.enPmGivenItem == 0) {
-      return (int)0xFF;
-    } else if (currentItem == game::ItemId::StoneMask && gExtSaveData.givenItemChecks.enStoneHeishiGivenItem == 0) {
-      return (int)0xFF;
-    } else if (currentItem == game::ItemId::MaskOfTruth && gExtSaveData.givenItemChecks.enSshGivenItem == 0) {
-      return (int)0xFF;
-    } else if (currentItem == game::ItemId::MaskOfScents && gExtSaveData.givenItemChecks.enDnoGivenItem == 0) {
-      return (int)0xFF;
-    } else if (currentItem == game::ItemId::GreatFairyMask && gExtSaveData.givenItemChecks.bgDyYoseizoGivenItem == 0) {
-      return (int)0xFF;
-    } else if (currentItem == game::ItemId::GaroMask && gExtSaveData.givenItemChecks.enInGivenItem == 0) {
-      return (int)0xFF;
-    } else if (currentItem == game::ItemId::PictographBox && gExtSaveData.givenItemChecks.enTruGivenItem == 0) {
-      return (int)0xFF;
-    } else if (currentItem == game::ItemId::BunnyHood && gExtSaveData.givenItemChecks.enHsGivenItem == 0) {
-      return (int)0xFF;
-    } else if (currentItem == game::ItemId::GibdoMask && gExtSaveData.givenItemChecks.enHgoGivenItem == 0) {
-      return (int)0xFF;
-    } else if (currentItem == game::ItemId::RomaniMask && gExtSaveData.givenItemChecks.enMaYtoGivenItem == 0) {
-      return (int)0xFF;
-    } else if (currentItem == game::ItemId::CaptainHat && gExtSaveData.givenItemChecks.enOskGivenItem == 0) {
-      return (int)0xFF;
+    auto& givenItems = gExtSaveData.givenItemChecks;
+    if (currentItem == game::ItemId::BlastMask) {
+      return givenItems.enBabaGivenItem ? (int)currentItem : (int)0xFF;
+    } else if (currentItem == game::ItemId::BremenMask) {
+      return givenItems.enGuruGuruGivenItem ? (int)currentItem
+        : (int)0xFF;
+    } else if (currentItem == game::ItemId::KamaroMask) {
+      return givenItems.enYbGivenItem ? (int)currentItem
+        : (int)0xFF;
+    } else if (currentItem == game::ItemId::DonGeroMask) {
+      return givenItems.enGegGivenItem ? (int)currentItem
+        : (int)0xFF;
+    } else if (currentItem == game::ItemId::ZoraMask) {
+      return givenItems.enZogGivenItem ? (int)currentItem
+        : (int)0xFF;
+    } else if (currentItem == game::ItemId::LetterToMama) {
+      return givenItems.enBabaGivenItem ? (int)currentItem
+        : (int)0xFF;
+    } else if (currentItem == game::ItemId::KeatonMask) {
+      return givenItems.enFsnGivenItem ? (int)currentItem
+        : (int)0xFF;
+    } else if (currentItem == game::ItemId::PostmanHat) {
+      return givenItems.enPmGivenItem ? (int)currentItem
+        : (int)0xFF;
+    } else if (currentItem == game::ItemId::StoneMask) {
+      return givenItems.enStoneHeishiGivenItem ? (int)currentItem
+        : (int)0xFF;
+    } else if (currentItem == game::ItemId::MaskOfTruth) {
+      return givenItems.enSshGivenItem ? (int)currentItem
+        : (int)0xFF;
+    } else if (currentItem == game::ItemId::MaskOfScents) {
+      return givenItems.enDnoGivenItem ? (int)currentItem
+        : (int)0xFF;
+    } else if (currentItem == game::ItemId::GreatFairyMask) {
+      return givenItems.bgDyYoseizoGivenItem ? (int)currentItem
+        : (int)0xFF;
+    } else if (currentItem == game::ItemId::GaroMask) {
+      return givenItems.enInGivenItem ? (int)currentItem
+        : (int)0xFF;
+    } else if (currentItem == game::ItemId::PictographBox) {
+      return givenItems.enTruGivenItem ? (int)currentItem
+        : (int)0xFF;
+    } else if (currentItem == game::ItemId::BunnyHood) {
+      return givenItems.enHsGivenItem ? (int)currentItem
+        : (int)0xFF;
+    } else if (currentItem == game::ItemId::GibdoMask) {
+      return givenItems.enHgoGivenItem ? (int)currentItem
+        : (int)0xFF;
+    } else if (currentItem == game::ItemId::RomaniMask) {
+      return givenItems.enMaYtoGivenItem ? (int)currentItem
+        : (int)0xFF;
+    } else if (currentItem == game::ItemId::CaptainHat) {
+      return givenItems.enOskGivenItem ? (int)currentItem
+        : (int)0xFF;
     }
-    return (int)currentItem;
+    auto& inventory = game::GetCommonData().save.inventory.items;
+    return (int)inventory[(int)currentItem];
   }
+
+  // clang-format on
   void ItemOverride_SwapSoHGetItemText(game::GlobalContext* gctx, u16 textId, game::act::Actor* fromActor) {
     // Check which text ID is coming in. If it's any mask from Song of Healing, replace it with active item text.
     if (textId == 0x79 || textId == 0x7a || textId == 0x87 || textId == 0x78) {

@@ -51,6 +51,10 @@ SECTIONS{
     *(.patch_RemoveMeetMaskCutScene)
   } */
 
+  .patch_KeepBowOnEpona 0x188794 : {
+    *(.patch_KeepBowOnEpona)
+  }
+
   .patch_OverrideCutsceneNextEntrance 0x1B1834 : {
     *(.patch_OverrideCutsceneNextEntrance)
   }
@@ -115,8 +119,12 @@ SECTIONS{
     *(.patch_ZoraInWaterFastSwim)
   }
 
-  .patch_CheckCurrentInventoryOverrideItem 0x1F3D6C : {
+  .patch_CheckCurrentInventoryOverrideItem 0x1F3D5C : {
     *(.patch_CheckCurrentInventoryOverrideItem)
+  }
+
+  .patch_CheckCurrentInventoryOverrideItemTwo 0x201060 : {
+    *(.patch_CheckCurrentInventoryOverrideItemTwo)
   }
 
   /* .patch_OverrideItemIDFour 0x1FBD10 : {

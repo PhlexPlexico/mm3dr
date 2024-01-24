@@ -76,6 +76,10 @@ patch_RemoveSOHCutesceneAfterMessage:
 patch_OverrideBombersNotebook:
     b hook_OverrideHMSBombers
 
+.section .patch_KeepBowOnEpona
+.global patch_KeepBowOnEpona
+patch_KeepBowOnEpona:
+    nop
 
 .section .patch_OverrideCutsceneNextEntrance
 .global patch_OverrideCutsceneNextEntrance
@@ -156,6 +160,13 @@ patch_SpawnFastElegyStatues:
 .global patch_CheckCurrentInventoryOverrideItem
 patch_CheckCurrentInventoryOverrideItem:
     b hook_CheckCurrentInventory
+
+.section .patch_CheckCurrentInventoryOverrideItemTwo
+.global patch_CheckCurrentInventoryOverrideItemTwo
+patch_CheckCurrentInventoryOverrideItemTwo:
+    b hook_CheckCurrentInventory
+
+
 
 .section .patch_ForceSwordUpgradeOnHuman
 .global patch_ForceSwordUpgradeOnHuman
