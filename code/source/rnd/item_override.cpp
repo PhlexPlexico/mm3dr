@@ -569,7 +569,8 @@ namespace rnd {
       ItemOverride_Clear();
       player->get_item_id = incomingGetItemId;
       return;
-    } else if (override.key.type == ItemOverride_Type::OVR_CHEST && gExtSaveData.chestRewarded[override.key.scene][override.key.flag] == 1) {
+    } else if (override.key.type == ItemOverride_Type::OVR_CHEST &&
+               gExtSaveData.chestRewarded[override.key.scene][override.key.flag] == 1) {
       // Override was already given, use base game's item code
       ItemOverride_Clear();
       player->get_item_id = -(s16)GetItemID::GI_RUPEE_BLUE;
