@@ -596,29 +596,29 @@ namespace rnd {
       // Override was already given, use base game's item code
       // If we're a bottled item in our override, we've been received before. Give a refill.
       u16 refItemId = override.value.getItemId;
-      #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-        rnd::util::Print("%s: Our ref item id is %#04x\n", __func__, refItemId);	
-      #endif
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+      rnd::util::Print("%s: Our ref item id is %#04x\n", __func__, refItemId);
+#endif
       ItemOverride_Clear();
       switch (refItemId) {
-        case 0x60:
-            player->get_item_id = -(s16)GetItemID::GI_BOTTLE_MILK_REFILL;
-          break;
-        case 0x6A:
-          player->get_item_id = -(s16)GetItemID::GI_BOTTLE_GOLD_DUST_REFILL;
-          break;
-        case 0x6F:
-          player->get_item_id = -(s16)GetItemID::GI_BOTTLE_CHATEAU_ROMANI_REFILL;
-          break;
-        case 0x6E:
-          player->get_item_id = -(s16)GetItemID::GI_BOTTLE_SEAHORSE_REFILL;
-          break;
-        case 0x70:
-          player->get_item_id = -(s16)GetItemID::GI_BOTTLE_SEAHORSE_REFILL;
-          break;
-        default:
-          player->get_item_id = -(s16)GetItemID::GI_BOTTLE_MYSTERY_MILK_REFILL;
-          break;
+      case 0x60:
+        player->get_item_id = -(s16)GetItemID::GI_BOTTLE_MILK_REFILL;
+        break;
+      case 0x6A:
+        player->get_item_id = -(s16)GetItemID::GI_BOTTLE_GOLD_DUST_REFILL;
+        break;
+      case 0x6F:
+        player->get_item_id = -(s16)GetItemID::GI_BOTTLE_CHATEAU_ROMANI_REFILL;
+        break;
+      case 0x6E:
+        player->get_item_id = -(s16)GetItemID::GI_BOTTLE_SEAHORSE_REFILL;
+        break;
+      case 0x70:
+        player->get_item_id = -(s16)GetItemID::GI_BOTTLE_SEAHORSE_REFILL;
+        break;
+      default:
+        player->get_item_id = -(s16)GetItemID::GI_BOTTLE_MYSTERY_MILK_REFILL;
+        break;
       }
       return;
     }
