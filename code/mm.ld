@@ -271,12 +271,16 @@ SECTIONS{
     *(.patch_FasterBlockMovement)
   }
 
+  .patch_GaboraCheckExtDataNotSword 0x2CBB14 : {
+    *(.patch_GaboraCheckExtDataNotSword)
+  }
+
   .patch_DoNotRemoveSwordGaboraOne 0x2CBCB0 : {
     *(.patch_DoNotRemoveSwordGabora)
   }
 
   .patch_DoNotRemoveSwordGaboraTwo 0x2CBCC0 : {
-    *(.patch_DoNotRemoveSwordGabora)
+    *(.patch_DoNotRemoveSwordGaboraTwo)
   }
 
   .patch_FasterBlockMovementBack 0x2D0C0C : {
@@ -309,6 +313,10 @@ SECTIONS{
 
   .patch_RemoveGoronMaskCheckDarmani 0x2DE788 : {
     *(.patch_RemoveGoronMaskCheckDarmani)
+  }
+
+  .patch_CheckOshExtData 0x3BF224 : {
+    *(.patch_CheckOshExtData)
   }
 
   .patch_OverrideQuiverArcheryTown 0x3E50E4 : {

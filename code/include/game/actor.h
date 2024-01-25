@@ -33,14 +33,18 @@ namespace game::act {
     DayTimer = 0x00F5,
     // Elegy of Emptiness statue
     ObjElegyStatue = 0x001F,
-    // En_Gm - Gorman Bros Race
+    // En_Im - Gorman Bros Race - Ingo
     EnIn = 0x004D,
     // Clear Tag (?)
     ClearTag = 0x0073,
+    // Gorman
+    EnGm = 0x0074,
     // En_Hs - Grog The Chicken Man
     EnHs = 0x0076,
     // Cursed Man Spider House
     EnSsh = 0x0090,
+    // Biggoron
+    EnDai = 0x00D5,
     // [1] Deku Palace / Woodfall Temple moving platforms (after player lands on them)
     ObjRailLift = 0x00D8,
     // Shooting Gallery - Man
@@ -79,6 +83,8 @@ namespace game::act {
     EnMaYto = 0x01AF,
     // [7] Owl statue
     ObjOwlStatue = 0x01B2,
+    // Gabora
+    EnKgy = 0x018F,
     // [4] Old Lady from Bomb Shop
     NpcEnBaba = 0x01C5,
     // Granny

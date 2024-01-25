@@ -286,6 +286,11 @@ patch_EnteringLocation:
 patch_RemoveGoronMaskCheckDarmani:
     b hook_DarmaniRewardCheck
 
+.section .patch_CheckOshExtData
+.global patch_CheckOshExtData
+patch_CheckOshExtData:
+    bl hook_CheckOshExtData
+
 .section .patch_OverrideQuiverArchery
 .global patch_OverrideQuiverArchery
 patch_OverrideQuiverArchery:
@@ -342,10 +347,21 @@ patch_HandleOcarinaHooks:
 patch_FasterBlockMovement:
     .float 50.0
 
+.section .patch_GaboraCheckExtDataNotSword
+.global patch_GaboraCheckExtDataNotSword
+patch_GaboraCheckExtDataNotSword:
+    bl hook_GaboraCheckExtDataNotSword
+
 @ Removes sword being removed from inventory during 
 .section .patch_DoNotRemoveSwordGabora
 .global patch_DoNotRemoveSwordGabora
 patch_DoNotRemoveSwordGabora:
+    nop
+
+@ Removes sword being removed from inventory during 
+.section .patch_DoNotRemoveSwordGaboraTwo
+.global patch_DoNotRemoveSwordGaboraTwo
+patch_DoNotRemoveSwordGaboraTwo:
     nop
 
 .section .patch_FasterBlockMovementBack

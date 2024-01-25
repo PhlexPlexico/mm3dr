@@ -67,7 +67,12 @@ namespace rnd {
       BitField<22, 1, u32> enMaYtoGivenItem;
       BitField<23, 1, u32> enOskGivenItem;
       BitField<24, 1, u32> enPstGivenItem;
-      BitField<25, 7, u32> unused;
+      BitField<25, 2, u32> enKgyGivenItem;
+      BitField<27, 1, u32> enGmGivenItem;
+      BitField<28, 1, u32> enFsnANMGivenItem;
+      BitField<29, 1, u32> enOshGivenItem;
+      BitField<30, 1, u32> enDaiGivenItem;
+      BitField<31, 1, u32> unused;
     };
     GivenItemRegister givenItemChecks;
     union FairyCollectRegister {

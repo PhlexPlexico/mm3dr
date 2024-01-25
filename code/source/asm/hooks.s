@@ -269,6 +269,14 @@ doNotSpawnDarmani:
     nop
     b 0x2DE96C
 
+.global hook_CheckOshExtData
+hook_CheckOshExtData:
+    push {lr}
+    bl ItemOverride_GetOshExtData
+    pop {lr}
+    cmp r0,#0x0
+    bx lr
+
 .global hook_IncomingGetItemID
 hook_IncomingGetItemID:
     push {r0-r12, lr}
@@ -301,6 +309,26 @@ hook_HandleOcarina:
     bne 0x606424
     cmp r0, #0x16 @ original instruction
     b 0x604d90
+
+.global hook_GaboraCheckExtDataNotSword
+hook_GaboraCheckExtDataNotSword:
+    push {r0-r12, lr}
+    bl ItemOverride_GetGaboraExtData
+    cmp r0, #0x0
+    beq giveRazorSwordReward
+    cmp r0, #0x1
+    beq giveGildedSword
+    pop {r0-r12,lr}
+    cmp r0,r0
+    bx lr
+giveRazorSwordReward:
+    pop {r0-r12,lr}
+    cmp r0,#0xFF
+    b 0x2CBB3C
+giveGildedSword:
+    pop {r0-r12,lr}
+    cmp r0,r0
+    b 0x2CBB38
 
 .global hook_OwlExtDataSave
 hook_OwlExtDataSave:

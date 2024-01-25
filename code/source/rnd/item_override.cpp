@@ -17,6 +17,7 @@ extern "C" {
 namespace rnd {
   static s32 rItemOverrides_Count = 0;
   static game::act::Id storedActorId = game::act::Id::Player;
+  static rnd::GetItemID storedGetItemId = rnd::GetItemID::GI_NONE;
   ItemOverride rItemOverrides[640] = {0};
   static game::act::Actor* rDummyActor = NULL;
   static ItemOverride rPendingOverrideQueue[3] = {0};
@@ -44,8 +45,8 @@ namespace rnd {
     rItemOverrides[0].value.looksLikeItemId = 0x26;
     rItemOverrides[1].key.scene = 0x6F;
     rItemOverrides[1].key.type = ItemOverride_Type::OVR_COLLECTABLE;
-    rItemOverrides[1].value.getItemId = 0xB6;
-    rItemOverrides[1].value.looksLikeItemId = 0xB6;
+    rItemOverrides[1].value.getItemId = 0x34;
+    rItemOverrides[1].value.looksLikeItemId = 0x34;
     rItemOverrides[2].key.scene = 0x12;
     rItemOverrides[2].key.type = ItemOverride_Type::OVR_COLLECTABLE;
     rItemOverrides[2].value.getItemId = 0x37;
@@ -165,6 +166,7 @@ namespace rnd {
     rActiveItemFastChest = 0;
     rCustomDungeonItemRetrieved = 0;
     storedActorId = game::act::Id::Player;
+    storedGetItemId = rnd::GetItemID::GI_NONE;
   }
 
   static void ItemOverride_PushPendingOverride(ItemOverride override) {
@@ -430,7 +432,11 @@ namespace rnd {
     } else if (storedActorId == game::act::Id::NpcEnBaba) {
       gExtSaveData.givenItemChecks.enBabaGivenItem = 1;
     } else if (storedActorId == game::act::Id::NpcEnFsn) {
-      gExtSaveData.givenItemChecks.enFsnGivenItem = 1;
+      if (storedGetItemId == rnd::GetItemID::GI_MASK_ALL_NIGHT) {
+        gExtSaveData.givenItemChecks.enFsnANMGivenItem = 1;
+      } else {
+        gExtSaveData.givenItemChecks.enFsnGivenItem = 1;
+      }
     } else if (storedActorId == game::act::Id::NpcEnPm) {
       gExtSaveData.givenItemChecks.enPmGivenItem = 1;
     } else if (storedActorId == game::act::Id::EnSsh) {
@@ -449,7 +455,20 @@ namespace rnd {
       gExtSaveData.givenItemChecks.enTruGivenItem = 1;
     } else if (storedActorId == game::act::Id::EnPst) {
       gExtSaveData.givenItemChecks.enPstGivenItem = 1;
+    } else if (storedActorId == game::act::Id::EnKgy) {
+      if (gExtSaveData.givenItemChecks.enKgyGivenItem == 1) {
+        gExtSaveData.givenItemChecks.enKgyGivenItem = 2;
+      } else {
+        gExtSaveData.givenItemChecks.enKgyGivenItem = 1;
+      }
+    } else if (storedActorId == game::act::Id::EnGm) {
+      gExtSaveData.givenItemChecks.enGmGivenItem = 1;
+    } else if (storedActorId == game::act::Id::EnOsh) {
+      gExtSaveData.givenItemChecks.enOshGivenItem = 1;
+    } else if (storedActorId == game::act::Id::EnDai) {
+      gExtSaveData.givenItemChecks.enDaiGivenItem = 1;
     }
+    
   }
 
   void ItemOverride_PushPendingFairyRewardItem(game::GlobalContext* gctx, game::act::GreatFairy* fromActor,
@@ -565,6 +584,7 @@ namespace rnd {
       // #endif
       s16 getItemId = ItemOverride_CheckNpc(fromActor->id, incomingGetItemId, incomingNegative);
       storedActorId = fromActor->id;
+      storedGetItemId = (rnd::GetItemID)incomingGetItemId;
       override = ItemOverride_Lookup(fromActor, (u16)gctx->scene, getItemId);
     }
     if (override.key.all == 0) {
@@ -701,6 +721,15 @@ namespace rnd {
     } else if (currentItem == game::ItemId::CaptainHat) {
       return givenItems.enOskGivenItem ? (int)currentItem
         : (int)0xFF;
+    } else if (currentItem == game::ItemId::CircusLeaderMask) {
+      return givenItems.enGmGivenItem ? (int) currentItem
+        : (int)0xFF;
+    } else if (currentItem == game::ItemId::AllNightMask) {
+      return givenItems.enFsnANMGivenItem ? (int) currentItem
+        : (int)0xFF;
+    } else if (currentItem == game::ItemId::PowderKeg) {
+      return givenItems.enDaiGivenItem ? (int) currentItem
+        : (int)0xFF;
     }
     auto& inventory = game::GetCommonData().save.inventory.items;
     return (int)inventory[(int)currentItem];
@@ -763,9 +792,12 @@ namespace rnd {
     return false;
   }
 
-  void ItemOverride_SetGrogExtData() {
-    gExtSaveData.givenItemChecks.enHsGivenItem = 1;
-    return;
+  u32 ItemOverride_GetGaboraExtData() {
+    return (u32)gExtSaveData.givenItemChecks.enKgyGivenItem;
+  }
+
+  u32 ItemOverride_GetOshExtData() {
+    return (u32)gExtSaveData.givenItemChecks.enOshGivenItem;
   }
   }
 }  // namespace rnd

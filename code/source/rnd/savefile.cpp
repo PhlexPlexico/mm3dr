@@ -22,15 +22,17 @@ namespace rnd {
 #ifdef ENABLE_DEBUG
     saveData.player.razor_sword_hp = 0x64;
     saveData.skulltulas_collected.swamp_count = 30;
+    saveData.skulltulas_collected.ocean_count = 30;
     saveData.anonymous_162 = saveData.anonymous_162 | 0x6000;
     rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::MaskOfTruth);
     rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::PictographBox);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::PowderKeg);
     // saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver50;
     saveData.inventory.inventory_count_register.bomb_bag_upgrade = game::BombBag::BombBag40;
     saveData.inventory.inventory_count_register.wallet_upgrade = 2;
     saveData.inventory.inventory_count_register.stick_upgrades = 2;
     saveData.inventory.inventory_count_register.nut_upgrade = 2;
-    saveData.player.rupee_count = 500;
+    saveData.player.rupee_count = 5000;
     saveData.inventory.items[1] = game::ItemId::Arrow;
     saveData.inventory.items[2] = game::ItemId::FireArrow;
     saveData.inventory.items[3] = game::ItemId::IceArrow;
@@ -108,7 +110,6 @@ namespace rnd {
     gSettingsContext.skipBombersMinigame = 1;
     gSettingsContext.freeScarecrow = 1;
     saveData.activate_dungeon_skip_portal_0xF0_for_all = 0xF0;
-
     SaveFile_FillOverWorldMapData();
 
 #endif
@@ -137,7 +138,7 @@ namespace rnd {
       // saveData.inventory.collect_register.song_of_healing = 1;  // until happy mask salesman is overridden
       saveData.player.owl_statue_flags.clock_town = 1;
 #ifdef ENABLE_DEBUG
-      gSettingsContext.startingKokiriSword = 0;
+      gSettingsContext.startingKokiriSword = 2;
       gSettingsContext.startingShield = 0;
 #endif
       SaveFile_SetStartingInventory();
