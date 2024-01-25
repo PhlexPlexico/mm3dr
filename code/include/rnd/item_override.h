@@ -182,8 +182,10 @@ namespace rnd {
     /* 0x8F */ GI_MASK_KAFEIS,
     /* 0x90 */  // GI_ERROR_NOTHING_90, // ***ERROR TEXT Get Item Nothing in hand - Green Rupee with
                 // Ocarina in Inventory
-    /* 0x91 */ GI_BOTTLE_CHATEAU_ROMANI_REFILL =
-        0x91,                                  // Sets it in a different slot if no bottle present. Second bottle?
+    // clang-format off
+    /* 0x91 */ GI_BOTTLE_CHATEAU_ROMANI_REFILL = 0x91,
+                                               // Sets it in a different slot if no bottle present. Second bottle?
+    // clang-format on
     /* 0x92 */ GI_BOTTLE_MILK_REFILL,          // Sets it in a different slot if no bottle present. Second
                                                // bottle?
     /* 0x93 */ GI_BOTTLE_GOLD_DUST_REFILL,     // Sets it in a different slot if no bottle present. Second

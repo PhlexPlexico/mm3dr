@@ -44,9 +44,9 @@ namespace rnd {
     rItemOverrides[0].value.getItemId = 0x26;
     rItemOverrides[0].value.looksLikeItemId = 0x26;
     rItemOverrides[1].key.scene = 0x6F;
-    rItemOverrides[1].key.type = ItemOverride_Type::OVR_COLLECTABLE;
-    rItemOverrides[1].value.getItemId = 0x12;
-    rItemOverrides[1].value.looksLikeItemId = 0x12;
+    rItemOverrides[1].key.type = ItemOverride_Type::OVR_CHEST;
+    rItemOverrides[1].value.getItemId = 0x60;
+    rItemOverrides[1].value.looksLikeItemId = 0x60;
     rItemOverrides[2].key.scene = 0x12;
     rItemOverrides[2].key.type = ItemOverride_Type::OVR_COLLECTABLE;
     rItemOverrides[2].value.getItemId = 0x37;
@@ -594,8 +594,32 @@ namespace rnd {
     } else if (override.key.type == ItemOverride_Type::OVR_CHEST &&
                gExtSaveData.chestRewarded[override.key.scene][override.key.flag] == 1) {
       // Override was already given, use base game's item code
+      // If we're a bottled item in our override, we've been received before. Give a refill.
+      u16 refItemId = override.value.getItemId;
+      #if defined ENABLE_DEBUG || defined DEBUG_PRINT
+        rnd::util::Print("%s: Our ref item id is %#04x\n", __func__, refItemId);	
+      #endif
       ItemOverride_Clear();
-      player->get_item_id = -(s16)GetItemID::GI_RUPEE_BLUE;
+      switch (refItemId) {
+        case 0x60:
+            player->get_item_id = -(s16)GetItemID::GI_BOTTLE_MILK_REFILL;
+          break;
+        case 0x6A:
+          player->get_item_id = -(s16)GetItemID::GI_BOTTLE_GOLD_DUST_REFILL;
+          break;
+        case 0x6F:
+          player->get_item_id = -(s16)GetItemID::GI_BOTTLE_CHATEAU_ROMANI_REFILL;
+          break;
+        case 0x6E:
+          player->get_item_id = -(s16)GetItemID::GI_BOTTLE_SEAHORSE_REFILL;
+          break;
+        case 0x70:
+          player->get_item_id = -(s16)GetItemID::GI_BOTTLE_SEAHORSE_REFILL;
+          break;
+        default:
+          player->get_item_id = -(s16)GetItemID::GI_BOTTLE_MYSTERY_MILK_REFILL;
+          break;
+      }
       return;
     }
     ItemOverride_Activate(override);
