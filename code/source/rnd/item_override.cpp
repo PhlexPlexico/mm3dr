@@ -45,8 +45,8 @@ namespace rnd {
     rItemOverrides[0].value.looksLikeItemId = 0x26;
     rItemOverrides[1].key.scene = 0x6F;
     rItemOverrides[1].key.type = ItemOverride_Type::OVR_COLLECTABLE;
-    rItemOverrides[1].value.getItemId = 0x34;
-    rItemOverrides[1].value.looksLikeItemId = 0x34;
+    rItemOverrides[1].value.getItemId = 0x12;
+    rItemOverrides[1].value.looksLikeItemId = 0x12;
     rItemOverrides[2].key.scene = 0x12;
     rItemOverrides[2].key.type = ItemOverride_Type::OVR_COLLECTABLE;
     rItemOverrides[2].value.getItemId = 0x37;
@@ -468,7 +468,6 @@ namespace rnd {
     } else if (storedActorId == game::act::Id::EnDai) {
       gExtSaveData.givenItemChecks.enDaiGivenItem = 1;
     }
-    
   }
 
   void ItemOverride_PushPendingFairyRewardItem(game::GlobalContext* gctx, game::act::GreatFairy* fromActor,
@@ -486,10 +485,10 @@ namespace rnd {
     }
 
     ItemOverride_PushPendingOverride(override);
-    if (override.value.getItemId == 0x12) {
-      rActiveItemRow->effectArg1 = override.key.all >> 16;
-      rActiveItemRow->effectArg2 = override.key.all & 0xFFFF;
-    }
+    // if (override.value.getItemId == 0x12) {
+    //   rActiveItemRow->effectArg1 = override.key.all >> 16;
+    //   rActiveItemRow->effectArg2 = override.key.all & 0xFFFF;
+    // }
     return;
   }
 
