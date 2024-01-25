@@ -182,14 +182,15 @@ namespace rnd {
     /* 0x8F */ GI_MASK_KAFEIS,
     /* 0x90 */  // GI_ERROR_NOTHING_90, // ***ERROR TEXT Get Item Nothing in hand - Green Rupee with
                 // Ocarina in Inventory
-    /* 0x91 */ GI_BOTTLE_CHATEAU_ROMANI_TWO = 0x91,  // Sets it in a different slot if no bottle present. Second bottle?
-    /* 0x92 */ GI_BOTTLE_MILK_TWO,                   // Sets it in a different slot if no bottle present. Second
-                                                     // bottle?
-    /* 0x93 */ GI_BOTTLE_GOLD_DUST_TWO,              // Sets it in a different slot if no bottle present. Second
-                                                     // bottle?
-    /* 0x94 */ GI_BOTTLE_MYSTERY_MILK_TWO,           // Timer set to 0.
-    /* 0x95 */ GI_BOTTLE_SEAHORSE_TWO,               // Proper sea horse actor!
-    /* 0x96 */ GI_MOONS_TEAR,                        // Provides a black screen after collecting in citra.
+    /* 0x91 */ GI_BOTTLE_CHATEAU_ROMANI_REFILL =
+        0x91,                                  // Sets it in a different slot if no bottle present. Second bottle?
+    /* 0x92 */ GI_BOTTLE_MILK_REFILL,          // Sets it in a different slot if no bottle present. Second
+                                               // bottle?
+    /* 0x93 */ GI_BOTTLE_GOLD_DUST_REFILL,     // Sets it in a different slot if no bottle present. Second
+                                               // bottle?
+    /* 0x94 */ GI_BOTTLE_MYSTERY_MILK_REFILL,  // Timer set to 0.
+    /* 0x95 */ GI_BOTTLE_SEAHORSE_REFILL,      // Proper sea horse actor!
+    /* 0x96 */ GI_MOONS_TEAR,                  // Provides a black screen after collecting in citra.
     /* 0x97 */ GI_TOWN_TITLE_DEED,
     /* 0x98 */ GI_SWAMP_TITLE_DEED,
     /* 0x99 */ GI_MOUNTAIN_TITLE_DEED,
