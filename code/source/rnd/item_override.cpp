@@ -44,9 +44,9 @@ namespace rnd {
     rItemOverrides[0].value.getItemId = 0x26;
     rItemOverrides[0].value.looksLikeItemId = 0x26;
     rItemOverrides[1].key.scene = 0x6F;
-    rItemOverrides[1].key.type = ItemOverride_Type::OVR_CHEST;
-    rItemOverrides[1].value.getItemId = 0x60;
-    rItemOverrides[1].value.looksLikeItemId = 0x60;
+    rItemOverrides[1].key.type = ItemOverride_Type::OVR_COLLECTABLE;
+    rItemOverrides[1].value.getItemId = 0x34;
+    rItemOverrides[1].value.looksLikeItemId = 0x34;
     rItemOverrides[2].key.scene = 0x12;
     rItemOverrides[2].key.type = ItemOverride_Type::OVR_COLLECTABLE;
     rItemOverrides[2].value.getItemId = 0x37;
@@ -730,6 +730,9 @@ namespace rnd {
       return givenItems.enInGivenItem ? (int)currentItem
         : (int)0xFF;
     } else if (currentItem == game::ItemId::PictographBox) {
+      #if defined ENABLE_DEBUG || defined DEBUG_PRINT
+        rnd::util::Print("%s: Current item is pictograph and did we give item? %u\n", __func__, (u32)givenItems.enTruGivenItem);	
+      #endif
       return givenItems.enTruGivenItem ? (int)currentItem
         : (int)0xFF;
     } else if (currentItem == game::ItemId::BunnyHood) {
@@ -751,6 +754,9 @@ namespace rnd {
       return givenItems.enFsnANMGivenItem ? (int) currentItem
         : (int)0xFF;
     } else if (currentItem == game::ItemId::PowderKeg) {
+      #if defined ENABLE_DEBUG || defined DEBUG_PRINT
+        rnd::util::Print("%s: givenItems.enDaiGivenItem is %u \n", __func__, (u32)givenItems.enDaiGivenItem);	
+      #endif
       return givenItems.enDaiGivenItem ? (int) currentItem
         : (int)0xFF;
     }

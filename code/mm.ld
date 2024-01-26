@@ -123,9 +123,9 @@ SECTIONS{
     *(.patch_CheckCurrentInventoryOverrideItem)
   }
 
-  .patch_CheckCurrentInventoryOverrideItemTwo 0x201060 : {
+  /* .patch_CheckCurrentInventoryOverrideItemTwo 0x201060 : {
     *(.patch_CheckCurrentInventoryOverrideItemTwo)
-  }
+  } */
 
   /* .patch_OverrideItemIDFour 0x1FBD10 : {
     *(.patch_OverrideItemIdIndex)
