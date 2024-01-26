@@ -614,10 +614,10 @@ namespace rnd {
         player->get_item_id = -(s16)GetItemID::GI_BOTTLE_SEAHORSE_REFILL;
         break;
       case 0x70:
-        player->get_item_id = -(s16)GetItemID::GI_BOTTLE_SEAHORSE_REFILL;
+        player->get_item_id = -(s16)GetItemID::GI_BOTTLE_MYSTERY_MILK;
         break;
       default:
-        player->get_item_id = -(s16)GetItemID::GI_BOTTLE_MYSTERY_MILK_REFILL;
+        player->get_item_id = -(s16)GetItemID::GI_RUPEE_BLUE;
         break;
       }
       return;
