@@ -71,7 +71,7 @@ namespace rnd {
       BitField<27, 1, u32> enGmGivenItem;
       BitField<28, 1, u32> enFsnANMGivenItem;
       BitField<29, 1, u32> enOshGivenItem;
-      BitField<30, 1, u32> enDaiGivenItem;
+      BitField<30, 1, u32> enGoGivenItem;
       BitField<31, 1, u32> unused;
     };
     GivenItemRegister givenItemChecks;

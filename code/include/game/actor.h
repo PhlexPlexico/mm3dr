@@ -43,8 +43,8 @@ namespace game::act {
     EnHs = 0x0076,
     // Cursed Man Spider House
     EnSsh = 0x0090,
-    // Biggoron
-    EnDai = 0x00D5,
+    // Powder Keg Trial Goron
+    EnGo = 0x00D5,
     // [1] Deku Palace / Woodfall Temple moving platforms (after player lands on them)
     ObjRailLift = 0x00D8,
     // Shooting Gallery - Man

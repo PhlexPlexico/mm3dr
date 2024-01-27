@@ -465,8 +465,8 @@ namespace rnd {
       gExtSaveData.givenItemChecks.enGmGivenItem = 1;
     } else if (storedActorId == game::act::Id::EnOsh) {
       gExtSaveData.givenItemChecks.enOshGivenItem = 1;
-    } else if (storedActorId == game::act::Id::EnDai) {
-      gExtSaveData.givenItemChecks.enDaiGivenItem = 1;
+    } else if (storedGetItemId == rnd::GetItemID::GI_POWDER_KEG) {
+      gExtSaveData.givenItemChecks.enGoGivenItem = 1;
     }
   }
 
@@ -730,9 +730,6 @@ namespace rnd {
       return givenItems.enInGivenItem ? (int)currentItem
         : (int)0xFF;
     } else if (currentItem == game::ItemId::PictographBox) {
-      #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-        rnd::util::Print("%s: Current item is pictograph and did we give item? %u\n", __func__, (u32)givenItems.enTruGivenItem);	
-      #endif
       return givenItems.enTruGivenItem ? (int)currentItem
         : (int)0xFF;
     } else if (currentItem == game::ItemId::BunnyHood) {
@@ -754,10 +751,18 @@ namespace rnd {
       return givenItems.enFsnANMGivenItem ? (int) currentItem
         : (int)0xFF;
     } else if (currentItem == game::ItemId::PowderKeg) {
-      #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-        rnd::util::Print("%s: givenItems.enDaiGivenItem is %u \n", __func__, (u32)givenItems.enDaiGivenItem);	
-      #endif
-      return givenItems.enDaiGivenItem ? (int) currentItem
+      // Check scene if we want to buy from goron.
+      auto* gctx = rnd::GetContext().gctx;
+
+      if (gctx->scene == game::SceneId::BombShop) {
+        #if defined ENABLE_DEBUG || defined DEBUG_PRINT
+          rnd::util::Print("%s: Do we have powder keg? Item %u is %u\n", __func__, currentItem, game::HasItem((game::ItemId)currentItem));	
+        #endif
+        return game::HasItem((game::ItemId)currentItem) ? (int) currentItem
+          : (int)0xFF;
+      }
+      
+      return givenItems.enGoGivenItem ? (int) currentItem
         : (int)0xFF;
     }
     auto& inventory = game::GetCommonData().save.inventory.items;
