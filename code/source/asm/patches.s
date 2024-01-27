@@ -130,6 +130,14 @@ patch_DoNotRemoveKeys:
 patch_DoNotGiveSwordBackOnReset:
     bl hook_DoNotGiveSwordBackOnReset
 
+.section .patch_RemoveSwordFlagSettingSoT
+.global patch_RemoveSwordFlagSettingSoT
+patch_RemoveSwordFlagSettingSoT:
+    nop
+    nop
+    nop
+    nop
+
 .section .patch_RemoveItemBUsabilityOnReset
 .global patch_RemoveItemBUsabilityOnReset
 patch_RemoveItemBUsabilityOnReset:

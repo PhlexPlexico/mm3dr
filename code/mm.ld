@@ -75,6 +75,10 @@ SECTIONS{
     *(.patch_DoNotGiveSwordBackOnReset)
   }
 
+  .patch_RemoveSwordFlagSettingSoT 0x1C98F4 : {
+    *(.patch_RemoveSwordFlagSettingSoT)
+  }
+
   .patch_RemoveItemBUsabilityOnReset 0x1C99F4 : {
     *(.patch_RemoveItemBUsabilityOnReset)
   }
