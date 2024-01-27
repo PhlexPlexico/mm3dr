@@ -43,7 +43,7 @@ namespace rnd {
     saveData.inventory.items[9] = game::ItemId::DekuNuts;
     saveData.inventory.items[10] = game::ItemId::MagicBean;
     // saveData.inventory.items[12] = game::ItemId::PowderKeg;
-    // saveData.inventory.items[13] = game::ItemId::PictographBox;
+    saveData.inventory.items[13] = game::ItemId::PictographBox;
     // saveData.inventory.items[14] = game::ItemId::LensOfTruth;
     saveData.inventory.items[15] = game::ItemId::Hookshot;
     saveData.inventory.items[20] = game::ItemId::LandTitleDeed;
@@ -481,6 +481,7 @@ namespace rnd {
 
     if (gSettingsContext.startingPictographBox > 0) {
       saveData.inventory.items[13] = game::ItemId::PictographBox;
+      rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::PictographBox);
     }
 
     if (gSettingsContext.startingGreatFairySword > 0) {
