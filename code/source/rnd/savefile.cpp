@@ -480,8 +480,8 @@ namespace rnd {
     }
 
     if (gSettingsContext.startingPictographBox > 0) {
-      saveData.inventory.items[13] = game::ItemId::PictographBox;
       rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::PictographBox);
+      saveData.inventory.items[13] = game::ItemId::PictographBox;
     }
 
     if (gSettingsContext.startingGreatFairySword > 0) {
