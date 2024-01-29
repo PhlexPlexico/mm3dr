@@ -45,8 +45,8 @@ namespace rnd {
     rItemOverrides[0].value.looksLikeItemId = 0x26;
     rItemOverrides[1].key.scene = 0x6F;
     rItemOverrides[1].key.type = ItemOverride_Type::OVR_COLLECTABLE;
-    rItemOverrides[1].value.getItemId = 0x34;
-    rItemOverrides[1].value.looksLikeItemId = 0x34;
+    rItemOverrides[1].value.getItemId = 0xA1;
+    rItemOverrides[1].value.looksLikeItemId = 0xA1;
     rItemOverrides[2].key.scene = 0x12;
     rItemOverrides[2].key.type = ItemOverride_Type::OVR_COLLECTABLE;
     rItemOverrides[2].value.getItemId = 0x37;
@@ -467,6 +467,8 @@ namespace rnd {
       gExtSaveData.givenItemChecks.enOshGivenItem = 1;
     } else if (storedGetItemId == rnd::GetItemID::GI_POWDER_KEG) {
       gExtSaveData.givenItemChecks.enGoGivenItem = 1;
+    } else if ((s16)storedGetItemId == -(s16)rnd::GetItemID::GI_MASK_GIANTS) {
+      gExtSaveData.givenItemChecks.enBoss02GivenItem = 1;
     }
   }
 
@@ -755,18 +757,22 @@ namespace rnd {
       auto* gctx = rnd::GetContext().gctx;
 
       if (gctx->scene == game::SceneId::BombShop) {
-        #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-          rnd::util::Print("%s: Do we have powder keg? Item %u is %u\n", __func__, currentItem, game::HasItem((game::ItemId)currentItem));	
-        #endif
         return game::HasItem((game::ItemId)currentItem) ? (int) currentItem
           : (int)0xFF;
       }
       
       return givenItems.enGoGivenItem ? (int) currentItem
         : (int)0xFF;
+    } else if (currentItem == game::ItemId::GiantMask) {
+      return givenItems.enBoss02GivenItem ? (int) currentItem
+        : (int)0xFF;
     }
+    // Use the standard pointer to array as this seems to mess with
+    // some issues in checking items such as trade items, and Giant's Mask.
     auto& inventory = game::GetCommonData().save.inventory.items;
-    return (int)inventory[(int)currentItem];
+    u8* slotArray = (u8*)0x626cdc;
+    u8 slot = slotArray[(int)currentItem];
+    return (int)inventory[slot];
   }
 
   // clang-format on

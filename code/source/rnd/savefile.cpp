@@ -212,7 +212,7 @@ namespace rnd {
     saveData.meeting_happy_mask_salesman_0x01 = 0x01;
     saveData.skullkid_backstory_cutscene_0x10 = 0x10;
     saveData.cut_scene_flag_bundle.owl_statue_cut_scene = 1;
-    saveData.dungeon_skip_portal_cutscene_0x3C_to_skip_all = 0x3C;
+    // saveData.dungeon_skip_portal_cutscene_0x3C_to_skip_all = 0x3C;
     saveData.turtle_flags.skip_swimming_to_great_bay_temple_cutscene = 1;
 
     // Needs to be greater than zero to skip first time song of time cutscene

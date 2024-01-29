@@ -105,9 +105,10 @@ hook_SpawnFastElegyStatues:
 
 .global hook_CheckCurrentInventory
 hook_CheckCurrentInventory:
-    push {lr}
+    push {r1-r12, lr}
     bl ItemOverride_CheckInventoryItemOverride
-    pop {pc}
+    pop {r1-r12, lr}
+    b 0x1F3D6C
 
 .global hook_CheckOcarinaDive
 hook_CheckOcarinaDive:

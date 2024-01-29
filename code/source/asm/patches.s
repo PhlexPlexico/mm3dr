@@ -169,13 +169,6 @@ patch_SpawnFastElegyStatues:
 patch_CheckCurrentInventoryOverrideItem:
     b hook_CheckCurrentInventory
 
-.section .patch_CheckCurrentInventoryOverrideItemTwo
-.global patch_CheckCurrentInventoryOverrideItemTwo
-patch_CheckCurrentInventoryOverrideItemTwo:
-    b hook_CheckCurrentInventory
-
-
-
 .section .patch_ForceSwordUpgradeOnHuman
 .global patch_ForceSwordUpgradeOnHuman
 patch_ForceSwordUpgradeOnHuman:
