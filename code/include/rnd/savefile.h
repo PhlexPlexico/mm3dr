@@ -7,7 +7,7 @@
 #include "z3d/z3DVec.h"
 
 // Increment the version number whenever the ExtSaveData structure is changed
-#define EXTSAVEDATA_VERSION 10
+#define EXTSAVEDATA_VERSION 11
 #define SAVEFILE_SCENES_DISCOVERED_IDX_COUNT 4
 #define SAVEFILE_SPOILER_ITEM_MAX 512
 
@@ -40,39 +40,41 @@ namespace rnd {
     u8 playedSosOnce;
     u8 playedElegyOnce;
     union GivenItemRegister {
-      u32 raw;
+      u64 raw;
 
-      BitField<0, 1, u32> enNbGivenItem;
-      BitField<1, 1, u32> enAlGivenItem;
-      BitField<2, 1, u32> enBabaGivenItem;
-      BitField<3, 1, u32> enStoneHeishiGivenItem;
-      BitField<4, 1, u32> mummyDaddyGivenItem;
-      BitField<5, 1, u32> enGuruGuruGivenItem;
-      BitField<6, 1, u32> enYbGivenItem;
-      BitField<7, 1, u32> enGegGivenItem;
-      BitField<8, 1, u32> enZogGivenItem;
-      BitField<9, 1, u32> enGgGivenItem;
-      BitField<10, 1, u32> enOsnGivenMask;
-      BitField<11, 1, u32> enOsnGivenNotebook;
-      BitField<12, 1, u32> enFsnGivenItem;
-      BitField<13, 1, u32> enPmGivenItem;
-      BitField<14, 1, u32> enSshGivenItem;
-      BitField<15, 1, u32> enDnoGivenItem;
-      BitField<16, 1, u32> bgDyYoseizoGivenItem;
-      BitField<17, 1, u32> enInGivenItem;
-      BitField<18, 1, u32> kafeiGivenItem;
-      BitField<19, 1, u32> enHgoGivenItem;
-      BitField<20, 1, u32> enTruGivenItem;
-      BitField<21, 1, u32> enHsGivenItem;
-      BitField<22, 1, u32> enMaYtoGivenItem;
-      BitField<23, 1, u32> enOskGivenItem;
-      BitField<24, 1, u32> enPstGivenItem;
-      BitField<25, 2, u32> enKgyGivenItem;
-      BitField<27, 1, u32> enGmGivenItem;
-      BitField<28, 1, u32> enFsnANMGivenItem;
-      BitField<29, 1, u32> enOshGivenItem;
-      BitField<30, 1, u32> enGoGivenItem;
-      BitField<31, 1, u32> enBoss02GivenItem;
+      BitField<0, 1, u64> enNbGivenItem;
+      BitField<1, 1, u64> enAlGivenItem;
+      BitField<2, 1, u64> enBabaGivenItem;
+      BitField<3, 1, u64> enStoneHeishiGivenItem;
+      BitField<4, 1, u64> mummyDaddyGivenItem;
+      BitField<5, 1, u64> enGuruGuruGivenItem;
+      BitField<6, 1, u64> enYbGivenItem;
+      BitField<7, 1, u64> enGegGivenItem;
+      BitField<8, 1, u64> enZogGivenItem;
+      BitField<9, 1, u64> enGgGivenItem;
+      BitField<10, 1, u64> enOsnGivenMask;
+      BitField<11, 1, u64> enOsnGivenNotebook;
+      BitField<12, 1, u64> enFsnGivenItem;
+      BitField<13, 1, u64> enPmGivenItem;
+      BitField<14, 1, u64> enSshGivenItem;
+      BitField<15, 1, u64> enDnoGivenItem;
+      BitField<16, 1, u64> bgDyYoseizoGivenItem;
+      BitField<17, 1, u64> enInGivenItem;
+      BitField<18, 1, u64> kafeiGivenItem;
+      BitField<19, 1, u64> enHgoGivenItem;
+      BitField<20, 1, u64> enTruGivenItem;
+      BitField<21, 1, u64> enHsGivenItem;
+      BitField<22, 1, u64> enMaYtoGivenItem;
+      BitField<23, 1, u64> enOskGivenItem;
+      BitField<24, 1, u64> enPstGivenItem;
+      BitField<25, 2, u64> enKgyGivenItem;
+      BitField<27, 1, u64> enGmGivenItem;
+      BitField<28, 1, u64> enFsnANMGivenItem;
+      BitField<29, 1, u64> enOshGivenItem;
+      BitField<30, 1, u64> enGoGivenItem;
+      BitField<31, 1, u64> enBoss02GivenItem;
+      BitField<32, 1, u64> enGinkoManGivenItem;
+      BitField<33, 31, u64> unused;
     };
     GivenItemRegister givenItemChecks;
     union FairyCollectRegister {

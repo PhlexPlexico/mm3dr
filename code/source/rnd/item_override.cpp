@@ -469,6 +469,15 @@ namespace rnd {
       gExtSaveData.givenItemChecks.enGoGivenItem = 1;
     } else if ((s16)storedGetItemId == -(s16)rnd::GetItemID::GI_MASK_GIANTS) {
       gExtSaveData.givenItemChecks.enBoss02GivenItem = 1;
+    } else if (storedActorId == game::act::Id::EnGinkoMan) {
+      game::SaveData& saveData = game::GetCommonData().save;
+      if (gExtSaveData.givenItemChecks.enGinkoManGivenItem == 0) {
+        saveData.anonymous_77 = saveData.anonymous_77 | 8;
+        gExtSaveData.givenItemChecks.enGinkoManGivenItem = 1;
+      } else if (gExtSaveData.givenItemChecks.enGinkoManGivenItem == 1) {
+        saveData.anonymous_117 = saveData.anonymous_117 | 8;
+        gExtSaveData.givenItemChecks.enGinkoManGivenItem = 2;
+      }
     }
   }
 
