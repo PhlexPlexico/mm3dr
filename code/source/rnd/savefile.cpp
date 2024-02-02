@@ -372,10 +372,10 @@ namespace rnd {
       // give starting spirit keys for vanilla key locations
     } else {
       // Init to 0 as the game inits to 255.
-      saveData.inventory.woodfall_temple_keys = 0;
-      saveData.inventory.snowhead_temple_keys = 0;
-      saveData.inventory.great_bay_temple_keys = 0;
-      saveData.inventory.stone_tower_temple_keys = 0;
+      // saveData.inventory.woodfall_temple_keys = 0;
+      // saveData.inventory.snowhead_temple_keys = 0;
+      // saveData.inventory.great_bay_temple_keys = 0;
+      // saveData.inventory.stone_tower_temple_keys = 0;
     }
 
     // give boss keys

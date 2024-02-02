@@ -71,6 +71,14 @@ doNotOverrideCutscene:
     bl 0x22A7F8
     b 0x1B1838
 
+.global hook_DoNotResetTempleFlags
+hook_DoNotResetTempleFlags:
+    push {r0-r12, lr}
+    bl ForceTempleFlags
+    pop {r0-r12, lr}
+    mov r0,#0x0
+    bx lr
+
 .global hook_ChangeSOHToCustomText
 hook_ChangeSOHToCustomText:
     push {r0-r2, lr}

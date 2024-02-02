@@ -63,9 +63,9 @@ SECTIONS{
     *(.patch_RemoveMysteryMilkTimer)
   }
 
-  /* .patch_AttemptKeepChestsClosed 0x1c9300 : {
-  *(.patch_AttemptKeepChestsClosed)
-  } */
+  .patch_DoNotResetTempleFlags 0x1C936C : {
+    *(.patch_DoNotResetTempleFlags)
+  } 
 
   .patch_DoNotRemoveKeys 0x1C9B94 : {
     *(.patch_DoNotRemoveKeys)

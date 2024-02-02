@@ -468,6 +468,15 @@ namespace game {
   static_assert(offsetof(GlobalContext, gap_8384) == 0x8384);
   static_assert(sizeof(GlobalContext) == 0x11030);
 
+  struct PersistentSceneCycleFlags {
+    u32 switch0;
+    u32 switch1;
+    u32 chest;
+    u32 collectible;
+  };
+  static_assert(sizeof(PersistentSceneCycleFlags) == 0x10);
+
+  PersistentSceneCycleFlags* GetPersistentCycleStruct();
 }  // namespace game
 
 #endif

@@ -1,7 +1,8 @@
 #include "rnd/custom_entrances.h"
 
 namespace rnd {
-  extern "C" bool SceneEntranceOverride() {
+  extern "C" {
+  bool SceneEntranceOverride() {
     game::CommonData& cdata = game::GetCommonData();
     game::GlobalContext* gctx = GetContext().gctx;
     bool didWarp = false;
@@ -36,4 +37,15 @@ namespace rnd {
       gctx->field_C529_one_to_clear_input = 0x14;
     return didWarp;
   }
+
+  void ForceTempleFlags() {
+    game::PersistentSceneCycleFlags* cycleFlags = game::GetPersistentCycleStruct();
+    cycleFlags[(u32)game::SceneId::WoodfallTemple].switch1 = 0xFFFFFFFF;
+    cycleFlags[(u32)game::SceneId::SnowheadTemple].switch1 = 0xFFFFFFFF;
+    cycleFlags[(u32)game::SceneId::GreatBayTemple].switch1 = 0xFFFFFFFF;
+    cycleFlags[(u32)game::SceneId::StoneTowerTemple].switch1 = 0xFFFFFFFF;
+    cycleFlags[(u32)game::SceneId::StoneTowerTempleInverted].switch1 = 0xFFFFFFFF;
+  }
+  }
+
 }  // namespace rnd

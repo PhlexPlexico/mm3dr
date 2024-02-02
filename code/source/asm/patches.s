@@ -95,16 +95,14 @@ patch_OverrideCutsceneNextEntrance:
 patch_RemoveMysteryMilkTimer:
     nop
 
-@ Skip past all chest content resetting.
-@ Since this is rando, we don't want users
-@ getting chests again, and instead of
-@ keeping track via extdata we can just 
-@ branch over everything in relation to 
-@ resetting all the chests in the game.
-.section .patch_AttemptKeepChestsClosed
-.global patch_AttemptKeepChestsClosed
-patch_AttemptKeepChestsClosed:
-    b 0x01c936c
+@ Skip past all the fairy and 
+@ door resetting if we are the temples
+@ as we don't want to softlock users
+@ if they have already used their keys.
+.section .patch_DoNotResetTempleFlags
+.global patch_DoNotResetTempleFlags
+patch_DoNotResetTempleFlags:
+    bl hook_DoNotResetTempleFlags
 
 @ Skips past a loop that resets all
 @ values in the each dungeon for 
