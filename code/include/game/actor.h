@@ -70,7 +70,7 @@ namespace game::act {
     // Npc For Curiosity Shop Owner
     NpcEnFsn = 0x0157,
     // Npc For Boat Photography
-    NpcSwampPhotographer = 0x0158,
+    EnShn = 0x0158,
     // NPC Postman
     NpcEnPm = 0x0166,
     // Goht

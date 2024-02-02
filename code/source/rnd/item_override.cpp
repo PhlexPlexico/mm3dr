@@ -396,8 +396,11 @@ namespace rnd {
       }
     } else if (actorId == game::act::Id::NpcEnBjt) {
       getItemId = incomingNegative ? -0x01 : 0x01;
-    } else if (actorId == game::act::Id::NpcSwampPhotographer) {
-      getItemId = incomingNegative ? -0xBA : 0xBA;
+    } else if (actorId == game::act::Id::EnShn) {
+      if (gExtSaveData.givenItemChecks.enShnGivenItem == 1)
+        getItemId = incomingNegative ? -0x02 : 0x02;
+      else
+        getItemId = incomingNegative ? -0xBA : 0xBA;
     } else if (actorId == game::act::Id::NpcInvisibleGuard) {
       if (gExtSaveData.givenItemChecks.enStoneHeishiGivenItem > 0) {
         getItemId = incomingNegative ? -0xBA : 0xBA;
@@ -478,6 +481,8 @@ namespace rnd {
         saveData.anonymous_117 = saveData.anonymous_117 | 8;
         gExtSaveData.givenItemChecks.enGinkoManGivenItem = 2;
       }
+    } else if (storedActorId == game::act::Id::EnShn) {
+      gExtSaveData.givenItemChecks.enShnGivenItem = 1;
     }
   }
 
