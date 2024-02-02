@@ -389,9 +389,15 @@ patch_RemoveZoraMaskCheckMikau:
 patch_AromaItemCheck:
     b hook_AromaItemCheck
 
-.section .patch_OverrideProgessiveWallet
-.global patch_OverrideProgessiveWallet
-patch_OverrideProgessiveWallet:
+.section .patch_OverrideWalletSpiderHouseTwo
+.global patch_OverrideWalletSpiderHouseTwo
+patch_OverrideWalletSpiderHouseTwo:
+@Override to use the progressive wallet instead.
+    mov r2,#0x48
+
+.section .patch_OverrideWalletSpiderHouse
+.global patch_OverrideWalletSpiderHouse
+patch_OverrideWalletSpiderHouse:
 @Override to use the progressive wallet instead.
     mov r2,#0x48
 

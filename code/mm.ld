@@ -355,8 +355,12 @@ SECTIONS{
     *(.patch_CheckMoTRequirement)
   }
 
+  .patch_OverrideWalletSpiderHouseTwo 0x3BF078 : {
+    *(.patch_OverrideWalletSpiderHouseTwo)
+  }
+
   .patch_OverrideWalletSpiderHouse 0x3BF2A8 : {
-    *(.patch_OverrideProgessiveWallet)
+    *(.patch_OverrideWalletSpiderHouse)
   }
 
   .patch_HMSGiveItem 0x41D018 : {
