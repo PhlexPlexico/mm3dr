@@ -13,6 +13,7 @@ namespace rnd::link {
   void FixSpeedIssues();
   void HandleFastOcarina(game::GlobalContext*);
   void HandleFastArrowSwitch(game::act::Player*);
+  void FixFreeCameraReset();
 
 }  // namespace rnd::link
 

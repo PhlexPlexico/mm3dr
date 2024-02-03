@@ -198,6 +198,34 @@ namespace rnd::link {
     }
   }
 
+  void FixFreeCameraReset() {
+    using namespace game;
+    auto* gctx = GetContext().gctx;
+    auto* player = gctx->GetPlayerActor();
+
+    // Only reset free camera when Z-targeting and when free camera is active
+    if (!player)
+      return;
+    if (gctx->main_camera.mode != CameraMode::FREECAMERA)
+      return;
+    if (!gctx->pad_state.input.buttons.IsSet(pad::Button::L))
+      return;
+
+    if (player->flags3.IsSet(act::Player::Flag3::ZoraFastSwimming)) {
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+      rnd::util::Print("%s: resetting camera mode (Zora swimming)\n", __func__);
+#endif
+      const bool in_water = player->flags1.IsSet(act::Player::Flag1::InWater);
+      gctx->main_camera.ChangeMode(in_water ? CameraMode::GORONDASH : CameraMode::FREEFALL);
+    } else if (player->flags3.IsSet(act::Player::Flag3::GoronRolling)) {
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+      rnd::util::Print("%s: resetting camera mode (Goron rolling)\n", __func__);
+#endif
+      const bool on_ground = player->flags_94.IsSet(act::Actor::Flag94::Grounded);
+      gctx->main_camera.ChangeMode(on_ground ? CameraMode::GORONDASH : CameraMode::GORONJUMP);
+    }
+  }
+
   extern "C" {
   bool ShouldUseZoraFastSwim() {
     const auto& input = GetContext().gctx->pad_state.input;
