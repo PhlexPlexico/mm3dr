@@ -44,7 +44,7 @@ namespace rnd {
     rItemOverrides[0].value.getItemId = 0x26;
     rItemOverrides[0].value.looksLikeItemId = 0x26;
     rItemOverrides[1].key.scene = 0x6F;
-    rItemOverrides[1].key.type = ItemOverride_Type::OVR_CHEST;
+    rItemOverrides[1].key.type = ItemOverride_Type::OVR_COLLECTABLE;
     rItemOverrides[1].value.getItemId = 0x60;
     rItemOverrides[1].value.looksLikeItemId = 0x60;
     rItemOverrides[2].key.scene = 0x12;
@@ -82,7 +82,7 @@ namespace rnd {
       // Only override heart pieces and keys
       u32 collectibleType = actor->params & 0xFF;
       // XXX: AFAIK These are correct. Heart piece was checked.
-      if (collectibleType != 0x06 && collectibleType != 0x11) {
+      if (collectibleType != 0x06 && collectibleType != 0x11 && collectibleType != 0x0A) {
         return (ItemOverride_Key){.all = 0};
       }
       retKey.scene = scene;
@@ -416,6 +416,8 @@ namespace rnd {
       getItemId = incomingNegative ? -0x01 : 0x01;
     } else if (getItemId == static_cast<s16>(rnd::GetItemID::GI_MASK_CAPTAINS_HAT)) {
       gExtSaveData.givenItemChecks.enOskGivenItem = 1;
+    } else if (actorId == game::act::Id::EnKitan) {
+      getItemId = incomingNegative ? -0xBA : 0xBA;
     }
 
     return getItemId;
@@ -680,8 +682,9 @@ namespace rnd {
         player->get_item_id = (s16)GetItemID::GI_FISHING_HOLE_PASS;
         return;
       }
-    } else if (override.key.type != ItemOverride_Type::OVR_CHEST && override.value.getItemId == 0x60 ||
-               (override.value.getItemId > 0x69 && override.value.getItemId < 0x71)) {
+    } else if (override.key.type != ItemOverride_Type::OVR_CHEST &&
+               (override.value.getItemId == 0x60 ||
+                (override.value.getItemId > 0x69 && override.value.getItemId < 0x71))) {
       switch (override.value.getItemId) {
       case 0x60:
         if (gExtSaveData.givenItemChecks.bottleMilkGiven == 0) {

@@ -109,6 +109,8 @@ namespace game::act {
     NpcEnBjt = 0x020C,
     // [4] Bombers
     NpcBombers = 0x020F,
+    // Keaton
+    EnKitan = 0x021B,
     // [6] Sheikah Hint Stone (MM3D)
     NpcHintStone = 0x0241,
     // [6] New in MM3D. Shows up as sparkles and spawns an ice platform (actor 0x13E) when hit.
