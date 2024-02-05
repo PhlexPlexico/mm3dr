@@ -700,6 +700,9 @@ namespace rnd {
       playerData.magic_acquired = 1;
       playerData.magic = 0x60;
       equipmentData.data[3].item_btns[0] = game::ItemId::DekuNuts;
+    } else {
+      // Player initially is given magic 0x30 on save creation. This prevents that.
+      playerData.magic = 0x0;
     }
 
     if (gSettingsContext.startingDoubleDefense) {
