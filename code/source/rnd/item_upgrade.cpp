@@ -64,10 +64,13 @@ namespace rnd {
     case game::SwordType::NoSword:
       return GetItemID::GI_KOKIRI_SWORD;  // Stolen sword?
     case game::SwordType::KokiriSword:
+      gExtSaveData.givenItemChecks.progressiveSwordUpgrade = 1;
       return GetItemID::GI_RAZOR_SWORD;  // Razor sword
     case game::SwordType::RazorSword:
+      gExtSaveData.givenItemChecks.progressiveSwordUpgrade = 2;
       return GetItemID::GI_GILDED_SWORD;  // Gilded sword
     default:
+      gExtSaveData.givenItemChecks.progressiveSwordUpgrade = 2;
       return GetItemID::GI_GILDED_SWORD;  // Restore stolen sword?
     }
   }

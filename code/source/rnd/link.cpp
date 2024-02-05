@@ -323,6 +323,16 @@ namespace rnd::link {
 
   void SongOfTimeSwordPlacement() {
     game::SaveData& saveData = game::GetCommonData().save;
+    // Check to see if we received any sword upgrades.
+    if (gExtSaveData.givenItemChecks.progressiveSwordUpgrade == 1) {
+      saveData.equipment.data[0].item_btn_b = game::ItemId::RazorSword;
+      saveData.equipment.sword_shield.sword = game::SwordType::RazorSword;
+      return;
+    } else if (gExtSaveData.givenItemChecks.progressiveSwordUpgrade == 2) {
+      saveData.equipment.data[0].item_btn_b = game::ItemId::GildedSword;
+      saveData.equipment.sword_shield.sword = game::SwordType::GildedSword;
+      return;
+    }
     if (gSettingsContext.startingKokiriSword == (u8)StartingSwordSetting::STARTINGSWORD_NONE &&
         saveData.equipment.sword_shield.sword == game::SwordType::NoSword) {
       return;

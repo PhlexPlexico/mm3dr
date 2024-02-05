@@ -7,6 +7,7 @@
 #include "game/common_data.h"
 #include "game/context.h"
 #include "game/items.h"
+#include "rnd/savefile.h"
 #include "z3d/z3DVec.h"
 
 namespace rnd {
@@ -438,6 +439,7 @@ namespace rnd {
   void ItemOverride_Update();
   void ItemOverride_RevealMapBasedOnId(u8);
   void SetExtData(void);
+  u8 ItemOverride_SetProgressiveItemDraw(ItemOverride);
   extern "C" bool ItemOverride_CheckAromaGivenItem();
   extern "C" bool ItemOverride_CheckMikauGivenItem();
   extern "C" bool ItemOverride_CheckDarmaniGivenItem();

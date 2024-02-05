@@ -45,8 +45,8 @@ namespace rnd {
     rItemOverrides[0].value.looksLikeItemId = 0x26;
     rItemOverrides[1].key.scene = 0x6F;
     rItemOverrides[1].key.type = ItemOverride_Type::OVR_COLLECTABLE;
-    rItemOverrides[1].value.getItemId = 0x60;
-    rItemOverrides[1].value.looksLikeItemId = 0x60;
+    rItemOverrides[1].value.getItemId = 0x48;
+    rItemOverrides[1].value.looksLikeItemId = 0x48;
     rItemOverrides[2].key.scene = 0x12;
     rItemOverrides[2].key.type = ItemOverride_Type::OVR_COLLECTABLE;
     rItemOverrides[2].value.getItemId = 0x37;
@@ -142,11 +142,8 @@ namespace rnd {
 
     ItemRow* itemRow = ItemTable_GetItemRow(resolvedGetItemId);
     // XXX: Maybe create function for progressive items so that the item drawn is correct?
-    u8 looksLikeItemId = override.value.looksLikeItemId;
+    u8 looksLikeItemId = ItemOverride_SetProgressiveItemDraw(override);
 
-    if (override.value.getItemId == 0x12) {  // Ice trap
-      looksLikeItemId = 0;
-    }
     rActiveItemOverride = override;
     rActiveItemRow = itemRow;
     rActiveItemActionId = itemRow->itemId;
@@ -578,6 +575,32 @@ namespace rnd {
       break;
     }
     return;
+  }
+
+  u8 ItemOverride_SetProgressiveItemDraw(ItemOverride override) {
+    game::SaveData saveData = game::GetCommonData().save;
+    if (override.value.getItemId == 0x12) {  // Ice trap
+      return 0;
+    } else if (override.value.getItemId == 0x4A) {
+      game::SwordType sword = saveData.equipment.sword_shield.sword;
+      if (sword == game::SwordType::NoSword)
+        return (u8)GetItemID::GI_KOKIRI_SWORD;
+      else if (sword == game::SwordType::KokiriSword)
+        return (u8)GetItemID::GI_RAZOR_SWORD;
+      else
+        return (u8)GetItemID::GI_GILDED_SWORD;
+    } else if (override.value.getItemId == 0x49) {
+      if (saveData.player.magic_acquired == 0) {
+        return 0x0E;
+      } else
+        return 0x0F;
+    } else if (override.value.getItemId == 0x48) {
+      if (saveData.inventory.inventory_count_register.wallet_upgrade == 0)
+        return 0x08;
+      else
+        return 0x09;
+    }
+    return override.value.looksLikeItemId;
   }
 
   extern "C" {
