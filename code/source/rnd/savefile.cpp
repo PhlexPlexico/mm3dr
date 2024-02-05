@@ -58,10 +58,6 @@ namespace rnd {
     saveData.inventory.masks[20] = game::ItemId::GaroMask;
     saveData.inventory.masks[6] = game::ItemId::AllNightMask;
 
-    saveData.inventory.woodfall_temple_keys = 8;
-    saveData.inventory.snowhead_temple_keys = 8;
-    saveData.inventory.great_bay_temple_keys = 8;
-    saveData.inventory.stone_tower_temple_keys = 8;
     saveData.inventory.woodfall_dungeon_items.map = 1;
     saveData.inventory.woodfall_dungeon_items.compass = 1;
     saveData.inventory.woodfall_dungeon_items.boss_key = 1;
@@ -372,10 +368,16 @@ namespace rnd {
       // give starting spirit keys for vanilla key locations
     } else {
       // Init to 0 as the game inits to 255.
-      // saveData.inventory.woodfall_temple_keys = 0;
-      // saveData.inventory.snowhead_temple_keys = 0;
-      // saveData.inventory.great_bay_temple_keys = 0;
-      // saveData.inventory.stone_tower_temple_keys = 0;
+      saveData.inventory.woodfall_temple_keys = 0;
+      saveData.inventory.snowhead_temple_keys = 0;
+      saveData.inventory.great_bay_temple_keys = 0;
+      saveData.inventory.stone_tower_temple_keys = 0;
+#ifdef ENABLE_DEBUG
+      saveData.inventory.woodfall_temple_keys = 8;
+      saveData.inventory.snowhead_temple_keys = 8;
+      saveData.inventory.great_bay_temple_keys = 8;
+      saveData.inventory.stone_tower_temple_keys = 8;
+#endif
     }
 
     // give boss keys

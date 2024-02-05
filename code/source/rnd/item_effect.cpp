@@ -63,17 +63,26 @@ namespace rnd {
   }
 
   void ItemEffect_GiveSmallKey(game::CommonData* comData, s16 dungeonId, s16 arg2) {
+    // Have the checks in here as a safety measure in case save file doesn't write them.
     switch (dungeonId) {
     case 0:
+      if (comData->save.inventory.woodfall_temple_keys == 255)
+        comData->save.inventory.woodfall_temple_keys = 0;
       comData->save.inventory.woodfall_temple_keys = comData->save.inventory.woodfall_temple_keys + 1;
       break;
     case 1:
+      if (comData->save.inventory.snowhead_temple_keys == 255)
+        comData->save.inventory.snowhead_temple_keys = 0;
       comData->save.inventory.snowhead_temple_keys = comData->save.inventory.snowhead_temple_keys + 1;
       break;
     case 2:
+      if (comData->save.inventory.great_bay_temple_keys == 255)
+        comData->save.inventory.great_bay_temple_keys = 0;
       comData->save.inventory.great_bay_temple_keys = comData->save.inventory.great_bay_temple_keys + 1;
       break;
     case 3:
+      if (comData->save.inventory.stone_tower_temple_keys == 255)
+        comData->save.inventory.stone_tower_temple_keys = 0;
       comData->save.inventory.stone_tower_temple_keys = comData->save.inventory.stone_tower_temple_keys + 1;
       break;
     default:
