@@ -113,7 +113,10 @@ namespace rnd {
       return gSettingsContext.enableFastMaskTransform;
     } else if ((gSettingsContext.enableFastMaskTransform &&
                 player->flags1.IsSet(game::act::Player::Flag1::FirstPersonMode)) ||
-               (player->held_item >= game::ItemId::Arrow && player->held_item <= game::ItemId::LightArrow))
+               (player->held_item >= game::ItemId::Arrow && player->held_item <= game::ItemId::LightArrow &&
+                (player->flags1.IsSet(game::act::Player::Flag1::ZTargeting) ||
+                 player->flags1.IsSet(game::act::Player::Flag1::ZTargetingWithoutTarget) ||
+                 player->flags1.IsSet(game::act::Player::Flag1::ZTargetingWithTarget))))
       return 0x00;
     else {
       return gSettingsContext.enableFastMaskTransform;
