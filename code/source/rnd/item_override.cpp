@@ -45,8 +45,8 @@ namespace rnd {
     rItemOverrides[0].value.looksLikeItemId = 0x26;
     rItemOverrides[1].key.scene = 0x6F;
     rItemOverrides[1].key.type = ItemOverride_Type::OVR_COLLECTABLE;
-    rItemOverrides[1].value.getItemId = 0x76;
-    rItemOverrides[1].value.looksLikeItemId = 0x76;
+    rItemOverrides[1].value.getItemId = 0x34;
+    rItemOverrides[1].value.looksLikeItemId = 0x34;
     rItemOverrides[2].key.scene = 0x12;
     rItemOverrides[2].key.type = ItemOverride_Type::OVR_COLLECTABLE;
     rItemOverrides[2].value.getItemId = 0x37;
@@ -655,10 +655,11 @@ namespace rnd {
                             s16 incomingGetItemId) {
     ItemOverride override = {0};
     s32 incomingNegative = incomingGetItemId < 0;
+    // #if defined ENABLE_DEBUG || DEBUG_PRINT
+    //     rnd::util::Print("%s: Our actor ID is %#06x\nScene is %#04x\nIncoming item id is %#04x", __func__,
+    //     fromActor->id, gctx->scene, incomingGetItemId);
+    // #endif
     if (fromActor != NULL && incomingGetItemId != 0) {
-      // #if defined ENABLE_DEBUG || DEBUG_PRINT
-      //       rnd::util::Print("%s: Our actor ID is %#06x\n", __func__, fromActor->id);
-      // #endif
       s16 getItemId = ItemOverride_CheckNpc(fromActor->id, incomingGetItemId, incomingNegative);
       storedActorId = fromActor->id;
       storedGetItemId = (rnd::GetItemID)incomingGetItemId;
@@ -887,13 +888,14 @@ namespace rnd {
       // Check scene if we want to buy from goron.
       auto* gctx = rnd::GetContext().gctx;
 
-      if (gctx->scene == game::SceneId::BombShop) {
-        return game::HasItem((game::ItemId)currentItem) ? (int) currentItem
-          : (int)0xFF;
+      if (gctx->scene == game::SceneId::GoronVillageWinter || gctx->scene == game::SceneId::GoronVillageSpring) {
+        return givenItems.enGoGivenItem ? (int) currentItem
+        : (int)0xFF;
+        
       }
       
-      return givenItems.enGoGivenItem ? (int) currentItem
-        : (int)0xFF;
+      return game::HasItem((game::ItemId)currentItem) ? (int) currentItem
+          : (int)0xFF;
     } else if (currentItem == game::ItemId::GiantMask) {
       return givenItems.enBoss02GivenItem ? (int) currentItem
         : (int)0xFF;
