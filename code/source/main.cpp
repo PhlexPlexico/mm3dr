@@ -100,9 +100,9 @@ namespace rnd {
     const u32 pressedButtons = gctx->pad_state.input.buttons.flags;
     const u32 newButtons = gctx->pad_state.input.new_buttons.flags;
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-    auto& saveData = game::GetCommonData().save;
+    auto* saveData = GetContext().gctx->GetPlayerActor();
     if (newButtons == (u32)game::pad::Button::ZR)
-      rnd::util::Print("%s: Sword flag is %u\n", __func__, saveData.player.magic);
+      rnd::util::Print("%s: Player held item is %#04x\n", __func__, saveData->held_item);
 #endif
     if (gSettingsContext.customMaskButton != 0 && pressedButtons == gSettingsContext.customMaskButton) {
       game::ui::OpenScreen(game::ui::ScreenType::Masks);
