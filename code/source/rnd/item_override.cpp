@@ -414,7 +414,7 @@ namespace rnd {
     } else if (getItemId == static_cast<s16>(rnd::GetItemID::GI_MASK_CAPTAINS_HAT)) {
       gExtSaveData.givenItemChecks.enOskGivenItem = 1;
     } else if (actorId == game::act::Id::EnKitan) {
-      getItemId = incomingNegative ? -0x01 : 0x01;
+      getItemId = incomingNegative ? -0x03 : 0x03;
     }
 
     return getItemId;
