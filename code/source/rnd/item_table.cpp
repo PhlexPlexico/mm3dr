@@ -282,7 +282,7 @@ namespace rnd {
       [0x32] =
           ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::HeroShield, 0x0032, 0x000B3,
                    (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_HERO_SHIELD,
-                   (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1),  // Hero Sheild
+                   (rnd::upgradeFunc)ItemUpgrade_CheckShield, ItemEffect_None, (s16)-1, (s16)-1),  // Hero Sheild
 
       [0x33] =
           ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::MirrorShield, 0x0033, 0x000C3,
@@ -504,9 +504,10 @@ namespace rnd {
                    (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_BOTTLE_DEKU_PRINCESS,
                    (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1),  // Bottle With Deku Princess
 
-      [0x60] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::Milk, 0x0060, 0x00B6,
-                        (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_MILK_FULL,
-                        (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1),  // Bottle With Milk
+      [0x60] =
+          ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::Milk, 0x0060, 0x00B6, (s8)0xFF,
+                   (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_MILK_FULL,
+                   (rnd::upgradeFunc)ItemUpgrade_RefillBottle, ItemEffect_None, (s16)-1, (s16)-1),  // Bottle With Milk
 
       [0x61] =
           ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::Milk, 0x0061, 0x00B6, (s8)0xFF,
@@ -550,10 +551,10 @@ namespace rnd {
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_BOTTLE_ZORA_EGG,
                         (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1),  // Bottle With Zora Egg
 
-      [0x6A] =
-          ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::GoldDust, 0x006A, 0x01E9,
-                   (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_GOLD_DUST,
-                   (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1),  // Bottle With Gold Dust
+      [0x6A] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::GoldDust, 0x006A, 0x01E9,
+                        (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_GOLD_DUST,
+                        (rnd::upgradeFunc)ItemUpgrade_RefillBottle, ItemEffect_None, (s16)-1,
+                        (s16)-1),  // Bottle With Gold Dust
 
       [0x6B] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::MagicalMushroom, 0x006B,
                         0x021D, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF,
@@ -572,12 +573,12 @@ namespace rnd {
 
       [0x6E] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::SeaHorse, 0x006E, 0x01E9,
                         (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_BOTTLE_SEAHORSE,
-                        (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1,
+                        (rnd::upgradeFunc)ItemUpgrade_RefillBottle, ItemEffect_None, (s16)-1,
                         (s16)-1),  // Bottle With Sea Horse - Gold Dust Object
 
       [0x6F] = ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::ChateauRomani, 0x006F,
                         0x0227, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF,
-                        (s32)DrawGraphicItemID::DI_BOTTLE_CHATEAU_ROMANI, (rnd::upgradeFunc)ItemUpgrade_None,
+                        (s32)DrawGraphicItemID::DI_BOTTLE_CHATEAU_ROMANI, (rnd::upgradeFunc)ItemUpgrade_RefillBottle,
                         ItemEffect_None, (s16)-1, (s16)-1),  // Bottle With Chateau Romani
 
       // XXX: Trade Item, may have to change values? Seems rather individual and leads to fishing
@@ -585,7 +586,7 @@ namespace rnd {
       [0x70] =
           ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::MysteryMilk, 0x00CE, 0x00B6,
                    (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_BOTTLE_MYSTERY_MILK,
-                   (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1,
+                   (rnd::upgradeFunc)ItemUpgrade_RefillBottle, ItemEffect_None, (s16)-1,
                    (s16)-1),  // Bottle With Mystery Milk
 
       [0x71] =

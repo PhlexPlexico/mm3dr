@@ -14,6 +14,8 @@ namespace rnd {
   GetItemID ItemUpgrade_Sword(game::SaveData*, GetItemID);
   GetItemID ItemUpgrade_ArrowsToRupee(game::SaveData*, GetItemID);
   GetItemID ItemUpgrade_BombsToRupee(game::SaveData*, GetItemID);
+  GetItemID ItemUpgrade_RefillBottle(game::SaveData*, GetItemID);
+  GetItemID ItemUpgrade_CheckShield(game::SaveData*, GetItemID);
   // GetItemID ItemUpgrade_LetterToBottle(game::SaveData*, GetItemID);
 }  // namespace rnd
 

@@ -87,6 +87,57 @@ namespace rnd {
                getItemId;
   }
 
+  GetItemID ItemUpgrade_RefillBottle(game::SaveData* saveCtx, GetItemID getItemId) {
+    switch (getItemId) {
+    case GetItemID::GI_BOTTLE_MILK:
+      if (gExtSaveData.givenItemChecks.bottleMilkGiven == 1) {
+        return GetItemID::GI_BOTTLE_MILK_REFILL;
+      }
+      break;
+    case GetItemID::GI_BOTTLE_GOLD_DUST:
+      if (gExtSaveData.givenItemChecks.bottleGoldDustGiven == 1) {
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+        rnd::util::Print("%s: Gold dust given, overriding for refill.\n", __func__);
+#endif
+        return GetItemID::GI_BOTTLE_GOLD_DUST_REFILL;
+      }
+      break;
+    case GetItemID::GI_BOTTLE_SEAHORSE:
+      if (gExtSaveData.givenItemChecks.bottleSeahorseGiven == 1) {
+        return GetItemID::GI_BOTTLE_SEAHORSE_REFILL;
+      }
+      break;
+    case GetItemID::GI_BOTTLE_CHATEAU_ROMANI:
+      if (gExtSaveData.givenItemChecks.bottleChateuGiven == 1) {
+        return GetItemID::GI_BOTTLE_CHATEAU_ROMANI_REFILL;
+      }
+      break;
+    case GetItemID::GI_BOTTLE_MYSTERY_MILK:
+      if (gExtSaveData.givenItemChecks.bottleMysteryMilkGiven == 1) {
+        return GetItemID::GI_BOTTLE_MYSTERY_MILK_REFILL;
+      }
+      break;
+    default:
+      return getItemId;
+    }
+    return getItemId;
+  }
+
+  GetItemID ItemUpgrade_CheckShield(game::SaveData* saveCtx, GetItemID getItemId) {
+    switch(saveCtx->equipment.sword_shield.shield) {
+      case game::ShieldType::NoShield:
+        return getItemId;
+      case game::ShieldType::HeroShield:
+        return getItemId;
+      case game::ShieldType::MirrorShield:
+        if (getItemId == GetItemID::GI_SHIELD_HERO)
+          return GetItemID::GI_RUPEE_SILVER; // Give siler rupee, close enough to same cost.
+        else return getItemId;
+      default:
+        return getItemId;
+    }
+  }
+
   // TODO: Trade quest items.
   /*
   game::ItemId ItemUpgrade_LetterToBottle(game::SaveData *saveCtx, GetItemId GetItemId) {
