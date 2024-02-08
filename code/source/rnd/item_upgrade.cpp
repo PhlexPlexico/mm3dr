@@ -124,17 +124,18 @@ namespace rnd {
   }
 
   GetItemID ItemUpgrade_CheckShield(game::SaveData* saveCtx, GetItemID getItemId) {
-    switch(saveCtx->equipment.sword_shield.shield) {
-      case game::ShieldType::NoShield:
+    switch (saveCtx->equipment.sword_shield.shield) {
+    case game::ShieldType::NoShield:
+      return getItemId;
+    case game::ShieldType::HeroShield:
+      return getItemId;
+    case game::ShieldType::MirrorShield:
+      if (getItemId == GetItemID::GI_SHIELD_HERO)
+        return GetItemID::GI_RUPEE_SILVER;  // Give siler rupee, close enough to same cost.
+      else
         return getItemId;
-      case game::ShieldType::HeroShield:
-        return getItemId;
-      case game::ShieldType::MirrorShield:
-        if (getItemId == GetItemID::GI_SHIELD_HERO)
-          return GetItemID::GI_RUPEE_SILVER; // Give siler rupee, close enough to same cost.
-        else return getItemId;
-      default:
-        return getItemId;
+    default:
+      return getItemId;
     }
   }
 
