@@ -414,6 +414,10 @@ namespace rnd {
       gExtSaveData.givenItemChecks.enOskGivenItem = 1;
     } else if (actorId == game::act::Id::EnKitan) {
       getItemId = incomingNegative ? -0x03 : 0x03;
+    } else if (actorId == game::act::Id::EnGinkoMan) {
+      if (gExtSaveData.givenItemChecks.enGinkoManGivenItem == 1) {
+        getItemId = incomingNegative ? -0x03 : 0x03;
+      }
     }
 
     return getItemId;
@@ -471,12 +475,9 @@ namespace rnd {
     } else if ((s16)storedGetItemId == -(s16)GetItemID::GI_MASK_GIANTS) {
       gExtSaveData.givenItemChecks.enBoss02GivenItem = 1;
     } else if (storedActorId == game::act::Id::EnGinkoMan) {
-      game::SaveData& saveData = game::GetCommonData().save;
       if (gExtSaveData.givenItemChecks.enGinkoManGivenItem == 0) {
-        saveData.anonymous_77 = saveData.anonymous_77 | 8;
         gExtSaveData.givenItemChecks.enGinkoManGivenItem = 1;
       } else if (gExtSaveData.givenItemChecks.enGinkoManGivenItem == 1) {
-        saveData.anonymous_117 = saveData.anonymous_117 | 8;
         gExtSaveData.givenItemChecks.enGinkoManGivenItem = 2;
       }
     } else if (storedActorId == game::act::Id::EnShn) {
@@ -561,44 +562,6 @@ namespace rnd {
       break;
     }
     return;
-  }
-
-  u16 ItemOverride_SetBottleRefill(u16 refItemId) {
-    switch (refItemId) {
-    case 0x60:
-      if (gExtSaveData.givenItemChecks.bottleMilkGiven == 1) {
-        storedGetItemId = GetItemID::GI_BOTTLE_MILK_REFILL;
-        return 0x92;
-      }
-      break;
-    case 0x6A:
-      if (gExtSaveData.givenItemChecks.bottleGoldDustGiven == 1) {
-        storedGetItemId = GetItemID::GI_BOTTLE_GOLD_DUST_REFILL;
-        return 0x93;
-      }
-      break;
-    case 0x6F:
-      if (gExtSaveData.givenItemChecks.bottleChateuGiven == 1) {
-        storedGetItemId = GetItemID::GI_BOTTLE_CHATEAU_ROMANI_REFILL;
-        return 0x91;
-      }
-      break;
-    case 0x6E:
-      if (gExtSaveData.givenItemChecks.bottleSeahorseGiven == 1) {
-        storedGetItemId = GetItemID::GI_BOTTLE_SEAHORSE_REFILL;
-        return 0x95;
-      }
-      break;
-    case 0x70:
-      if (gExtSaveData.givenItemChecks.bottleMysteryMilkGiven == 0) {
-        storedGetItemId = GetItemID::GI_BOTTLE_MYSTERY_MILK_REFILL;
-        return 0x94;
-      }
-      break;
-    default:
-      return (u16)GetItemID::GI_RUPEE_BLUE;
-    }
-    return (u16)refItemId;
   }
 
   u8 ItemOverride_SetProgressiveItemDraw(ItemOverride override) {
@@ -696,11 +659,14 @@ namespace rnd {
       player->get_item_id = incomingGetItemId;
       return;
     } else if (override.key.type == ItemOverride_Type::OVR_CHEST &&
-               gExtSaveData.chestRewarded[override.key.scene][override.key.flag] == 1) {
+               gExtSaveData.chestRewarded[override.key.scene][override.key.flag] == 1 &&
+               (override.value.getItemId != 0x60 || override.value.getItemId != 0x6A ||
+                (override.value.getItemId < 0x6E && override.value.getItemId > 0x70))) {
       // Override was already given, check to see if we're a refill item now, if not, give a blue rupee instead.
-      u16 overrideGetItemId = ItemOverride_SetBottleRefill(override.value.getItemId);
-      override.value.getItemId = overrideGetItemId;
-      override.value.looksLikeItemId = overrideGetItemId;
+      // Only do this for items that are not bottle refills.
+      // Bottle logic is taken care of in the ItemUpgrade function.
+      override.value.getItemId = 0x02;
+      override.value.looksLikeItemId = 0x02;
     }
 
     // This check is mainly to ensure we do not have repeatable progressive items within these base items.
@@ -735,15 +701,6 @@ namespace rnd {
       }
     }
 
-    // If we are a bottled item, store the GID to write the ext data. This will ensure through
-    // ItemUpgrade_BottleRefill that we get a refill on a bottle instead of a new bottle.
-    if (override.value.getItemId == 0x60 || override.value.getItemId == 0x6A ||
-        (override.value.getItemId > 0x6D && override.value.getItemId < 0x71)) {
-      storedGetItemId = (GetItemID) override.value.getItemId;
-      u16 overrideGetItemId = ItemOverride_SetBottleRefill(override.value.getItemId);
-      override.value.getItemId = overrideGetItemId;
-      override.value.looksLikeItemId = overrideGetItemId;
-    }
     ItemOverride_Activate(override);
     s16 baseItemId = rActiveItemRow->baseItemId;
 

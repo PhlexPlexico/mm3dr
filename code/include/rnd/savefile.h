@@ -7,7 +7,7 @@
 #include "z3d/z3DVec.h"
 
 // Increment the version number whenever the ExtSaveData structure is changed
-#define EXTSAVEDATA_VERSION 14
+#define EXTSAVEDATA_VERSION 15
 #define SAVEFILE_SCENES_DISCOVERED_IDX_COUNT 4
 #define SAVEFILE_SPOILER_ITEM_MAX 512
 
@@ -73,20 +73,20 @@ namespace rnd {
       BitField<29, 1, u64> enOshGivenItem;
       BitField<30, 1, u64> enGoGivenItem;
       BitField<31, 1, u64> enBoss02GivenItem;
-      BitField<32, 1, u64> enGinkoManGivenItem;
-      BitField<33, 1, u64> enShnGivenItem;
-      BitField<34, 1, u64> enObjMoonStoneGivenItem;
-      BitField<35, 1, u64> enTownDeedGivenItem;
-      BitField<36, 1, u64> enSwampDeedGivenItem;
-      BitField<37, 1, u64> enMtnDeedGivenItem;
-      BitField<38, 1, u64> enOcnDeedGivenItem;
-      BitField<39, 1, u64> bottleMilkGiven;
-      BitField<40, 1, u64> bottleGoldDustGiven;
-      BitField<41, 1, u64> bottleSeahorseGiven;
-      BitField<42, 1, u64> bottleChateuGiven;
-      BitField<43, 1, u64> bottleMysteryMilkGiven;
-      BitField<44, 2, u64> progressiveSwordUpgrade;
-      BitField<45, 18, u64> unused;
+      BitField<32, 2, u64> enGinkoManGivenItem;
+      BitField<34, 1, u64> enShnGivenItem;
+      BitField<35, 1, u64> enObjMoonStoneGivenItem;
+      BitField<36, 1, u64> enTownDeedGivenItem;
+      BitField<37, 1, u64> enSwampDeedGivenItem;
+      BitField<38, 1, u64> enMtnDeedGivenItem;
+      BitField<39, 1, u64> enOcnDeedGivenItem;
+      BitField<40, 1, u64> bottleMilkGiven;
+      BitField<41, 1, u64> bottleGoldDustGiven;
+      BitField<42, 1, u64> bottleSeahorseGiven;
+      BitField<43, 1, u64> bottleChateuGiven;
+      BitField<44, 1, u64> bottleMysteryMilkGiven;
+      BitField<45, 2, u64> progressiveSwordUpgrade;
+      BitField<46, 18, u64> unused;
     };
     GivenItemRegister givenItemChecks;
     union FairyCollectRegister {
