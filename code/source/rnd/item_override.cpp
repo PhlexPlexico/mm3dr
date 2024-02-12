@@ -17,7 +17,7 @@ extern "C" {
 namespace rnd {
   static s32 rItemOverrides_Count = 0;
   static game::act::Id storedActorId = game::act::Id::Player;
-  static rnd::GetItemID storedGetItemId = rnd::GetItemID::GI_NONE;
+  static GetItemID storedGetItemId = GetItemID::GI_NONE;
   ItemOverride rItemOverrides[640] = {0};
   static game::act::Actor* rDummyActor = NULL;
   static ItemOverride rPendingOverrideQueue[3] = {0};
@@ -106,7 +106,7 @@ namespace rnd {
 
   ItemOverride ItemOverride_Lookup(game::act::Actor* actor, u16 scene, s16 getItemId) {
     // #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-    //     rnd::util::Print(
+    //     util::Print(
     //         "%s: Our param values:\nActor Type %#04x\nGet Item ID: %#04x\nActor ID: %#06x\n",
     //         __func__, actor->actor_type, getItemId, actor->id);
     // #endif
@@ -162,7 +162,7 @@ namespace rnd {
     rActiveItemFastChest = 0;
     rCustomDungeonItemRetrieved = 0;
     storedActorId = game::act::Id::Player;
-    storedGetItemId = rnd::GetItemID::GI_NONE;
+    storedGetItemId = GetItemID::GI_NONE;
   }
 
   static void ItemOverride_PushPendingOverride(ItemOverride override) {
@@ -219,7 +219,7 @@ namespace rnd {
   static u32 ItemOverride_PlayerIsReady(void) {
     // Using MMR's can receive item call - use the animation IDs to determine whether
     // we can receive item. Adjust pending frames as some items may softlock?
-    game::GlobalContext* gctx = rnd::GetContext().gctx;
+    game::GlobalContext* gctx = GetContext().gctx;
     if (!gctx || gctx->type != game::StateType::Play)
       return 0;
     game::act::Player* player = gctx->GetPlayerActor();
@@ -259,7 +259,7 @@ namespace rnd {
 
   static void ItemOverride_TryPendingItem(void) {
     ItemOverride override = rPendingOverrideQueue[0];
-    game::act::Player* player = rnd::GetContext().gctx->GetPlayerActor();
+    game::act::Player* player = GetContext().gctx->GetPlayerActor();
     if (player) {
       if (override.key.all == 0) {
         return;
@@ -285,7 +285,7 @@ namespace rnd {
     ItemOverride_AfterKeyReceived(key);
     SpoilerLog_UpdateIngameLog(key.type, key.scene, key.flag);
     //#if ENABLE_DEBUG || DEBUG_PRINT
-    // rnd::util::Print(
+    // util::Print(
     //         "%s: Our key values:\nKey Type %#04x\nKey Scene: %#04x\nKey Flag: %#06x\n",
     //         key.type, key.scene, key.flag);
     //#endif
@@ -410,7 +410,7 @@ namespace rnd {
       // Business scrub salesmen in grotto.
       // Same scene as gossips so need to set item manually.
       getItemId = incomingNegative ? -0x01 : 0x01;
-    } else if (getItemId == static_cast<s16>(rnd::GetItemID::GI_MASK_CAPTAINS_HAT)) {
+    } else if (getItemId == static_cast<s16>(GetItemID::GI_MASK_CAPTAINS_HAT)) {
       gExtSaveData.givenItemChecks.enOskGivenItem = 1;
     } else if (actorId == game::act::Id::EnKitan) {
       getItemId = incomingNegative ? -0x03 : 0x03;
@@ -433,7 +433,7 @@ namespace rnd {
     } else if (storedActorId == game::act::Id::NpcEnBaba) {
       gExtSaveData.givenItemChecks.enBabaGivenItem = 1;
     } else if (storedActorId == game::act::Id::NpcEnFsn) {
-      if (storedGetItemId == rnd::GetItemID::GI_MASK_ALL_NIGHT) {
+      if (storedGetItemId == GetItemID::GI_MASK_ALL_NIGHT) {
         gExtSaveData.givenItemChecks.enFsnANMGivenItem = 1;
       } else {
         gExtSaveData.givenItemChecks.enFsnGivenItem = 1;
@@ -466,9 +466,9 @@ namespace rnd {
       gExtSaveData.givenItemChecks.enGmGivenItem = 1;
     } else if (storedActorId == game::act::Id::EnOsh) {
       gExtSaveData.givenItemChecks.enOshGivenItem = 1;
-    } else if (storedGetItemId == rnd::GetItemID::GI_POWDER_KEG) {
+    } else if (storedGetItemId == GetItemID::GI_POWDER_KEG) {
       gExtSaveData.givenItemChecks.enGoGivenItem = 1;
-    } else if ((s16)storedGetItemId == -(s16)rnd::GetItemID::GI_MASK_GIANTS) {
+    } else if ((s16)storedGetItemId == -(s16)GetItemID::GI_MASK_GIANTS) {
       gExtSaveData.givenItemChecks.enBoss02GivenItem = 1;
     } else if (storedActorId == game::act::Id::EnGinkoMan) {
       game::SaveData& saveData = game::GetCommonData().save;
@@ -481,15 +481,15 @@ namespace rnd {
       }
     } else if (storedActorId == game::act::Id::EnShn) {
       gExtSaveData.givenItemChecks.enShnGivenItem = 1;
-    } else if (storedGetItemId == rnd::GetItemID::GI_MOONS_TEAR) {
+    } else if (storedGetItemId == GetItemID::GI_MOONS_TEAR) {
       gExtSaveData.givenItemChecks.enObjMoonStoneGivenItem = 1;
-    } else if (storedGetItemId == rnd::GetItemID::GI_TOWN_TITLE_DEED) {
+    } else if (storedGetItemId == GetItemID::GI_TOWN_TITLE_DEED) {
       gExtSaveData.givenItemChecks.enTownDeedGivenItem = 1;
-    } else if (storedGetItemId == rnd::GetItemID::GI_SWAMP_TITLE_DEED) {
+    } else if (storedGetItemId == GetItemID::GI_SWAMP_TITLE_DEED) {
       gExtSaveData.givenItemChecks.enSwampDeedGivenItem = 1;
-    } else if (storedGetItemId == rnd::GetItemID::GI_MOUNTAIN_TITLE_DEED) {
+    } else if (storedGetItemId == GetItemID::GI_MOUNTAIN_TITLE_DEED) {
       gExtSaveData.givenItemChecks.enMtnDeedGivenItem = 1;
-    } else if (storedGetItemId == rnd::GetItemID::GI_OCEAN_TITLE_DEED) {
+    } else if (storedGetItemId == GetItemID::GI_OCEAN_TITLE_DEED) {
       gExtSaveData.givenItemChecks.enOcnDeedGivenItem = 1;
     } else if (storedGetItemId == GetItemID::GI_BOTTLE_MILK) {
       gExtSaveData.givenItemChecks.bottleMilkGiven = 1;
@@ -534,28 +534,28 @@ namespace rnd {
     game::SaveData& saveData = game::GetCommonData().save;
     switch (getItemMapId) {
     case 0xB4:
-      rnd::util::GetPointer<void(u8)>(0x548260)(0x0);
+      util::GetPointer<void(u8)>(0x548260)(0x0);
       saveData.overworld_map_get_flags_0x3F_for_all = saveData.overworld_map_get_flags_0x3F_for_all | 1;
       break;
     case 0xB5:
-      rnd::util::GetPointer<void(u8)>(0x548260)(0x1);
+      util::GetPointer<void(u8)>(0x548260)(0x1);
       saveData.overworld_map_get_flags_0x3F_for_all = saveData.overworld_map_get_flags_0x3F_for_all | 2;
       break;
     case 0xB6:
       saveData.overworld_map_get_flags_0x3F_for_all = saveData.overworld_map_get_flags_0x3F_for_all | 4;
-      rnd::util::GetPointer<void(u8)>(0x548260)(0x2);
+      util::GetPointer<void(u8)>(0x548260)(0x2);
       break;
     case 0xB7:
       saveData.overworld_map_get_flags_0x3F_for_all = saveData.overworld_map_get_flags_0x3F_for_all | 8;
-      rnd::util::GetPointer<void(u8)>(0x548260)(0x3);
+      util::GetPointer<void(u8)>(0x548260)(0x3);
       break;
     case 0xB8:
       saveData.overworld_map_get_flags_0x3F_for_all = saveData.overworld_map_get_flags_0x3F_for_all | 0x10;
-      rnd::util::GetPointer<void(u8)>(0x548260)(0x4);
+      util::GetPointer<void(u8)>(0x548260)(0x4);
       break;
     case 0xB9:
       saveData.overworld_map_get_flags_0x3F_for_all = saveData.overworld_map_get_flags_0x3F_for_all | 0x20;
-      rnd::util::GetPointer<void(u8)>(0x548260)(0x5);
+      util::GetPointer<void(u8)>(0x548260)(0x5);
       break;
     default:
       break;
@@ -563,7 +563,7 @@ namespace rnd {
     return;
   }
 
-  u16 ItemOverride_SetBottleRefill(game::act::Player* player, u16 refItemId) {
+  u16 ItemOverride_SetBottleRefill(u16 refItemId) {
     switch (refItemId) {
     case 0x60:
       if (gExtSaveData.givenItemChecks.bottleMilkGiven == 1) {
@@ -658,7 +658,7 @@ namespace rnd {
             gExtSaveData.chestRewarded[rActiveItemOverride.key.scene][rActiveItemOverride.key.flag] = 1;
         }
       }
-      game::GlobalContext* gctx = rnd::GetContext().gctx;
+      game::GlobalContext* gctx = GetContext().gctx;
       u16 textId = rActiveItemRow->textId;
       u8 itemId = rActiveItemRow->itemId;
       ItemTable_CallEffect(rActiveItemRow);
@@ -667,7 +667,7 @@ namespace rnd {
         gctx->ShowMessage(textId, actor);
       // Get_Item_Handler. Don't give ice traps, since it may cause UB.
       if (itemId != (u8)game::ItemId::None) {
-        rnd::util::GetPointer<int(game::GlobalContext*, game::ItemId)>(0x233BEC)(gctx, (game::ItemId)itemId);
+        util::GetPointer<int(game::GlobalContext*, game::ItemId)>(0x233BEC)(gctx, (game::ItemId)itemId);
         // Since the regular get item handler does not take care of this situation, we need to do it manually.
         if (rActiveItemOverride.value.getItemId > 0xB3 && rActiveItemOverride.value.getItemId < 0xBA)
           ItemOverride_RevealMapBasedOnId(rActiveItemOverride.value.getItemId);
@@ -681,13 +681,13 @@ namespace rnd {
     ItemOverride override = {0};
     s32 incomingNegative = incomingGetItemId < 0;
     // #if defined ENABLE_DEBUG || DEBUG_PRINT
-    //     rnd::util::Print("%s: Our actor ID is %#06x\nScene is %#04x\nIncoming item id is %#04x", __func__,
+    //     util::Print("%s: Our actor ID is %#06x\nScene is %#04x\nIncoming item id is %#04x", __func__,
     //     fromActor->id, gctx->scene, incomingGetItemId);
     // #endif
     if (fromActor != NULL && incomingGetItemId != 0) {
       s16 getItemId = ItemOverride_CheckNpc(fromActor->id, incomingGetItemId, incomingNegative);
       storedActorId = fromActor->id;
-      storedGetItemId = (rnd::GetItemID)incomingGetItemId;
+      storedGetItemId = (GetItemID)incomingGetItemId;
       override = ItemOverride_Lookup(fromActor, (u16)gctx->scene, getItemId);
     }
     if (override.key.all == 0) {
@@ -697,9 +697,10 @@ namespace rnd {
       return;
     } else if (override.key.type == ItemOverride_Type::OVR_CHEST &&
                gExtSaveData.chestRewarded[override.key.scene][override.key.flag] == 1) {
-      // Override was already given, give a blue rupee instead.
-      override.value.getItemId = 0x02;
-      override.value.looksLikeItemId = 0x02;
+      // Override was already given, check to see if we're a refill item now, if not, give a blue rupee instead.
+      u16 overrideGetItemId = ItemOverride_SetBottleRefill(override.value.getItemId);
+      override.value.getItemId = overrideGetItemId;
+      override.value.looksLikeItemId = overrideGetItemId;
     }
 
     // This check is mainly to ensure we do not have repeatable progressive items within these base items.
@@ -736,8 +737,12 @@ namespace rnd {
 
     // If we are a bottled item, store the GID to write the ext data. This will ensure through
     // ItemUpgrade_BottleRefill that we get a refill on a bottle instead of a new bottle.
-    if (override.value.getItemId == 0x60 || (override.value.getItemId > 0x69 && override.value.getItemId < 0x71)) {
+    if (override.value.getItemId == 0x60 || override.value.getItemId == 0x6A ||
+        (override.value.getItemId > 0x6D && override.value.getItemId < 0x71)) {
       storedGetItemId = (GetItemID) override.value.getItemId;
+      u16 overrideGetItemId = ItemOverride_SetBottleRefill(override.value.getItemId);
+      override.value.getItemId = overrideGetItemId;
+      override.value.looksLikeItemId = overrideGetItemId;
     }
     ItemOverride_Activate(override);
     s16 baseItemId = rActiveItemRow->baseItemId;
@@ -869,7 +874,7 @@ namespace rnd {
         : (int)0xFF;
     } else if (currentItem == game::ItemId::PowderKeg) {
       // Check scene if we want to buy from goron.
-      auto* gctx = rnd::GetContext().gctx;
+      auto* gctx = GetContext().gctx;
 
       if (gctx->scene == game::SceneId::GoronVillageWinter || gctx->scene == game::SceneId::GoronVillageSpring) {
         return givenItems.enGoGivenItem ? (int) currentItem

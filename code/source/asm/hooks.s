@@ -425,7 +425,7 @@ hook_GibdoMaskGiveItem:
     push {r0-r12, lr}
     cpy r0,r5
     cpy r1,r4
-    mov r2,#0x7A
+    mov r2,#0x87
     bl ItemOverride_GetSoHItem
     ldr r5,.rActiveItemRow_addr
     ldr r5,[r5]
