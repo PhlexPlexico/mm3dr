@@ -45,11 +45,202 @@ namespace rnd {
         gSpoilerData.ItemLocations[i].Collected = true;
         // Since it's not saved here, we need to return
         gExtSaveData.itemCollected[i] = 1;
+        break;//stop searching 
       }
+    }
+    SpoilerLog_CheckMultiLocationItems(type, scene, flag);
+    return -1;
+  }
+  u8 SpoilerLog_CheckMultiLocationItems(ItemOverride_Type type, u8 scene, u8 flag) {
+     //#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+     //    rnd::util::Print(
+     //        "%s: CheckMultiLocationItems passed values:\nActor Type %d\nScene: %d\nFlag: %d\n",
+     //        __func__, type, scene, flag);
+     //#endif
+    //#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+    //    rnd::util::Print("%s: passed the scene check for %d\n", __func__,scene);
+    //#endif
+      
+    //Koume in Potion Shop > Koume in Woods
+    if ((scene == 0x0A) && (flag == 0x59) && (type == ItemOverride_Type::OVR_BASE_ITEM)){
+      SpoilerData_UpdateMultiLocations(type, 0x64, flag);
+    }
+    //Koume in Woods > Koume in Potion Shop
+    if ((scene == 0x64) && (flag == 0x59) && (type == ItemOverride_Type::OVR_BASE_ITEM)){
+      SpoilerData_UpdateMultiLocations(type, 0x0A, flag);
+    }
+    //SCT Postbox > NCT & ECT Postboxes
+    if ((scene == 0x6F) && (flag == 0xBA) && (type == ItemOverride_Type::OVR_BASE_ITEM)){
+      SpoilerData_UpdateMultiLocations(type, 0x6E, flag);
+      SpoilerData_UpdateMultiLocations(type, 0x6C, flag);
+    }
+    //NCT Postbox > SCT & ECT Postboxes
+    if ((scene == 0x6E) && (flag == 0xBA) && (type == ItemOverride_Type::OVR_BASE_ITEM)){
+      SpoilerData_UpdateMultiLocations(type, 0x6F, flag);
+      SpoilerData_UpdateMultiLocations(type, 0x6C, flag);
+    }
+    //ECT Postbox > NCT & SCT Postboxes
+    if ((scene == 0x6C) && (flag == 0xBA) && (type == ItemOverride_Type::OVR_BASE_ITEM)){
+      SpoilerData_UpdateMultiLocations(type, 0x6E, flag);
+      SpoilerData_UpdateMultiLocations(type, 0x6F, flag);
+    }
+    //NCT Tingle Clocktown Map > Ikana Tingle Clocktown Map
+    if ((scene == 0x6E) && (flag == 0xB4) && (type == ItemOverride_Type::OVR_BASE_ITEM)){
+      SpoilerData_UpdateMultiLocations(type, 0x13, flag);
+    }
+    //Ikana Tingle Clocktown Map > NCT Tingle Clocktown Map
+    if ((scene == 0x13) && (flag == 0xB4) && (type == ItemOverride_Type::OVR_BASE_ITEM)){
+      SpoilerData_UpdateMultiLocations(type, 0x6E, flag);
+    }
+    //NCT Tingle Woodfall Map > Woodfall Tingle Woodfall Map
+    if ((scene == 0x6E) && (flag == 0xB5) && (type == ItemOverride_Type::OVR_BASE_ITEM)){
+      SpoilerData_UpdateMultiLocations(type, 0x40, flag);
+    }
+    //Woodfall Tingle Woodfall Map > NCT Tingle Woodfall Map
+    if ((scene == 0x40) && (flag == 0xB5) && (type == ItemOverride_Type::OVR_BASE_ITEM)){
+      SpoilerData_UpdateMultiLocations(type, 0x6E, flag);
+    }
+    //Woodfall Tingle Snowhead Map > Snowhead Tingle Snowhead Map (winter)
+    if ((scene == 0x40) && (flag == 0xB6) && (type == ItemOverride_Type::OVR_BASE_ITEM)){
+      SpoilerData_UpdateMultiLocations(type, 0x5D, flag);
+    }
+    //Woodfall Tingle Snowhead Map > Snowhead Tingle Snowhead Map (Spring)
+    if ((scene == 0x40) && (flag == 0xB6) && (type == ItemOverride_Type::OVR_BASE_ITEM)){
+      SpoilerData_UpdateMultiLocations(type, 0x5E, flag);
+    }
+    //Snowhead Tingle Snowhead Map (Winter) > Woodfall Tingle Snowhead Map
+    if ((scene == 0x5D) && (flag == 0xB6) && (type == ItemOverride_Type::OVR_BASE_ITEM)){
+      SpoilerData_UpdateMultiLocations(type, 0x40, flag);
+    }
+    //Snowhead Tingle Snowhead Map (Spring) > Woodfall Tingle Snowhead Map 
+    if ((scene == 0x5E) && (flag == 0xB6) && (type == ItemOverride_Type::OVR_BASE_ITEM)){
+      SpoilerData_UpdateMultiLocations(type, 0x40, flag);
+    }
+    //Snowhead Tingle Snowhead Map (Winter) > Snowhead Tingle Snowhead Map (Spring)
+    if ((scene == 0x5D) && (flag == 0xB6) && (type == ItemOverride_Type::OVR_BASE_ITEM)){
+      SpoilerData_UpdateMultiLocations(type, 0x5E, flag);
+    }
+    //Snowhead Tingle Snowhead Map (Spring) > Snowhead Tingle Snowhead Map (Winter)
+    if ((scene == 0x5E) && (flag == 0xB6) && (type == ItemOverride_Type::OVR_BASE_ITEM)){
+      SpoilerData_UpdateMultiLocations(type, 0x5D, flag);
+    }
+    //Snowhead Tingle Ranch Map (Winter) > Ranch Tingle Ranch Map
+    if ((scene == 0x5D) && (flag == 0xB7) && (type == ItemOverride_Type::OVR_BASE_ITEM)){
+      SpoilerData_UpdateMultiLocations(type, 0x22, flag);
+    }
+    //Snowhead Tingle Ranch Map (Spring) > Ranch Tingle Ranch Map
+    if ((scene == 0x5E) && (flag == 0xB7) && (type == ItemOverride_Type::OVR_BASE_ITEM)){
+      SpoilerData_UpdateMultiLocations(type, 0x22, flag);
+    }
+    //Ranch Tingle Ranch Map > Snowhead Tingle Snowhead Map (Winter)
+    if ((scene == 0x22) && (flag == 0xB7) && (type == ItemOverride_Type::OVR_BASE_ITEM)){
+      SpoilerData_UpdateMultiLocations(type, 0x5E, flag);
+    }
+    //Ranch Tingle Ranch Map > Snowhead Tingle Snowhead Map (Spring)
+    if ((scene == 0x22) && (flag == 0xB7) && (type == ItemOverride_Type::OVR_BASE_ITEM)){
+      SpoilerData_UpdateMultiLocations(type, 0x5D, flag);
+    }
+    //Ranch Tingle Great Bay Map  > Great Bay Tingle Great Bay Map
+    if ((scene == 0x22) && (flag == 0xB8) && (type == ItemOverride_Type::OVR_BASE_ITEM)){
+      SpoilerData_UpdateMultiLocations(type, 0x37, flag);
+    }
+    //Great Bay Tingle Great Bay Map  > Ranch Tingle Great Bay Map
+    if ((scene == 0x37) && (flag == 0xB8) && (type == ItemOverride_Type::OVR_BASE_ITEM)){
+      SpoilerData_UpdateMultiLocations(type, 0x22, flag);
+    }
+    //Great Bay Tingle Stone Tower Map  > Stone Tower Tingle Stone Tower Map
+    if ((scene == 0x37) && (flag == 0xB9) && (type == ItemOverride_Type::OVR_BASE_ITEM)){
+      SpoilerData_UpdateMultiLocations(type, 0x13, flag);
+    }
+    //Stone Tower Tingle Stone Tower Map  > Great Bay Tingle Stone Tower Map
+    if ((scene == 0x13) && (flag == 0xB9) && (type == ItemOverride_Type::OVR_BASE_ITEM)){
+      SpoilerData_UpdateMultiLocations(type, 0x37, flag);
+    }
+    //NCT Keaton > MR Keaton & MV Keaton
+    if ((scene == 0x6E) && (flag == 0x03) && (type == ItemOverride_Type::OVR_BASE_ITEM)){
+      SpoilerData_UpdateMultiLocations(type, 0x22, flag);
+      SpoilerData_UpdateMultiLocations(type, 0x5A, flag);
+    }
+    //MR Keaton > NCT Keaton & MV Keaton
+    if ((scene == 0x22) && (flag == 0x03) && (type == ItemOverride_Type::OVR_BASE_ITEM)){
+      SpoilerData_UpdateMultiLocations(type, 0x6E, flag);
+      SpoilerData_UpdateMultiLocations(type, 0x5A, flag);
+    }
+    //MV Keaton > MR Keaton & NCT Keaton
+    if ((scene == 0x5A) && (flag == 0x03) && (type == ItemOverride_Type::OVR_BASE_ITEM)){
+      SpoilerData_UpdateMultiLocations(type, 0x22, flag);
+      SpoilerData_UpdateMultiLocations(type, 0x6E, flag);
+    }
+    //GV Powder Keg Challenge (Winter)  > GV Powder Keg Challenge (Spring)
+    if ((scene == 0x4D) && (flag == 0x34) && (type == ItemOverride_Type::OVR_BASE_ITEM)){
+      SpoilerData_UpdateMultiLocations(type, 0x48, flag);
+    }
+    //GV Powder Keg Challenge (Spring)  > GV Powder Keg Challenge (Winter)
+    if ((scene == 0x48) && (flag == 0x34) && (type == ItemOverride_Type::OVR_BASE_ITEM)){
+      SpoilerData_UpdateMultiLocations(type, 0x4D, flag);
+    }
+    //GV Deku Merchant Purchase (Winter)  > GV Deku Merchant Purchase(Spring)
+    if ((scene == 0x4D) && (flag == 0x1D) && (type == ItemOverride_Type::OVR_BASE_ITEM)){
+      SpoilerData_UpdateMultiLocations(type, 0x48, flag);
+    }
+    //GV Deku Merchant Purchase (Spring)  > GV Deku Merchant Purchase(Winter)
+    if ((scene == 0x48) && (flag == 0x1D) && (type == ItemOverride_Type::OVR_BASE_ITEM)){
+      SpoilerData_UpdateMultiLocations(type, 0x4D, flag);
+    }
+    //GV Deku Merchant Trade (Winter)  > GV Deku Merchant Trade(Spring)
+    if ((scene == 0x4D) && (flag == 0x99) && (type == ItemOverride_Type::OVR_BASE_ITEM)){
+      SpoilerData_UpdateMultiLocations(type, 0x48, flag);
+    }
+    //GV Deku Merchant Trade (Spring)  > GV Deku Merchant Trade(Winter)
+    if ((scene == 0x48) && (flag == 0x99) && (type == ItemOverride_Type::OVR_BASE_ITEM)){
+      SpoilerData_UpdateMultiLocations(type, 0x4D, flag);
+    }
+    //GV Ledge Heart Piece (Winter)  > GV Ledge Heart Piece (Spring)
+    if ((scene == 0x4D) && (flag == 0x00) && (type == ItemOverride_Type::OVR_COLLECTABLE)){
+      SpoilerData_UpdateMultiLocations(type, 0x48, flag);
+    }
+    //GV Ledge Heart Piece (Spring)  > GV Ledge Heart Piece(Winter)
+    if ((scene == 0x48) && (flag == 0x00) && (type == ItemOverride_Type::OVR_COLLECTABLE)){
+      SpoilerData_UpdateMultiLocations(type, 0x4D, flag);
+    }
+    //SS Deku Merchant Purchase (Poison)  > SS Deku Merchant Purchase(Clear)
+    if ((scene == 0x45) && (flag == 0x35) && (type == ItemOverride_Type::OVR_BASE_ITEM)){
+      SpoilerData_UpdateMultiLocations(type, 0x00, flag);
+    }
+    //SS Deku Merchant Purchase (Clear)  > SS Deku Merchant Purchase(Poison)
+    if ((scene == 0x00) && (flag == 0x35) && (type == ItemOverride_Type::OVR_BASE_ITEM)){
+      SpoilerData_UpdateMultiLocations(type, 0x45, flag);
+    }
+    //SS Deku Merchant Trade (Poison)  > SS Deku Merchant Trade (Clear)
+    if ((scene == 0x45) && (flag == 0x98) && (type == ItemOverride_Type::OVR_BASE_ITEM)){
+      SpoilerData_UpdateMultiLocations(type, 0x00, flag);
+    }
+    //SS Deku Merchant Trade (Clear)  > SS Deku Merchant Trade (Poison)
+    if ((scene == 0x00) && (flag == 0x98) && (type == ItemOverride_Type::OVR_BASE_ITEM)){
+      SpoilerData_UpdateMultiLocations(type, 0x45, flag);
+    }
+    //SS Tourist Center Roof HP (Poison)  > SS Tourist Center Roof HP (Clear)
+    if ((scene == 0x45) && (flag == 0x00) && (type == ItemOverride_Type::OVR_COLLECTABLE)){
+      SpoilerData_UpdateMultiLocations(type, 0x00, flag);
+    }
+    //SS Tourist Center Roof HP (Clear)  > SS Tourist Center Roof HP (Poison)
+    if ((scene == 0x00) && (flag == 0x00) && (type == ItemOverride_Type::OVR_COLLECTABLE)){
+      SpoilerData_UpdateMultiLocations(type, 0x45, flag);
     }
     return -1;
   }
-
+  void SpoilerData_UpdateMultiLocations(ItemOverride_Type type, u8 newScene, u8 flag)
+  {
+    for (int i = 0; i < gSpoilerData.ItemLocationsCount; i++) {
+        if (gSpoilerData.ItemLocations[i].LocationScene == newScene && gSpoilerData.ItemLocations[i].OverrideType == type &&
+            gSpoilerData.ItemLocations[i].LocationFlag == flag) {
+          gSpoilerData.ItemLocations[i].Collected = true;
+          // Since it's not saved here, we need to return
+          gExtSaveData.itemCollected[i] = 1;
+          break;
+        }
+    }
+  }
   u8 SpoilerData_CollectableCheck(SpoilerItemLocation itemLoc) {
     // TODO: Implement Collectable Checking. no need to use bits as we have
     // builtin BitField classes.

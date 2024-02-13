@@ -140,6 +140,8 @@ namespace rnd {
   u8 SpoilerData_MagicBeansCheck(SpoilerItemLocation itemLoc);
   u8 SpoilerData_GetIsItemLocationRevealed(u16 itemIndex);
   u8 SpoilerLog_UpdateIngameLog(ItemOverride_Type type, u8 scene, u8 flag);
+  u8 SpoilerLog_CheckMultiLocationItems(ItemOverride_Type type, u8 scene, u8 flag);
+  void SpoilerData_UpdateMultiLocations(ItemOverride_Type type, u8 newScene, u8 flag);
 }  // namespace rnd
 
 #endif  // _RND_SPOILER_DATA_H_
