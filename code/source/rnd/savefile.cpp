@@ -3,6 +3,7 @@ extern "C" {
 }
 #include <string.h>
 #include "rnd/item_effect.h"
+#include "rnd/item_table.h"
 #include "rnd/savefile.h"
 #include "rnd/settings.h"
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
@@ -26,6 +27,8 @@ namespace rnd {
     saveData.anonymous_162 = saveData.anonymous_162 | 0x6000;
     rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::MaskOfTruth);
     rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::PictographBox);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::BlastMask);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::KafeiMask);
     // rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::PowderKeg);
     // saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver50;
     saveData.inventory.inventory_count_register.bomb_bag_upgrade = game::BombBag::BombBag40;
@@ -50,6 +53,7 @@ namespace rnd {
 
     saveData.inventory.masks[5] = game::ItemId::DekuMask;
     rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::BremenMask);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::Bottle);
     saveData.inventory.masks[11] = game::ItemId::GoronMask;
     saveData.inventory.masks[17] = game::ItemId::ZoraMask;
     saveData.inventory.masks[23] = game::ItemId::FierceDeityMask;
@@ -107,7 +111,6 @@ namespace rnd {
     gSettingsContext.freeScarecrow = 1;
     saveData.activate_dungeon_skip_portal_0xF0_for_all = 0xF0;
     SaveFile_FillOverWorldMapData();
-
 #endif
     // TODO: Decomp event flags. Most likely in the large anonymous structs in the SaveData.
     u8 isNewFile = saveData.has_completed_intro;
@@ -134,7 +137,7 @@ namespace rnd {
       // saveData.inventory.collect_register.song_of_healing = 1;  // until happy mask salesman is overridden
       saveData.player.owl_statue_flags.clock_town = 1;
 #ifdef ENABLE_DEBUG
-      gSettingsContext.startingKokiriSword = 0;
+      gSettingsContext.startingKokiriSword = 3;
       gSettingsContext.startingShield = 0;
 #endif
       SaveFile_SetStartingInventory();
@@ -212,7 +215,7 @@ namespace rnd {
     saveData.turtle_flags.skip_swimming_to_great_bay_temple_cutscene = 1;
 
     // Needs to be greater than zero to skip first time song of time cutscene
-    saveData.player.song_of_time_counter = 1;
+    saveData.player.three_day_reset_count = 1;
   }
 
   void SaveFile_SetFastAnimationFlags() {
@@ -705,6 +708,9 @@ namespace rnd {
     } else {
       // Player initially is given magic 0x30 on save creation. This prevents that.
       playerData.magic = 0x0;
+#ifdef ENABLE_DEBUG
+      playerData.magic = 0x30;
+#endif
     }
 
     if (gSettingsContext.startingDoubleDefense) {
@@ -782,8 +788,23 @@ namespace rnd {
     memset(&gExtSaveData.chestRewarded, 0, sizeof(gExtSaveData.chestRewarded));
     memset(&gExtSaveData.scenesDiscovered, 0, sizeof(gExtSaveData.scenesDiscovered));
     memset(&gExtSaveData.itemCollected, 0, sizeof(gExtSaveData.itemCollected));
+#ifdef ENABLE_DEBUG
+    gExtSaveData.collectedTradeItems[0] = game::ItemId::MoonTear;
+    gExtSaveData.collectedTradeItems[1] = game::ItemId::LandTitleDeed;
+    gExtSaveData.collectedTradeItems[2] = game::ItemId::SwampTitleDeed;
+    gExtSaveData.collectedTradeItems[3] = game::ItemId::MountainTitleDeed;
+    gExtSaveData.collectedTradeItems[4] = game::ItemId::OceanTitleDeed;
+    gExtSaveData.collectedTradeItems[5] = game::ItemId::RoomKey;
+    gExtSaveData.collectedTradeItems[6] = game::ItemId::LetterToKafei;
+    gExtSaveData.collectedTradeItems[7] = game::ItemId::PendantOfMemories;
+    gExtSaveData.collectedTradeItems[8] = game::ItemId::LetterToMama;
+#else
+    for (int i = 0; i < 9; i++) {
+      gExtSaveData.collectedTradeItems[i] = game::ItemId::None;
+    }
+#endif
+
     // TODO: Settings options belong in ext.
-    // memset(&gExtSaveData.scenesDiscovered, 0, sizeof(gExtSaveData.scenesDiscovered));
     // memset(&gExtSaveData.entrancesDiscovered, 0, sizeof(gExtSaveData.entrancesDiscovered));
     // // Ingame Options
     // gExtSaveData.option_EnableBGM          = gSettingsContext.playMusic;
@@ -887,5 +908,58 @@ namespace rnd {
     extDataWriteFileDirectly(fsa, path, &gExtSaveData, 0, sizeof(gExtSaveData));
     extDataUnmount(fsa);
   }
+
+  extern "C" void SaveFile_RemoveStoredTradeItem(u16 item, u8 slot) {
+    // This is a get item ID, we need to translate it to the regular item ID.
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+    rnd::util::Print("%s: Item and slot are %#04x %u\n", __func__, item, slot);
+#endif
+    if (slot != 5 && slot != 17)
+      return;
+    ItemRow* gidItemRow = ItemTable_GetItemRowFromIndex(item);
+    game::ItemId firstItem = game::ItemId::None;
+
+    for (int i = 0; i < 9; i++) {
+      if (gidItemRow->itemId != (u8)gExtSaveData.collectedTradeItems[i] && firstItem == game::ItemId::None) {
+        if (slot == 17 && i > 5 && i < 8) {
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+          rnd::util::Print("%s: Slot is 17 and our found item is %#04x\n", __func__,
+                           gExtSaveData.collectedTradeItems[i]);
+#endif
+          firstItem = gExtSaveData.collectedTradeItems[i];
+        }
+
+        else if (slot == 5 && i < 5)
+          firstItem = gExtSaveData.collectedTradeItems[i];
+      }
+      if (gidItemRow->itemId == (u8)gExtSaveData.collectedTradeItems[i]) {
+        gExtSaveData.collectedTradeItems[i] = game::ItemId::None;
+      }
+    }
+    // Place the item in inventory, if there is no item to place it simply places none.
+    game::SaveData& saveData = game::GetCommonData().save;
+    saveData.inventory.items[slot] = firstItem;
+  }
+  extern "C" void SaveFile_RemoveTradeItemFromSlot(u16 item, u8 slot) {
+    // This is a get item ID, we need to translate it to the regular item ID.
+    if (slot == 5) {
+      for (int i = 0; i < 4; i++) {
+        if (item == (u16)gExtSaveData.collectedTradeItems[i]) {
+          gExtSaveData.collectedTradeItems[i] = game::ItemId::None;
+          break;
+        }
+      }
+    }
+  }
+
+  extern "C" u8 SaveFile_GetItemCurrentlyInSlot(u8 slot) {
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+    rnd::util::Print("%s: Current slot is %#04x\n", __func__, game::GetCommonData().save.inventory.items[slot]);
+#endif
+    return (u8)game::GetCommonData().save.inventory.items[slot];
+  }
+  // SaveFile_DrawAndShowUIMessage() {
+
+  // }
 
 }  // namespace rnd

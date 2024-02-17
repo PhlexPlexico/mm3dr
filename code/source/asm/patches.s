@@ -104,6 +104,7 @@ patch_RemoveMysteryMilkTimer:
 patch_DoNotResetTempleFlags:
     bl hook_DoNotResetTempleFlags
 
+
 @ Skips past a loop that resets all
 @ values in the each dungeon for 
 @ keys/fairies/boss key/etc
@@ -378,6 +379,12 @@ patch_SaveExtDataOnOwl:
 .global patch_IceArrowsAnywhere
 patch_IceArrowsAnywhere:
     nop
+
+.section .patch_changeChestTypeToMatchContents
+.global patch_changeChestTypeToMatchContents
+patch_changeChestTypeToMatchContents:
+    bl hook_changeChestTypeToMatchContents
+    @mov r2, #0x02
 
 .section .patch_RemoveZoraMaskCheckMikau
 .global patch_RemoveZoraMaskCheckMikau

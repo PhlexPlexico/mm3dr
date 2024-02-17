@@ -3,11 +3,12 @@
 
 #include "common/bitfield.h"
 #include "game/common_data.h"
+#include "game/ui/screens/gearscreen.h"
 #include "rnd/extdata.h"
 #include "z3d/z3DVec.h"
 
 // Increment the version number whenever the ExtSaveData structure is changed
-#define EXTSAVEDATA_VERSION 15
+#define EXTSAVEDATA_VERSION 16
 #define SAVEFILE_SCENES_DISCOVERED_IDX_COUNT 4
 #define SAVEFILE_SPOILER_ITEM_MAX 512
 
@@ -32,6 +33,9 @@ namespace rnd {
   void SaveFile_LoadExtSaveData(u32 saveNumber);
   u8 SaveFile_GetIsSceneDiscovered(u8 sceneNum);
   extern "C" void SaveFile_SaveExtSaveData();
+  extern "C" void SaveFile_RemoveStoredTradeItem(u16, u8);
+  extern "C" void SaveFile_RemoveTradeItemFromSlot(u16, u8);
+  extern "C" u8 SaveFile_GetItemCurrentlyInSlot(u8);
 
   typedef struct {
     u32 version;  // Needs to always be the first field of the structure
@@ -84,7 +88,7 @@ namespace rnd {
       BitField<41, 1, u64> bottleGoldDustGiven;
       BitField<42, 1, u64> bottleSeahorseGiven;
       BitField<43, 1, u64> bottleChateuGiven;
-      BitField<44, 1, u64> bottleMysteryMilkGiven;
+      BitField<44, 1, u64> bottleRedPotionGiven;
       BitField<45, 2, u64> progressiveSwordUpgrade;
       BitField<46, 18, u64> unused;
     };
@@ -92,12 +96,12 @@ namespace rnd {
     union FairyCollectRegister {
       u8 raw;
 
-      BitField<0, 1, u8> nct;
-      BitField<1, 1, u8> woodfall;
-      BitField<2, 1, u8> snowhead;
-      BitField<3, 1, u8> great_bay;
-      BitField<4, 1, u8> ikana;
-      BitField<5, 3, u8> unused;
+      BitField<0, 2, u8> nct;
+      BitField<2, 1, u8> woodfall;
+      BitField<3, 1, u8> snowhead;
+      BitField<4, 1, u8> great_bay;
+      BitField<5, 1, u8> ikana;
+      BitField<6, 2, u8> unused;
     };
     FairyCollectRegister fairyRewards;
     union TingleCollectRegister {
@@ -115,6 +119,7 @@ namespace rnd {
     u32 scenesDiscovered[SAVEFILE_SCENES_DISCOVERED_IDX_COUNT];
     u8 itemCollected[SAVEFILE_SPOILER_ITEM_MAX];
     u8 chestRewarded[116][32];  // Reward table that's stored by scene and chest param/flag.
+    game::ItemId collectedTradeItems[9];
   } ExtSaveData;
 
   extern "C" ExtSaveData gExtSaveData;

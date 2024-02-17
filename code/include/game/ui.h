@@ -438,6 +438,33 @@ namespace game::ui {
   };
   static_assert(sizeof(Layout) == 0x170);
 
+  struct ItemIcon {
+    Layout thisx;
+    u8 initialized;
+    u8 gap_171[3];
+    int icon_id;
+    int item_count;
+    int icon_number;
+    int rank_ten;
+    AnimPlayer* item_icon_player;
+    AnimPlayer* rank_ten_player;
+    AnimPlayer* rank_a_player;
+    AnimPlayer* color_player;
+    AnimPlayer* main_player;
+    Anim* idle_anim;
+    Anim* pressed_anim;
+    Anim* activated_anim;
+    Anim* disabled_anim;
+    Anim* unusable_anim;
+    Anim* selected_anim;
+    AnimPlayer* return_player;
+    Anim* return_to_start_anim;
+    Anim* return_vanish_idle_anim;
+    Anim* return_remain_idle_anim;
+    Anim* return_empty_idle_anim;
+    Anim* equip_anim;
+    void* item_icon_pane;
+  };
   struct CommonLayouts {
     Layout* touch_panel;
     Layout* background;

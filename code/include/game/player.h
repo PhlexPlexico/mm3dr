@@ -416,7 +416,8 @@ namespace game::act {
     u8 gap_11EC0[6];
     char field_11EC6;
     char field_11EC7;
-    u16 disable_b_if_255;
+    // u8 field_11EC8;
+    u16 blastMaskTimer;
     u16 zora_barrier_timer;
     u16 field_11ECC;
     char field_11ECE[1];

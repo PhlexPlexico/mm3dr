@@ -325,14 +325,14 @@ namespace game::act {
 
   // Name courtesy of the OoT decomp project.
   struct DynaPolyActor : Actor {
-    u32 dyna_poly_id;
-    float field_1FC;
+    u32 bg_id;
+    float push_force;
     float field_200;
-    u16 field_204;
-    u8 field_206;
-    u32 dyna_poly_flags;
+    s16 y_rotation;
+    u32 transform_flags;
+    u8 interact_flags;
   };
-  static_assert(sizeof(DynaPolyActor) == 0x20C);
+  static_assert(sizeof(DynaPolyActor) == 0x210);
 
   struct DayTimerActor {
     Actor common_actor;

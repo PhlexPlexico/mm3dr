@@ -31,6 +31,7 @@ namespace rnd {
   void ItemEffect_FillWalletUpgrade(game::CommonData* comData, s16 arg1, s16 arg2);
   void ItemEffect_GiveRemains(game::CommonData* comData, s16 mask, s16 arg2);
   void ItemEffect_GiveMask(game::CommonData* comData, s16 mask, s16 arg2);
+  void ItemEffect_GiveTradeItem(game::CommonData* comData, s16 mask, s16 arg2);
 }  // namespace rnd
 
 #endif  //_ITEM_EFFECT_H_

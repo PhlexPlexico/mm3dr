@@ -348,4 +348,36 @@ namespace rnd {
     rnd::util::GetPointer<void(game::GlobalContext*, int)>(0x222BCC)(rnd::GetContext().gctx, 0);
   }
 
+  void ItemEffect_GiveTradeItem(game::CommonData* comData, s16 mask, s16 arg2) {
+    switch (mask) {
+    case 0:  // Moon's Tear
+      gExtSaveData.collectedTradeItems[0] = game::ItemId::MoonTear;
+      break;
+    case 1:  // Town Title Deed
+      gExtSaveData.collectedTradeItems[1] = game::ItemId::LandTitleDeed;
+      break;
+    case 2:  // Swamp Title Deed
+      gExtSaveData.collectedTradeItems[2] = game::ItemId::SwampTitleDeed;
+      break;
+    case 3:  // Mtn Title Deed
+      gExtSaveData.collectedTradeItems[3] = game::ItemId::MountainTitleDeed;
+      break;
+    case 4:  // Ocean Title Deed
+      gExtSaveData.collectedTradeItems[4] = game::ItemId::OceanTitleDeed;
+      break;
+    case 5:  // Room Key
+      gExtSaveData.collectedTradeItems[5] = game::ItemId::RoomKey;
+      break;
+    case 6:  // Letter To Kafei
+      gExtSaveData.collectedTradeItems[6] = game::ItemId::LetterToKafei;
+      break;
+    case 7:  // Pendant
+      gExtSaveData.collectedTradeItems[7] = game::ItemId::PendantOfMemories;
+      break;
+    case 8:  // Letter To Mama
+      gExtSaveData.collectedTradeItems[8] = game::ItemId::LetterToMama;
+      break;
+    }
+  }
+
 }  // namespace rnd

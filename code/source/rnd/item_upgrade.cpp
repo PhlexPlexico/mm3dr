@@ -88,7 +88,16 @@ namespace rnd {
   }
 
   GetItemID ItemUpgrade_RefillBottle(game::SaveData* saveCtx, GetItemID getItemId) {
+    // As you can see mystery milk avoids this check since it's wiped from your inventory
+    // on cycle reset. It also happens to remove whichever bottle the milk is in,
+    // so we should avoid refills and just give the bottle until a user can get that
+    // side quest fulfilled.
     switch (getItemId) {
+    case GetItemID::GI_BOTTLE_POTION_RED:
+      if (gExtSaveData.givenItemChecks.bottleRedPotionGiven == 1) {
+        return GetItemID::GI_POTION_RED;
+      }
+      break;
     case GetItemID::GI_BOTTLE_MILK:
       if (gExtSaveData.givenItemChecks.bottleMilkGiven == 1) {
         return GetItemID::GI_BOTTLE_MILK_REFILL;
@@ -110,11 +119,6 @@ namespace rnd {
     case GetItemID::GI_BOTTLE_CHATEAU_ROMANI:
       if (gExtSaveData.givenItemChecks.bottleChateuGiven == 1) {
         return GetItemID::GI_BOTTLE_CHATEAU_ROMANI_REFILL;
-      }
-      break;
-    case GetItemID::GI_BOTTLE_MYSTERY_MILK:
-      if (gExtSaveData.givenItemChecks.bottleMysteryMilkGiven == 1) {
-        return GetItemID::GI_BOTTLE_MYSTERY_MILK_REFILL;
       }
       break;
     default:
