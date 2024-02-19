@@ -790,11 +790,11 @@ namespace rnd {
     int fairyEntrance = game::GetCommonData().sub1.entrance;
     if (fairyEntrance == 0x4600) {
       if (gExtSaveData.fairyRewards.nct == 0) {
-        ItemOverride_PushPendingFairyRewardItem(gctx, fromActor, 0x0E);
+        ItemOverride_PushPendingFairyRewardItem(gctx, fromActor, 0x86);
         gExtSaveData.fairyRewards.nct = 1;
         return;
       } else if (gExtSaveData.fairyRewards.nct == 1 && game::HasMask(game::ItemId::DekuMask)) {
-        ItemOverride_PushPendingFairyRewardItem(gctx, fromActor, 0x86);
+        ItemOverride_PushPendingFairyRewardItem(gctx, fromActor, 0x0E);
         gExtSaveData.fairyRewards.nct = 2;
         return;
       }
