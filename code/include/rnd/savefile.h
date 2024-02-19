@@ -90,7 +90,8 @@ namespace rnd {
       BitField<43, 1, u64> bottleChateuGiven;
       BitField<44, 1, u64> bottleRedPotionGiven;
       BitField<45, 2, u64> progressiveSwordUpgrade;
-      BitField<46, 18, u64> unused;
+      BitField<46, 1, u64> enInMysteryMilkGiven;
+      BitField<45, 17, u64> unused;
     };
     GivenItemRegister givenItemChecks;
     union FairyCollectRegister {

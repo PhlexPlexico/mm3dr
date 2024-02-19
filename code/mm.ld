@@ -37,6 +37,14 @@ SECTIONS{
     *(.patch_Gfx_Update)
   }
 
+  .patch_FixSurroundSound 0x1404E8 : {
+    *(.patch_FixSurroundSound)
+  }
+
+  .patch_RemoveCouplesMaskMessage 0x1867C4 : {
+    *(.patch_RemoveCouplesMaskMessage)
+  }
+
   .patch_RemoveSOHCutesceneAfterMessage 0x186810 : {
     *(.patch_RemoveSOHCutesceneAfterMessage)
   }
@@ -67,9 +75,17 @@ SECTIONS{
     *(.patch_RemoveMysteryMilkTimer)
   }
 
+  .patch_GetCustomText 0x1BDE78 : {
+    *(.patch_GetCustomText)
+  }
+
   .patch_DoNotResetTempleFlags 0x1C936C : {
     *(.patch_DoNotResetTempleFlags)
-  } 
+  }
+
+  .patch_DoNotResetPermFlags 0x1C9348 : {
+    *(.patch_DoNotResetPermFlags)
+  }
 
   .patch_DoNotRemoveTradeItems 0x1c9aa8 : {
     *(.patch_DoNotRemoveTradeItems)
@@ -95,8 +111,20 @@ SECTIONS{
     *(.patch_RemoveSwordFlagsOnReset)
   }
 
+  .patch_OverrideBomberTextID 0x1D2764 : {
+    *(.patch_OverrideBomberTextID)
+  }
+
+  .patch_ISGCrouchStabOne 0x1D32E0 : {
+    *(.patch_ISGCrouchStabOne)
+  }
+
   .patch_RemoveDekuMaskCheckSoT 0x1D8008 : {
     *(.patch_RemoveDekuMaskCheckSoT)
+  }
+
+  .patch_RemoveMysteryMilkSoSCheck 0x1D79F8 : {
+    *(.patch_RemoveMysteryMilkSoSCheck)
   }
 
   .patch_DoNotForceMaskChange 0x1DB314 : {
@@ -107,8 +135,16 @@ SECTIONS{
     *(.patch_HandleFastMaskTransforms)
   }
 
+  .patch_ISGCrouchStabTwo 0x1DBEA4 : {
+    *(.patch_ISGCrouchStabTwo)
+  }
+
   .patch_RemoveMysteryMilkUsabilityCheck 0x1E04D8 : {
     *(.patch_RemoveMysteryMilkUsabilityCheck)
+  }
+
+  .patch_OcarinaDive 0x1E1F0C : {
+    *(.patch_OcarinaDive)
   }
 
   .patch_ByPassMaskEquipmentChecks 0x1E770C : {
@@ -167,6 +203,18 @@ SECTIONS{
     *(.patch_ZoraBarrierCheckMagicAcquired)
   }
 
+  .patch_RemoveRSHealthOne 0x20826C : {
+    *(.patch_RemoveRazordSwordHealth)
+  }
+
+  .patch_RemoveRSHealthTwo 0x20843C : {
+    *(.patch_RemoveRazordSwordHealthTwo)
+  }
+
+  .patch_OverrideItemIdIndex 0x21D124 : {
+    *(.patch_OverrideItemIdIndex)
+  }
+
   .patch_ChangeTriggerAandRToA 0x220EFC : {
     *(.patch_ChangeTriggerAandRToA)
   }
@@ -199,52 +247,8 @@ SECTIONS{
 		*(.patch_DisableMilkTimer)
 	}
 
-  .patch_FixSurroundSound 0x1404E8 : {
-    *(.patch_FixSurroundSound)
-  }
-
-  .patch_DoNotResetPermFlags 0x1C9348 : {
-    *(.patch_DoNotResetPermFlags)
-  }
-
-  .patch_OcarinaDive 0x1E1F0C : {
-    *(.patch_OcarinaDive)
-  }
-
-  .patch_GetCustomText 0x1BDE78 : {
-    *(.patch_GetCustomText)
-  }
-
-  .patch_OverrideBomberTextID 0x1D2764 : {
-    *(.patch_OverrideBomberTextID)
-  }
-
-  .patch_ISGCrouchStabOne 0x1D32E0 : {
-    *(.patch_ISGCrouchStabOne)
-  }
-
-  .patch_RemoveMysteryMilkSoSCheck 0x1D79F8 : {
-    *(.patch_RemoveMysteryMilkSoSCheck)
-  }
-
-  .patch_ISGCrouchStabTwo 0x1DBEA4 : {
-    *(.patch_ISGCrouchStabTwo)
-  }
-
-  .patch_RemoveRSHealthOne 0x20826C : {
-    *(.patch_RemoveRazordSwordHealth)
-  }
-
-  .patch_RemoveRSHealthTwo 0x20843C : {
-    *(.patch_RemoveRazordSwordHealthTwo)
-  }
-
   .patch_RemoveRSHealthThree 0x235800 : {
     *(.patch_RemoveRazordSwordHealthThree)
-  }
-
-  .patch_OverrideItemIdIndex 0x21d124 : {
-    *(.patch_OverrideItemIdIndex)
   }
 
   .patch_RemoveRemainsStateCheck 0x22B7BC : {
@@ -267,7 +271,7 @@ SECTIONS{
     *(.patch_OverrideItemID)
   }
 
-  .patch_EnteringLocation 0x23aa54 : {
+  .patch_EnteringLocation 0x23AA54 : {
     *(.patch_EnteringLocation)
   }
 
@@ -397,10 +401,6 @@ SECTIONS{
 
   .patch_GibdoMaskGiveItem 0x41DC48 : {
     *(.patch_GibdoMaskGiveItem)
-  }
-  /*0x46E228*/
-  .patch_RemoveCouplesMaskMessage 0x1867C4 : {
-    *(.patch_RemoveCouplesMaskMessage)
   }
 
   .patch_OverrideBankerWalletReward 0x459044 : {

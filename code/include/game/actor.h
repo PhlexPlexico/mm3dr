@@ -194,6 +194,21 @@ namespace game::act {
   };
   static_assert(sizeof(PosRot) == 0x14);
 
+  using ActorShadowFunc = void(Actor* self, void* lightMapper, GlobalContext* gctx);
+  struct ActorShape {
+    z3dVec3s rot;
+    s16 face;
+    float y_offset;
+    ActorShadowFunc* shadow_draw;
+    float shadow_scale;
+    u8 shadow_alpha;
+    u8 feet_floor_flags;
+    u8 field_16;
+    u8 field_17;
+    z3dVec3f feet_pos[2];
+  };
+  static_assert(sizeof(ActorShape) == 0x30);
+
   struct Actor {
     enum class Flag : u32 {
       Targetable = 0x1,
@@ -259,16 +274,7 @@ namespace game::act {
     DamageType damage_type;
     u8 field_BE;
     u8 field_BF;
-    // u16 field_C0;
-    // u16 angle;
-    z3dVec3s angle;
-    // u16 field_C4;
-    u8 gap_C6[2];
-    float field_C8;
-    u32 field_CC;
-    float field_D0;
-    u8 field_D4;
-    u8 gap_D5[27];
+    ActorShape actor_shape;
     z3dVec3f field_F0;
     u32 field_FC;
     z3dVec3f field_100;

@@ -105,9 +105,6 @@ namespace rnd {
       break;
     case GetItemID::GI_BOTTLE_GOLD_DUST:
       if (gExtSaveData.givenItemChecks.bottleGoldDustGiven == 1) {
-#if defined ENABLE_DEBUG || defined DEBUG_PRINT
-        rnd::util::Print("%s: Gold dust given, overriding for refill.\n", __func__);
-#endif
         return GetItemID::GI_BOTTLE_GOLD_DUST_REFILL;
       }
       break;
