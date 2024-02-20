@@ -213,7 +213,7 @@ namespace rnd {
       "Bunny Hood",
       "Keaton Mask",
       "Garo Mask",
-      "ROmani Mask",
+      "Romani Mask",
       "Circus Leader's Mask",
       "Postman Hat",
       "Couple's Mask",

@@ -891,9 +891,6 @@ namespace rnd {
   }
 
   extern "C" void SaveFile_SaveExtSaveData() {
-#if defined ENABLE_DEBUG || defined DEBUG_PRINT
-    rnd::util::Print("%s: Saving extdata.\n", __func__);
-#endif
     game::CommonData& comData = game::GetCommonData();
     char path[] = "/0.bin";
 
@@ -912,9 +909,6 @@ namespace rnd {
 
   extern "C" void SaveFile_RemoveStoredTradeItem(u16 item, u8 slot) {
     // This is a get item ID, we need to translate it to the regular item ID.
-#if defined ENABLE_DEBUG || defined DEBUG_PRINT
-    rnd::util::Print("%s: Item and slot are %#04x %u\n", __func__, item, slot);
-#endif
     if (slot != 5 && slot != 17)
       return;
     ItemRow* gidItemRow = ItemTable_GetItemRowFromIndex(item);
@@ -923,10 +917,6 @@ namespace rnd {
     for (int i = 0; i < 9; i++) {
       if (gidItemRow->itemId != (u8)gExtSaveData.collectedTradeItems[i] && firstItem == game::ItemId::None) {
         if (slot == 17 && i > 5 && i < 8) {
-#if defined ENABLE_DEBUG || defined DEBUG_PRINT
-          rnd::util::Print("%s: Slot is 17 and our found item is %#04x\n", __func__,
-                           gExtSaveData.collectedTradeItems[i]);
-#endif
           firstItem = gExtSaveData.collectedTradeItems[i];
         }
 
@@ -942,9 +932,8 @@ namespace rnd {
     saveData.inventory.items[slot] = firstItem;
   }
   extern "C" void SaveFile_RemoveTradeItemFromSlot(u16 item, u8 slot) {
-    // This is a get item ID, we need to translate it to the regular item ID.
     if (slot == 5) {
-      for (int i = 0; i < 4; i++) {
+      for (int i = 0; i < 5; i++) {
         if (item == (u16)gExtSaveData.collectedTradeItems[i]) {
           gExtSaveData.collectedTradeItems[i] = game::ItemId::None;
           break;

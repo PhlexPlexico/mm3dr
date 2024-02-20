@@ -725,7 +725,7 @@ namespace rnd {
     // This is to ensure fairness and allows us to place these items without second guessing in logic.
     // Let's be a bit rude and give them fishing passes.
     // XXX: This may be simplified with the IsItemObtained checks as well.
-    if (override.value.getItemId > 0x45 || override.value.getItemId < 0x4A) {
+    if (override.value.getItemId > 0x45 && override.value.getItemId < 0x4A) {
       if (incomingGetItemId == (s16)GetItemID::GI_MOONS_TEAR &&
           gExtSaveData.givenItemChecks.enObjMoonStoneGivenItem == 1) {
         player->get_item_id = (s16)GetItemID::GI_FISHING_HOLE_PASS;

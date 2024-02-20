@@ -3,7 +3,7 @@
 .section .patch_RemoveTradeItemFromSlot
 .global patch_RemoveTradeItemFromSlot
 patch_RemoveTradeItemFromSlot:
-  bleq hook_RemoveTradeItemFromExtSlot
+  bl hook_RemoveTradeItemFromExtSlot
 
 .section .patch_DoNotRemoveTradeItems
 .global patch_DoNotRemoveTradeItems

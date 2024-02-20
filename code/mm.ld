@@ -63,7 +63,7 @@ SECTIONS{
     *(.patch_KeepBowOnEpona)
   }
 
-  .patch_RemoveTradeItemFromSlot 0x1AFE8C : {
+  .patch_RemoveTradeItemFromSlot 0x1AFE94 : {
     *(.patch_RemoveTradeItemFromSlot)
   }
 

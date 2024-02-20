@@ -29,7 +29,7 @@ hook_RemoveTradeItemFromExtSlot:
   push {r0-r12, lr}
   bl SaveFile_RemoveTradeItemFromSlot 
   pop {r0-r12, lr}
-  cpy r2,r1
+  cpy r4,r0
   bx lr
 
 .global hook_RemoveKafeiItemFromExtSlot
