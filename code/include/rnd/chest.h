@@ -30,7 +30,7 @@ namespace rnd {
     DECORATED_SMALL,
   };
 
-  extern "C" game::actors::EnBoxType Chest_OverrideSize(game::actors::En_Box*, game::GlobalContext*, s16);
+  extern "C" game::actors::EnBoxType Chest_OverrideSize(game::actors::En_Box*, game::GlobalContext*);
   // void EnBox_rInit(game::act::Actor* thisx, game::GlobalContext* globalCtx);
   // void EnBox_rUpdate(game::act::Actor* thisx, game::GlobalContext* globalCtx);
   // u8 Chest_OverrideAnimation();

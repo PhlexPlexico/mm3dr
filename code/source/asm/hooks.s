@@ -349,20 +349,17 @@ hook_OwlExtDataSave:
 
 .global hook_changeChestTypeToMatchContents
 hook_changeChestTypeToMatchContents:
-    push {r0-r2, lr}
+    push {r0-r3, lr}
     cpy r0, r4
     cpy r1, r5
-    ldrh r2,[r4,#0x1C]
-    lsl r2, r2, #0x14
-    lsr r2,r2, #0x19
     bl Chest_OverrideSize
     cmp r0,#0xFF
     beq doNotOverrideChestType
     strb r0,[r4,#0x3e9]
-    pop {r0-r2, lr}
+    pop {r0-r3, lr}
     bx lr
 doNotOverrideChestType:
-    pop {r0-r2, lr}
+    pop {r0-r3, lr}
     strb r2,[r4,#0x3e9]
     bx lr
 
