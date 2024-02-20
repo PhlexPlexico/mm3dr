@@ -99,7 +99,7 @@ namespace rnd {
       return;
 
     const u32 pressedButtons = gctx->pad_state.input.buttons.flags;
-    const u32 newButtons = gctx->pad_state.input.new_buttons.flags;
+    // const u32 newButtons = gctx->pad_state.input.new_buttons.flags;
 
     if (gSettingsContext.customMaskButton != 0 && pressedButtons == gSettingsContext.customMaskButton) {
       game::ui::OpenScreen(game::ui::ScreenType::Masks);
@@ -116,8 +116,8 @@ namespace rnd {
       game::ui::OpenScreen(game::ui::ScreenType::Map);
       gctx->pad_state.input.buttons.Clear(game::pad::Button::Select);
       gctx->pad_state.input.new_buttons.Clear(game::pad::Button::Select);
-    } else if ((gSettingsContext.customIngameSpoilerButton != 4 && newButtons == (u32)game::pad::Button::Select) ||
-               (gSettingsContext.customIngameSpoilerButton != 8 && newButtons == (u32)game::pad::Button::Start)) {
+    } else if ((gSettingsContext.customIngameSpoilerButton != 4 && pressedButtons == (u32)game::pad::Button::Select) ||
+               (gSettingsContext.customIngameSpoilerButton != 8 && pressedButtons == (u32)game::pad::Button::Start)) {
       if (game::GetCommonData().save.inventory.collect_register.bombers_notebook != 0)
         game::ui::OpenScreen(game::ui::ScreenType::Schedule);
       else
