@@ -355,7 +355,12 @@ SECTIONS{
     *(.patch_IceArrowsAnywhere)
   }
 
-  .patch_changeChestTypeToMatchContents 0x31cad4 : {
+  .patch_AdjustMapAndCompassChests 0x31CE9C : {
+    *(.patch_AdjustMapAndCompassChests)
+  }
+
+  /*0x31cad4*/
+  .patch_changeChestTypeToMatchContents 0x31CE0C : {
     *(.patch_changeChestTypeToMatchContents)
   }
 

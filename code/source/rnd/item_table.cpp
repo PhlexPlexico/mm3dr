@@ -356,8 +356,8 @@ namespace rnd {
                         (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1, (s16)-1),  // Hookshot
 
       [0x42] =
-          ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL, (u8)game::ItemId::LensOfTruth, 0x0042,
-                   0x00C0, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_LENS_OF_TRUTH,
+          ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_BIG, (u8)game::ItemId::LensOfTruth, 0x0042, 0x00C0,
+                   (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_LENS_OF_TRUTH,
                    (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1,
                    (s16)-1),  // Lens of Truth
 
@@ -379,25 +379,25 @@ namespace rnd {
                    (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_None, (s16)-1,
                    (s16)-1),  // Recovery Heart - Broken Text
 
-      [0x46] = ITEM_ROW(0xFF, ChestType::WOODEN_SMALL, 0xFF, 0xFF, 0x00098, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF,
+      [0x46] = ITEM_ROW(0xFF, ChestType::WOODEN_BIG, 0xFF, 0xFF, 0x00098, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF,
                         (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_BombBag, ItemEffect_None, (s16)-1,
                         (s16)-1),  // Progressive Bomb Bag
 
-      [0x47] = ITEM_ROW(0xFF, ChestType::WOODEN_SMALL, 0xFF, 0xFF, 0x00097, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF,
+      [0x47] = ITEM_ROW(0xFF, ChestType::WOODEN_BIG, 0xFF, 0xFF, 0x00097, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF,
                         (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_Quiver, ItemEffect_None, (s16)-1,
                         (s16)-1),  // Progressive Quiver
 
-      [0x48] = ITEM_ROW(0xFF, ChestType::WOODEN_SMALL, 0xFF, 0xFF, 0x000A8, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF,
+      [0x48] = ITEM_ROW(0xFF, ChestType::WOODEN_BIG, 0xFF, 0xFF, 0x000A8, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF,
                         (s8)0xFF, 0xFF, (rnd::upgradeFunc)ItemUpgrade_Wallet, ItemEffect_None, (s16)-1,
                         (s16)-1),  // Progressive Wallet
 
       [0x49] =
-          ITEM_ROW(0xFF, ChestType::WOODEN_SMALL, 0xFF, 0xFF, 0x000A4, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF,
+          ITEM_ROW(0xFF, ChestType::WOODEN_BIG, 0xFF, 0xFF, 0x000A4, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF,
                    0x000A4, (rnd::upgradeFunc)ItemUpgrade_Magic, ItemEffect_GiveProgressiveMagic, (s16)-1,
                    (s16)-1),  // Progressive Magic
 
       [0x4A] =
-          ITEM_ROW(0xFF, ChestType::WOODEN_SMALL, 0xFF, 0xFF, 0x001FA, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF,
+          ITEM_ROW(0xFF, ChestType::WOODEN_BIG, 0xFF, 0xFF, 0x001FA, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF,
                    0xFF, (rnd::upgradeFunc)ItemUpgrade_Sword, ItemEffect_None, (s16)-1, (s16)-1),  // Progressive Sword
 
       [0x4B] =

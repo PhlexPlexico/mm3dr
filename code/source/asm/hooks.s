@@ -349,20 +349,20 @@ hook_OwlExtDataSave:
 
 .global hook_changeChestTypeToMatchContents
 hook_changeChestTypeToMatchContents:
-    push {r0-r3, lr}
+    push {r0-r3, r5-r12, lr}
     cpy r0, r4
     cpy r1, r5
     bl Chest_OverrideSize
     cmp r0,#0xFF
     beq doNotOverrideChestType
     strb r0,[r4,#0x3e9]
-    pop {r0-r3, lr}
+    pop {r0-r3, r5-r12, lr}
+    strh r7, [r4,#0x18]
     bx lr
 doNotOverrideChestType:
-    pop {r0-r3, lr}
-    strb r2,[r4,#0x3e9]
+    pop {r0-r3, r5-r12, lr}
+    strh r7, [r4,#0x18]
     bx lr
-
 
 .global hook_MikauRewardCheck
 hook_MikauRewardCheck:

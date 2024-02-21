@@ -380,6 +380,12 @@ patch_SaveExtDataOnOwl:
 patch_IceArrowsAnywhere:
     nop
 
+@ Removes a check to see if the GID is a small key.
+.section .patch_AdjustMapAndCompassChests
+.global patch_AdjustMapAndCompassChests
+patch_AdjustMapAndCompassChests:
+    nop
+
 .section .patch_changeChestTypeToMatchContents
 .global patch_changeChestTypeToMatchContents
 patch_changeChestTypeToMatchContents:
