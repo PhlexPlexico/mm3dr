@@ -633,7 +633,7 @@ namespace rnd {
       saveData.inventory.masks[22] = game::ItemId::GiantMask;
     }
 
-    if (gSettingsContext.startingFierceDietyMask > 0) {
+    if (gSettingsContext.startingFierceDeityMask > 0) {
       saveData.inventory.masks[23] = game::ItemId::FierceDeityMask;
     }
 

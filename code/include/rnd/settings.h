@@ -384,7 +384,7 @@ namespace rnd {
     u8 startingGaroMask;
     u8 startingCaptainsHat;
     u8 startingGiantsMask;
-    u8 startingFierceDietyMask;
+    u8 startingFierceDeityMask;
     u8 startingMaskOfTruth;
 
     // TODO: Break out into individual bitfield values.
