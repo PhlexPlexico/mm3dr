@@ -45,8 +45,8 @@ namespace rnd {
     rItemOverrides[0].value.looksLikeItemId = 0x26;
     rItemOverrides[1].key.scene = 0x6F;
     rItemOverrides[1].key.type = ItemOverride_Type::OVR_CHEST;
-    rItemOverrides[1].value.getItemId = 0x02;
-    rItemOverrides[1].value.looksLikeItemId = 0x02;
+    rItemOverrides[1].value.getItemId = 0x0C;
+    rItemOverrides[1].value.looksLikeItemId = 0x0C;
     rItemOverrides[2].key.scene = 0x12;
     rItemOverrides[2].key.type = ItemOverride_Type::OVR_COLLECTABLE;
     rItemOverrides[2].value.getItemId = 0x37;
@@ -592,7 +592,7 @@ namespace rnd {
   bool ItemOverride_IsItemObtained(ItemOverride override) {
     ItemRow* itemToBeGiven = ItemTable_GetItemRow(override.value.getItemId);
     return (game::HasMask((game::ItemId)itemToBeGiven->itemId) || game::HasItem((game::ItemId)itemToBeGiven->itemId) ||
-            (itemToBeGiven->itemId > 0x49 && itemToBeGiven->itemId < 0x9E));
+            (itemToBeGiven->itemId > 0x49 && itemToBeGiven->itemId < 0x81));
   }
 
   extern "C" {
