@@ -168,6 +168,39 @@ hook_SaveFile_Init:
     mov r3,#0x0
     b 0x5b8b28  
 
+.global hook_BlastMaskCooldown
+hook_BlastMaskCooldown:
+    push {r0-r12, lr}
+    bl checkBlastMaskCooldown
+    cmp r0,#0x0
+    beq defaultBlastCd
+    cmp r0,#0x1
+    beq shortBlastCd
+    cmp r0,#0x2
+    beq veryShortBlastCd
+    cmp r0,#0x3
+    beq instBlastCd
+defaultBlastCd:
+    pop {r0-r12, lr}
+    cmp r0,#0x0
+    subne r0,r0,#0x1
+    bx lr
+shortBlastCd:
+    pop {r0-r12, lr}
+    cmp r0,#0x0
+    subne r0,r0,#0x2
+    bx lr
+veryShortBlastCd:
+    pop {r0-r12, lr}
+    cmp r0,#0x0
+    subne r0,r0,#0x5
+    bx lr
+instBlastCd:
+    pop {r0-r12, lr}
+    cmp r0,#0x0
+    subne r0,r0,r0
+    bx lr
+
 .global hook_OverrideItemIdIndex
 hook_OverrideItemIdIndex:
     push {r0}

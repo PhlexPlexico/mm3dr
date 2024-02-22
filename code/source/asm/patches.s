@@ -225,6 +225,11 @@ patch_ISGCrouchStabTwo:
     nop
     nop
 
+.section .patch_BlastMaskCooldown
+.global patch_BlastMaskCooldown
+patch_BlastMaskCooldown:
+    bl hook_BlastMaskCooldown
+
 .section .patch_RemoveRazordSwordHealth
 .global patch_RemoveRazordSwordHealth
 patch_RemoveRazordSwordHealth:

@@ -199,6 +199,10 @@ SECTIONS{
     *(.patch_CheckMagicForZoraFastSwim)
   }
 
+  .patch_BlastMaskCooldown 0x2047FC : {
+    *(.patch_BlastMaskCooldown)
+  }
+
   .patch_ZoraBarrierCheckMagicAcquired 0x207230 : {
     *(.patch_ZoraBarrierCheckMagicAcquired)
   }

@@ -414,6 +414,9 @@ namespace rnd {
     u32 customMaskButton = 0;
     u32 customNotebookButton = 0;
     u32 customIngameSpoilerButton = 0;
+
+    // Extra MM Settings
+    u8 blastMaskCooldown;
   } SettingsContext;
 
   extern "C" SettingsContext gSettingsContext;
