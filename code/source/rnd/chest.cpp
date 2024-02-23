@@ -4,8 +4,6 @@
 namespace rnd {
   extern "C" {
   game::actors::EnBoxType Chest_OverrideSize(game::actors::En_Box* actor, game::GlobalContext* gctx) {
-    // First check to see if setting is enabled.
-    // TODO: Create setting
     if (gSettingsContext.chestSize == 0) {
       return (game::actors::EnBoxType)0xFF;
     }
@@ -25,6 +23,9 @@ namespace rnd {
       return (game::actors::EnBoxType)0xFF;
     }
     return (game::actors::EnBoxType)0xFF;
+  }
+  u8 Chest_IsOverrideEnabled() {
+    return gSettingsContext.chestSize;
   }
   }
 

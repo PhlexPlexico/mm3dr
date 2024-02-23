@@ -380,6 +380,19 @@ hook_OwlExtDataSave:
     cpy r6,r0
     b 0x317008
 
+.global hook_checkChestContentSetting
+hook_checkChestContentSetting:
+    push {r0-r12, lr}
+    bl Chest_IsOverrideEnabled
+    cmp r0,#0x0
+    beq drawFancyMapChests
+    pop {r0-r12,lr}
+    bx lr
+drawFancyMapChests:
+    pop {r0-r12,lr}
+    cmp r0,#0x3C
+    bx lr
+
 .global hook_changeChestTypeToMatchContents
 hook_changeChestTypeToMatchContents:
     push {r0-r3, r5-r12, lr}

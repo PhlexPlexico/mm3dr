@@ -389,7 +389,7 @@ patch_IceArrowsAnywhere:
 .section .patch_AdjustMapAndCompassChests
 .global patch_AdjustMapAndCompassChests
 patch_AdjustMapAndCompassChests:
-    nop
+    bl hook_checkChestContentSetting
 
 .section .patch_changeChestTypeToMatchContents
 .global patch_changeChestTypeToMatchContents
