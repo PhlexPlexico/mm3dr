@@ -44,7 +44,7 @@ namespace rnd {
     rItemOverrides[0].value.getItemId = 0x26;
     rItemOverrides[0].value.looksLikeItemId = 0x26;
     rItemOverrides[1].key.scene = 0x6F;
-    rItemOverrides[1].key.type = ItemOverride_Type::OVR_CHEST;
+    rItemOverrides[1].key.type = ItemOverride_Type::OVR_COLLECTABLE;
     rItemOverrides[1].value.getItemId = 0x0C;
     rItemOverrides[1].value.looksLikeItemId = 0x0C;
     rItemOverrides[2].key.scene = 0x12;
@@ -504,6 +504,14 @@ namespace rnd {
       gExtSaveData.givenItemChecks.bottleSeahorseGiven = 1;
     } else if (storedGetItemId == GetItemID::GI_BOTTLE_POTION_RED) {
       gExtSaveData.givenItemChecks.bottleRedPotionGiven = 1;
+    } else if (storedGetItemId == GetItemID::GI_ROOM_KEY) {
+      gExtSaveData.givenItemChecks.roomKeyGiven = 1;
+    } else if (storedGetItemId == GetItemID::GI_LETTER_TO_MAMA) {
+      gExtSaveData.givenItemChecks.letterToMamaGiven = 1;
+    } else if (storedGetItemId == GetItemID::GI_LETTER_TO_KAFEI) {
+      gExtSaveData.givenItemChecks.letterToKafeiGiven = 1;
+    } else if (storedGetItemId == GetItemID::GI_PENDANT_OF_MEMORIES) {
+      gExtSaveData.givenItemChecks.pendantGiven = 1;
     }
   }
 
@@ -724,14 +732,28 @@ namespace rnd {
     // This check is mainly to ensure we do not have repeatable progressive items within these base items.
     // This is to ensure fairness and allows us to place these items without second guessing in logic.
     // Let's be a bit rude and give them fishing passes.
-    // XXX: This may be simplified with the IsItemObtained checks as well.
-    if (override.value.getItemId > 0x45 && override.value.getItemId < 0x4A) {
-      if (incomingGetItemId == (s16)GetItemID::GI_MOONS_TEAR &&
-          gExtSaveData.givenItemChecks.enObjMoonStoneGivenItem == 1) {
+    if ((override.value.getItemId > 0x45 && override.value.getItemId < 0x4A) || ItemOverride_IsItemObtained(override)) {
+      if ((incomingGetItemId == (s16)GetItemID::GI_MOONS_TEAR &&
+           gExtSaveData.givenItemChecks.enObjMoonStoneGivenItem == 1) ||
+          (incomingGetItemId == (s16)GetItemID::GI_TOWN_TITLE_DEED &&
+           gExtSaveData.givenItemChecks.enTownDeedGivenItem == 1) ||
+          (incomingGetItemId == (s16)GetItemID::GI_SWAMP_TITLE_DEED &&
+           gExtSaveData.givenItemChecks.enSwampDeedGivenItem == 1) ||
+          (incomingGetItemId == (s16)GetItemID::GI_MOUNTAIN_TITLE_DEED &&
+           gExtSaveData.givenItemChecks.enMtnDeedGivenItem == 1) ||
+          (incomingGetItemId == (s16)GetItemID::GI_OCEAN_TITLE_DEED &&
+           gExtSaveData.givenItemChecks.enOcnDeedGivenItem == 1) ||
+          (incomingGetItemId == (s16)GetItemID::GI_ROOM_KEY && gExtSaveData.givenItemChecks.roomKeyGiven == 1) ||
+          (incomingGetItemId == (s16)GetItemID::GI_LETTER_TO_MAMA &&
+           gExtSaveData.givenItemChecks.letterToMamaGiven == 1) ||
+          (incomingGetItemId == (s16)GetItemID::GI_LETTER_TO_KAFEI &&
+           gExtSaveData.givenItemChecks.letterToKafeiGiven == 1) ||
+          (incomingGetItemId == (s16)GetItemID::GI_PENDANT_OF_MEMORIES &&
+           gExtSaveData.givenItemChecks.pendantGiven == 1)) {
         player->get_item_id = (s16)GetItemID::GI_FISHING_HOLE_PASS;
         ItemOverride_Clear();
         return;
-      } else if (incomingGetItemId == (s16)GetItemID::GI_TOWN_TITLE_DEED &&
+      } /*else if (incomingGetItemId == (s16)GetItemID::GI_TOWN_TITLE_DEED &&
                  gExtSaveData.givenItemChecks.enTownDeedGivenItem == 1) {
         player->get_item_id = (s16)GetItemID::GI_FISHING_HOLE_PASS;
         ItemOverride_Clear();
@@ -752,6 +774,17 @@ namespace rnd {
         ItemOverride_Clear();
         return;
       }
+      else if ((incomingGetItemId == (s16)GetItemID::GI_ROOM_KEY && gExtSaveData.givenItemChecks.roomKeyGiven == 1) ||
+               (incomingGetItemId == (s16)GetItemID::GI_LETTER_TO_MAMA &&
+                gExtSaveData.givenItemChecks.letterToMamaGiven == 1) ||
+               (incomingGetItemId == (s16)GetItemID::GI_LETTER_TO_KAFEI &&
+                gExtSaveData.givenItemChecks.letterToKafeiGiven == 1) ||
+               (incomingGetItemId == (s16)GetItemID::GI_PENDANT_OF_MEMORIES &&
+                gExtSaveData.givenItemChecks.pendantGiven == 1)) {
+        player->get_item_id = (s16)GetItemID::GI_FISHING_HOLE_PASS;
+        ItemOverride_Clear();
+        return;
+      }*/
     }
     if (incomingGetItemId == 0x70 || incomingGetItemId == 0x94) {
       // If we've completed the milk quest, make sure we're not a heart piece
