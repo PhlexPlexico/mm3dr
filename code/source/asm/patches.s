@@ -33,11 +33,6 @@ patch_DoNotResetPermFlags:
 patch_OcarinaDive:
     bl hook_CheckOcarinaDive
 
-.section .patch_IncomingGetItemID
-.global IncomingGetItemID_patch
-IncomingGetItemID_patch:
-    bl hook_IncomingGetItemID
-
 .section .patch_MainLoop
 .global patch_MainLoop
 patch_MainLoop:
@@ -62,14 +57,6 @@ SleepQueryCallback_patch:
 .global Gfx_Update_patch
 Gfx_Update_patch:
     b hook_Gfx_Update
-
-@ This should remove the overwriting message for when the
-@ user receives the Zora Mask.
-@ Largely untested, need to check for any UB.
-.section .patch_RemoveSOHCutesceneAfterMessage
-.global patch_RemoveSOHCutesceneAfterMessage
-patch_RemoveSOHCutesceneAfterMessage:
-    b hook_ChangeSOHToCustomText
 
 .section .patch_OverrideBombersNotebook
 .global patch_OverrideBombersNotebook
@@ -121,22 +108,6 @@ patch_DoNotRemoveKeys:
     nop
     nop
 
-@ NOP out the bit of code that checks your sword and gives it back if it 
-@ is not a razor sword. This should prevent us from ever getting Kokiri sword on 
-@ cycle reset.
-.section .patch_DoNotGiveSwordBackOnReset
-.global patch_DoNotGiveSwordBackOnReset
-patch_DoNotGiveSwordBackOnReset:
-    bl hook_DoNotGiveSwordBackOnReset
-
-.section .patch_RemoveSwordFlagSettingSoT
-.global patch_RemoveSwordFlagSettingSoT
-patch_RemoveSwordFlagSettingSoT:
-    nop
-    nop
-    nop
-    nop
-
 .section .patch_RemoveItemBUsabilityOnReset
 .global patch_RemoveItemBUsabilityOnReset
 patch_RemoveItemBUsabilityOnReset:
@@ -163,16 +134,6 @@ patch_RemoveMysteryMilkUsabilityCheck:
 patch_SpawnFastElegyStatues: 
     b hook_SpawnFastElegyStatues
 
-.section .patch_CheckCurrentInventoryOverrideItem
-.global patch_CheckCurrentInventoryOverrideItem
-patch_CheckCurrentInventoryOverrideItem:
-    b hook_CheckCurrentInventory
-
-.section .patch_ForceSwordUpgradeOnHuman
-.global patch_ForceSwordUpgradeOnHuman
-patch_ForceSwordUpgradeOnHuman:
-    mov r0,#0x0
-
 .section .patch_CheckDungeonItems
 .global patch_CheckDungeonItems
 patch_CheckDungeonItems:
@@ -188,16 +149,6 @@ patch_CheckDungeonSmallKeys:
 patch_DisableMilkTimer:
     nop
 
-.section .patch_LoadExtData
-.global patch_LoadExtData
-patch_LoadExtData:
-    bl hook_SaveFile_Load
-
-.section .patch_SaveFile_init
-.global patch_SaveFile_init
-patch_SaveFile_init:
-    bl hook_SaveFile_Init
-
 .section .patch_GetCustomText
 .global patch_GetCustomText
 patch_GetCustomText:
@@ -210,115 +161,25 @@ patch_GetCustomText:
 patch_RemoveMysteryMilkSoSCheck:
     mov r0, #0x0
 
-.section .patch_ISGCrouchStabOne
-.global patch_ISGCrouchStabOne
-patch_ISGCrouchStabOne:
-    nop
-    nop
-    nop
-
-
-.section .patch_ISGCrouchStabTwo
-.global patch_ISGCrouchStabTwo
-patch_ISGCrouchStabTwo:
-    nop
-    nop
-    nop
-
 .section .patch_BlastMaskCooldown
 .global patch_BlastMaskCooldown
 patch_BlastMaskCooldown:
     bl hook_BlastMaskCooldown
-
-.section .patch_RemoveRazordSwordHealth
-.global patch_RemoveRazordSwordHealth
-patch_RemoveRazordSwordHealth:
-    nop
-
-.section .patch_RemoveRazordSwordHealthTwo
-.global patch_RemoveRazordSwordHealthTwo
-patch_RemoveRazordSwordHealthTwo:
-    nop
-
-.section .patch_RemoveRazordSwordHealthThree
-.global patch_RemoveRazordSwordHealthThree
-patch_RemoveRazordSwordHealthThree:
-    nop
-
-.section .patch_OverrideItemIdIndex
-.global patch_OverrideItemIdIndex
-patch_OverrideItemIdIndex:
-@TODO: Branch off to hook and load addr that is needed from text ID.
-    bl hook_OverrideItemIdIndex
 
 .section .patch_RemoveRemainsStateCheck
 .global patch_RemoveRemainsStateCheck
 patch_RemoveRemainsStateCheck:
     b hook_RemainsCheckValue
 
-.section .patch_ChangeDrawItemIndex
-.global OverrideDrawIndex_patch
-OverrideDrawIndex_patch:
-    b hook_OverrideDrawIndex
-
-.section .patch_ChangeDrawItemIndexSecond
-.global patch_ChangeDrawItemIndexSecond
-patch_ChangeDrawItemIndexSecond:
-    b hook_OverrideDrawIndexSecond
-
-.section .patch_OverrideTextID
-.global OverrideTextID_patch
-OverrideTextID_patch:
-    b hook_OverrideTextID
-
 .section .patch_OverrideBomberTextID
 .global OverrideBomberTextID_patch
 OverrideBomberTextID_patch:
     b hook_OverrideBomberTextID
 
-.section .patch_OverrideItemID
-.global OverrideItemID_patch
-OverrideItemID_patch:
-    b hook_OverrideItemID
-
 .section .patch_EnteringLocation
 .global patch_EnteringLocation
 patch_EnteringLocation:
     bl hook_EnteringLocation
-
-.section .patch_RemoveGoronMaskCheckDarmani
-.global patch_RemoveGoronMaskCheckDarmani
-patch_RemoveGoronMaskCheckDarmani:
-    b hook_DarmaniRewardCheck
-
-.section .patch_CheckOshExtData
-.global patch_CheckOshExtData
-patch_CheckOshExtData:
-    bl hook_CheckOshExtData
-
-.section .patch_OverrideQuiverArchery
-.global patch_OverrideQuiverArchery
-patch_OverrideQuiverArchery:
-    mov r2,#0x47
-
-.section .patch_OverrideQuiverArcheryTwo
-.global patch_OverrideQuiverArcheryTwo
-patch_OverrideQuiverArcheryTwo:
-    mov r2,#0x47
-
-.section .patch_OverrideFairyGiveItem
-.global OverrideFairyItemID_patch
-OverrideFairyItemID_patch:
-    b hook_OverrideFairyItem
-
-
-.section .patch_OverrideGreatFairySpawn
-.global OverrideGreatFairySpawn_patch
-OverrideGreatFairySpawn_patch:
-    nop
-    @ldmia sp!,{r4 - r6, pc}
-    @ldmia sp !, {r4 - r6, lr}
-    @ bx lr
 
 .section .patch_ReadGamePad
 .global patch_ReadGamePad
@@ -352,32 +213,10 @@ patch_HandleOcarinaHooks:
 patch_FasterBlockMovement:
     .float 50.0
 
-.section .patch_GaboraCheckExtDataNotSword
-.global patch_GaboraCheckExtDataNotSword
-patch_GaboraCheckExtDataNotSword:
-    bl hook_GaboraCheckExtDataNotSword
-
-@ Removes sword being removed from inventory during 
-.section .patch_DoNotRemoveSwordGabora
-.global patch_DoNotRemoveSwordGabora
-patch_DoNotRemoveSwordGabora:
-    nop
-
-@ Removes sword being removed from inventory during 
-.section .patch_DoNotRemoveSwordGaboraTwo
-.global patch_DoNotRemoveSwordGaboraTwo
-patch_DoNotRemoveSwordGaboraTwo:
-    nop
-
 .section .patch_FasterBlockMovementBack
 .global patch_FasterBlockMovementBack
 patch_FasterBlockMovementBack:
     .float 60.0
-
-.section .patch_SaveExtDataOnOwl
-.global patch_SaveExtDataOnOwl
-patch_SaveExtDataOnOwl:
-    b hook_OwlExtDataSave
 
 @ nop a bne statement to allow ice arrows to be used on any water surface.
 .section .patch_IceArrowsAnywhere
@@ -406,68 +245,20 @@ patch_RemoveZoraMaskCheckMikau:
 patch_AromaItemCheck:
     b hook_AromaItemCheck
 
-.section .patch_OverrideWalletSpiderHouseTwo
-.global patch_OverrideWalletSpiderHouseTwo
-patch_OverrideWalletSpiderHouseTwo:
-@Override to use the progressive wallet instead.
-    mov r2,#0x48
-
-.section .patch_OverrideWalletSpiderHouse
-.global patch_OverrideWalletSpiderHouse
-patch_OverrideWalletSpiderHouse:
-@Override to use the progressive wallet instead.
-    mov r2,#0x48
-
-.section .patch_OverrideProgessiveWalletTwo
-.global patch_OverrideProgessiveWalletTwo
-patch_OverrideProgessiveWalletTwo:
-@Override to use the progressive wallet instead.
-    mov r2,#0x48
-
 .section .patch_CheckMoTRequirement
 .global patch_CheckMoTRequirement
 patch_CheckMoTRequirement:
     b hook_CheckMoTSetting
-
-.section .patch_HMSGiveItem
-.global patch_HMSGiveItem
-patch_HMSGiveItem:
-    b hook_OverrideHMSDekuMask
 
 .section .patch_RemoveBombers
 .global patch_RemoveBombers
 patch_RemoveBombers:
     nop
 
-.section .patch_GoronMaskGiveItem
-.global patch_GoronMaskGiveItem
-patch_GoronMaskGiveItem:
-    b hook_GoronMaskGiveItem
-
-.section .patch_ZoraMaskGiveItem
-.global patch_ZoraMaskGiveItem
-patch_ZoraMaskGiveItem:
-    b hook_ZoraMaskGiveItem
-
 .section .patch_RemoveSoHMaskAppearing
 .global patch_RemoveSoHMaskAppearing
 patch_RemoveSoHMaskAppearing:
     nop
-    
-.section .patch_GibdoMaskGiveItem
-.global patch_GibdoMaskGiveItem
-patch_GibdoMaskGiveItem:
-    b hook_GibdoMaskGiveItem
-
-.section .patch_CouplesMaskGiveItem
-.global patch_CouplesMaskGiveItem
-patch_CouplesMaskGiveItem:
-    b hook_CouplesMaskGiveItem
-
-.section .patch_RemoveCouplesMaskMessage
-.global patch_RemoveCouplesMaskMessage
-patch_RemoveCouplesMaskMessage:
-    b hook_AdjustCouplesMaskMessage
 
 .section .patch_RemoveJimWhenExitingHideout
 .global RemoveJimWhenExitingHideout_patch

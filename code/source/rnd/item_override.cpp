@@ -45,8 +45,8 @@ namespace rnd {
     rItemOverrides[0].value.looksLikeItemId = 0x26;
     rItemOverrides[1].key.scene = 0x6F;
     rItemOverrides[1].key.type = ItemOverride_Type::OVR_COLLECTABLE;
-    rItemOverrides[1].value.getItemId = 0x0C;
-    rItemOverrides[1].value.looksLikeItemId = 0x0C;
+    rItemOverrides[1].value.getItemId = 0x6E;
+    rItemOverrides[1].value.looksLikeItemId = 0x6E;
     rItemOverrides[2].key.scene = 0x12;
     rItemOverrides[2].key.type = ItemOverride_Type::OVR_COLLECTABLE;
     rItemOverrides[2].value.getItemId = 0x37;
@@ -658,8 +658,9 @@ namespace rnd {
     ItemOverride override = {0};
     s32 incomingNegative = incomingGetItemId < 0;
     // #if defined ENABLE_DEBUG || DEBUG_PRINT
-    //     util::Print("%s: Our actor ID is %#06x\nScene is %#04x\nIncoming item id is %#04x", __func__,
-    //     fromActor->id, gctx->scene, incomingGetItemId);
+    //     util::Print("%s: Our actor ID is %#06x\nScene is %#04x\nIncoming item id is %#04x\n", __func__,
+    //     fromActor->id,
+    //                 gctx->scene, incomingGetItemId);
     // #endif
     if (fromActor != NULL && incomingGetItemId != 0) {
       s16 getItemId = ItemOverride_CheckNpc(fromActor->id, incomingGetItemId, incomingNegative);

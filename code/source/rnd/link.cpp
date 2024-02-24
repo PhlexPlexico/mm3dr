@@ -336,13 +336,11 @@ namespace rnd::link {
     }
     if (gSettingsContext.startingKokiriSword == (u8)StartingSwordSetting::STARTINGSWORD_NONE &&
         saveData.equipment.sword_shield.sword == game::SwordType::NoSword) {
+      saveData.equipment.data[0].item_btn_b = game::ItemId::None;
+      saveData.equipment.sword_shield.sword = game::SwordType::NoSword;
       return;
     }
 
-#if defined ENABLE_DEBUG || defined DEBUG_PRINT
-    rnd::util::Print("%s: Sword is %u and starting sword is %u\n", __func__, saveData.equipment.sword_shield.sword,
-                     gSettingsContext.startingKokiriSword);
-#endif
     // Check sword/shield flag to see what sword to give back. Once we do that, set the form[0] of player
     // equipment to that sword and return.
     if (saveData.equipment.sword_shield.sword == game::SwordType::NoSword &&
