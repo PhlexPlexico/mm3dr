@@ -2,20 +2,11 @@
 .text
 
 .global hook_DoNotGiveSwordBackOnReset
-hook_DoNotGiveSwordBackOnReset:
-    bhi 0x1C9958 @ original instruction, if gilded sword ignore these. 
+hook_DoNotGiveSwordBackOnReset: 
     push {r0-r12, lr}
     bl SongOfTimeSwordPlacement @ See rnd/link.cpp
     pop {r0-r12, lr}
-    bx lr
-
-.global hook_DoNotGiveSwordBackOnResetTwo
-hook_DoNotGiveSwordBackOnResetTwo:
-    push {r0-r12, lr}
-    bl SongOfTimeSwordPlacement @ See rnd/link.cpp
-    pop {r0-r12, lr}
-    bx lr
-
+    b 0x1C9958 @ original instruction, if gilded sword ignore these.
 
 .global hook_GaboraCheckExtDataNotSword
 hook_GaboraCheckExtDataNotSword:

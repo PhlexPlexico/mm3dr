@@ -87,7 +87,7 @@ SECTIONS{
     *(.patch_DoNotResetPermFlags)
   }
 
-  .patch_DoNotRemoveTradeItems 0x1c9aa8 : {
+  .patch_DoNotRemoveTradeItems 0x1c9AA8 : {
     *(.patch_DoNotRemoveTradeItems)
   }
 
@@ -97,18 +97,6 @@ SECTIONS{
 
   .patch_DoNotGiveSwordBackOnReset 0x1C98DC : {
     *(.patch_DoNotGiveSwordBackOnReset)
-  }
-
-  .patch_RemoveSwordFlagSettingSoT 0x1C98F4 : {
-    *(.patch_RemoveSwordFlagSettingSoT)
-  }
-
-  .patch_RemoveItemBUsabilityOnReset 0x1C99F4 : {
-    *(.patch_RemoveItemBUsabilityOnReset)
-  }
-
-  .patch_RemoveSwordFlagsOnReset 0x1C9900 : {
-    *(.patch_RemoveSwordFlagsOnReset)
   }
 
   .patch_OverrideBomberTextID 0x1D2764 : {

@@ -8,14 +8,6 @@
 patch_DoNotGiveSwordBackOnReset:
     bl hook_DoNotGiveSwordBackOnReset
 
-.section .patch_RemoveSwordFlagSettingSoT
-.global patch_RemoveSwordFlagSettingSoT
-patch_RemoveSwordFlagSettingSoT:
-    nop
-    nop
-    nop
-    nop
-
 .section .patch_ForceSwordUpgradeOnHuman
 .global patch_ForceSwordUpgradeOnHuman
 patch_ForceSwordUpgradeOnHuman:
@@ -67,4 +59,3 @@ patch_DoNotRemoveSwordGabora:
 .global patch_DoNotRemoveSwordGaboraTwo
 patch_DoNotRemoveSwordGaboraTwo:
     nop
-

@@ -108,16 +108,6 @@ patch_DoNotRemoveKeys:
     nop
     nop
 
-.section .patch_RemoveItemBUsabilityOnReset
-.global patch_RemoveItemBUsabilityOnReset
-patch_RemoveItemBUsabilityOnReset:
-    bl hook_DoNotGiveSwordBackOnResetTwo
-
-.section .patch_RemoveSwordFlagsOnReset
-.global patch_RemoveSwordFlagsOnReset
-patch_RemoveSwordFlagsOnReset:
-    nop
-
 .section .patch_RemoveDekuMaskCheckSoT
 .global patch_RemoveDekuMaskCheckSoT
 patch_RemoveDekuMaskCheckSoT:
