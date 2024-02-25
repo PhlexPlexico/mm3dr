@@ -67,6 +67,10 @@ SECTIONS{
     *(.patch_RemoveTradeItemFromSlot)
   }
 
+  .patch_SwapTradeItemFromExtSlot 0x1AFEA8 : {
+    *(.patch_SwapTradeItemFromExtSlot)
+  }
+
   .patch_OverrideCutsceneNextEntrance 0x1B1834 : {
     *(.patch_OverrideCutsceneNextEntrance)
   }

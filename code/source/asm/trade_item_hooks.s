@@ -32,6 +32,14 @@ hook_RemoveTradeItemFromExtSlot:
   cpy r4,r0
   bx lr
 
+.global hook_SwapTradeItemFromExtSlot
+hook_SwapTradeItemFromExtSlot:
+  push {r0-r12,lr}
+  bl SaveFile_SetNextTradeSlotItem
+  pop {r0-r12,lr}
+  mov r2, #0xFF
+  bx lr
+
 .global hook_RemoveKafeiItemFromExtSlot
 hook_RemoveKafeiItemFromExtSlot:
   push {r0-r12, lr}

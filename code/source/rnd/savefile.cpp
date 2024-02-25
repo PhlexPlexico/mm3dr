@@ -940,6 +940,8 @@ namespace rnd {
           break;
         }
       }
+    } else if (slot == 17 && item == (u16)game::ItemId::LetterToKafei) {
+      gExtSaveData.collectedTradeItems[6] = game::ItemId::None;
     }
   }
 
@@ -948,6 +950,26 @@ namespace rnd {
     rnd::util::Print("%s: Current slot is %#04x\n", __func__, game::GetCommonData().save.inventory.items[slot]);
 #endif
     return (u8)game::GetCommonData().save.inventory.items[slot];
+  }
+
+  extern "C" void SaveFile_SetNextTradeSlotItem(u8 slot) {
+    if (slot != 5 && slot != 17)
+      return;
+    game::ItemId firstItem = game::ItemId::None;
+    for (int i = 0; i < 9; i++) {
+      if (firstItem == game::ItemId::None) {
+        if (slot == 17 && i > 5 && i < 8 && gExtSaveData.collectedTradeItems[i] != game::ItemId::None) {
+          firstItem = gExtSaveData.collectedTradeItems[i];
+          break;
+        } else if (slot == 5 && i < 5 && gExtSaveData.collectedTradeItems[i] != game::ItemId::None) {
+          firstItem = gExtSaveData.collectedTradeItems[i];
+          break;
+        }
+      }
+    }
+    // Place the item in inventory, if there is no item to place it simply places none.
+    game::SaveData& saveData = game::GetCommonData().save;
+    saveData.inventory.items[slot] = firstItem;
   }
   // SaveFile_DrawAndShowUIMessage() {
 

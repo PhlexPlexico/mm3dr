@@ -5,6 +5,11 @@
 patch_RemoveTradeItemFromSlot:
   bl hook_RemoveTradeItemFromExtSlot
 
+.section .patch_SwapTradeItemFromExtSlot
+.global patch_SwapTradeItemFromExtSlot
+patch_SwapTradeItemFromExtSlot:
+  bl hook_SwapTradeItemFromExtSlot
+
 .section .patch_DoNotRemoveTradeItems
 .global patch_DoNotRemoveTradeItems
 patch_DoNotRemoveTradeItems:

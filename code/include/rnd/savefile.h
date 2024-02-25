@@ -36,6 +36,7 @@ namespace rnd {
   extern "C" void SaveFile_RemoveStoredTradeItem(u16, u8);
   extern "C" void SaveFile_RemoveTradeItemFromSlot(u16, u8);
   extern "C" u8 SaveFile_GetItemCurrentlyInSlot(u8);
+  extern "C" void SaveFile_SetNextTradeSlotItem(u8);
 
   typedef struct {
     u32 version;  // Needs to always be the first field of the structure
