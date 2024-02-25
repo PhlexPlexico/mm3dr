@@ -359,12 +359,12 @@ SECTIONS{
     *(.patch_IceArrowsAnywhere)
   }
 
-  .patch_AdjustMapAndCompassChests 0x31CE9C : {
-    *(.patch_AdjustMapAndCompassChests)
-  }
-
   .patch_changeChestTypeToMatchContents 0x31CE0C : {
     *(.patch_changeChestTypeToMatchContents)
+  }
+
+  .patch_AdjustMapAndCompassChests 0x31CE9C : {
+    *(.patch_AdjustMapAndCompassChests)
   }
 
   .patch_RemoveZoraMaskCheckMikau 0x32BBB8 : {

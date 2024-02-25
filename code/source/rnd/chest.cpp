@@ -24,8 +24,12 @@ namespace rnd {
     }
     return (game::actors::EnBoxType)0xFF;
   }
-  u8 Chest_IsOverrideEnabled() {
-    return gSettingsContext.chestSize;
+  u8 Chest_IsOverrideEnabled(game::actors::En_Box* actor, u16 chestType) {
+    s16 gid = (actor->dyna.params << 0x14) >> 0x19;
+    if (gid == 0x3C && gSettingsContext.chestSize == 0) return false;
+    if (gid == 0x3C && gSettingsContext.chestSize == 1 && chestType == (u16)game::actors::EnBoxType::ENBOX_TYPE_SMALL) return true;
+    else if (chestType == (u16)game::actors::EnBoxType::ENBOX_TYPE_SMALL) return true;
+    else return false;
   }
   }
 

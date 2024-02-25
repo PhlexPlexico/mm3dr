@@ -191,6 +191,8 @@ hook_HandleOcarina:
 .global hook_checkChestContentSetting
 hook_checkChestContentSetting:
     push {r0-r12, lr}
+    cpy r0,r4
+    ldrb r1,[r4,#0x3E9]
     bl Chest_IsOverrideEnabled
     cmp r0,#0x0
     beq drawFancyMapChests
@@ -198,7 +200,7 @@ hook_checkChestContentSetting:
     bx lr
 drawFancyMapChests:
     pop {r0-r12,lr}
-    cmp r0,#0x3C
+    cmpne r0,#0x3C
     bx lr
 
 .global hook_changeChestTypeToMatchContents

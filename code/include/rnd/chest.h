@@ -32,7 +32,7 @@ namespace rnd {
 
   extern "C" {
   game::actors::EnBoxType Chest_OverrideSize(game::actors::En_Box*, game::GlobalContext*);
-  u8 Chest_IsOverrideEnabled();
+  u8 Chest_IsOverrideEnabled(game::actors::En_Box*, u16);
   }
   // void EnBox_rInit(game::act::Actor* thisx, game::GlobalContext* globalCtx);
   // void EnBox_rUpdate(game::act::Actor* thisx, game::GlobalContext* globalCtx);
