@@ -99,14 +99,15 @@ namespace rnd {
       return;
 
     const u32 pressedButtons = gctx->pad_state.input.buttons.flags;
-    // const u32 newButtons = gctx->pad_state.input.new_buttons.flags;
-    #if defined ENABLE_DEBUG || defined DEBUG_PRINT
+// const u32 newButtons = gctx->pad_state.input.new_buttons.flags;
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
     game::SaveData& saveData = game::GetCommonData().save;
-        #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-        if (pressedButtons == (u32)game::pad::Button::ZR)
-          rnd::util::Print("%s: Sword shield is %u, starting sword is %u\n", __func__, (u8)saveData.equipment.data[0].item_btn_b, gSettingsContext.startingKokiriSword);
-    #endif
-    #endif
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+    if (pressedButtons == (u32)game::pad::Button::ZR)
+      rnd::util::Print("%s: Sword shield is %u, starting sword is %u\n", __func__,
+                       (u8)saveData.equipment.data[0].item_btn_b, gSettingsContext.startingKokiriSword);
+#endif
+#endif
     if (gSettingsContext.customMaskButton != 0 && pressedButtons == gSettingsContext.customMaskButton) {
       game::ui::OpenScreen(game::ui::ScreenType::Masks);
     } else if (gSettingsContext.customItemButton != 0 && pressedButtons == gSettingsContext.customItemButton) {
