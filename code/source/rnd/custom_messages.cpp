@@ -379,12 +379,12 @@ volatile const UnformattedMessage rCustomMessages[512] = {0};
 volatile const u32 numCustomMessageEntries = {0};
 
 bool SetCustomMessage(u16 id, game::MessageResEntry* msgResEntry) {
-// #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-//   static u16 lastId;
-//   if (id && id != lastId)
-//     rnd::util::Print("Message ID is %#06x\n", id);
-//   lastId = id;
-// #endif
+  // #if defined ENABLE_DEBUG || defined DEBUG_PRINT
+  //   static u16 lastId;
+  //   if (id && id != lastId)
+  //     rnd::util::Print("Message ID is %#06x\n", id);
+  //   lastId = id;
+  // #endif
 
   UnformattedMessage customMsgData;
   s32 start = 0, end = numCustomMessageEntries - 1, current;
