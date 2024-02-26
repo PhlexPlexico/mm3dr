@@ -25,12 +25,7 @@ namespace rnd {
     saveData.skulltulas_collected.swamp_count = 30;
     saveData.skulltulas_collected.ocean_count = 30;
     saveData.anonymous_162 = saveData.anonymous_162 | 0x6000;
-    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::MaskOfTruth);
-    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::PictographBox);
-    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::BlastMask);
-    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::KafeiMask);
-    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::CircusLeaderMask);
-    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::LetterToMama);
+    
     // rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::PowderKeg);
     // saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver50;
     saveData.inventory.inventory_count_register.bomb_bag_upgrade = game::BombBag::BombBag40;
@@ -51,18 +46,25 @@ namespace rnd {
     saveData.inventory.items[13] = game::ItemId::PictographBox;
     // saveData.inventory.items[14] = game::ItemId::LensOfTruth;
     saveData.inventory.items[15] = game::ItemId::Hookshot;
-    saveData.inventory.items[20] = game::ItemId::LandTitleDeed;
-
-    saveData.inventory.masks[5] = game::ItemId::DekuMask;
+    
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::MaskOfTruth);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::PictographBox);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::BlastMask);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::KafeiMask);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::CircusLeaderMask);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::LetterToMama);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::DekuMask);
     rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::BremenMask);
     rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::Bottle);
-    saveData.inventory.masks[11] = game::ItemId::GoronMask;
-    saveData.inventory.masks[17] = game::ItemId::ZoraMask;
-    saveData.inventory.masks[23] = game::ItemId::FierceDeityMask;
-    saveData.inventory.masks[19] = game::ItemId::StoneMask;
-    saveData.inventory.masks[8] = game::ItemId::BunnyHood;
-    saveData.inventory.masks[20] = game::ItemId::GaroMask;
-    saveData.inventory.masks[6] = game::ItemId::AllNightMask;
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::GoronMask);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::ZoraMask);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::FierceDeityMask);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::StoneMask);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::BunnyHood);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::GaroMask);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::AllNightMask);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::KeatonMask);
+
 
     saveData.inventory.woodfall_dungeon_items.map = 1;
     saveData.inventory.woodfall_dungeon_items.compass = 1;
@@ -909,6 +911,9 @@ namespace rnd {
   }
 
   extern "C" void SaveFile_RemoveStoredTradeItem(u16 item, u8 slot) {
+#if defined ENABLE_DEBUG
+    return;
+#endif
     // This is a get item ID, we need to translate it to the regular item ID.
     if (slot != 5 && slot != 17)
       return;
@@ -933,6 +938,9 @@ namespace rnd {
     saveData.inventory.items[slot] = firstItem;
   }
   extern "C" void SaveFile_RemoveTradeItemFromSlot(u16 item, u8 slot) {
+#if defined ENABLE_DEBUG
+    return;
+#endif
     if (slot == 5) {
       for (int i = 0; i < 5; i++) {
         if (item == (u16)gExtSaveData.collectedTradeItems[i]) {
