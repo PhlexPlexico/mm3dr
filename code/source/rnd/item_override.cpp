@@ -424,9 +424,9 @@ namespace rnd {
   }
 
   void SetExtData() {
-    #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-      rnd::util::Print("%s: STORED GET ITEM ID IS %#04x\n", __func__, storedGetItemId);	
-    #endif
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+    rnd::util::Print("%s: STORED GET ITEM ID IS %#04x\n", __func__, storedGetItemId);
+#endif
     if (storedActorId == game::act::Id::NpcEnNb) {
       gExtSaveData.givenItemChecks.enNbGivenItem = 1;
     } else if (storedActorId == game::act::Id::NpcInvisibleGuard) {
@@ -737,9 +737,10 @@ namespace rnd {
     // This is to ensure fairness and allows us to place these items without second guessing in logic.
     // Let's be a bit rude and give them fishing passes.
     if ((override.value.getItemId > 0x45 && override.value.getItemId < 0x4A) || ItemOverride_IsItemObtained(override)) {
-      #if defined ENABLE_DEBUG || defined DEBUG_PRINT
-        rnd::util::Print("%s: GID #%04x IS ALREADY OBTAINED, INCOMING ID IS %#04x\n", __func__, override.value.getItemId, incomingGetItemId);	
-      #endif
+#if defined ENABLE_DEBUG || defined DEBUG_PRINT
+      rnd::util::Print("%s: GID #%04x IS ALREADY OBTAINED, INCOMING ID IS %#04x\n", __func__, override.value.getItemId,
+                       incomingGetItemId);
+#endif
       if ((incomingGetItemId == (s16)GetItemID::GI_MOONS_TEAR &&
            gExtSaveData.givenItemChecks.enObjMoonStoneGivenItem == 1) ||
           (incomingGetItemId == (s16)GetItemID::GI_TOWN_TITLE_DEED &&

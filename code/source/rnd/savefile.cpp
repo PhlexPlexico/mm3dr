@@ -25,7 +25,7 @@ namespace rnd {
     saveData.skulltulas_collected.swamp_count = 30;
     saveData.skulltulas_collected.ocean_count = 30;
     saveData.anonymous_162 = saveData.anonymous_162 | 0x6000;
-    
+
     // rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::PowderKeg);
     // saveData.inventory.inventory_count_register.quiver_upgrade = game::Quiver::Quiver50;
     saveData.inventory.inventory_count_register.bomb_bag_upgrade = game::BombBag::BombBag40;
@@ -46,7 +46,7 @@ namespace rnd {
     saveData.inventory.items[13] = game::ItemId::PictographBox;
     // saveData.inventory.items[14] = game::ItemId::LensOfTruth;
     saveData.inventory.items[15] = game::ItemId::Hookshot;
-    
+
     rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::MaskOfTruth);
     rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::PictographBox);
     rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::BlastMask);
@@ -64,7 +64,6 @@ namespace rnd {
     rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::GaroMask);
     rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::AllNightMask);
     rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::KeatonMask);
-
 
     saveData.inventory.woodfall_dungeon_items.map = 1;
     saveData.inventory.woodfall_dungeon_items.compass = 1;
