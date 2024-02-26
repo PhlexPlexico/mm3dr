@@ -28,9 +28,14 @@ namespace rnd {
     s16 gid = (actor->dyna.params << 0x14) >> 0x19;
     if (gid == 0x3C && gSettingsContext.chestSize == 0)
       return false;
-    if (gid == 0x3C && gSettingsContext.chestSize == 1 && chestType == (u16)game::actors::EnBoxType::ENBOX_TYPE_SMALL)
+    if (gid == 0x3C && gSettingsContext.chestSize == 1 &&
+        (chestType == (u16)game::actors::EnBoxType::ENBOX_TYPE_SMALL ||
+         chestType == (u16)game::actors::EnBoxType::ENBOX_TYPE_SMALL_ROOM_CLEAR ||
+         chestType == (u16)game::actors::EnBoxType::ENBOX_TYPE_SMALL_SWITCH_FLAG))
       return true;
-    else if (chestType == (u16)game::actors::EnBoxType::ENBOX_TYPE_SMALL)
+    else if (chestType == (u16)game::actors::EnBoxType::ENBOX_TYPE_SMALL ||
+              chestType == (u16)game::actors::EnBoxType::ENBOX_TYPE_SMALL_ROOM_CLEAR ||
+              chestType == (u16)game::actors::EnBoxType::ENBOX_TYPE_SMALL_SWITCH_FLAG)
       return true;
     else
       return false;
