@@ -34,8 +34,8 @@ namespace rnd {
          chestType == (u16)game::actors::EnBoxType::ENBOX_TYPE_SMALL_SWITCH_FLAG))
       return true;
     else if (chestType == (u16)game::actors::EnBoxType::ENBOX_TYPE_SMALL ||
-              chestType == (u16)game::actors::EnBoxType::ENBOX_TYPE_SMALL_ROOM_CLEAR ||
-              chestType == (u16)game::actors::EnBoxType::ENBOX_TYPE_SMALL_SWITCH_FLAG)
+             chestType == (u16)game::actors::EnBoxType::ENBOX_TYPE_SMALL_ROOM_CLEAR ||
+             chestType == (u16)game::actors::EnBoxType::ENBOX_TYPE_SMALL_SWITCH_FLAG)
       return true;
     else
       return false;
