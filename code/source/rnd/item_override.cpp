@@ -955,6 +955,12 @@ namespace rnd {
     } else if (currentItem == game::ItemId::GiantMask) {
       return givenItems.enBoss02GivenItem ? (int) currentItem
         : (int)0xFF;
+    } else if (currentItem == game::ItemId::LensOfTruth) {
+      auto* gctx = GetContext().gctx;
+      if (gctx->scene == game::SceneId::GoronVillageWinter) {
+        auto& saveData = game::GetCommonData().save;
+        if (saveData.player.magic_acquired == 0) return 0xFF;
+      }
     }
     // Use the standard pointer to array as this seems to mess with
     // some issues in checking items such as trade items, and Giant's Mask.
