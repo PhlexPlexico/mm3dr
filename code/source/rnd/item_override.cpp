@@ -672,8 +672,14 @@ namespace rnd {
       override = ItemOverride_Lookup(fromActor, (u16)gctx->scene, getItemId);
       if (override.key.all != 0) {
         // Override the stored get item if we are a bottled item.
-        if (override.value.getItemId == 0x59 || override.value.getItemId == 0x60 || override.value.getItemId == 0x6A ||
-            override.value.getItemId == 0x6E || override.value.getItemId == 0x6F) {
+        // If we're in the default spot to retrieve these items, set stored to NONE to avoid
+        // This should avoid ext data being set before getting an actual bottle.
+        if (storedGetItemId == 0x59 || storedGetItemId == 0x60 || storedGetItemId == 0x6A || storedGetItemId == 0x6E ||
+            storedGetItemId == 0x6F) {
+          storedGetItemId = GetItemID::GI_NONE;
+        } else if (override.value.getItemId == 0x59 || override.value.getItemId == 0x60 ||
+                   override.value.getItemId == 0x6A || override.value.getItemId == 0x6E ||
+                   override.value.getItemId == 0x6F) {
           storedGetItemId = (GetItemID) override.value.getItemId;
         }
       }
