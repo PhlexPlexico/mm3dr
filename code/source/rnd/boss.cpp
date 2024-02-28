@@ -93,8 +93,8 @@ namespace rnd {
   }
 
   extern "C" {
-    u8 IsTwinmoldSetToRestoration() {
-      return gSettingsContext.twinmoldRestoration;
-    }
+  u8 IsTwinmoldSetToRestoration() {
+    return gSettingsContext.twinmoldRestoration;
+  }
   }
 }  // namespace rnd

@@ -19,8 +19,8 @@ extern "C" {
 namespace rnd {
   void FixBosses();
   extern "C" {
-    u8 IsTwinmoldSetToRestoration();
+  u8 IsTwinmoldSetToRestoration();
   }
-} // namespace rnd 
+}  // namespace rnd
 
 #endif
