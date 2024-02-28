@@ -88,6 +88,13 @@ namespace rnd {
       state->red_prev_hit_counter = red_twinmold->hit_counter;
   }
   void FixBosses() {
-    FixTwinmold();
+    if (IsTwinmoldSetToRestoration())
+      FixTwinmold();
+  }
+
+  extern "C" {
+    u8 IsTwinmoldSetToRestoration() {
+      return gSettingsContext.twinmoldRestoration;
+    }
   }
 }  // namespace rnd

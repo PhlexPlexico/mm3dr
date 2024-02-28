@@ -402,6 +402,7 @@ namespace rnd {
     u8 enableFastMaskTransform;
     u8 enableFastOcarina;
     u8 enableFastArrowSwap;
+    u8 twinmoldRestoration;
 
     // Cutscene Skips
     u8 skipHMSCutscenes;
