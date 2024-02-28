@@ -193,10 +193,10 @@ patch_HandleOcarinaHooks:
     b hook_HandleOcarina
 
 @ Remove call from twinmold->life -= twinmold_min_damage.
-@ .section .patch_TwinmoldConsistentDamage
-@ .global patch_TwinmoldConsistentDamage
-@ patch_TwinmoldConsistentDamage:
-@     nop
+.section .patch_TwinmoldConsistentDamage
+.global patch_TwinmoldConsistentDamage
+patch_TwinmoldConsistentDamage:
+    nop
 
 .section .patch_FasterBlockMovement
 .global patch_FasterBlockMovement

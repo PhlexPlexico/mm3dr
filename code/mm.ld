@@ -41,6 +41,10 @@ SECTIONS{
     *(.patch_FixSurroundSound)
   }
 
+  .patch_PostActorCalc 0x174E08 : {
+    *(.patch_PostActorCalc)
+  }
+
   .patch_RemoveCouplesMaskMessage 0x1867C4 : {
     *(.patch_RemoveCouplesMaskMessage)
   }
@@ -271,9 +275,9 @@ SECTIONS{
     *(.patch_EnteringLocation)
   }
 
-  /* .patch_TwinmoldConsistentDamage 0x28E544 : {
+  .patch_TwinmoldConsistentDamage 0x28E544 : {
     *(.patch_TwinmoldConsistentDamage)
-  } */
+  }
 
   .patch_FasterBlockMovement 0x2AC634 : {
     *(.patch_FasterBlockMovement)

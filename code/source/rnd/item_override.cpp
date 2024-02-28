@@ -45,8 +45,8 @@ namespace rnd {
     rItemOverrides[0].value.looksLikeItemId = 0x26;
     rItemOverrides[1].key.scene = 0x6F;
     rItemOverrides[1].key.type = ItemOverride_Type::OVR_COLLECTABLE;
-    rItemOverrides[1].value.getItemId = 0x0C;
-    rItemOverrides[1].value.looksLikeItemId = 0x0C;
+    rItemOverrides[1].value.getItemId = 0x7D;
+    rItemOverrides[1].value.looksLikeItemId = 0x7D;
     rItemOverrides[2].key.scene = 0x12;
     rItemOverrides[2].key.type = ItemOverride_Type::OVR_COLLECTABLE;
     rItemOverrides[2].value.getItemId = 0x37;
@@ -674,8 +674,9 @@ namespace rnd {
         // Override the stored get item if we are a bottled item.
         // If we're in the default spot to retrieve these items, set stored to NONE to avoid
         // This should avoid ext data being set before getting an actual bottle.
-        if (storedGetItemId == 0x59 || storedGetItemId == 0x60 || storedGetItemId == 0x6A || storedGetItemId == 0x6E ||
-            storedGetItemId == 0x6F) {
+        if (storedGetItemId == GetItemID::GI_BOTTLE_POTION_RED || storedGetItemId == GetItemID::GI_BOTTLE_MILK ||
+            storedGetItemId == GetItemID::GI_BOTTLE_GOLD_DUST || storedGetItemId == GetItemID::GI_BOTTLE_SEAHORSE ||
+            storedGetItemId == GetItemID::GI_BOTTLE_CHATEAU_ROMANI) {
           storedGetItemId = GetItemID::GI_NONE;
         } else if (override.value.getItemId == 0x59 || override.value.getItemId == 0x60 ||
                    override.value.getItemId == 0x6A || override.value.getItemId == 0x6E ||

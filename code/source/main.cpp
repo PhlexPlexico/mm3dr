@@ -7,6 +7,7 @@
 #include "game/states/state.h"
 #include "game/ui.h"
 #include "game/ui/screens/gearscreen.h"
+#include "rnd/boss.h"
 #include "rnd/extdata.h"
 #include "rnd/icetrap.h"
 #include "rnd/input.h"
@@ -141,6 +142,10 @@ namespace rnd {
     for (size_t i = 0; i < size_t(__init_array_end - __init_array_start); i++) {
       __init_array_start[i]();
     }
+  }
+
+  void PostActorCalc() {
+    FixBosses();
   }
   }
 
