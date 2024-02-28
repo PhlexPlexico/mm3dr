@@ -1,8 +1,8 @@
 #ifndef _RND_BOSS_H_
 #define _RND_BOSS_H_
 #include "common/advanced_context.h"
-#include "rnd/settings.h"
 #include "game/actors/boss/twinmold.h"
+#include "rnd/settings.h"
 
 #include <algorithm>
 #include <array>
@@ -18,6 +18,6 @@ extern "C" {
 
 namespace rnd {
   void FixBosses();
-} // namespace rnd 
+}  // namespace rnd
 
 #endif

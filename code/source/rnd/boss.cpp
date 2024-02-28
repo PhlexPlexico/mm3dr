@@ -8,7 +8,7 @@
  * Brought in from the Project Restoration libraries. Edited to adjust for the randomizer.
  */
 namespace rnd {
-  
+
   struct TwinmoldFixState {
     s8 blue_prev_life;
     s8 red_prev_life;
@@ -70,7 +70,7 @@ namespace rnd {
 #if defined ENABLE_DEBUG || defined DEBUG_PRINT
         util::Print("%s: restoring hit counter (%u)\n", __func__, state->red_prev_hit_counter);
 #endif
-        
+
         red_twinmold->hit_counter = state->red_prev_hit_counter;
       }
     } else {
@@ -90,4 +90,4 @@ namespace rnd {
   void FixBosses() {
     FixTwinmold();
   }
-} // namespace rnd
+}  // namespace rnd
