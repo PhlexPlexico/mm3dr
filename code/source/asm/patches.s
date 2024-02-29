@@ -214,6 +214,13 @@ patch_IceArrowsAnywhere:
 patch_AdjustMapAndCompassChests:
     bl hook_checkChestContentSetting
 
+
+.section .patch_RemoveSongCheckKaepora
+.global patch_RemoveSongCheckKaepora
+patch_RemoveSongCheckKaepora:
+    bl hook_CheckKaeporaSpawn
+    nop
+
 .section .patch_changeChestTypeToMatchContents
 .global patch_changeChestTypeToMatchContents
 patch_changeChestTypeToMatchContents:

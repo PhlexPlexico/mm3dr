@@ -203,6 +203,14 @@ drawFancyMapChests:
     cmpne r0,#0x3C
     bx lr
 
+.global hook_CheckKaeporaSpawn
+hook_CheckKaeporaSpawn:
+    push {r0-r12,lr}
+    bl ItemOverride_CheckInventoryItemOverride
+    cmp r0,#0xE
+    pop {r0-r12,lr}
+    bx lr
+
 .global hook_changeChestTypeToMatchContents
 hook_changeChestTypeToMatchContents:
     push {r0-r3, r5-r12, lr}

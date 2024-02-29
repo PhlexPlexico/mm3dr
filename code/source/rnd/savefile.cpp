@@ -44,7 +44,7 @@ namespace rnd {
     saveData.inventory.items[10] = game::ItemId::MagicBean;
     // saveData.inventory.items[12] = game::ItemId::PowderKeg;
     saveData.inventory.items[13] = game::ItemId::PictographBox;
-    // saveData.inventory.items[14] = game::ItemId::LensOfTruth;
+    saveData.inventory.items[14] = game::ItemId::LensOfTruth;
     saveData.inventory.items[15] = game::ItemId::Hookshot;
 
     rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::MaskOfTruth);
@@ -711,6 +711,7 @@ namespace rnd {
     } else {
       // Player initially is given magic 0x30 on save creation. This prevents that.
       playerData.magic = 0x0;
+      playerData.magic_acquired = 0;
 #ifdef ENABLE_DEBUG
       playerData.magic = 0x30;
 #endif

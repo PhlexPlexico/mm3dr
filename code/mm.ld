@@ -363,6 +363,10 @@ SECTIONS{
     *(.patch_AdjustMapAndCompassChests)
   }
 
+  .patch_RemoveSongCheckKaepora 0x326ED0 : {
+    *(.patch_RemoveSongCheckKaepora)
+  }
+
   .patch_RemoveZoraMaskCheckMikau 0x32BBB8 : {
     *(.patch_RemoveZoraMaskCheckMikau)
   }

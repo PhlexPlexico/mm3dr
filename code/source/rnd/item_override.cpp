@@ -940,12 +940,14 @@ namespace rnd {
         : (int)0xFF;
     } else if (currentItem == game::ItemId::LensOfTruth) {
       auto* gctx = rnd::GetContext().gctx;
+      
       if (!gctx || gctx->type != game::StateType::Play) {
         return game::HasItem(currentItem) ? (int) currentItem : 0xFF;
       }
       if (gctx->scene == game::SceneId::GoronVillageWinter) {
         auto& saveData = game::GetCommonData().save;
         if (saveData.player.magic_acquired == 0 || !game::HasItem(currentItem)) return 0xFF;
+        else game::HasItem(currentItem) ? (int) currentItem : 0xFF;
       }
     }
     // Use the standard pointer to array as this seems to mess with
