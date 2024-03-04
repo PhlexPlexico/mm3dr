@@ -947,7 +947,6 @@ namespace rnd {
       if (gctx->scene == game::SceneId::GoronVillageWinter) {
         auto& saveData = game::GetCommonData().save;
         if (saveData.player.magic_acquired == 0 || !game::HasItem(currentItem)) return 0xFF;
-        else game::HasItem(currentItem) ? (int) currentItem : 0xFF;
       }
     }
     // Use the standard pointer to array as this seems to mess with
