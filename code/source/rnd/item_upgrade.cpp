@@ -108,11 +108,6 @@ namespace rnd {
         return GetItemID::GI_BOTTLE_GOLD_DUST_REFILL;
       }
       break;
-    case GetItemID::GI_BOTTLE_SEAHORSE:
-      if (gExtSaveData.givenItemChecks.bottleSeahorseGiven == 1) {
-        return GetItemID::GI_BOTTLE_SEAHORSE_REFILL;
-      }
-      break;
     case GetItemID::GI_BOTTLE_CHATEAU_ROMANI:
       if (gExtSaveData.givenItemChecks.bottleChateuGiven == 1) {
         return GetItemID::GI_BOTTLE_CHATEAU_ROMANI_REFILL;

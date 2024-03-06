@@ -45,8 +45,8 @@ namespace rnd {
     rItemOverrides[0].value.looksLikeItemId = 0x26;
     rItemOverrides[1].key.scene = 0x6F;
     rItemOverrides[1].key.type = ItemOverride_Type::OVR_COLLECTABLE;
-    rItemOverrides[1].value.getItemId = 0x7D;
-    rItemOverrides[1].value.looksLikeItemId = 0x7D;
+    rItemOverrides[1].value.getItemId = 0x6E;
+    rItemOverrides[1].value.looksLikeItemId = 0x6E;
     rItemOverrides[2].key.scene = 0x12;
     rItemOverrides[2].key.type = ItemOverride_Type::OVR_COLLECTABLE;
     rItemOverrides[2].value.getItemId = 0x37;
@@ -505,8 +505,6 @@ namespace rnd {
       gExtSaveData.givenItemChecks.bottleGoldDustGiven = 1;
     } else if (storedGetItemId == GetItemID::GI_BOTTLE_CHATEAU_ROMANI) {
       gExtSaveData.givenItemChecks.bottleChateuGiven = 1;
-    } else if (storedGetItemId == GetItemID::GI_BOTTLE_SEAHORSE) {
-      gExtSaveData.givenItemChecks.bottleSeahorseGiven = 1;
     } else if (storedGetItemId == GetItemID::GI_BOTTLE_POTION_RED) {
       gExtSaveData.givenItemChecks.bottleRedPotionGiven = 1;
     } else if (storedGetItemId == GetItemID::GI_ROOM_KEY) {
@@ -597,7 +595,7 @@ namespace rnd {
         return 0x09;
     }
     // No override, use the base item.
-    return 0x00;
+    return override.value.looksLikeItemId;
   }
 
   bool ItemOverride_IsItemObtained(ItemOverride override) {
@@ -674,13 +672,13 @@ namespace rnd {
         // Override the stored get item if we are a bottled item.
         // If we're in the default spot to retrieve these items, set stored to NONE to avoid
         // This should avoid ext data being set before getting an actual bottle.
-        if (storedGetItemId == GetItemID::GI_BOTTLE_POTION_RED || storedGetItemId == GetItemID::GI_BOTTLE_MILK ||
-            storedGetItemId == GetItemID::GI_BOTTLE_GOLD_DUST || storedGetItemId == GetItemID::GI_BOTTLE_SEAHORSE ||
-            storedGetItemId == GetItemID::GI_BOTTLE_CHATEAU_ROMANI) {
+        if ((GetItemID)incomingGetItemId == GetItemID::GI_BOTTLE_POTION_RED ||
+            (GetItemID)incomingGetItemId == GetItemID::GI_BOTTLE_MILK ||
+            (GetItemID)incomingGetItemId == GetItemID::GI_BOTTLE_GOLD_DUST ||
+            (GetItemID)incomingGetItemId == GetItemID::GI_BOTTLE_CHATEAU_ROMANI) {
           storedGetItemId = GetItemID::GI_NONE;
         } else if (override.value.getItemId == 0x59 || override.value.getItemId == 0x60 ||
-                   override.value.getItemId == 0x6A || override.value.getItemId == 0x6E ||
-                   override.value.getItemId == 0x6F) {
+                   override.value.getItemId == 0x6A || override.value.getItemId == 0x6F) {
           storedGetItemId = (GetItemID) override.value.getItemId;
         }
       }
@@ -700,43 +698,6 @@ namespace rnd {
         // If we don't, then do not give the item as we don't want to override items in users inventories.
         override.value.getItemId = 0x02;
         override.value.looksLikeItemId = 0x02;
-      } else if (override.value.getItemId == 0x59 || override.value.getItemId == 0x60 ||
-                 override.value.getItemId == 0x6A || override.value.getItemId == 0x6E ||
-                 override.value.getItemId == 0x6F) {
-        switch (override.value.getItemId) {
-        case 0x59:
-          if (gExtSaveData.givenItemChecks.bottleRedPotionGiven == 1 && !game::HasBottle(game::ItemId::Bottle)) {
-            override.value.getItemId = 0x02;
-            override.value.looksLikeItemId = 0x02;
-          }
-          break;
-        case 0x60:
-          if (gExtSaveData.givenItemChecks.bottleMilkGiven == 1 && !game::HasBottle(game::ItemId::Bottle)) {
-            override.value.getItemId = 0x02;
-            override.value.looksLikeItemId = 0x02;
-          }
-          break;
-        case 0x6A:
-          if (gExtSaveData.givenItemChecks.bottleGoldDustGiven == 1 && !game::HasBottle(game::ItemId::Bottle)) {
-            override.value.getItemId = 0x02;
-            override.value.looksLikeItemId = 0x02;
-          }
-          break;
-        case 0x6E:
-          if (gExtSaveData.givenItemChecks.bottleSeahorseGiven == 1 && !game::HasBottle(game::ItemId::Bottle)) {
-            override.value.getItemId = 0x02;
-            override.value.looksLikeItemId = 0x02;
-          }
-          break;
-        case 0x6F:
-          if (gExtSaveData.givenItemChecks.bottleChateuGiven == 1 && !game::HasBottle(game::ItemId::Bottle)) {
-            override.value.getItemId = 0x02;
-            override.value.looksLikeItemId = 0x02;
-          }
-          break;
-        default:
-          break;
-        }
       }
     }
 
@@ -744,10 +705,11 @@ namespace rnd {
     // This is to ensure fairness and allows us to place these items without second guessing in logic.
     // Let's be a bit rude and give them fishing passes.
     if ((override.value.getItemId > 0x45 && override.value.getItemId < 0x4A) || ItemOverride_IsItemObtained(override)) {
-#if defined ENABLE_DEBUG || defined DEBUG_PRINT
-      rnd::util::Print("%s: GID #%04x IS ALREADY OBTAINED, INCOMING ID IS %#04x\n", __func__, override.value.getItemId,
-                       incomingGetItemId);
-#endif
+      // #if defined ENABLE_DEBUG || defined DEBUG_PRINT
+      //       rnd::util::Print("%s: GID #%04x IS ALREADY OBTAINED, INCOMING ID IS %#04x\n", __func__,
+      //       override.value.getItemId,
+      //                        incomingGetItemId);
+      // #endif
       if ((incomingGetItemId == (s16)GetItemID::GI_MOONS_TEAR &&
            gExtSaveData.givenItemChecks.enObjMoonStoneGivenItem == 1) ||
           (incomingGetItemId == (s16)GetItemID::GI_TOWN_TITLE_DEED &&
@@ -783,6 +745,43 @@ namespace rnd {
       // Also check if we are not the powder keg area as to avoid getting multiple items.
       override.value.getItemId = 0x02;
       override.value.looksLikeItemId = 0x02;
+    } else if (override.value.getItemId == 0x59 || override.value.getItemId == 0x60 ||
+               override.value.getItemId == 0x6A || override.value.getItemId == 0x6E ||
+               override.value.getItemId == 0x6F) {
+      switch (override.value.getItemId) {
+      case 0x59:
+        if (gExtSaveData.givenItemChecks.bottleRedPotionGiven == 1 && !game::HasBottle(game::ItemId::Bottle)) {
+          override.value.getItemId = 0x01;
+          override.value.looksLikeItemId = 0x59;
+        }
+        break;
+      case 0x60:
+        if (gExtSaveData.givenItemChecks.bottleMilkGiven == 1 && !game::HasBottle(game::ItemId::Bottle)) {
+          override.value.getItemId = 0x01;
+          override.value.looksLikeItemId = 0x60;
+        }
+        break;
+      case 0x6A:
+        if (gExtSaveData.givenItemChecks.bottleGoldDustGiven == 1 && !game::HasBottle(game::ItemId::Bottle)) {
+          override.value.getItemId = 0x01;
+          override.value.looksLikeItemId = 0x6A;
+        }
+        break;
+      case 0x6E:
+        if (!game::HasBottle(game::ItemId::Bottle)) {
+          override.value.getItemId = 0x01;
+          override.value.looksLikeItemId = 0x6E;
+        }
+        break;
+      case 0x6F:
+        if (gExtSaveData.givenItemChecks.bottleChateuGiven == 1 && !game::HasBottle(game::ItemId::Bottle)) {
+          override.value.getItemId = 0x01;
+          override.value.looksLikeItemId = 0x6F;
+        }
+        break;
+      default:
+        break;
+      }
     }
     ItemOverride_Activate(override);
     s16 baseItemId = rActiveItemRow->baseItemId;
