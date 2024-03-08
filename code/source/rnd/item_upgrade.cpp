@@ -113,6 +113,10 @@ namespace rnd {
         return GetItemID::GI_BOTTLE_CHATEAU_ROMANI_REFILL;
       }
       break;
+    case GetItemID::GI_BOTTLE_MYSTERY_MILK:
+      if (gExtSaveData.givenItemChecks.bottleMysteryGivenToEnGm == 1) {
+        return GetItemID::GI_RUPEE_RED;
+      }
     default:
       return getItemId;
     }

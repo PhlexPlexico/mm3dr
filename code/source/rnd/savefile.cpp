@@ -954,9 +954,9 @@ namespace rnd {
   }
 
   extern "C" u8 SaveFile_GetItemCurrentlyInSlot(u8 slot) {
-#if defined ENABLE_DEBUG || defined DEBUG_PRINT
-    rnd::util::Print("%s: Current slot is %#04x\n", __func__, game::GetCommonData().save.inventory.items[slot]);
-#endif
+    if (game::GetCommonData().save.inventory.items[slot] == game::ItemId::MysteryMilk) {
+      gExtSaveData.givenItemChecks.bottleMysteryGivenToEnGm = 1;
+    }
     return (u8)game::GetCommonData().save.inventory.items[slot];
   }
 
