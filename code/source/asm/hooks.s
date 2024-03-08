@@ -168,6 +168,15 @@ hook_EnteringLocation:
     cpy r9,r0
     bx lr
 
+.global hook_CheckMasksOnMoon
+hook_CheckMasksOnMoon:
+    push {r5-r12,lr}
+    bl CurrentMasksInInventory
+    cpy r4,r0
+    pop {r5-r12, lr}
+    mov r0,#0x0
+    bx lr
+
 .global hook_readGamePad
 hook_readGamePad:
     push {r0-r12, lr}

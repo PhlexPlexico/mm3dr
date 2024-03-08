@@ -251,6 +251,11 @@ patch_RemoveBombers:
 patch_RemoveSoHMaskAppearing:
     nop
 
+.section .patch_CheckMasksOnMoon
+.global patch_CheckMasksOnMoon
+patch_CheckMasksOnMoon:
+    bl hook_CheckMasksOnMoon
+
 .section .patch_RemoveJimWhenExitingHideout
 .global RemoveJimWhenExitingHideout_patch
 RemoveJimWhenExitingHideout_patch:

@@ -33,37 +33,45 @@ namespace rnd {
     saveData.inventory.inventory_count_register.stick_upgrades = 2;
     saveData.inventory.inventory_count_register.nut_upgrade = 2;
     saveData.player.rupee_count = 5000;
-    saveData.inventory.items[1] = game::ItemId::Arrow;
-    saveData.inventory.items[2] = game::ItemId::FireArrow;
-    saveData.inventory.items[3] = game::ItemId::IceArrow;
-    saveData.inventory.items[4] = game::ItemId::LightArrow;
-    saveData.inventory.items[6] = game::ItemId::Bomb;
-    saveData.inventory.items[7] = game::ItemId::Bombchu;
-    saveData.inventory.items[8] = game::ItemId::DekuStick;
-    saveData.inventory.items[9] = game::ItemId::DekuNuts;
-    saveData.inventory.items[10] = game::ItemId::MagicBean;
-    // saveData.inventory.items[12] = game::ItemId::PowderKeg;
-    saveData.inventory.items[13] = game::ItemId::PictographBox;
-    saveData.inventory.items[14] = game::ItemId::LensOfTruth;
-    saveData.inventory.items[15] = game::ItemId::Hookshot;
-
-    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::MaskOfTruth);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::Arrow);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::IceArrow);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::LightArrow);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::Bomb);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::Bombchu);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::DekuStick);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::DekuNuts);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::MagicBean);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::PowderKeg);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::LensOfTruth);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::Hookshot);
     rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::PictographBox);
-    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::BlastMask);
-    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::KafeiMask);
-    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::CircusLeaderMask);
     rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::LetterToMama);
-    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::DekuMask);
-    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::BremenMask);
     rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::Bottle);
+
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::DekuMask);
     rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::GoronMask);
     rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::ZoraMask);
     rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::FierceDeityMask);
-    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::StoneMask);
-    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::BunnyHood);
-    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::GaroMask);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::MaskOfTruth);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::KafeiMask);
     rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::AllNightMask);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::BunnyHood);
     rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::KeatonMask);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::GaroMask);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::RomaniMask);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::CircusLeaderMask);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::PostmanHat);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::CoupleMask);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::GreatFairyMask);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::GibdoMask);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::DonGeroMask);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::KamaroMask);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::CaptainHat);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::StoneMask);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::BremenMask);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::BlastMask);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::MaskOfScents);
+    rnd::util::GetPointer<void(game::ItemId)>(0x22b14c)(game::ItemId::GiantMask);
 
     saveData.inventory.woodfall_dungeon_items.map = 1;
     saveData.inventory.woodfall_dungeon_items.compass = 1;
@@ -114,6 +122,13 @@ namespace rnd {
     gSettingsContext.freeScarecrow = 1;
     saveData.activate_dungeon_skip_portal_0xF0_for_all = 0xF0;
     SaveFile_FillOverWorldMapData();
+    saveData.inventory.collect_register.oath_to_order = 1;
+
+    // Boss Remains
+    saveData.inventory.collect_register.odolwas_remains = 1;
+    saveData.inventory.collect_register.gohts_remains = 1;
+    saveData.inventory.collect_register.gyorgs_remains = 1;
+    saveData.inventory.collect_register.twinmolds_remains = 1;
 #endif
     // TODO: Decomp event flags. Most likely in the large anonymous structs in the SaveData.
     u8 isNewFile = saveData.has_completed_intro;
@@ -983,4 +998,49 @@ namespace rnd {
 
   // }
 
+  extern "C" u16 CurrentMasksInInventory() {
+    // I can see why the original devs did this, because they did not want to count specific masks (transform + FD)
+    u16 count = 0;
+    if (game::HasMask(game::ItemId::MaskOfTruth))
+      count += 1;
+    if (game::HasMask(game::ItemId::KafeiMask))
+      count += 1;
+    if (game::HasMask(game::ItemId::AllNightMask))
+      count += 1;
+    if (game::HasMask(game::ItemId::BunnyHood))
+      count += 1;
+    if (game::HasMask(game::ItemId::KeatonMask))
+      count += 1;
+    if (game::HasMask(game::ItemId::GaroMask))
+      count += 1;
+    if (game::HasMask(game::ItemId::RomaniMask))
+      count += 1;
+    if (game::HasMask(game::ItemId::CircusLeaderMask))
+      count += 1;
+    if (game::HasMask(game::ItemId::PostmanHat))
+      count += 1;
+    if (game::HasMask(game::ItemId::CoupleMask))
+      count += 1;
+    if (game::HasMask(game::ItemId::GreatFairyMask))
+      count += 1;
+    if (game::HasMask(game::ItemId::GibdoMask))
+      count += 1;
+    if (game::HasMask(game::ItemId::DonGeroMask))
+      count += 1;
+    if (game::HasMask(game::ItemId::KamaroMask))
+      count += 1;
+    if (game::HasMask(game::ItemId::CaptainHat))
+      count += 1;
+    if (game::HasMask(game::ItemId::StoneMask))
+      count += 1;
+    if (game::HasMask(game::ItemId::BremenMask))
+      count += 1;
+    if (game::HasMask(game::ItemId::BlastMask))
+      count += 1;
+    if (game::HasMask(game::ItemId::MaskOfScents))
+      count += 1;
+    if (game::HasMask(game::ItemId::GiantMask))
+      count += 1;
+    return count;
+  }
 }  // namespace rnd
