@@ -1,6 +1,8 @@
 # Majora's Mask 3D Randomizer
 
-**Status: Work In Progress** - The updated repo can be found at the [Z3DR's GitHub Repo](https://github.com/z3DR/mm3dr) - the full release can be found [here](https://github.com/Z3DR/MM3D_Randomizer/releases/latest)
+# For all those interested in the Randomizer, please see [HERE](https://github.com/Z3DR/MM3D_Randomizer/releases/latest) for the latest work and releases of MM3DR.
+
+**Status: Supported** - The updated repo can be found at the [Z3DR's GitHub Repo](https://github.com/z3DR/mm3dr).
 
 This is an item randomizer for _The Legend of Zelda: Majora's Mask 3D_ for the Nintendo 3DS.
 
