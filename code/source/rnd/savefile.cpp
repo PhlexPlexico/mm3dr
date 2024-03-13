@@ -366,7 +366,7 @@ namespace rnd {
     // game::SaveData& saveBackupData = game::GetCommonData().save_backup;
     game::SaveData& saveData = game::GetCommonData().save;
     // give maps and compasses
-    if (gSettingsContext.mapsAndCompasses == (u8)MapsAndCompassesSetting::MAPSANDCOMPASSES_ANY_DUNGEON) {
+    if (gSettingsContext.mapsAndCompasses == (u8)MapsAndCompassesSetting::MAPSANDCOMPASSES_START_WITH) {
       saveData.inventory.woodfall_dungeon_items.map = 1;
       saveData.inventory.woodfall_dungeon_items.compass = 1;
       saveData.inventory.snowhead_dungeon_items.map = 1;
@@ -375,9 +375,6 @@ namespace rnd {
       saveData.inventory.great_bay_dungeon_items.compass = 1;
       saveData.inventory.stone_tower_dungeon_items.map = 1;
       saveData.inventory.stone_tower_dungeon_items.compass = 1;
-    }
-    if (gSettingsContext.mapsAndCompasses == (u8)MapsAndCompassesSetting::MAPSANDCOMPASSES_OVERWORLD) {
-      SaveFile_FillOverWorldMapData();
     }
 
     // give small keys
