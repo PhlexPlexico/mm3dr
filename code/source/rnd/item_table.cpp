@@ -71,7 +71,7 @@ namespace rnd {
       [0x09] =
           ITEM_ROW((u32)GetItemID::GI_NUTS_30, ChestType::WOODEN_BIG, (u8)game::ItemId::GiantWallet, 0x0009, 0x000A8,
                    (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s8)0xFF, (s32)DrawGraphicItemID::DI_GIANT_WALLET,
-                   (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_FillWalletUpgrade, (s16)1, (s16)-1),  // Giant Wallet
+                   (rnd::upgradeFunc)ItemUpgrade_None, ItemEffect_FillWalletUpgrade, (s16)2, (s16)-1),  // Giant Wallet
 
       [0x0A] =
           ITEM_ROW((u32)GetItemID::GI_RUPEE_BLUE, ChestType::WOODEN_SMALL, (u8)game::ItemId::RecoveryHeart, 0x000A,
