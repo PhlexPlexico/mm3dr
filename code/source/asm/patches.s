@@ -261,6 +261,12 @@ patch_CheckMasksOnMoon:
 RemoveJimWhenExitingHideout_patch:
     cmp r0,r0
 
+.section .patch_item00_init
+    bl hook_item00_init
+
+.section .patch_item00_draw
+    bl hook_item00_draw
+
 .section .patch_loader
 .global loader_patch
 loader_patch:

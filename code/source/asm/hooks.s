@@ -257,6 +257,28 @@ hook_AromaItemCheck:
     pop {r0-r12, lr}
     b 0x350920
 
+@------------------------ Models stuff
+
+.global hook_item00_init
+hook_item00_init:
+    cpy r4,r0
+    push {r0-r12,lr}
+    bl spawnItem00Model
+    pop {r0-r12, lr}
+    bx lr
+
+.global hook_item00_draw
+hook_item00_draw:
+    cpy r4,r0
+    push {r0-r12,lr}
+    bl drawItem00Model
+    cmp r0,#0x0
+    pop {r0-r12, lr}
+    bxeq lr
+    pop {r4,r5,pc}
+
+@------------------------
+
 .global hook_CheckMoTSetting
 hook_CheckMoTSetting:
     bl SettingsMaskOfTruthCheck

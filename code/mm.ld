@@ -9,6 +9,14 @@ SECTIONS{
     *(.patch_loader)
   }
 
+  .patch_item00_init 0x3d018c : {
+    *(.patch_item00_init)
+  }
+
+  .patch_item00_draw 0x42886c : {
+    *(.patch_item00_draw)
+  }
+
   .patch_startHeap 0x010001C : {
     *(.patch_startHeap)
   }

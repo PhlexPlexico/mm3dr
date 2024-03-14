@@ -1015,6 +1015,26 @@ namespace rnd {
     return false;
   }
 
+  typedef void* (*SkeletonAnimationModel_Spawn_proc)(game::act::Actor* actor, game::GlobalContext* globalCtx, s16 objId,
+                                                     s32 objModelIdx);
+#define SkeletonAnimationModel_Spawn ((SkeletonAnimationModel_Spawn_proc)0x203c40)
+
+  typedef void (*SkeletonAnimationModel_Draw_proc)(void* saModel, s32 param_2);
+#define SkeletonAnimationModel_Draw ((SkeletonAnimationModel_Draw_proc)0x20aaa8)
+
+  static void* myModel = NULL;
+  void spawnItem00Model(game::act::Actor* actor) {
+    myModel = SkeletonAnimationModel_Spawn(actor, GetContext().gctx, 0x1, 0x5);
+  }
+
+  u32 drawItem00Model(game::act::Actor* actor) {
+    if (myModel != NULL) {
+      SkeletonAnimationModel_Draw(myModel, 0);
+      return 1;
+    }
+    return 0;
+  }
+
   u32 ItemOverride_GetGaboraExtData() {
     return (u32)gExtSaveData.givenItemChecks.enKgyGivenItem;
   }
