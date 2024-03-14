@@ -1015,17 +1015,11 @@ namespace rnd {
     return false;
   }
 
-  typedef void* (*SkeletonAnimationModel_Spawn_proc)(game::act::Actor* actor, game::GlobalContext* globalCtx, s16 objId,
-                                                     s32 objModelIdx);
-#define SkeletonAnimationModel_Spawn ((SkeletonAnimationModel_Spawn_proc)0x203c40)
-
-  typedef void (*SkeletonAnimationModel_Draw_proc)(void* saModel, s32 param_2);
-#define SkeletonAnimationModel_Draw ((SkeletonAnimationModel_Draw_proc)0x20aaa8)
-
   static void* myModel = NULL;
   void spawnItem00Model(game::act::Actor* actor) {
-    myModel = SkeletonAnimationModel_Spawn(actor, GetContext().gctx, 0x1, 0x5);
-    
+    myModel =
+        util::GetPointer<void*(game::act::Actor * actor, game::GlobalContext * globalCtx, s16 objId, s32 objModelIdx)>(
+            0x203c40)(actor, GetContext().gctx, 0x1, 0x5);
   }
 
   u32 drawItem00Model(game::act::Actor* actor) {
@@ -1038,7 +1032,7 @@ namespace rnd {
       // Set matrix and model.
       util::GetPointer<void(void*, void*)>(0x1feaa8)(myModel, &tmpMtx);
       // Draw
-      SkeletonAnimationModel_Draw(myModel, 0);
+      util::GetPointer<void(void*, int)>(0x20AAA8)(myModel, 0);
       return 1;
     }
     return 0;
