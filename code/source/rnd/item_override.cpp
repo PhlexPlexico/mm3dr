@@ -1025,17 +1025,31 @@ namespace rnd {
   static void* myModel = NULL;
   void spawnItem00Model(game::act::Actor* actor) {
     myModel = SkeletonAnimationModel_Spawn(actor, GetContext().gctx, 0x1, 0x5);
+    
   }
 
   u32 drawItem00Model(game::act::Actor* actor) {
     if (myModel != NULL) {
+      float tmpMtx[3][4] = {0};
+      // Copy matrix.
+      util::GetPointer<void(void*, void*)>(0x1feab0)(&tmpMtx, &actor->mtx);
+      // Set scale of actor.
+      util::GetPointer<void(game::act::Actor*, float)>(0x21e30c)(actor, 0.01);
+      // Set matrix and model.
+      util::GetPointer<void(void*, void*)>(0x1feaa8)(myModel, &tmpMtx);
+      // Draw
       SkeletonAnimationModel_Draw(myModel, 0);
       return 1;
     }
     return 0;
   }
 
-  u32 ItemOverride_GetGaboraExtData() {
+  void scaleItem00Model(game::act::Actor * actor) {
+    util::GetPointer<void(game::act::Actor*, f32)>(0x21e30c)(actor, 0.001);
+  }
+
+      u32
+      ItemOverride_GetGaboraExtData() {
     return (u32)gExtSaveData.givenItemChecks.enKgyGivenItem;
   }
 
