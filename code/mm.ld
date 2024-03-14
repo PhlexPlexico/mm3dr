@@ -327,26 +327,6 @@ SECTIONS{
     *(.patch_RemoveGoronMaskCheckDarmani)
   }
 
-  .patch_CheckOshExtData 0x3BF224 : {
-    *(.patch_CheckOshExtData)
-  }
-
-  .patch_OverrideQuiverArcheryTown 0x3E50E4 : {
-    *(.patch_OverrideQuiverArchery)
-  }
-
-  .patch_OverrideQuiverArcherySwamp 0x3EA2B0 : {
-    *(.patch_OverrideQuiverArcheryTwo)
-  }
-
-  .patch_OverrideFairyGiveItem 0x3BECAC : {
-    *(.patch_OverrideFairyGiveItem)
-  }
-
-  .patch_OverrideGreatFairySpawn 0x3BEC84 : {
-    *(.patch_OverrideGreatFairySpawn)
-  }
-
   .patch_SaveExtDataOnOwl 0x317004 : {
     *(.patch_SaveExtDataOnOwl)
   }
@@ -379,6 +359,30 @@ SECTIONS{
     *(.patch_CheckMoTRequirement)
   }
 
+  .patch_TingleCheckClocktownMapTwo 0x3F5F00 : {
+    *(.patch_TingleCheckClocktownMapTwo)
+  }
+
+  .patch_TingleCheckWoodfallMapTwo 0x3F5F10 : {
+    *(.patch_TingleCheckWoodfallMapTwo)
+  }
+
+  .patch_TingleCheckSnowheadMapTwo 0x3F5F20 : {
+    *(.patch_TingleCheckSnowheadMapTwo)
+  }
+
+  .patch_TingleCheckRomaniMapTwo 0x3F5F30 : {
+    *(.patch_TingleCheckRomaniMapTwo)
+  }
+
+  .patch_TingleCheckGreatBayMapTwo 0x3F5F40 : {
+    *(.patch_TingleCheckGreatBayMapTwo)
+  }
+
+  .patch_TingleCheckStoneTowerMapTwo 0x3F5F50 : {
+    *(.patch_TingleCheckStoneTowerMapTwo)
+  }
+
   .patch_TradeItemDeleteMoonsTear 0x3B5214 : {
     *(.patch_TradeItemDeleteMoonsTear)
   }
@@ -387,8 +391,28 @@ SECTIONS{
     *(.patch_OverrideWalletSpiderHouseTwo)
   }
 
+  .patch_CheckOshExtData 0x3BF224 : {
+    *(.patch_CheckOshExtData)
+  }
+
   .patch_OverrideWalletSpiderHouse 0x3BF2A8 : {
     *(.patch_OverrideWalletSpiderHouse)
+  }
+
+  .patch_OverrideQuiverArcheryTown 0x3E50E4 : {
+    *(.patch_OverrideQuiverArchery)
+  }
+
+  .patch_OverrideQuiverArcherySwamp 0x3EA2B0 : {
+    *(.patch_OverrideQuiverArcheryTwo)
+  }
+
+  .patch_OverrideFairyGiveItem 0x3BECAC : {
+    *(.patch_OverrideFairyGiveItem)
+  }
+
+  .patch_OverrideGreatFairySpawn 0x3BEC84 : {
+    *(.patch_OverrideGreatFairySpawn)
   }
 
   .patch_HMSGiveItem 0x41D018 : {

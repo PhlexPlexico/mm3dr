@@ -121,7 +121,7 @@ namespace rnd {
     gSettingsContext.skipBombersMinigame = 1;
     gSettingsContext.freeScarecrow = 1;
     saveData.activate_dungeon_skip_portal_0xF0_for_all = 0xF0;
-    SaveFile_FillOverWorldMapData();
+    // SaveFile_FillOverWorldMapData();
     saveData.inventory.collect_register.oath_to_order = 1;
 
     // Boss Remains
